@@ -7,8 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
-	<meta name="keywords"
-		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, 
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, 
 			template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -17,6 +16,13 @@
 	<title>@yield('title')</title>
 
 	<link href="css/app.css" rel="stylesheet">
+
+	<style>
+    .submenu {
+        margin-left: 30px;
+    }
+</style>
+
 </head>
 
 <body>
@@ -32,18 +38,47 @@
 						Menu
 					</li>
 
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="index.html">
-							<i class="align-middle" data-feather="settings"></i> <span
-								class="align-middle">Cadastros</span>
+					{{-- Menu de cadastros principal --}}
+
+					<li class="sidebar-item">
+						<a class="sidebar-link text-white" href="#sub-menu3" data-bs-toggle="collapse">
+							<i class="align-middle" data-feather="settings"></i> <span class="align-middle">Cadastros</span>
 						</a>
 					</li>
 
+					<div id="sub-menu3" class="collapse" style="margin-left: 15px;">
+
+						<a class="sidebar-link text-white" href="#">
+							<i class="align-middle" data-feather="arrow-right"></i>
+							<span class="align-middle">Dias</span></a>
+
+						<a class="sidebar-link text-white" href="#">
+							<i class="align-middle" data-feather="arrow-right"></i>
+							<span class="align-middle">Horários </span></a>
+
+					</div>				
+
+					{{-- Menu responsável financeiro --}}
+
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+						<a class="sidebar-link text-white" href="#sub-menu1" data-bs-toggle="collapse">
+							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Matrículas</span>
 						</a>
 					</li>
+					<div id="sub-menu1" class="collapse" style="margin-left: 15px;">
+
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="arrow-right"></i>
+							<span class="align-middle">Opção 1</span></a>
+						<a class="sidebar-link" href="#">
+
+							<i class="align-middle" data-feather="arrow-right"></i>
+							<span class="align-middle">
+								Opção 2 </span></a>
+
+					</div>
+
+
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-sign-in.html">
@@ -52,7 +87,7 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
+						<a class="sidebar-link submenu" href="pages-sign-up.html">
 							<i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
 								Up</span>
 						</a>
@@ -76,8 +111,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-forms.html">
-							<i class="align-middle" data-feather="check-square"></i> <span
-								class="align-middle">Forms</span>
+							<i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
 						</a>
 					</li>
 
@@ -89,8 +123,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-typography.html">
-							<i class="align-middle" data-feather="align-left"></i> <span
-								class="align-middle">Typography</span>
+							<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
 						</a>
 					</li>
 
@@ -106,8 +139,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="charts-chartjs.html">
-							<i class="align-middle" data-feather="bar-chart-2"></i> <span
-								class="align-middle">Charts</span>
+							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
 						</a>
 					</li>
 
@@ -135,8 +167,7 @@
 									<span class="indicator">4</span>
 								</div>
 							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-								aria-labelledby="alertsDropdown">
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
 								<div class="dropdown-menu-header">
 									4 New Notifications
 								</div>
@@ -198,14 +229,12 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown"
-								data-bs-toggle="dropdown">
+							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
 								<div class="position-relative">
 									<i class="align-middle" data-feather="message-square"></i>
 								</div>
 							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-								aria-labelledby="messagesDropdown">
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
 								<div class="dropdown-menu-header">
 									<div class="position-relative">
 										4 New Messages
@@ -215,8 +244,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg"
-													class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Vanessa Tucker</div>
@@ -229,8 +257,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg"
-													class="avatar img-fluid rounded-circle" alt="William Harris">
+												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">William Harris</div>
@@ -243,8 +270,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg"
-													class="avatar img-fluid rounded-circle" alt="Christina Mason">
+												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Christina Mason</div>
@@ -257,8 +283,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg"
-													class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Sharon Lessman</div>
@@ -275,26 +300,19 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
-								data-bs-toggle="dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
 								<i class="align-middle" data-feather="settings"></i>
 							</a>
 
-							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
-								data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-									alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-										data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1"
-										data-feather="pie-chart"></i> Analytics</a>
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1"
-										data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1"
-										data-feather="help-circle"></i> Help Center</a>
+								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#">Log out</a>
 							</div>
@@ -324,9 +342,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/"
-									target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted"
-									href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
+								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin
 										Template</strong></a> &copy;
 							</p>
 						</div>
@@ -355,7 +371,7 @@
 	<script src="js/app.js"></script>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function () {
+		document.addEventListener("DOMContentLoaded", function() {
 			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
 			var gradient = ctx.createLinearGradient(0, 0, 0, 225);
 			gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -564,7 +580,7 @@
 		});
 	</script> -->
 	<script>
-		document.addEventListener("DOMContentLoaded", function () {
+		document.addEventListener("DOMContentLoaded", function() {
 			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
 			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
 			document.getElementById("datetimepicker-dashboard").flatpickr({
