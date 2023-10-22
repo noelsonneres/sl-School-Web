@@ -11,17 +11,22 @@
 			template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+
 
 	<title>@yield('title')</title>
 
-	<link href="css/app.css" rel="stylesheet">
+	<!-- <link href="css/app.css" rel="stylesheet"> -->
+
+	<link rel="stylesheet" href="/css/app.css">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 	<style>
-    .submenu {
-        margin-left: 30px;
-    }
-</style>
+		.submenu {
+			margin-left: 30px;
+		}
+	</style>
 
 </head>
 
@@ -38,6 +43,12 @@
 						Menu
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link text-white" href="/">
+							<i class="align-middle" data-feather="settings"></i> <span class="align-middle">Home</span>
+						</a>
+					</li>
+
 					{{-- Menu de cadastros principal --}}
 
 					<li class="sidebar-item">
@@ -46,9 +57,9 @@
 						</a>
 					</li>
 
-					<div id="sub-menu3" class="collapse" style="margin-left: 15px;">
+					<div id="sub-menu3" class="collapse bg-white " style="margin-left: 15px;">
 
-						<a class="sidebar-link text-white" href="#">
+						<a class="sidebar-link text-white" href="/dias">
 							<i class="align-middle" data-feather="arrow-right"></i>
 							<span class="align-middle">Dias</span></a>
 
@@ -56,7 +67,7 @@
 							<i class="align-middle" data-feather="arrow-right"></i>
 							<span class="align-middle">Horários </span></a>
 
-					</div>				
+					</div>
 
 					{{-- Menu responsável financeiro --}}
 
@@ -244,7 +255,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+												<img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Vanessa Tucker</div>
@@ -257,7 +268,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
+												<img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">William Harris</div>
@@ -270,7 +281,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
+												<img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Christina Mason</div>
@@ -283,7 +294,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+												<img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Sharon Lessman</div>
@@ -305,7 +316,7 @@
 							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+								<img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
@@ -323,14 +334,6 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-
-					@if(isset($msg))
-					<div class="alert alert-warning alert-dismissible fade show msg" role="alert">
-						{{$msg}}
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-					</div>
-					@endif
 
 					@yield('content')
 
@@ -368,7 +371,7 @@
 		</div>
 	</div>
 
-	<script src="js/app.js"></script>
+	<script src="/js/app.js"></script>
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {

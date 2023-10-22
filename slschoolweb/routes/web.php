@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\CadastroDiasController;
+
 Route::get('/', function () {
     return view('home');
 });
+
+Route::resource('dias', CadastroDiasController::class);
