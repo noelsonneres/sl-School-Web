@@ -67,6 +67,10 @@
 							<i class="align-middle" data-feather="arrow-right"></i>
 							<span class="align-middle">Horários </span></a>
 
+							<a class="sidebar-link text-white" href="/salas">
+								<i class="align-middle" data-feather="arrow-right"></i>
+								<span class="align-middle">Salas </span></a>							
+
 					</div>
 
 					{{-- Menu responsável financeiro --}}

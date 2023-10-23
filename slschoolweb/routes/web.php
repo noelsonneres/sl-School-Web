@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CadastroDiasController;
 use App\Http\Controllers\CadastroHorariosController;
+use App\Http\Controllers\SalasController;
 
 Route::get('/', function () {
     return view('home');
@@ -24,3 +25,5 @@ Route::resource('dias', CadastroDiasController::class);
 Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find']);
 
 Route::resource('horarios', CadastroHorariosController::class);
+
+Route::resource('salas', SalasController::class);

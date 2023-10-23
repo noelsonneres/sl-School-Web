@@ -31,17 +31,6 @@
 
         </div>
 
-        <div class="col-8">
-
-            <form action="/dia_pesquisar" method="get">
-                @csrf
-                <input type="text" name="find" id="find" placeholder="Digite o que deseja buscar">
-                <button type="submit" class="btn btn-success btn-sm">Pesquisar
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
-        </div>
-
     </div>
 
     <hr>
