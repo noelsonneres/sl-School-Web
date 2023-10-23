@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CadastroDia;
-use App\Models\CadastroDias;
 use Illuminate\Http\Request;
 
 class CadastroDiasController extends Controller
@@ -54,7 +53,7 @@ class CadastroDiasController extends Controller
         }
     }
 
-    public function show(CadastroDias $cadastroDias)
+    public function show(string $id)
     {
         //
     }

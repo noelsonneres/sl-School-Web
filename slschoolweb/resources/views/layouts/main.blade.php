@@ -63,7 +63,7 @@
 							<i class="align-middle" data-feather="arrow-right"></i>
 							<span class="align-middle">Dias</span></a>
 
-						<a class="sidebar-link text-white" href="#">
+						<a class="sidebar-link text-white" href="/horarios">
 							<i class="align-middle" data-feather="arrow-right"></i>
 							<span class="align-middle">Horários </span></a>
 
@@ -334,6 +334,16 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
+
+					@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 					@yield('content')
 
