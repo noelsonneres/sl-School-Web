@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\CadastroDiasController;
+use App\Models\CadastroDia;
 
 Route::get('/', function () {
     return view('home');
 });
 
 Route::resource('dias', CadastroDiasController::class);
+Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find']);

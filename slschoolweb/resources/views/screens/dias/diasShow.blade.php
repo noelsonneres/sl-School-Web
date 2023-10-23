@@ -14,7 +14,7 @@
     @if(isset($msg))
     <div class="alert alert-warning alert-dismissible fade show msg d-flex 
 							justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
-        <h4>{{$msg}} </h4>
+        <h5>{{$msg}} </h5>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
     </div>
@@ -35,7 +35,7 @@
 
         <div class="col-8">
 
-            <form action="/pesquisar_dias" method="get">
+            <form action="/dia_pesquisar" method="get">
                 @csrf
                 <input type="text" name="find" id="find" placeholder="Digite o que deseja buscar">
                 <button type="submit" class="btn btn-success btn-sm">Pesquisar
