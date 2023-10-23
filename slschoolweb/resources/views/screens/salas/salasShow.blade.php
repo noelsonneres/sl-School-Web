@@ -34,13 +34,32 @@
 
             <div class="col-8">
 
-                <form action="/dia_pesquisar" method="get">
+                <form action="/sala_pesquisar" method="get">
                     @csrf
-                    <input type="text" name="find" id="find" placeholder="Digite o que deseja buscar">
-                    <button type="submit" class="btn btn-success btn-sm">Pesquisar
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
+    
+                    <div class="row">
+    
+                        <div class="col-md-3">
+                            <select class="form-control" name="opt" id="opt">
+                                <option value="id">Código</option>
+                                <option value="sala">Sala</option>
+                                <option value="descricao">Descrição</option>
+                            </select>
+                        </div>
+    
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="find" id="find" 
+                                placeholder="Digite o que deseja buscar">
+                        </div>
+    
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
+                        </div>
+    
+                    </div>
+    
+                </form>             
+
             </div>
 
         </div>
@@ -62,9 +81,9 @@
                 <tbody>
                     @foreach ($salas as $sala)
                         <tr>
-                            <td>{{ $horario->id }} </td>
-                            <td>{{ $horario->sala }} </td>
-                            <td>{{ $horario->vagas }} </td>
+                            <td>{{ $sala->id }} </td>
+                            <td>{{ $sala->sala }} </td>
+                            <td>{{ $sala->vagas }} </td>
 
                             <td>
 

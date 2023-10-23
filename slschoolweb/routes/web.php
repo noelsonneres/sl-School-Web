@@ -27,3 +27,4 @@ Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find']);
 Route::resource('horarios', CadastroHorariosController::class);
 
 Route::resource('salas', SalasController::class);
+Route::get('/sala_pesquisar', [SalasController::class, 'find']);

@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Incluindo nova sala')
+@section('title', 'Editando as informações da sala')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Incluindo nova sala</h3>
+            <h3 class="text-center text-white p-3">Editando as informações da sala</h3>
         </div>
 
         @if ($errors->any())
@@ -22,25 +22,28 @@
 
         <div class="card p-5">
 
-            <form action="{{ route('salas.store') }}" method="post">
+            <form action="{{ route('salas.update', $salas->id) }}" method="post">
 
                 @csrf
+                @method('PUT')
 
                 <div class="row">
 
                     <div class="col-md-8 mb-3">
                         <label for="sala" class="form-label lblCaption">Sala</label>
-                        <input type="text" class="form-control" name="sala" id="sala" maxlength="50" 
-                            autofocus required value="{{old('sala')}}">
+                        <input type="text" class="form-control" name="sala" id="sala" 
+                            maxlength="50" autofocus required value="{{$salas->sala}}">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="vagas" class="form-label lblCaption">Vagas</label>
-                        <input type="number" class="form-control" name="vagas" id="vagas" required>
+                        <input type="number" class="form-control" name="vagas" id="vagas"
+                             required value="{{$salas->vagas}}">
                     </div>
 
                     <div class="mb-4">
                         <label for="descricao" class="form-label lblCaption">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" id="descricao" maxlength="100">
+                        <input type="text" class="form-control" name="descricao"
+                             id="descricao" maxlength="100" value="{{$salas->descricao}}">
                     </div>
 
                 </div>
