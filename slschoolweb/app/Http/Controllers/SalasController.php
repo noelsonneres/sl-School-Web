@@ -19,7 +19,7 @@ class SalasController extends Controller
     public function index()
     {
 
-        $salas = $this->salas->paginate();
+        $salas = $this->salas->paginate(1);
         return view(self::PATH . 'salasShow', ['salas' => $salas]);
     }
 
