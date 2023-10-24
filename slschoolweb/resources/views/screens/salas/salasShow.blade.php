@@ -134,11 +134,10 @@
 
 
             </table>
-
-            <div class="d-flex justify-content-center">
-            {!! $salas->links() !!}
+ 
+            <div class="container-fluid pl-5 d-flex justify-content-center">
+            {{$salas->links('pagination::pagination')}}
             </div>
-
 
         </div>
 
