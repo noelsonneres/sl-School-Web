@@ -17,6 +17,7 @@ use App\Http\Controllers\CadastroDiasController;
 use App\Http\Controllers\CadastroHorariosController;
 use App\Http\Controllers\SalasController;
 use App\Http\Controllers\MeiosPagamentosController;
+use App\Http\Controllers\ConfigMenalidadesController;
 
 Route::get('/', function () {
     return view('home');
@@ -31,3 +32,5 @@ Route::resource('salas', SalasController::class);
 Route::get('/sala_pesquisar', [SalasController::class, 'find']);
 
 Route::resource('meios_pagamentos', MeiosPagamentosController::class);
+
+Route::resource('config_mensalidades', ConfigMenalidadesController::class);

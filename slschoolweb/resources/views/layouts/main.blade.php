@@ -77,6 +77,10 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Meios de pagamentos</span></a>
 
+                            <a class="sidebar-link text-white" href="/config_mensalidades">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Conf. mensalidades</span></a>                            
+
                     </div>
 
                     {{-- Menu responsável financeiro --}}

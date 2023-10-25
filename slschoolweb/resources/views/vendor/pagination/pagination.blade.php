@@ -28,7 +28,6 @@
     color: white;
 }
 
-
 </style>
 
 
