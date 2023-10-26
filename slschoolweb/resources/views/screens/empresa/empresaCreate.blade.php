@@ -17,12 +17,44 @@
             @csrf
 
             <div class="mb-3">
-                <label for="dia1" class="form-label lblCaption">Digite o primeiro dia</label>
-                <input type="text" class="form-control" name="dia1" id="dia1" placeholder="Digite o primeiro dia" autofocus required>
+                <label for="nome" class="form-label lblCaption">Nome fantasia</label>
+                <input type="text" class="form-control" name="nome" id="nome" 
+                    placeholder="Digite o nome fantasia da empresa" autofocus required maxlength="50">
             </div>
+
             <div class="mb-3">
-                <label for="dia2" class="form-label lblCaption">Segundo dia</label>
-                <input type="text" class="form-control" name="dia2" id="dia2" placeholder="Digite o segundo dia">
+                <label for="razao_social" class="form-label lblCaption">Razão social</label>
+                <input type="text" class="form-control" name="razao_social" id="razao_social" 
+                    placeholder="Digite a razão social" maxlength="50">
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3 mb-3">
+                    <label for="dataAbertura" class="form-label lblCaption">Data de abertura</label>
+                    <input type="date" class="form-control" name="dataAbertura" id="dataAbertura">
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="cnpj" class="form-label lblCaption">CNPJ</label>
+                    <input type="text" class="form-control" name="cnpj" id="cnpj">
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="Telefone" class="form-label lblCaption">Telefone</label>
+                    <input type="text" class="form-control" name="Telefone" id="Telefone">
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="celular" class="form-label lblCaption">Celular</label>
+                    <input type="text" class="form-control" name="celular" id="celular">
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label lbl">E-mail</label>
+                <input type="email" class="form-control" name="email" id="email">
             </div>
 
             <div>
