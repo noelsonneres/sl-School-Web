@@ -17,22 +17,22 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nome');
-            $table->string('razao_social');
-            $table->date('data_aberturra');
+            $table->string('razao_social')->nullable();
+            $table->date('data_aberturra')->nullable();
             $table->string('cnpj');
-            $table->string('telefone');
-            $table->string('celular');
-            $table->string('email');
-            $table->string('endereco');
-            $table->string('bairro');
-            $table->integer('numero');
-            $table->string('complemento');
-            $table->string('cep');
-            $table->string('cidade');
-            $table->string('estado');
-            $table->string('obs');
-            $table->string('foto');
-            $table->string('funcionario');
+            $table->string('telefone')->nullable();
+            $table->string('celular')->nullable();
+            $table->string('email')->nullable();
+            $table->string('endereco')->nullable();
+            $table->string('bairro')->nullable();
+            $table->integer('numero')->nullable();
+            $table->string('complemento')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('estado')->nullable();
+            $table->string('obs')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('funcionario')->nullable();
 
         });
     }

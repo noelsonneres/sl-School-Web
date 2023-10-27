@@ -77,9 +77,13 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Meios de pagamentos</span></a>
 
-                            <a class="sidebar-link text-white" href="/config_mensalidades">
-                                <i class="align-middle" data-feather="arrow-right"></i>
-                                <span class="align-middle">Conf. mensalidades</span></a>                            
+                        <a class="sidebar-link text-white" href="/config_mensalidades">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Conf. mensalidades</span></a>
+
+                        <a class="sidebar-link text-white" href="/empresa">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Dados da empresa</span></a>
 
                     </div>
 
@@ -106,7 +110,8 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="pages-sign-in.html">
-                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign
+                                In</span>
                         </a>
                     </li>
 
@@ -371,14 +376,14 @@
                 <div class="container-fluid p-0">
 
                     @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     @yield('content')
 
