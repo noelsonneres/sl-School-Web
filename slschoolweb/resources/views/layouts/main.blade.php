@@ -85,6 +85,10 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Dados da empresa</span></a>
 
+                        <a class="sidebar-link text-white" href="/disciplinas">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Disciplinas</span></a>
+
                     </div>
 
                     {{-- Menu responsável financeiro --}}

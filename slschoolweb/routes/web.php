@@ -19,6 +19,7 @@ use App\Http\Controllers\SalasController;
 use App\Http\Controllers\MeiosPagamentosController;
 use App\Http\Controllers\ConfigMenalidadesController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\DisciplinasController;
 
 Route::get('/', function () {
     return view('home');
@@ -37,3 +38,5 @@ Route::resource('meios_pagamentos', MeiosPagamentosController::class);
 Route::resource('config_mensalidades', ConfigMenalidadesController::class);
 
 Route::resource('empresa', EmpresaController::class);
+
+Route::resource('disciplinas', DisciplinasController::class);
