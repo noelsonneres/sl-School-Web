@@ -40,3 +40,4 @@ Route::resource('config_mensalidades', ConfigMenalidadesController::class);
 Route::resource('empresa', EmpresaController::class);
 
 Route::resource('disciplinas', DisciplinasController::class);
+Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find']);

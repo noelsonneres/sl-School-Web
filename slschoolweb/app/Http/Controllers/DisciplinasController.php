@@ -57,41 +57,88 @@ class DisciplinasController extends Controller
         } catch (\Throwable $th) {
 
             $disciplinas = $this->disciplinas->paginate();
-            return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas])
-                ->with('msg', 'ERRO! não foi posssível incluir a nova');
+            return back()->with('msg', 'ERRO! não foi posssível incluir a disciplina');
 
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        
+        $disciplina = $this->disciplinas->find($id);
+        return view(self::PAHT.'disciplinasEdit', ['disciplina'=>$disciplina]);        
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $disciplinas = $this->disciplinas->find($id);
+
+        $request->validate([
+            'disciplinas' => 'required|min:3|max:50',
+        ]);
+
+        $disciplina = $request->old('disciplinas');
+
+        try {
+
+            $disciplinas->disciplina = $request->input('disciplinas');
+            $disciplinas->descricao = $request->input('descricao');
+            $disciplinas->valor = $request->input('valor');
+            $disciplinas->duracao_meses = $request->input('duracao');
+            $disciplinas->carga_horaria = $request->input('cargaHoraria');
+            $disciplinas->observacao = $request->input('obs');
+
+            $disciplinas->save();
+
+            $disciplinas = $this->disciplinas->paginate();
+            return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas])
+                ->with('msg', 'Dados da disciplina atualizados com sucesso!!!');
+
+        } catch (\Throwable $th) {
+
+            $disciplinas = $this->disciplinas->paginate();
+            return back()->with('msg', 'ERRO! não foi posssível atualizar as informações');
+
+        }        
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+    
+        $disciplina = $this->disciplinas->find($id);
+
+        if($disciplina->count() >= 1){
+            
+            $disciplina->delete();
+
+            $disciplinas = $this->disciplinas->paginate();
+            return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas])
+                ->with('msg', 'Disciplina excluida com sucesso!!!');
+            
+        }else{
+
+            $disciplinas = $this->disciplinas->paginate();
+            return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas])
+                ->with('msg', 'ERRO! Não foi possível excluir a disciplina!!!');            
+
+        }
+
     }
+
+    public function find(Request $request){
+
+        $value = $request->find;
+        $disciplinas = Disciplina::where('disciplina', 'LIKE', $value . '%')->paginate();  
+        return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas]);
+
+    }
+
 }
