@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ConfigMensalidade;
 
-class ConfigMenalidadesController extends Controller
+class ConfigMensalidadesController extends Controller
 {
 
     const PATH = 'screens.configMensalidades.';

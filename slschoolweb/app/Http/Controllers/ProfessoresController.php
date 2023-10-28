@@ -200,6 +200,17 @@ class ProfessoresController extends Controller
 
     public function find(Request $request){
 
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if(empty($field)){
+            $field = 'id';
+        }
+
+        $professor = Professor::where($field, 'LIKE', $value.'%')->paginate(15);
+
+        return view(self::PAHT.'professoresShow', ['professores'=>$professor]);   
+
     }
 
 }

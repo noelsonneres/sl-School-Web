@@ -17,7 +17,7 @@ use App\Http\Controllers\CadastroDiasController;
 use App\Http\Controllers\CadastroHorariosController;
 use App\Http\Controllers\SalasController;
 use App\Http\Controllers\MeiosPagamentosController;
-use App\Http\Controllers\ConfigMenalidadesController;
+use App\Http\Controllers\ConfigMensalidadesController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\ProfessoresController; 
@@ -36,7 +36,7 @@ Route::get('/sala_pesquisar', [SalasController::class, 'find']);
 
 Route::resource('meios_pagamentos', MeiosPagamentosController::class);
 
-Route::resource('config_mensalidades', ConfigMenalidadesController::class);
+Route::resource('config_mensalidades', ConfigMensalidadesController::class);
 
 Route::resource('empresa', EmpresaController::class);
 
@@ -44,3 +44,4 @@ Route::resource('disciplinas', DisciplinasController::class);
 Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find']);
 
 Route::resource('professores', ProfessoresController::class);
+Route::get('/professores_pesquisar', [ProfessoresController::class, 'find']);

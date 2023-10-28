@@ -33,14 +33,32 @@
 
         <div class="col-8">
 
-            <form action="/dia_pesquisar" method="get">
+            <form action="/professores_pesquisar" method="get">
                 @csrf
-                <input type="text" name="find" id="find" placeholder="Digite o que deseja buscar">
-                <button type="submit" class="btn btn-success btn-sm">Pesquisar
-                    <i class="bi bi-search"></i>
-                </button>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <select class="form-control" name="opt" id="opt">
+                            <option value="id">Código</option>
+                            <option value="nome">nome</option>
+                            <option value="cpf">CPF</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="find" id="find" placeholder="Digite o que deseja buscar">
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
+                    </div>
+
+                </div>
+
             </form>
-        </div>
+        </div>        
+
 
     </div>
 
