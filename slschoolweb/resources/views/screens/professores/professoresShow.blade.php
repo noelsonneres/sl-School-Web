@@ -81,7 +81,7 @@
 
                                 <div class="col-2">
 
-                                    <form method="POST" class="delete-form" action="{{ route('Lista de professores.destroy', $professor->id) }}">
+                                    <form method="POST" class="delete-form" action="{{ route('professores.destroy', $professor->id) }}">
                                         @csrf
                                         {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                         @method('DELETE')

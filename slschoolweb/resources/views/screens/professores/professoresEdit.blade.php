@@ -1,68 +1,71 @@
 
 @extends('layouts.main')
-@section('title', 'Novo professor')
+@section('title', 'Editar ou visualizar as informações do professor')
 @section('content')
 
 <div class="container">
 
     <div style="background-color: #1976D2;">
-        <h3 class="text-center text-white p-3">Incluir um novo professor</h3>
+        <h3 class="text-center text-white p-3">Editar ou visualizar as informações do professor</h3>
     </div>
 
     <hr>
 
     <div class="card p-5">
 
-        <form action="{{route('professores.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('professores.update', $professor->id)}}" method="post" enctype="multipart/form-data">
 
             @csrf
+            @method('PUT')
 
             <div class="mb-3">
                 <label for="nome" class="form-label lblCaption">Nome</label>
                 <input type="text" class="form-control" name="nome" id="nome"
                      placeholder="Digite um nome para o professor" maxlength="100" autofocus required
-                        value="{{old('nome')}}">
+                        value="{{$professor->nome}}">
             </div>
 
             <div class="row">
 
                 <div class="col-md-3 mb-3">
                     <label for="dataNascimento" class="form-label lblCaption">Data de nascimento</label>
-                    <input type="date" class="form-control" name="dataNascimento" id="dataNascimento">
+                    <input type="date" class="form-control" name="dataNascimento" id="dataNascimento"
+                        value="{{$professor->data_nascimento}}">
                 </div>
 
                 <div class="col-md-3 mb-3">
                     <label for="cpf" class="form-label lblCaption">CPF</label>
-                    <input type="text" class="form-control" name="cpf" id="cpf">
+                    <input type="text" class="form-control" name="cpf" id="cpf" value="{{$professor->cpf}}">
                 </div>
 
                 <div class="col-md-3 mb-3">
                     <label for="telefone" class="form-label lblCaption">Telefone</label>
-                    <input type="text" class="form-control" name="telefone" id="telefone">
+                    <input type="text" class="form-control" name="telefone" id="telefone" value="{{$professor->telefone}}">
                 </div>
                 
                 <div class="col-md-3 mb-3">
                     <label for="celular" class="form-label lblCaption">Celular</label>
-                    <input type="text" class="form-control" name="celular" id="celular">
+                    <input type="text" class="form-control" name="celular" id="celular" value="{{$professor->celular}}">
                 </div>                
 
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label lblCaption">E-mail</label>
-                <input type="text" class="form-control" name="email" id="email">
+                <input type="text" class="form-control" name="email" id="email" value="{{$professor->email}}">
             </div>
 
             <div class="row">
 
                 <div class="col-md-3 mb-3">
                     <label for="cep" class="form-label lblCaption">CEP</label>
-                    <input type="text" class="form-control" name="cep" id="cep">
+                    <input type="text" class="form-control" name="cep" id="cep" value="{{$professor->cep}}">
                 </div>
 
                 <div class="col-md-9 mb-3">
                     <label for="endereco" class="form-label lblCaption">Endereço</label>
-                    <input type="text" class="form-control" name="endereco" id="endereco" maxlength="100">
+                    <input type="text" class="form-control" name="endereco" id="endereco"
+                         maxlength="100" value="{{$professor->endereco}}">
                 </div>
 
             </div>
@@ -70,17 +73,20 @@
 
                 <div class="col-md-6 mb-3">
                     <label for="bairro" class="form-label lblCaption">Bairro</label>
-                    <input type="text" class="form-control" name="bairro" id="bairro" maxlength="50">
+                    <input type="text" class="form-control" name="bairro" id="bairro" 
+                        maxlength="50" value="{{$professor->bairro}}">
                 </div>
 
                 <div class="col md-2 mb-3">
                     <label for="numero" class="form-label lblCaption">Número</label>
-                    <input type="number" class="form-control" name="numero" id="numero">
+                    <input type="number" class="form-control" name="numero" id="numero"
+                        value="{{$professor->numero}}">
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label for="complemento" class="form-label lblCaption">complemento</label>
-                    <input type="text" class="form-control" name="complemento" id="complemento" maxlength="50">
+                    <input type="text" class="form-control" name="complemento" id="complemento"
+                         maxlength="50" value="{{$professor->complemento}}">
                 </div>
 
             </div>
@@ -89,19 +95,21 @@
 
                 <div class="col-md-9 mb-3">
                     <label for="cidade" class="form-label lblCaption">Cidade</label>
-                    <input type="text" class="form-control" name="cidade" id="cidade" maxlength="50">
+                    <input type="text" class="form-control" name="cidade" id="cidade" 
+                        maxlength="50" value="{{$professor->cidade}}">
                 </div>
 
                 <div class="col-md-3 mb-3">
                     <label for="estado" class="form-label lblCaption">Estado</label>
-                    <input type="text" class="form-control" name="estado" id="estado">
+                    <input type="text" class="form-control" name="estado" id="estado" 
+                        value="{{$professor->estado}}">
                 </div>
 
             </div>
 
             <div class="mb-3">
                 <label for="obs" class="form-label lblCaption">Observação</label>
-                <input type="text" class="form-control" name="obs" id="obs">
+                <input type="text" class="form-control" name="obs" id="obs" value="{{$professor->obs}}">
             </div>
 
             <div class="mb-4">
@@ -110,7 +118,8 @@
                     <input type="file" class="form-control" name="foto" id="foto"
                         onchange="exibirFotoSelecionada()">
                 </div>
-                <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px">
+                <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px" 
+                    src="/img/professor/{{$professor->foto}}">
             </div>
 
 
