@@ -92,7 +92,16 @@
                             <div class="row">
 
                                 <div class="col-2">
-                                    <a href="{{ route('professores.edit', $professor->id) }}" class="btn btn-success btn-sm">
+                                    <a href="{{ route('professor_disciplina.show',
+                                         $professor->id) }}" title="Disciplinas do professor"
+                                             class="btn btn-info btn-sm">
+                                             <i class="bi bi-journals"></i>
+                                    </a>
+                                </div>                                
+
+                                <div class="col-2">
+                                    <a href="{{ route('professores.edit', $professor->id) }}" 
+                                           title="Editar informações do professor" class="btn btn-success btn-sm">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                 </div>
@@ -103,7 +112,7 @@
                                         @csrf
                                         {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
+                                        <button type="button" title="Excluir professor" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
                                             <i class="bi bi-trash3-fill"></i>
                                         </button>
                                     </form>

@@ -21,6 +21,8 @@ use App\Http\Controllers\ConfigMensalidadesController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\ProfessoresController; 
+use App\Http\Controllers\ProfessorDisciplinaController;
+use App\Models\ProfessorDisciplina;
 
 Route::get('/', function () {
     return view('home');
@@ -45,3 +47,5 @@ Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find']);
 
 Route::resource('professores', ProfessoresController::class);
 Route::get('/professores_pesquisar', [ProfessoresController::class, 'find']);
+
+Route::resource('professor_disciplina', ProfessorDisciplinaController::class);
