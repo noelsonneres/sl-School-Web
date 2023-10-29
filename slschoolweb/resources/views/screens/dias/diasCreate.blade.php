@@ -1,4 +1,3 @@
-{{--Dias de aulas disponiveis no sistema--}}
 
 @extends('layouts.main')
 @section('title', 'Dias disponíveis para aulas')

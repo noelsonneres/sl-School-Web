@@ -93,6 +93,10 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Professores</span></a>
 
+                            <a class="sidebar-link text-white" href="/consultores">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Consultores</span></a>                            
+
                     </div>
 
                     {{-- Menu responsável financeiro --}}

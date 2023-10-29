@@ -22,6 +22,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\ProfessoresController; 
 use App\Http\Controllers\ProfessorDisciplinaController;
+use App\Http\Controllers\ConsultoresController;
 
 Route::get('/', function () {
     return view('home');
@@ -49,3 +50,5 @@ Route::get('/professores_pesquisar', [ProfessoresController::class, 'find']);
 
 Route::resource('professor_disciplina', ProfessorDisciplinaController::class);
 Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarDisciplina']);
+
+Route::resource('consultores', ConsultoresController::class);
