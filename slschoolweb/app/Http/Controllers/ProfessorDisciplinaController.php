@@ -92,7 +92,24 @@ class ProfessorDisciplinaController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        
+        $discplinaProfessor = $this->discplinaProfessor->find($id);
+        $professorID= $discplinaProfessor->professors_id;
+
+        if($discplinaProfessor->count() >= 1){
+            $discplinaProfessor->delete();
+
+            $professor = Professor::find($professorID);
+
+            $discProf = $this->discplinaProfessor->with('disciplinas')
+                                ->where('professors_id', $professorID)->paginate();
+
+            return view(self::PATH . 'disciplinasProfessoresShow', ['discProf' => $discProf])
+                ->with('professor', $professor)
+                ->with('msg', 'Disciplina excluida com sucesso!!!');            
+
+        }
+
     }
 
     public function adicionarDisciplina(string $id)
