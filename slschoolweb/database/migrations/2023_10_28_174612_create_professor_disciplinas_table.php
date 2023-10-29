@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('professors_id');
             $table->unsignedBigInteger('disciplinas_id');
-            $table->string('disciplina');
 
             $table->foreign('professors_id')
                 ->references('id')

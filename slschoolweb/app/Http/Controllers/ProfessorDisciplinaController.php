@@ -1,4 +1,8 @@
+
 <?php
+
+    // Continuar no porocesso para retornar o nome da disciplina ao recupera as informações
+    // das disciplinas do professor
 
 namespace App\Http\Controllers;
 
@@ -37,14 +41,18 @@ class ProfessorDisciplinaController extends Controller
             
             $discProf->professors_id = $request->input('professor');
             $discProf->disciplinas_id = $request->input('opt');
-            $discProf->disciplina = ' ';
     
             $discProf->save();
 
-            // CONTINUAR A PARTIR DESTE PONTO
+            $discProf = $this->discplinaProfessor->find($request->input('professor'));
+            return view(self::PATH . 'disciplinasProfessoresShow', ['dsicProf' => $discProf])
+                    ->with('msg', 'Disciplina adicionada no registro do professor com sucesso!!!');
 
         } catch (\Throwable $th) {
-            //throw $th;
+            $discProf = $this->discplinaProfessor->find($request->input('professor'));
+            return back();
+            // return view(self::PATH . 'disciplinasProfessoresCreate', ['dsicProf' => $discProf])
+                    // ->with('msg', 'ERRO! Não foi possível adicionar a dicsciplina no registro do professor!');            
         }
 
     }

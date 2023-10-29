@@ -26,11 +26,11 @@
 
         <div class="card p-5">
 
-            <form action="{{ route('empresa.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('professor_disciplina.store') }}" method="post" enctype="multipart/form-data">
 
                 @csrf
 
-                <input type="hidden" name="professor" value="$professor->id">
+                <input type="hidden" name="professor" value="{{$professor->id}}">
                 <div class="mb-4">
                     <label for="disciplina" class="form-label lblCaption">Disciplina</label>
                     <select name="opt" id="opt" class="form-control">
