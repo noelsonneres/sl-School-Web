@@ -52,3 +52,4 @@ Route::resource('professor_disciplina', ProfessorDisciplinaController::class);
 Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarDisciplina']);
 
 Route::resource('consultores', ConsultoresController::class);
+Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find']);
