@@ -37,6 +37,12 @@ class ConsultoresController extends Controller
 
         $request->validate([
             'nome' => 'required|min:3|max:100',
+            'foto' => [
+                'file',
+                'image',
+                'max:2048',
+                'mimes:jpeg,jpg,png,gif',
+            ],
         ]);
 
         try {
@@ -99,6 +105,12 @@ class ConsultoresController extends Controller
 
         $request->validate([
             'nome' => 'required|min:3|max:100',
+            'foto' => [
+                'file',
+                'image',
+                'max:2048',
+                'mimes:jpeg,jpg,png,gif',
+            ],            
         ]);
 
         try {

@@ -56,3 +56,4 @@ Route::resource('consultores', ConsultoresController::class);
 Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find']);
 
 Route::resource('cursos', CursosController::class);
+Route::get('/cursos_pesquisar', [CursosController::class, 'find']);

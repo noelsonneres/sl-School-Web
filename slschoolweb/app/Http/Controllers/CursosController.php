@@ -18,56 +18,131 @@ class CursosController extends Controller
 
     public function index()
     {
-        $cursos = $this->cursos->paginate();
+        $cursos = $this->cursos->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'cursosShow', ['cursos'=>$cursos]);
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view(self::PATH.'cursosCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        
+        $cursos = $this->cursos;
+
+        $request->validate([
+            'curso' => 'required|min:3|max:100',
+        ]);
+
+        try {
+        
+            $cursos->curso = $request->input('curso');
+            $cursos->desscricao = $request->input('descricao');
+            $cursos->valor_avista = $request->input('valorAvista');
+            $cursos->valor_com_desconto = $request->input('valorComDesconto');
+            $cursos->qtde_parcelas = $request->input('qtdeParcelas');
+            $cursos->valor_parcelado = $request->input('valorParcelado');
+            $cursos->valor_por_parcela = $request->input('valorPorParcela');
+            $cursos->duracao_meses = $request->input('duracaoMeses');
+            $cursos->carga_horaria = $request->input('cargaHoraria');
+            $cursos->ativo = $request->input('opt');
+            $cursos->observacao = $request->input('obs');
+
+            $cursos->save();
+
+            $cursos = $this->cursos->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos])->with('msg', 'Curso cadastrado com sucesso!');
+
+        } catch (\Throwable $th) {
+            $cursos = $this->cursos->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos])->with('msg', 'ERRO! Não foi possível cadastrar o curso!');
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        
+        $cursos = $this->cursos->find($id);
+        return view(self::PATH.'cursosEdit', ['cursos'=>$cursos]);
+
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $cursos = $this->cursos->find($id);
+
+        $request->validate([
+            'curso' => 'required|min:3|max:100',
+        ]);
+
+        try {
+        
+            $cursos->curso = $request->input('curso');
+            $cursos->desscricao = $request->input('descricao');
+            $cursos->valor_avista = $request->input('valorAvista');
+            $cursos->valor_com_desconto = $request->input('valorComDesconto');
+            $cursos->qtde_parcelas = $request->input('qtdeParcelas');
+            $cursos->valor_parcelado = $request->input('valorParcelado');
+            $cursos->valor_por_parcela = $request->input('valorPorParcela');
+            $cursos->duracao_meses = $request->input('duracaoMeses');
+            $cursos->carga_horaria = $request->input('cargaHoraria');
+            $cursos->ativo = $request->input('opt');
+            $cursos->observacao = $request->input('obs');
+
+            $cursos->save();
+
+            $cursos = $this->cursos->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos])
+                ->with('msg', 'Informações do curso atualizadas com sucesso!');
+
+        } catch (\Throwable $th) {
+            $cursos = $this->cursos->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos])
+                ->with('msg', 'ERRO! Não foi possível atualizar as informações do curso!');
+        }
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        
+        $cursos = $this->cursos->find($id);
+
+        if($cursos->count() >= 1){
+            $cursos->delete();
+            $cursos = $this->cursos->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos])
+                ->with('msg', 'Curso deletado com sucesso!');
+        }else{
+            $cursos = $this->cursos->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos])
+                ->with('msg', 'ERRO! Não foi possível deletar as informações do curso!');
+        }
+
     }
+
+    public function find(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'id';
+        }
+
+        $cursos = Curso::where($field, 'LIKE', $value . '%')->paginate(15);
+        return view(self::PATH.'cursosShow', ['cursos'=>$cursos]);
+    }
+
 }
