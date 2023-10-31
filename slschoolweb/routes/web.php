@@ -24,6 +24,7 @@ use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\ProfessorDisciplinaController;
 use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
+use App\Http\Controllers\CursosDisciplinasController;
 
 Route::get('/', function () {
     return view('home');
@@ -57,3 +58,6 @@ Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find']);
 
 Route::resource('cursos', CursosController::class);
 Route::get('/cursos_pesquisar', [CursosController::class, 'find']);
+
+Route::get('/cursos_disciplinas/{id}/{nome}', [CursosDisciplinasController::class, 'listar']);
+Route::get('/ad_cruso_disciplinas/{id}', [CursosDisciplinasController::class, 'adicionar']);

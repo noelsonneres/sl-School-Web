@@ -94,7 +94,7 @@
                             <div class="row">                          
 
                                 <div class="col-2">
-                                    <a href="{{ route('cursos.edit', $curso->id) }}" 
+                                    <a href="{{ '/cursos_disciplinas/' . $curso->id . '/' . $curso->curso }}"
                                            title="Disciplinas do curso" class="btn btn-info btn-sm">
                                            <i class="bi bi-journal-bookmark"></i>
                                     </a>
