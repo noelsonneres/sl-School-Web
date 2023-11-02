@@ -13,9 +13,11 @@
 
     <div class="card p-5">
 
-        <form action="{{route('cursos.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{'/salvar_curso_disciplinas'}}" method="post" enctype="multipart/form-data">
 
             @csrf
+
+            <input type="hidden" name="curso" value="{{$cursoID}}">
 
             <div class="mb-4">
                 <label for="disciplina" class="form-label">Selecione a disciplina</label>
@@ -27,15 +29,14 @@
                     @endforeach
 
                 </select>    
-            </div>            
-
+            </div>          
 
             <div>
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-floppy2"></i>
                     Salvar</button>
 
-                <a href="/professores" class="btn btn-danger">
+                <a href="/cursos" class="btn btn-danger">
                     <i class="bi bi-x-circle-fill"></i>
                     Cancelar</a>
             </div>

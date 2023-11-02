@@ -8,6 +8,9 @@
     <div style="background-color: #1976D2;">
         <h3 class="text-center text-white p-3">Lista das Disciplinas</h3>
     </div>
+    <hr>
+        <h4>Curso: {{$curso}}</h4>
+        <h5>Cód. Curso: {{$cursoId}}</h5>
 
 
     @if(isset($msg))
@@ -25,7 +28,7 @@
 
         <div class="col-4">
 
-            <a href="{{'/ad_cruso_disciplinas/'.$curso}}" class="btn btn-primary">
+            <a href="{{'/ad_curso_disciplinas/'.$cursoId}}" class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
                 Nova disciplina</a>
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -53,10 +56,10 @@
                 @foreach ($disciplinas as $disciplina)
 
                 <tr>
-                    <td>{{$disciplina->id}} </td>
-                    {{-- <td>{{$disciplina->disciplina}} </td> --}}
-                    {{-- <td>{{$disciplina->duracao_meses}} </td>
-                    <td>{{$disciplina->carga_horaria}} </td> --}}
+                    <td>{{$disciplina->disciplinas->id}} </td>
+                    <td>{{$disciplina->disciplinas->disciplina}} </td>
+                    <td>{{$disciplina->disciplinas->duracao_meses}} </td>
+                    <td>{{$disciplina->disciplinas->carga_horaria}} </td>
 
                     <td>
 
@@ -64,14 +67,8 @@
                             <div class="row">
 
                                 <div class="col-2">
-                                    <a href="{{ route('disciplinas.edit', $disciplina->id) }}" class="btn btn-success btn-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                </div>
 
-                                <div class="col-2">
-
-                                    <form method="POST" class="delete-form" action="{{ route('disciplinas.destroy', $disciplina->id) }}">
+                                    <form method="POST" class="delete-form" action="{{'/deletar_curso_disciplina/'. $disciplina->id }}">
                                         @csrf
                                         {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                         @method('DELETE')

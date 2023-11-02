@@ -60,4 +60,6 @@ Route::resource('cursos', CursosController::class);
 Route::get('/cursos_pesquisar', [CursosController::class, 'find']);
 
 Route::get('/cursos_disciplinas/{id}/{nome}', [CursosDisciplinasController::class, 'listar']);
-Route::get('/ad_cruso_disciplinas/{id}', [CursosDisciplinasController::class, 'adicionar']);
+Route::get('/ad_curso_disciplinas/{id}', [CursosDisciplinasController::class, 'adicionar']);
+Route::post('/salvar_curso_disciplinas', [CursosDisciplinasController::class, 'salvar']);
+Route::delete('/deletar_curso_disciplina/{id}', [CursosDisciplinasController::class, 'deletar']);
