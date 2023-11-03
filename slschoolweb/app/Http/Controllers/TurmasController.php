@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Turma;
+use App\Models\CadastroDia;
+use App\Models\CadastroHorario;
+use App\Models\Professor;
+use App\Models\Sala;
 
 class TurmasController extends Controller
 {
@@ -24,12 +28,20 @@ class TurmasController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        
+        $dias = CadastroDia::all();
+        $horarios = CadastroHorario::all();
+        $sala = Sala::all();
+        $professor = Professor::all();
+
+        return view(self::PAHT.'turmasCreate')
+                    ->with('dias', $dias)
+                    ->with('horarios', $horarios)
+                    ->with('salas', $sala)
+                    ->with('professores', $professor);
+
     }
 
     /**
