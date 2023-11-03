@@ -14,6 +14,14 @@ return new class extends Migration
         Schema::create('materiais_escolars', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('material');
+            $table->string('descricao')->nullable();
+            $table->float('valor_un')->nullable();
+            $table->integer('qtde')->default(0);
+            $table->string('ativo')->default('sim');
+            $table->string('obs')->nullable();
+
         });
     }
 

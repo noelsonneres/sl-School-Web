@@ -97,9 +97,9 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Consultores</span></a>
 
-                        <a class="sidebar-link text-white" href="/cursos">
+                        <a class="sidebar-link text-white" href="/materiais">
                             <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Cursos</span></a>
+                            <span class="align-middle">Materiais escolares</span></a>
 
                     </div>
 

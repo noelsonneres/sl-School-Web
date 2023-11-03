@@ -25,6 +25,7 @@ use App\Http\Controllers\ProfessorDisciplinaController;
 use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\CursosDisciplinasController;
+use App\Http\Controllers\MateriaisEscolaresController;
 
 Route::get('/', function () {
     return view('home');
@@ -63,3 +64,6 @@ Route::get('/cursos_disciplinas/{id}/{nome}', [CursosDisciplinasController::clas
 Route::get('/ad_curso_disciplinas/{id}', [CursosDisciplinasController::class, 'adicionar']);
 Route::post('/salvar_curso_disciplinas', [CursosDisciplinasController::class, 'salvar']);
 Route::delete('/deletar_curso_disciplina/{id}', [CursosDisciplinasController::class, 'deletar']);
+
+Route::resource('materiais', MateriaisEscolaresController::class);
+Route::get('/materiais_pesquisar', [MateriaisEscolaresController::class, 'find']);

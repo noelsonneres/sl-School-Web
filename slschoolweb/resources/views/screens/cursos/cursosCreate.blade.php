@@ -32,12 +32,12 @@
 
                 <div class="col-md-2 mb-3">
                     <label for="valorAvista" class="form-label lblCaption">Valor a Vista</label>
-                    <input type="number" class="form-control" name="valorAvista" id="valorAvista">
+                    <input type="number" step="0.01" min="0.01" class="form-control" name="valorAvista" id="valorAvista">
                 </div>
 
                 <div class="col-md-2 mb-3">
                     <label for="valorComDesconto" class="form-label lblCaption">Valor com desconto</label>
-                    <input type="number" class="form-control" name="valorComDesconto" id="valorComDesconto">
+                    <input type="number" step="0.01" min="0.01" class="form-control" name="valorComDesconto" id="valorComDesconto">
                 </div>
 
                 <div class="col-md-2 mb-3">
@@ -48,13 +48,13 @@
 
                 <div class="col-md-2 mb-3">
                     <label for="valorParcelado" class="form-label lblCaption">Valor parcelado</label>
-                    <input type="number" onchange="calcular()" onblur="calcular()" 
+                    <input type="number" step="0.01" min="0.01" onchange="calcular()" onblur="calcular()" 
                         class="form-control" id="valorParcelado" name="valorParcelado">
                 </div>
 
                 <div class="col-md-2 mb-3">
                     <label for="valorPorParcela" class="form-label lblCaption">Valor por parcela</label>
-                    <input type="number" oninput="calcular()" class="form-control"
+                    <input type="number" step="0.01" min="0.01" oninput="calcular()" class="form-control"
                          id="valorPorParcela" name="valorPorParcela">
                 </div>
 
