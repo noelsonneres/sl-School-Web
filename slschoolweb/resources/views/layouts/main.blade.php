@@ -101,6 +101,10 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Materiais escolares</span></a>
 
+                        <a class="sidebar-link text-white" href="/turma">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Turmas</span></a>
+
                     </div>
 
                     {{-- Menu responsável financeiro --}}

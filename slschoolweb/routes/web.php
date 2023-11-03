@@ -26,6 +26,7 @@ use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\CursosDisciplinasController;
 use App\Http\Controllers\MateriaisEscolaresController;
+use App\Http\Controllers\TurmasController;
 
 Route::get('/', function () {
     return view('home');
@@ -67,3 +68,5 @@ Route::delete('/deletar_curso_disciplina/{id}', [CursosDisciplinasController::cl
 
 Route::resource('materiais', MateriaisEscolaresController::class);
 Route::get('/materiais_pesquisar', [MateriaisEscolaresController::class, 'find']);
+
+Route::resource('turma', TurmasController::class);
