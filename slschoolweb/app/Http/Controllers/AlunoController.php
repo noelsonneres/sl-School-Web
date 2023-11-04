@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Aluno;
+use Illuminate\Http\Request;
+
+class AlunoController extends Controller
+{
+
+    const PATH = 'screens.alunos.aluno.';
+    private $alunos;
+
+    public function __construct()
+    {
+        $this->alunos = new Aluno();
+    }
+
+    public function index()
+    {
+        //
+    }
+
+    public function create()
+    {
+        
+        return view(self::PATH.'alunosCreate');
+
+    }
+
+    public function store(Request $request)
+    {
+        
+        $alunos = $this->alunos;
+
+        $request->validate([
+            'aluno' => 'required|min:3'
+        ]);
+
+        $aluno = $request->old('aluno');
+
+        try {
+        
+            $alunos->nome = $request->input('aluno');
+            $alunos->apelido = $request->input('apelido');
+            $alunos->data_nascimento = $request->input('dataNascimento');
+            $alunos->data_cadastro = $request->input('dataCadastro');
+            $alunos->rg = $request->input('rg');
+            $alunos->cpf = $request->input('cpf');
+            $alunos->fobias = $request->input('fobias');
+            $alunos->alergias = $request->input('alergias');
+            $alunos->deficiencias = $request->input('deficiencias');
+            $alunos->outros_aspectos = $request->input('outrosAspectos');
+            $alunos->endereco = $request->input('endereco');
+            $alunos->bairro = $request->input('bairro');
+            $alunos->numero = $request->input('numero');
+            $alunos->complemento = $request->input('complemento');
+            $alunos->cep = $request->input('cep');
+            $alunos-> cidade = $request->input('cidade');
+            $alunos->estado = $request->input('estado');
+            $alunos->telefone = $request->input('telefone');
+            $alunos->celular = $request->input('celular');
+            $alunos->email = $request->input('email');
+            $alunos->estado_civil = $request->input('estadoCivil');
+            $alunos->profissao = $request->input('profissao');
+            $alunos->nome_mae = $request->input('nomeMae');
+            $alunos->rg_mae = $request->input('rgMae');
+            $alunos->cep_mae = $request->input('cpfMae');
+            $alunos->nome_pai = $request->input('nomePai');
+            $alunos->rg_pai = $request->input('rgPai');
+            $alunos->cpf_pai = $request->input('cpfPai');
+            $alunos->observacao = $request->input('obs');
+            $alunos->deletado = 'nao';
+            
+            $alunos->foto
+                     
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

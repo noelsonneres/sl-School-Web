@@ -27,6 +27,8 @@ use App\Http\Controllers\CursosController;
 use App\Http\Controllers\CursosDisciplinasController;
 use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
+use App\Http\Controllers\HomeAlunosController;
+use App\Http\Controllers\AlunoController;
 
 Route::get('/', function () {
     return view('home');
@@ -71,3 +73,7 @@ Route::get('/materiais_pesquisar', [MateriaisEscolaresController::class, 'find']
 
 Route::resource('turma', TurmasController::class);
 Route::get('/turma_pesquisar', [TurmasController::class, 'find']);
+
+Route::get('/home_aluno', [HomeAlunosController::class, 'homeAlunos']);
+
+Route::resource('alunos', AlunoController::class);

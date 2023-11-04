@@ -117,9 +117,9 @@
                     </li>
                     <div id="sub-menu1" class="collapse" style="margin-left: 15px;">
 
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link text-white" href="/home_aluno">
                             <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Opção 1</span></a>
+                            <span class="align-middle">Alunos</span></a>
                         <a class="sidebar-link" href="#">
 
                             <i class="align-middle" data-feather="arrow-right"></i>
