@@ -71,9 +71,22 @@ class AlunoController extends Controller
             $alunos->cpf_pai = $request->input('cpfPai');
             $alunos->observacao = $request->input('obs');
             $alunos->deletado = 'nao';
+
+            //upload da foto
+            if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+                $requestImage = $request->file('foto');
+                $extension = $requestImage->getClientOriginalExtension();
+                $imgName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+                $requestImage->move(public_path('img/aluno'), $imgName);
+
+                $alunos->foto = $imgName;
+            }                
             
-            $alunos->foto
-                     
+            $alunos->save();         
+            
+            // continuar desde ponto 
+            // criar uma forma de chamar o pagina home do cadatro de alunos
 
         } catch (\Throwable $th) {
             //throw $th;
