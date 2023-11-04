@@ -18,7 +18,7 @@ class Turma extends Model
     }
 
     public function cadastroHorarios(){
-        return $this->belongsTo(CadastroHorario::class, 'cadasrto_horarios_id');
+        return $this->belongsTo(CadastroHorario::class, 'cadastro_horarios_id');
     }
 
     public function sala(){

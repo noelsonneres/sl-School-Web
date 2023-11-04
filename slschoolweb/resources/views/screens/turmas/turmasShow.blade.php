@@ -72,20 +72,74 @@
                 <thead>
                     <tr>
                         <th scope="col">Código</th>
-                        <th scope="col">Sala</th>
-                        <th scope="col">Vagas</th>
+                        <th scope="col">Turma</th>
+                        <th scope="col">Dias</th>
+                        <th scope="col">Horários</th>
                         <th scope="col">Operações</th>
                     </tr>
                 </thead>
 
-
                 <tbody>
+
+                    @foreach ($turmas as $turma)
+                    <tr>
+                        <td>{{ $turma->id }} </td>
+                        <td>{{ Str::substr($turma->turma, 0, 30) }}  </td>
+                        <td>{{$turma->cadastroDias->dia1}} - {{$turma->cadastroDias->dia2}}</td>
+                        <td>{{$turma->cadastroHorarios->entrada}} - {{$turma->cadastroHorarios->saida}}</td>
+                        {{-- <td>{{ Str::substr($turma->descricao, 0, 40) }} </td> --}}
+
+                        <td>
+
+                            <div>
+                                <div class="row">
+
+                                    <div class="col-3">
+                                        <a href="{{ route('turma.edit', $turma->id) }}" class="btn btn-success btn-sm">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-3">
+
+                                        <form method="POST" class="delete-form"
+                                            action="{{ route('turma.destroy', $turma->id) }}">
+                                            @csrf
+                                            {{-- o método HTTP para exclusão deve ser o DELETE --}}
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-danger btn-sm"
+                                                onclick="confirmDelete(this)">
+                                                <i class="bi bi-trash3-fill"></i>
+                                            </button>
+                                        </form>
+
+                                        <script>
+                                            function confirmDelete(button) {
+                                                if (confirm('Tem certeza de que deseja excluir este item?')) {
+                                                    var form = button.closest('form');
+                                                    form.submit();
+                                                }
+                                            }
+                                        </script>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                @endforeach                    
                     
                 </tbody>
 
-
-
             </table>
+
+            <div class="container-fluid pl-5 d-flex justify-content-center">
+                {{$turmas->links('pagination::pagination')}}
+                </div>
 
 
         </div>

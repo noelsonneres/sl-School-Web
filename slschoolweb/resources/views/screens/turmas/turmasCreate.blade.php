@@ -22,19 +22,20 @@
 
         <div class="card p-5">
 
-            <form action="{{ route('salas.store') }}" method="post">
+            <form action="{{ route('turma.store') }}" method="post">
 
                 @csrf
 
                     <div class="mb-3">
                         <label for="turma" class="form-label lblCaption">Turma</label>
                         <input type="text" class="form-control" name="turma" id="turma" maxlength="100" 
-                            autofocus required >
+                            autofocus required  autocomplete="off">
                     </div>
 
                     <div class="mb-3">
                         <label for="descricao" class="form-label lblCaption">Descrição</label>
-                        <input type="text" class="form-control" id="descricao" name="descricao">
+                        <input type="text" class="form-control" id="descricao" name="descricao"
+                            autocomplete="off">
                     </div>
 
                     <div class="row">
@@ -80,7 +81,51 @@
                     </div>
 
                     <div class="row">
-                        
+
+                        <div class="col-md-6 mb-3">
+                            <label for="professor" class="form-label lblCaption">Professor</label>
+                            <select class="form-control" name="professor" id="professor">
+
+                                <option value="">Selecione um professor (opcional)</option>
+
+                                @foreach ($professores as $professor)
+
+                                    <option value="{{$professor->id}}">{{$professor->nome}}</option>
+                                    
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="turno" class="form-label lblCaption">Turno</label>
+                            <select class="form-control" name="turno" id="turno">
+
+                                <option value="">Selecione um turno</option>
+                                <option value="matutino">Matutino</option>
+                                <option value="vespertino">Vespertino</option>
+                                <option value="noturno">Noturno</option>
+                                <option value="outros">Outros</option>
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="ativa" class="form-label lblCaption">Ativa</label>
+                            <select class="form-control" name="ativa" id="ativa">
+
+                                <option value="">Selecione uma opção</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="obs" class="form-label lblCaption">Observação</label>
+                        <input type="text" class="form-control" id="obs" name="obs" maxlength="255">
                     </div>
 
 
@@ -89,7 +134,7 @@
                         <i class="bi bi-floppy2"></i>
                         Salvar</button>
 
-                    <a href="/config_mensalidades" class="btn btn-danger">
+                    <a href="/turma" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar</a>
                 </div>
