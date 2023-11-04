@@ -34,7 +34,7 @@
 
             <div class="col-8">
 
-                <form action="/sala_pesquisar" method="get">
+                <form action="/turma_pesquisar" method="get">
                     @csrf
 
                     <div class="row">
@@ -42,7 +42,7 @@
                         <div class="col-md-3">
                             <select class="form-control" name="opt" id="opt">
                                 <option value="id">Código</option>
-                                <option value="sala">Sala</option>
+                                <option value="turma">Turma</option>
                                 <option value="descricao">Descrição</option>
                             </select>
                         </div>

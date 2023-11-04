@@ -96,27 +96,102 @@ class TurmasController extends Controller
     public function edit(string $id)
     {
         
-        $turmas = $this->turmas->with('cadastroDias')->find($id);
+        $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios', 'sala', 'professor'])->find($id);
+
+        $dias = CadastroDia::all();
+        $horarios = CadastroHorario::all();
+        $sala = Sala::all();
+        $professor = Professor::all();        
 
         if($turmas->count() >= 1){
-            return view(self::PATH.'turmasEdit', ['turmas'=>$turmas]);
+            return view(self::PATH.'turmasEdit', ['turmas'=>$turmas])
+                                    ->with('dias', $dias)
+                                    ->with('horarios', $horarios)
+                                    ->with('salas', $sala)
+                                    ->with('professores', $professor);
         }
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $turmas = $this->turmas->find($id);
+            
+            $request->validate([
+                'turma' => 'required|min:3|max:100',
+                'dias' => 'required',
+                'horarios' => 'required',
+                'sala' => 'required',
+                'turno' => 'required',
+                'ativa' => 'required',
+            ]);
+    
+            try {
+                
+                $turmas->turma = $request->input('turma');
+                $turmas->descricao = $request->input('descricao');
+                $turmas->cadastro_dias_id = $request->input('dias');
+                $turmas->cadastro_horarios_id = $request->input('horarios');
+                $turmas->salas_id = $request->input('sala');
+                $turmas->professors_id = $request->input('professor');
+                $turmas->turno = $request->input('turno');
+                $turmas->ativa = $request->input('ativa');
+                $turmas->obs = $request->input('obs');
+    
+                $turmas->save();
+    
+                $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+                return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
+                            ->with('msg', 'Informações da turma atualizadas com sucesso!!!');
+    
+            } catch (\Throwable $th) {
+                
+                $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+                return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
+                            ->with('msg', 'ERRO! Não foi possível atualizar as informações da turma!');            
+    
+            }
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        
+        $turmas = $this->turmas->find($id);
+
+        try {
+            $turmas->delete();
+
+            $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+            return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
+                        ->with('msg', 'Turma excluida com sucesso!');
+
+        } catch (\Throwable $th) {
+
+            $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+            return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
+                        ->with('msg', 'ERRO! Não foi possível excluir a turma! '.$th); 
+                        
+        }
+
     }
+
+    public function find(Request $request){
+
+        $field = $request->input('opt');
+
+        $value = $request->input('find');
+        $field = $request->input('opt');        
+
+        if(empty($field)){
+            $field = 'id';
+        }
+
+        $turmas = Turma::where($field, 'LIKE', $value.'%')->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+
+        return view(self::PATH.'turmasShow', ['turmas'=>$turmas]);
+
+    }
+
 }
