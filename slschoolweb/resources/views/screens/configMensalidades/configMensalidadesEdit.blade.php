@@ -38,8 +38,9 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="multa" class="form-label lblCaption">Multa por atraso (R$)</label>
-                        <input type="number" class="form-control" step="0.01" min="0.01" name="multa"
-                            id="multa" placeholder="Informe a multa por atraso" required value="{{ $config->multa }}">
+                        <input type="text" class="form-control" step="0.01" min="0.01" name="multa"
+                            id="multa" placeholder="Informe a multa por atraso" required 
+                                value="{{$config->multa}}">
                     </div>
 
                     <div class="mb-4">

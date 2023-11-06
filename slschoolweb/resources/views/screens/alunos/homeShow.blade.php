@@ -8,7 +8,7 @@
     <div style="background-color: #1976D2;">
         <h3 class="text-center text-white p-3">Alunos cadastrados</h3>
     </div>
-
+    
     @if(isset($msg))
     <div class="alert alert-warning alert-dismissible fade show msg d-flex 
 							justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
@@ -79,15 +79,56 @@
                 </tr>
             </thead>
             <tbody>
+
+                @foreach ($alunos as $aluno)
+
+                <tr>
+                    <td>{{$aluno->id}} </td>
+                    <td>{{$aluno->nome}} </td>
+                    <td>{{$aluno->apelido}} </td>
+                    <td>{{$aluno->telefone}} </td>
+                    <td>{{$aluno->celular}} </td>
+
+                    <td>
+
+                            <div class="row">                          
+
+                                <div class="col-2">
+                                    <a href="{{ route('alunos.edit', $aluno->id) }}" 
+                                           title="Visualizar informações do alunos" class="btn btn-success btn-sm">
+                                           <i class="bi bi-eye"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-2">
+                                    <a href="{{ route('alunos.edit', $aluno->id) }}" 
+                                           title="Responsável do aluno" class="btn btn-info btn-sm">
+                                           <i class="bi bi-person-rolodex"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-2">
+                                    <a href="{{ route('alunos.edit', $aluno->id) }}" 
+                                           title="Informações sobre a matrícula" class="btn btn-primary btn-sm">
+                                           <i class="bi bi-folder-plus"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+
+                    </td>
+                </tr>
+
+                @endforeach                
                
             </tbody>
         </table>
 
-        {{-- <div class="row">
+        <div class="row">
             <div>
-                {{ $cursos->links('pagination::pagination') }}
+                {{ $alunos->links('pagination::pagination') }}
             </div>
-        </div> --}}
+        </div>
 
     </div>
 

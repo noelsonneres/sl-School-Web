@@ -84,7 +84,7 @@
                 <tr>
                     <td>{{$curso->id}} </td>
                     <td>{{$curso->curso}} </td>
-                    <td>{{$curso->valor_avista}} </td>
+                    <td>R$ {{number_format($curso->valor_avista, 2, ',', '.')}} </td>
                     <td>{{$curso->duracao_meses}} </td>
                     <td>{{$curso->carga_horaria}} </td>
 

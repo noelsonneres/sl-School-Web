@@ -89,6 +89,10 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Disciplinas</span></a>
 
+                            <a class="sidebar-link text-white" href="/cursos">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Cursos</span></a>                            
+
                         <a class="sidebar-link text-white" href="/professores">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Professores</span></a>

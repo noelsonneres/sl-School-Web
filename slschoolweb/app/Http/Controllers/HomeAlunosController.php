@@ -19,7 +19,7 @@ class HomeAlunosController extends Controller
     
     public function homeAlunos(){
 
-        $alunos = $this->alunos->paginate();
+        $alunos = $this->alunos->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'homeShow', ['alunos'=>$alunos]);
     }
 

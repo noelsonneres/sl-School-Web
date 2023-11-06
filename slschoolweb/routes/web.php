@@ -74,6 +74,6 @@ Route::get('/materiais_pesquisar', [MateriaisEscolaresController::class, 'find']
 Route::resource('turma', TurmasController::class);
 Route::get('/turma_pesquisar', [TurmasController::class, 'find']);
 
-Route::get('/home_aluno', [HomeAlunosController::class, 'homeAlunos']);
+Route::get('/home_aluno', [HomeAlunosController::class, 'homeAlunos'])->name('home.alunos');
 
 Route::resource('alunos', AlunoController::class);

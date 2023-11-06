@@ -13,7 +13,7 @@
 
     <div class="card p-5">
 
-        <form action="{{route('cursos.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('alunos.store')}}" method="post" enctype="multipart/form-data">
 
             @csrf
 
@@ -56,34 +56,6 @@
                     <label for="cpf" class="form-label lblCaption">CPF</label>
                     <input type="text" class="form-control" id="cpf" name="cpf" maxlength="15">
                 </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6 mb-3">
-                    <label for="fobias" class="form-label lblCaption">Fobias</label>
-                    <input type="text" class="form-control" name="fobias" id="fobias" maxlength="100">
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="alergias" class="form-label lblCaption">Alergias</label>
-                    <input type="text" class="form-control" name="alergias" id="alergias" maxlength="100">
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6 mb-3">
-                    <label for="deficiencias" class="form-label lblCaption">Deficiência</label>
-                    <input type="text" class="form-control" name="deficiencias" id="deficiencias" maxlength="100">
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="outrosAspectos" class="form-label lblCaption">Outros aspectos</label>
-                    <input type="text" class="form-control  " name="outrosAspectos" id="outrosAspectos" maxlength="100">
-                </div>                
 
             </div>
 
@@ -208,6 +180,39 @@
 
                 </div>
 
+                <div class="card mt-3">
+                    <h3 class="p-2 mb-4">Informações medicas</h3>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fobias" class="form-label lblCaption">Fobias</label>
+                            <input type="text" class="form-control" name="fobias" id="fobias" maxlength="100">
+                        </div>
+        
+                        <div class="col-md-6 mb-3">
+                            <label for="alergias" class="form-label lblCaption">Alergias</label>
+                            <input type="text" class="form-control" name="alergias" id="alergias" maxlength="100">
+                        </div>
+        
+                    </div>
+        
+                    <div class="row">
+        
+                        <div class="col-md-6 mb-3">
+                            <label for="deficiencias" class="form-label lblCaption">Deficiência</label>
+                            <input type="text" class="form-control" name="deficiencias" id="deficiencias" maxlength="100">
+                        </div>
+        
+                        <div class="col-md-6 mb-3">
+                            <label for="outrosAspectos" class="form-label lblCaption">Outros aspectos</label>
+                            <input type="text" class="form-control  " name="outrosAspectos" id="outrosAspectos" maxlength="100">
+                        </div>                
+        
+                    </div>
+
+                </div>
+
                 <div class="mb-3">
                     <label for="obs" class="form-label lblCaption">Observação</label>
                     <input type="text" class="form-control" id="obs" name="id">
@@ -230,7 +235,7 @@
                     <i class="bi bi-floppy2"></i>
                     Salvar</button>
 
-                <a href="/professores" class="btn btn-danger">
+                <a href="/home_aluno" class="btn btn-danger">
                     <i class="bi bi-x-circle-fill"></i>
                     Cancelar</a>
             </div>

@@ -35,6 +35,9 @@ class AlunoController extends Controller
 
         $request->validate([
             'aluno' => 'required|min:3'
+        ],[
+            'aluno.required' => 'Nome requirido',
+            'aluno.min' => 'O nome deve ter no mínimo três letras',
         ]);
 
         $aluno = $request->old('aluno');
@@ -83,13 +86,12 @@ class AlunoController extends Controller
                 $alunos->foto = $imgName;
             }                
             
-            $alunos->save();         
-            
-            // continuar desde ponto 
-            // criar uma forma de chamar o pagina home do cadatro de alunos
+            $alunos->save();   
+
+            return redirect()->route('home.alunos')->with('msg', 'Aluno incluído com sucesso!!!');
 
         } catch (\Throwable $th) {
-            //throw $th;
+            return back();
         }
 
 

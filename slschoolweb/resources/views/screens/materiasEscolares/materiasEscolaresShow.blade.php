@@ -84,7 +84,7 @@
                         <tr>
                             <td>{{ $material->id }} </td>
                             <td>{{ $material->material }} </td>
-                            <td>{{ $material->valor_un }} </td>
+                            <td>R$ {{ number_format( $material->valor_un, 2, ',', '.' )}} </td>
                             <td>{{ $material->qtde }} </td>
                             <td>{{ $material->ativo }} </td>
 
