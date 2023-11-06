@@ -25,9 +25,23 @@
         </div>
     
         <div class="col-md-3">
-            <a href="#" title="Excluir as informações deste aluno" class="btn btn-danger d-block mb-2">
-                <i class="bi bi-trash3"></i>
-                Excluir</a>
+            <form method="POST" class="delete-form" action="{{ route('alunos.destroy', $alunos->id) }}">
+                @csrf
+                {{-- o método HTTP para exclusão deve ser o DELETE --}}
+                @method('DELETE')
+                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
+                    <i class="bi bi-trash3-fill"></i>
+                </button>
+            </form>
+
+            <script>
+                function confirmDelete(button) {
+                    if (confirm('Tem certeza de que deseja excluir este item?')) {
+                        var form = button.closest('form');
+                        form.submit();
+                    }
+                }
+            </script>
         </div>
     </div>
     
