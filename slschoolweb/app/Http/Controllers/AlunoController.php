@@ -97,20 +97,20 @@ class AlunoController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        
+        $alunos = $this->alunos->find($id);
+
+        if($alunos->count() >= 1){
+            return view(self::PATH.'alunosEdit', ['alunos'=>$alunos]);
+        }
+
     }
 
     /**

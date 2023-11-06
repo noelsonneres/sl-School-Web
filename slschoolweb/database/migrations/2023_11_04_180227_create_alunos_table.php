@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('profissao')->nullable();
             $table->string('nome_mae')->nullable();
             $table->string('rg_mae')->nullable();
-            $table->string('cep_mae')->nullable();
+            $table->string('cpf_mae')->nullable();
             $table->string('nome_pai')->nullable();
             $table->string('rg_pai')->nullable();
             $table->string('cpf_pai')->nullable();
