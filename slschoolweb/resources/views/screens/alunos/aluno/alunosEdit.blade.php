@@ -11,39 +11,38 @@
 
     <hr>
 
-    <div class="row col-md-6">
-        <div class="col-md-3">
-            <a href="#" title="Visualizar ou criar uma matrícula" class="btn btn-info d-block mb-2">                
-                <i class="bi bi-folder-plus"></i>
-                Matrículas</a>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#" title="Visualizar ou criar uma matrícula" class="btn btn-info d-block mb-2">                
+                        <i class="bi bi-folder-plus"></i>
+                        Matrículas
+                    </a>
+                </div>
+            
+                <div class="col-md-3">
+                    <a href="#" title="Visualizar ou incluir um responsável" class="btn btn-success d-block mb-2">
+                        <i class="bi bi-person-rolodex"></i>
+                        Responsável
+                    </a>
+                </div>
+            
+                <div class="col-md-2">
+                    <form method="POST" class="delete-form" action="{{ route('alunos.destroy', $alunos->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">
+                            <i class="bi bi-trash3-fill"></i>
+                            Excluir
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     
-        <div class="col-md-4">
-            <a href="#" title="Visualizar ou incluir um responsável" class="btn btn-success d-block mb-2">
-                <i class="bi bi-person-rolodex"></i>
-                Responsável</a>
-        </div>
-    
-        <div class="col-md-3">
-            <form method="POST" class="delete-form" action="{{ route('alunos.destroy', $alunos->id) }}">
-                @csrf
-                {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                @method('DELETE')
-                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
-                    <i class="bi bi-trash3-fill"></i>
-                </button>
-            </form>
-
-            <script>
-                function confirmDelete(button) {
-                    if (confirm('Tem certeza de que deseja excluir este item?')) {
-                        var form = button.closest('form');
-                        form.submit();
-                    }
-                }
-            </script>
-        </div>
     </div>
+    
     
 
     <hr>
@@ -53,6 +52,7 @@
         <form action="{{route('alunos.update', $alunos->id)}}" method="post" enctype="multipart/form-data">
 
             @csrf
+            @method('PUT')
 
 
             <div class="row">
