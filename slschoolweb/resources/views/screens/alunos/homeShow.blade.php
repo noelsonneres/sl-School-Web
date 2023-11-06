@@ -33,7 +33,7 @@
 
         <div class="col-8">
 
-            <form action="/cursos_pesquisar" method="get">
+            <form action="/alunos_pesquisar" method="get">
                 @csrf
 
                 <div class="row">
@@ -41,8 +41,9 @@
                     <div class="col-md-3">
                         <select class="form-control" name="opt" id="opt">
                             <option value="id">Código</option>
-                            <option value="curso">Curso</option>
-                            <option value="desscricao">Descricao</option>
+                            <option value="nome">Nome</option>
+                            <option value="apelido">Apelido</option>
+                            <option value="cpf">CPF</option>
                         </select>
                     </div>
 
@@ -101,7 +102,7 @@
                                 </div>
 
                                 <div class="col-2">
-                                    <a href="{{ route('alunos.edit', $aluno->id) }}" 
+                                    <a href="{{'/responsavel_adicionar/'.$aluno->id.'/'.$aluno->nome}}" 
                                            title="Responsável do aluno" class="btn btn-info btn-sm">
                                            <i class="bi bi-person-rolodex"></i>
                                     </a>

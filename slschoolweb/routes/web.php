@@ -29,6 +29,7 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\ResponsavelController;
 
 Route::get('/', function () {
     return view('home');
@@ -75,5 +76,9 @@ Route::resource('turma', TurmasController::class);
 Route::get('/turma_pesquisar', [TurmasController::class, 'find']);
 
 Route::get('/home_aluno', [HomeAlunosController::class, 'homeAlunos'])->name('home.alunos');
+Route::get('/alunos_pesquisar', [HomeAlunosController::class, 'find'])->name('home.pesqusar');
 
 Route::resource('alunos', AlunoController::class);
+
+Route::resource('responsavel', ResponsavelController::class);
+Route::get('/responsavel_adicionar/{id}/{home}', [ResponsavelController::class, 'adicionar'])->name('responsavel_adicionar');

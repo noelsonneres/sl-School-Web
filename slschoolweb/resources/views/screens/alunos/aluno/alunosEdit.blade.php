@@ -37,13 +37,21 @@
                             Excluir
                         </button>
                     </form>
+
+                    <script>
+                        function confirmDelete(button) {
+                            if (confirm('Tem certeza de que deseja excluir este item?')) {
+                                var form = button.closest('form');
+                                form.submit();
+                            }
+                        }
+                    </script>                    
+
                 </div>
             </div>
         </div>
     
-    </div>
-    
-    
+    </div>   
 
     <hr>
 
@@ -53,7 +61,6 @@
 
             @csrf
             @method('PUT')
-
 
             <div class="row">
 

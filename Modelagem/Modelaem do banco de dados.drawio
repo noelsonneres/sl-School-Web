@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-11-03T00:02:29.394Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="M0uUkG25vyODgUs1nOFQ" version="22.0.3" type="device">
+<mxfile host="Electron" modified="2023-11-06T21:39:22.990Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="xD0b2iv0d5KBzgwSfpUt" version="22.0.3" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
-    <mxGraphModel dx="574" dy="336" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="819" dy="479" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -103,7 +103,7 @@
         <mxCell id="nvbjZyCiDaDG4opXZh0n-38" value="Responsavel" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="620" y="1490" width="160" height="450" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-39" value="id&#xa;nome&#xa;id_aluno&#xa;apelido&#xa;data_nascimento&#xa;data_cadastro&#xa;rg&#xa;cpf&#xa;fobias&#xa;alergias&#xa;deficiencias&#xa;outros_aspectos&#xa;endereco&#xa;bairro&#xa;numero&#xa;complemento&#xa;cep&#xa;cidade&#xa;estado&#xa;telefone&#xa;celular&#xa;email&#xa;estado_civil&#xa;profissaoi&#xa;foto&#xa;observacao&#xa;deletado&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-38" vertex="1">
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-39" value="id&#xa;nome&#xa;id_aluno&#xa;apelido&#xa;data_nascimento&#xa;data_cadastro&#xa;rg&#xa;cpf&#xa;endereco&#xa;bairro&#xa;numero&#xa;complemento&#xa;cep&#xa;cidade&#xa;estado&#xa;telefone&#xa;celular&#xa;email&#xa;estado_civil&#xa;profissaoi&#xa;foto&#xa;observacao&#xa;deletado&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-38" vertex="1">
           <mxGeometry y="30" width="160" height="420" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.548;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nvbjZyCiDaDG4opXZh0n-37" target="nvbjZyCiDaDG4opXZh0n-39" edge="1">

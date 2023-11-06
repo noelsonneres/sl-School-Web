@@ -23,5 +23,20 @@ class HomeAlunosController extends Controller
         return view(self::PATH.'homeShow', ['alunos'=>$alunos]);
     }
 
+    public function find(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if(empty($field)){
+            $field = 'id';
+        }
+
+        $alunos = Aluno::where($field, 'LIKE', $value.'%')->paginate(15);
+        return view(self::PATH.'homeShow', ['alunos'=>$alunos]);
+
+    }        
+
+
 
 }
