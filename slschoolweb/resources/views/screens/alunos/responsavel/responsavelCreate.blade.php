@@ -31,7 +31,7 @@
 
                 @csrf
 
-                    <input type="hidden" name="idAluno" value="{{$idAluno}}">
+                    <input type="hidden" name="idAluno" name="idAluno" value="{{$idAluno}}">
 
                     <div class="row">
 

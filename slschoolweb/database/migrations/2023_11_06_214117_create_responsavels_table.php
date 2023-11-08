@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nome');
-            $table->unsignedBigInteger('id_aluno');
+            $table->unsignedBigInteger('alunos_id');
             $table->string('apelido')->nullable();
             $table->date('data_nascimento')->nullable();
             $table->date('data_cadastro')->nullable();
@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('observacao')->nullable();
             $table->string('deletado')->nullable();
 
-            $table->foreign('id_aluno')
+            $table->foreign('alunos_id')
                     ->references('id')
                     ->on('alunos')
                     ->constrained()
