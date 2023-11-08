@@ -16,7 +16,8 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <a href="/home_aluno" title="Voltar para a lista de alunos" class="btn btn-success d-block mb-2">                
+                    <a href="/home_aluno" title="Voltar para a lista de alunos" 
+                        class="btn btn-success d-block mb-2" style="background-color: rgb(255, 157, 0)">                
                         <i class="bi bi-arrow-left-circle-fill"></i>
                      Lista de alunos
                     </a>
@@ -30,7 +31,7 @@
                 </div>
             
                 <div class="col-md-3">
-                    <a href="#" title="Visualizar ou incluir um responsável" class="btn btn-success d-block mb-2">
+                    <a href="{{'/responsavel_adicionar/'.$alunos->id.'/'.$alunos->nome}}"  title="Visualizar ou incluir um responsável" class="btn btn-success d-block mb-2">
                         <i class="bi bi-person-rolodex"></i>
                         Responsável
                     </a>
