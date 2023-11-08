@@ -14,6 +14,14 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
+
+                <div class="col-md-3">
+                    <a href="/home_aluno" title="Voltar para a lista de alunos" class="btn btn-success d-block mb-2">                
+                        <i class="bi bi-arrow-left-circle-fill"></i>
+                     Lista de alunos
+                    </a>
+                </div>
+
                 <div class="col-md-3">
                     <a href="#" title="Visualizar ou criar uma matrícula" class="btn btn-info d-block mb-2">                
                         <i class="bi bi-folder-plus"></i>

@@ -1,13 +1,59 @@
 @extends('layouts.main')
-@section('title', 'Novo responsavel')
+@section('title', 'Visualizar ou atualizar informações do responsável')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Incluir responsável</h3>
+            <h3 class="text-center text-white p-3">Visualizar ou atualizar informações do responsável</h3>
         </div>
 
+        <hr>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <a href="/home_aluno" title="Voltar para a página anterior" 
+                            class="btn btn-success d-block mb-2">
+                            <i class="bi bi-arrow-left-circle-fill"></i>
+                            Lista de alunos
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a href="#" title="Visualizar ou criar uma matrícula" class="btn btn-info d-block mb-2">                
+                            <i class="bi bi-folder-plus"></i>
+                            Matrículas
+                        </a>
+                    </div>
+                
+                    <div class="col-md-2">
+                        <form method="POST" class="delete-form" action="{{ route('responsavel.destroy', $responsavel->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">
+                                <i class="bi bi-trash3-fill"></i>
+                                Excluir
+                            </button>
+                        </form>
+    
+                        <script>
+                            function confirmDelete(button) {
+                                if (confirm('Tem certeza de que deseja excluir este item?')) {
+                                    var form = button.closest('form');
+                                    form.submit();
+                                }
+                            }
+                        </script>                    
+    
+                    </div>
+                </div>
+            </div>
+        
+        </div>   
+    
         <hr>
             <h4 class="ps-3">Aluno(a): {{$aluno->nome}}</h4>
         <hr>
@@ -30,9 +76,10 @@
             <h4>Informações do responsável</h4>
             <hr>
 
-            <form action="{{ route('responsavel.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('responsavel.update', $responsavel->id) }}" method="post" enctype="multipart/form-data">
 
                 @csrf
+                @method('PUT')
 
                     <input type="hidden" name="idAluno" name="idAluno" value="{{$aluno->id}}">
 
@@ -194,7 +241,7 @@
                         <i class="bi bi-floppy2"></i>
                         Salvar</button>
 
-                    <a href="/disciplinas" class="btn btn-danger">
+                    <a href="/home_aluno" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar</a>
                 </div>
@@ -224,7 +271,6 @@
     
     
     {{-- PROCESSO DE VALIDAÇÃO DO CAMPOS --}}
-    <!-- Adicionando JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     
