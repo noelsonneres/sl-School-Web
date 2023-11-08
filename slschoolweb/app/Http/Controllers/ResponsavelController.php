@@ -190,13 +190,17 @@ class ResponsavelController extends Controller
 
     public function destroy(string $id)
     {
-        
-        //CONTINUAR DESTA PARTE
 
         $responsavel = $this->responsavel->find($id);
 
         if($responsavel->count() >= 1){
             $responsavel->delete();
+
+            return redirect()->route('home.alunos')->with('msg', 'O responsável pelo aluno foi excluido com sucesso!!!');            
+
+        }else{
+            return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])
+                    ->with('msg', 'ERRO! Não foi possível excluir o responsável!');
         }
 
     }
