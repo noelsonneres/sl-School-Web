@@ -19,6 +19,9 @@
         @endif
 
         <hr>
+            <h4>Aluno(a): {{$aluno->nome}}</h4>
+            <h5>Código: {{$aluno->id}}</h5>
+        <hr>
 
         <div class="container">
 
@@ -89,6 +92,32 @@
             </div>
 
             <hr>
+
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <a href="http://" class="link-card">
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 style="color: rgb(14, 156, 14); font-weight: 500;">Frequência</h2>
+                                <i class="bi bi-person-vcard" style="font-size: 70px; color: rgb(14, 156, 14);"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="col-sm-2">
+                    <a href="http://" class="link-card">
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Resposição</h2>
+                                <i class="bi bi-person-video3" style="font-size: 70px; color: rgb(14, 59, 156);"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
         </div>
 

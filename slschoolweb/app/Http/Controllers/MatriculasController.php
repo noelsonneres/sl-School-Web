@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Matricula;
+use App\Models\Aluno;
 
 class MatriculasController extends Controller
 {
@@ -71,7 +72,12 @@ class MatriculasController extends Controller
 
     public function homeMatricula(string $idAluno){
 
-        return view(self::PATH.'matriculaHome');
+        $aluno = Aluno::find($idAluno)->first();
+
+        
+
+        return view(self::PATH.'matriculaHome')
+                    ->with('aluno', $aluno);
 
     }
 
