@@ -109,7 +109,7 @@
                                 </div>
 
                                 <div class="col-2">
-                                    <a href="{{ route('alunos.edit', $aluno->id) }}" 
+                                    <a href="{{'/matricula_home/'.$aluno->id}}" 
                                            title="Informações sobre a matrícula" class="btn btn-primary btn-sm">
                                            <i class="bi bi-folder-plus"></i>
                                     </a>

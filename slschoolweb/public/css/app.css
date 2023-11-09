@@ -16108,3 +16108,13 @@ span.flatpickr-weekday {
     text-align: center;
     padding: 10px;
 }
+
+.link-card {
+    text-decoration: none;
+    color: black;
+}
+
+.link-card:hover {
+    text-decoration: none;
+    color: red;
+}

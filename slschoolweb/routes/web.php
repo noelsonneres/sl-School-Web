@@ -29,6 +29,7 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\ResponsavelController;
 
 Route::get('/', function () {
@@ -82,3 +83,6 @@ Route::resource('alunos', AlunoController::class);
 
 Route::resource('responsavel', ResponsavelController::class);
 Route::get('/responsavel_adicionar/{id}/{home}', [ResponsavelController::class, 'adicionar'])->name('responsavel_adicionar');
+
+Route::resource('matricula', MatriculasController::class);
+Route::get('/matricula_home/{id}', [MatriculasController::class, 'homeMatricula']);
