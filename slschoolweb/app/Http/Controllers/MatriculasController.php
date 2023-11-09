@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Matricula;
 use App\Models\Aluno;
+use App\Models\Consultor;
+use App\Models\Curso;
+use App\Models\Responsavel;
 
 class MatriculasController extends Controller
 {
@@ -70,15 +73,33 @@ class MatriculasController extends Controller
         //
     }
 
-    public function homeMatricula(string $idAluno){
+    //PROCESSO PARA REDIRECIONAR DEPENDENDO DA QUANTIDADE DE MATRÍCULAS DO ALUNO
 
-        $aluno = Aluno::find($idAluno)->first();
+    public function homeMatricula(string $idAluno)
+    {
 
-        
+        $aluno = Aluno::find($idAluno);
+        $responsavel = Responsavel::where('alunos_id', $idAluno);
 
-        return view(self::PATH.'matriculaHome')
-                    ->with('aluno', $aluno);
+        $matricula = $this->matricula->where('alunos_id', $idAluno);
 
+        if ($matricula->count() > 1) {
+            //Redirecionar para a janela Lista de matrículas
+        } else if ($matricula->count() == 1) { //Redireciona para a Home Matrículas
+            return view(self::PATH . 'matriculaHome')
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel);
+        }else{
+
+            $listaCursos = Curso::all();
+            $listaConsultores = Consultor::all();    
+
+            return view(self::PATH . 'matriculaCreate')
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel->first())
+                ->with('cursos', $listaCursos)
+                ->with('consultores', $listaConsultores);
+
+        }
     }
-
 }
