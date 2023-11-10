@@ -20,7 +20,8 @@
 
         <hr>
             <h4>Aluno(a): {{$aluno->nome}}</h4>
-            <h5>Código: {{$aluno->id}}</h5>
+            <h4>Matrícula: {{$matricula->id}}</h4>
+            <h5>Cód. Aluno: {{$aluno->id}}</h5>
         <hr>
 
         <div class="container">
