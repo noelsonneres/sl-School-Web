@@ -6,7 +6,7 @@
 <div class="container">
 
     <div style="background-color: #1976D2;">
-        <h3 class="text-center text-white p-3">Nova matrícula</h3>
+        <h3 class="text-center text-white p-3">Inserindo uma nova matrícula</h3>
     </div>
 
     <hr>

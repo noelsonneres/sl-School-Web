@@ -10,12 +10,28 @@
     </div>
 
     <hr>
-        <h4>Aluno(a): {{$aluno->nome}}</h4>
-        <h5>Código: {{$aluno->id}}</h5>
+    <div class="row">
 
-        @if(isset($responsavel))
-            <h4>Responsável: {{$responsavel->nome}}</h4>
-        @endif
+        <div class="col-md-8">
+            <h4>Aluno(a): {{$aluno->nome}}</h4>
+            <h4>Matrícula: {{$matricula->id}}</h4>
+            <h5>Código: {{$aluno->id}}</h5>
+    
+            @if(isset($responsavel))
+                <h4>Responsável: {{$responsavel->nome}}</h4>
+            @endif
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="{{'/matricula_adicionar/'.$aluno->id}}" class="btn btn-primary">
+                <i class="bi bi-plus-circle-fill"></i>
+                Nova Matrícula </a>
+            <button onclick="(print())" class="btn $teal-300">Imprimir</button>
+
+        </div>
+
+    </div>
 
     <hr>
 
@@ -174,7 +190,7 @@
                     <i class="bi bi-floppy2"></i>
                     Salvar</button>
 
-                <a href="{{'/matricula_home/'.$matricula->id}}" class="btn btn-danger">
+                <a href="{{'/matricula_home/'.$aluno->id}}" class="btn btn-danger">
                     <i class="bi bi-x-circle-fill"></i>
                     Cancelar</a>
             </div>

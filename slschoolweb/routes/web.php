@@ -86,3 +86,4 @@ Route::get('/responsavel_adicionar/{id}/{home}', [ResponsavelController::class, 
 
 Route::resource('matricula', MatriculasController::class);
 Route::get('/matricula_home/{id}', [MatriculasController::class, 'homeMatricula']);
+Route::get('/matricula_adicionar/{id}', [MatriculasController::class, 'adicionar']);
