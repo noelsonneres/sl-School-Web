@@ -29,7 +29,7 @@
             <div class="row">
 
                 <div class="col-sm-2">
-                    <a href="http://" class="link-card">
+                    <a href="{{route('matricula.edit', $matricula->id)}}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 156, 14); font-weight: 500;">Matricula</h2>

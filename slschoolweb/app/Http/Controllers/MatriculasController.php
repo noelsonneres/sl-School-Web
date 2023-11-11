@@ -121,12 +121,33 @@ class MatriculasController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        //
+        
+        $matricula = $this->matricula->with('cursos')->find($id);
+        $listaCursos = Curso::all();
+        $listaConsultores = Consultor::all(); 
+
+       
+        
+        if($matricula->count() >= 1){
+
+            $aluno = $matricula->alunos()->first();
+            $alunoID = $aluno->id;   
+            $consultorID = $matricula->consultors_id;
+            $nomeConsultor = Consultor::find($consultorID);            
+            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+            return view(self::PATH.'matriculaEdit', ['matricula'=>$matricula])
+                        ->with('aluno', $aluno)
+                        ->with('responsavel', $responsavel)
+                        ->with('cursos', $listaCursos)
+                        ->with('consultores', $listaConsultores)
+                        ->with('cons', $nomeConsultor);   
+                        
+        }
+
     }
 
     /**
@@ -199,4 +220,5 @@ class MatriculasController extends Controller
 
         }
     }
+
 }
