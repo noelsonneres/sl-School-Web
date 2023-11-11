@@ -31,7 +31,7 @@ use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\ResponsavelController;
-use App\Http\Controllers\MatriculaTurmas;
+use App\Http\Controllers\MatriculaTurmaController;
 
 Route::get('/', function () {
     return view('home');
@@ -89,4 +89,4 @@ Route::resource('matricula', MatriculasController::class);
 Route::get('/matricula_home/{id}', [MatriculasController::class, 'homeMatricula']);
 Route::get('/matricula_adicionar/{id}', [MatriculasController::class, 'adicionar']);
 
-Route::resource('matricula_turmas', MatriculaTurma::class);
+Route::resource('matricula_turmas', MatriculaTurmaController::class);

@@ -19,9 +19,26 @@
         @endif
 
         <hr>
-            <h4>Aluno(a): {{$aluno->nome}}</h4>
-            <h4>Matrícula: {{$matricula->id}}</h4>
-            <h5>Cód. Aluno: {{$aluno->id}}</h5>
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <h4>Aluno(a): {{$aluno->nome}}</h4>
+                <h4>Matrícula: {{$matricula->id}}</h4>
+                <h5>Código: {{$aluno->id}}</h5>
+            </div>
+    
+            <div class="col-md-4">
+    
+                <a href="{{'/matricula_adicionar/'.$aluno->id}}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Nova Matrícula </a>
+                <button onclick="(print())" class="btn $teal-300">Imprimir</button>
+    
+            </div>
+    
+        </div>
+
         <hr>
 
         <div class="container">
@@ -41,7 +58,7 @@
 
 
                 <div class="col-sm-2">
-                    <a href="http://" class="link-card">
+                    <a href="{{route('matricula_turmas.show', $matricula->id)}}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Turmas</h2>

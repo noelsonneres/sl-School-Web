@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MatriculaTurma;
 use Illuminate\Http\Request;
 
 class MatriculaTurmaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    const PATH = 'screens.alunos.turma.';
+    private $turmas;
+
+    public function __constructor(){
+      $this->turmas = new MatriculaTurma();
+    }
+
     public function index()
     {
         //
@@ -30,12 +36,10 @@ class MatriculaTurmaController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+        return view(self::PATH.'matriculaTurmaShow');
     }
 
     /**
