@@ -20,7 +20,7 @@ use App\Http\Controllers\MeiosPagamentosController;
 use App\Http\Controllers\ConfigMensalidadesController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\DisciplinasController;
-use App\Http\Controllers\ProfessoresController; 
+use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\ProfessorDisciplinaController;
 use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
@@ -90,3 +90,5 @@ Route::get('/matricula_home/{id}', [MatriculasController::class, 'homeMatricula'
 Route::get('/matricula_adicionar/{id}', [MatriculasController::class, 'adicionar']);
 
 Route::resource('matricula_turmas', MatriculaTurmaController::class);
+Route::get('/turmas_matricula_lista/{aluno}/{matricula}', [MatriculaTurmaController::class, 'listaTurmas']);
+Route::get('/turmas_matriculas_inserir/{matricula}', [MatriculaTurmaController::class, 'inserir']);

@@ -9,7 +9,7 @@
         </div>
 
         @if (isset($msg))
-            <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+            <div class="alert alert-warning alert-dismissible fade show msg d-flex
 							justify-content-between align-items-end mb-3"
                 role="alert" style="text-align: center;">
                 <h5>{{ $msg }} </h5>
@@ -27,16 +27,16 @@
                 <h4>Matrícula: {{$matricula->id}}</h4>
                 <h5>Código: {{$aluno->id}}</h5>
             </div>
-    
+
             <div class="col-md-4">
-    
+
                 <a href="{{'/matricula_adicionar/'.$aluno->id}}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
                     Nova Matrícula </a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
-    
+
             </div>
-    
+
         </div>
 
         <hr>
@@ -58,7 +58,7 @@
 
 
                 <div class="col-sm-2">
-                    <a href="{{route('matricula_turmas.show', $matricula->id)}}" class="link-card">
+                    <a href="{{'/turmas_matricula_lista/'.$matricula->alunos_id.'/'.$matricula->id}}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Turmas</h2>
