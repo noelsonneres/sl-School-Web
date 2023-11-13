@@ -12,6 +12,18 @@ use Illuminate\Http\Request;
 class MatriculaTurmaController extends Controller
 {
 
+    private function verificar(string $matriculaID, string $turmaID)
+    {
+
+        $turma = MatriculaTurma::where('matriculas_id', $matriculaID)->where('turmas_id', $turmaID)->get();
+
+        if ($turma->count() >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const PATH = 'screens.alunos.turma.';
     private $turmas;
 
@@ -25,9 +37,7 @@ class MatriculaTurmaController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
@@ -55,25 +65,37 @@ class MatriculaTurmaController extends Controller
         $aluno = Aluno::find($alunoID)->first();
         $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
 
-        try {
+        $msg = "";
 
-            $turma->matriculas_id = $request->input('matricula');
-            $turma->turmas_id = $request->input('turma');
+        if ($this->verificar($request->input('matricula'), $request->input('turma')) == false) {
 
-            $turma->save();
+            try {
 
-            $turma = MatriculaTurma::with('turmas')
-                    ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+                $turma->matriculas_id = $request->input('matricula');
+                $turma->turmas_id = $request->input('turma');
 
-            return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('matricula', $matriculaID)
-                ->with('msg', 'Turma adicionada na matrícula com suesso!!!');
+                $turma->save();
 
-        } catch (\Throwable $th) {
-            return $th;
+                $msg = 'Turma adicionada na matrícula com sucesso!!!';
+
+            } catch (\Throwable $th) {
+
+                $msg = 'ERRO! Não foi possível salvar as informações no banco de dados!';
+                
+            }
+        } else {
+
+            $msg = 'ERRO! A turma ja está adicionada para a matrícula!';
         }
+
+        $turma = MatriculaTurma::with('turmas')
+            ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+
+        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
+            ->with('aluno', $aluno)
+            ->with('responsavel', $responsavel)
+            ->with('matricula', $matriculaID)
+            ->with('msg', $msg);
     }
 
 
@@ -83,25 +105,16 @@ class MatriculaTurmaController extends Controller
         return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
@@ -110,10 +123,11 @@ class MatriculaTurmaController extends Controller
     public function listaTurmas(string $alunoID, string $matriculaID)
     {
 
-        $aluno = Aluno::find($alunoID)->first();
+        $aluno = Aluno::find($alunoID);
         $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
         $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
-                    ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+            ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
 
         return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
             ->with('aluno', $aluno)
@@ -123,13 +137,6 @@ class MatriculaTurmaController extends Controller
 
     public function inserir(Request $request, string $matriculaID)
     {
-
-        // $turma = $this->turmas;
-
-        // $request->validate([
-        //     'turma' => 'required',
-        //     'matricula' => 'required',
-        // ]);
 
         $listaTurmas = Turma::paginate();
 
@@ -142,10 +149,10 @@ class MatriculaTurmaController extends Controller
         $turma = MatriculaTurma::find($matriculaTurmaID);
         $msg = "";
 
-        if($turma->count() >= 1){
-           $turma->delete();
+        if ($turma->count() >= 1) {
+            $turma->delete();
             $msg = "Turma removida com sucesso da matrícula!!!";
-        }else{
+        } else {
             $msg = "ERRO! Não foi possível remover a turma da matrícula";
         }
 
@@ -162,6 +169,5 @@ class MatriculaTurmaController extends Controller
             ->with('responsavel', $responsavel)
             ->with('matricula', $matriculaID)
             ->with('msg', $msg);
-
     }
 }

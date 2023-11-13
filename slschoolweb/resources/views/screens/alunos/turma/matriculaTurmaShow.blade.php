@@ -31,7 +31,7 @@
         <div class="col-4">
             <a href="{{('/turmas_matriculas_inserir/'.$matricula)}}" class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
-                Novo </a>
+                Adicionar turma </a>
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
         </div>
 

@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-11-11T19:27:10.743Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="Ew4toZFhpZNs4KHWXD6M" version="22.0.3" type="device">
+<mxfile host="Electron" modified="2023-11-13T23:28:29.198Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="MB1iqtsoGXz9ylTxnfHs" version="22.0.3" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
-    <mxGraphModel dx="1434" dy="839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="989" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -165,7 +165,7 @@
         <mxCell id="nvbjZyCiDaDG4opXZh0n-64" value="Mensalidades" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="110" y="2790" width="160" height="280" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-65" value="id&#xa;id_responsave&#xa;id_matricula&#xa;valor_parcela&#xa;vencimento&#xa;juros&#xa;multa&#xa;desconto&#xa;acrescimo&#xa;valor_pago&#xa;data_pagamento&#xa;pago&#xa;responsavel_pagamento&#xa;funcionario&#xa;observacao" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-64" vertex="1">
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-65" value="id&#xa;responsavels_id&#xa;matriculas_id&#xa;valor_parcela&#xa;vencimento&#xa;juros&#xa;multa&#xa;desconto&#xa;acrescimo&#xa;valor_pago&#xa;data_pagamento&#xa;pago&#xa;responsavel_pagamento&#xa;funcionario&#xa;observacao" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-64" vertex="1">
           <mxGeometry y="30" width="160" height="250" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nvbjZyCiDaDG4opXZh0n-47" target="nvbjZyCiDaDG4opXZh0n-64" edge="1">
