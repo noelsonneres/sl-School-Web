@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
+use App\Models\Matricula;
 use App\Models\MatriculaTurma;
 use App\Models\Responsavel;
 use App\Models\Turma;
@@ -32,19 +33,54 @@ class MatriculaTurmaController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $turma = new MatriculaTurma();
+
+        $request->validate(
+            [
+                'matricula' => 'required',
+                'turma' => 'required',
+            ],
+            [
+                'matricula.required' => 'Selecione uma matrícula antes de continuar',
+                'turma.required' => 'Selecione uma turma antes de continuar',
+            ]
+        );
+
+        $matriculaID = $request->input('matricula');
+        $alunoID = Matricula::find($matriculaID)->alunos_id;
+
+        $aluno = Aluno::find($alunoID)->first();
+        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+        try {
+
+            $turma->matriculas_id = $request->input('matricula');
+            $turma->turmas_id = $request->input('turma');
+
+            $turma->save();
+
+            $turma = MatriculaTurma::with('turmas')
+                    ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+
+            return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel)
+                ->with('matricula', $matriculaID)
+                ->with('msg', 'Turma adicionada na matrícula com suesso!!!');
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 
 
     public function show(string $id)
     {
         $turma = MatriculaTurma::with('turmas')->where('matriculas_id', $id);
-        return view(self::PATH . 'matriculaTurmaShow', ['turmas'=>$turma]);
+        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma]);
     }
 
     /**
@@ -71,28 +107,23 @@ class MatriculaTurmaController extends Controller
         //
     }
 
-    public function listaTurmas(string $alunoID, string $matriculaID){
+    public function listaTurmas(string $alunoID, string $matriculaID)
+    {
 
         $aluno = Aluno::find($alunoID)->first();
         $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
-        $turma = MatriculaTurma::where('matriculas_id', $matriculaID)->paginate();
+        $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
+                    ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
 
-        if($turma->count() >= 1){
-//            return view(self::PATH.'matriculaTurmaShow', ['turmas'=>$turma])
-//                            ->with('aluno', $aluno)
-//                            ->with('responsavel', $responsavel);
-        }else{
-            return view(self::PATH.'matriculaTurmaShow', ['turmas'=>$turma])
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('matricula', $matriculaID);
-        }
-
-
+        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
+            ->with('aluno', $aluno)
+            ->with('responsavel', $responsavel)
+            ->with('matricula', $matriculaID);
     }
 
-    public function inserir(Request $request, string $matriculaID){
-       
+    public function inserir(Request $request, string $matriculaID)
+    {
+
         // $turma = $this->turmas;
 
         // $request->validate([
@@ -101,15 +132,36 @@ class MatriculaTurmaController extends Controller
         // ]);
 
         $listaTurmas = Turma::paginate();
-        
-        return view(self::PATH.'matriculaTurmasCreate', ['matricula'=>$matriculaID])
-                    ->with('listaTurmas', $listaTurmas);
+
+        return view(self::PATH . 'matriculaTurmasCreate', ['matricula' => $matriculaID])
+            ->with('listaTurmas', $listaTurmas);
     }
 
-    public function adicionar(Request $request){
+    public function remover(string $matriculaID, string $matriculaTurmaID)
+    {
+        $turma = MatriculaTurma::find($matriculaTurmaID);
+        $msg = "";
 
-    // CONTINUAR DESTA PARTE
+        if($turma->count() >= 1){
+           $turma->delete();
+            $msg = "Turma removida com sucesso da matrícula!!!";
+        }else{
+            $msg = "ERRO! Não foi possível remover a turma da matrícula";
+        }
+
+        $alunoID = Matricula::find($matriculaID)->alunos_id;
+
+        $aluno = Aluno::find($alunoID)->first();
+        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+        $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
+            ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+
+        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
+            ->with('aluno', $aluno)
+            ->with('responsavel', $responsavel)
+            ->with('matricula', $matriculaID)
+            ->with('msg', $msg);
 
     }
-
 }

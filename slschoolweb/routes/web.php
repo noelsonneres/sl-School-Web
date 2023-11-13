@@ -92,3 +92,4 @@ Route::get('/matricula_adicionar/{id}', [MatriculasController::class, 'adicionar
 Route::resource('matricula_turmas', MatriculaTurmaController::class);
 Route::get('/turmas_matricula_lista/{aluno}/{matricula}', [MatriculaTurmaController::class, 'listaTurmas']);
 Route::get('/turmas_matriculas_inserir/{matricula}', [MatriculaTurmaController::class, 'inserir']);
+Route::delete('/turmas_matriculas_remover/{matricula}/{turma}', [MatriculaTurmaController::class, 'remover']);

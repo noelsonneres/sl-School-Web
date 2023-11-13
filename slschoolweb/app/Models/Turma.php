@@ -13,6 +13,15 @@ class Turma extends Model
 {
     use HasFactory;
 
+    public function dias()
+    {
+        return $this->belongsTo(CadastroDia::class, 'cadastro_dias_id');
+    }
+
+    public function horarios(){
+        return $this->belongsTo(CadastroHorario::class, 'cadastro_horarios_id');
+    }
+
     public function cadastroDias(){
         return $this->belongsTo(CadastroDia::class, 'cadastro_dias_id');
     }

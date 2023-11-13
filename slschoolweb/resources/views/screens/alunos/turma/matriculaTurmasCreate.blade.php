@@ -82,11 +82,10 @@
 
                                 <div class="col-3">
 
-                                    <form method="POST" class="delete-form"
-                                        action="{{ route('matricula_turmas.destroy', $turma->id) }}">
+                                    <form method="POST" action="{{ route('matricula_turmas.store') }}">
+                                        @csrf             
                                         <input type="hidden" name="matricula" id="matricula" value="{{$matricula}}">
-                                        <input type="hidden" name="turma" id="turma" value="{{$turma->id}}">
-                                        @csrf                                        
+                                        <input type="hidden" name="turma" id="turma" value="{{$turma->id}}">                           
                                         <button type="submit" class="btn btn-success btn">Adicionar</button>
                                     </form>
 
@@ -103,12 +102,7 @@
             <div class="container-fluid pl-5 d-flex justify-content-center">
                 {{ $listaTurmas->links('pagination::pagination') }}
             </div>
-
-
         </div>
-
-
-
     </div>
 
 @endsection

@@ -11,7 +11,7 @@ class MatriculaTurma extends Model
     use HasFactory;
 
     public function turmas(){
-        return $this->belongsToMany(Turma::class, 'turmas_id');
+        return $this->belongsTo(Turma::class, 'turmas_id');
     }
 
 }

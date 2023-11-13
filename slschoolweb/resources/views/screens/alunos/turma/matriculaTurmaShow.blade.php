@@ -8,9 +8,9 @@
     <div style="background-color: #1976D2;">
         <h3 class="text-center text-white p-3">Turmas do aluno</h3>
     </div>
-    
+
     @if(isset($msg))
-    <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+    <div class="alert alert-warning alert-dismissible fade show msg d-flex
 							justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
         <h5>{{$msg}} </h5>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -29,13 +29,11 @@
     <div class="row">
 
         <div class="col-4">
-
             <a href="{{('/turmas_matriculas_inserir/'.$matricula)}}" class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
                 Novo </a>
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
-
-        </div>      
+        </div>
 
     </div>
 
@@ -47,7 +45,6 @@
         <table class="table p-1">
             <thead>
                 <tr>
-                    <th scope="col">Matrícula</th>
                     <th scope="col">Turma</th>
                     <th scope="col">Dias</th>
                     <th scope="col">Horários</th>
@@ -59,26 +56,17 @@
                 @foreach ($turmas as $turma)
 
                 <tr>
-                    <td>{{$matricula->id}} </td>
-                    <td>{{$matricula->cursos->curso}} </td>
-                    <td>{{$matricula->data_inicio}} </td>
-                    <td>{{$matricula->data_termino}} </td>
+                    <td>{{$turma->turmas->turma}} </td>
+                    <td>{{$turma->turmas->dias->dia1}} - {{$turma->turmas->dias->dia2}} </td>
+                    <td>{{$turma->turmas->horarios->entrada}} - {{$turma->turmas->horarios->saida}} </td>
 
                     <td>
 
-                            <div class="row">                          
-
-                                <div class="col-2">
-                                    <a href="{{ route('matricula.show', $matricula->id) }}" 
-                                           title="Visualizar informações do matricula" class="btn btn-primary btn-sm">
-                                           <i class="bi bi-card-list"></i>
-                                    </a>
-                                </div>
-
+                            <div class="row">
                                 <div class="col-3">
 
                                     <form method="POST" class="delete-form"
-                                        action="{{ route('matricula.destroy', $matricula->id) }}">
+                                        action="{{('/turmas_matriculas_remover/'.$matricula.'/'.$turma->id) }}">
                                         @csrf
                                         {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                         @method('DELETE')
@@ -105,8 +93,8 @@
                     </td>
                 </tr>
 
-                @endforeach                
-               
+                @endforeach
+
             </tbody>
         </table>
 
