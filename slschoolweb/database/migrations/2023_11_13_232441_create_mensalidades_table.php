@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('responsavels_id');
             $table->unsignedBigInteger('alunos_id');
             $table->unsignedBigInteger('matriculas_id');
+            $table->integer('qtde_mensalidades');
             $table->float('valor_parcela');
             $table->date('vencimento');
             $table->float('juros');

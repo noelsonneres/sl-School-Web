@@ -9,6 +9,9 @@ use App\Models\Consultor;
 use App\Models\Curso;
 use App\Models\Responsavel;
 
+use App\Models\Mensalidade;
+use Ramsey\Uuid\Type\Integer;
+
 class MatriculasController extends Controller
 {
 
@@ -310,5 +313,32 @@ class MatriculasController extends Controller
             ->with('responsavel', $responsavel->first())
             ->with('cursos', $listaCursos)
             ->with('consultores', $listaConsultores);
+    }
+
+    public function gerarParcelas(
+        string $alunoID,
+        string $responsavelID,
+        string $matriculaID,
+        Integer $qtdeParcela,
+        float $valorParcela,
+        string $vencimento
+    ) {
+
+        $mensalidade = new Mensalidade();
+
+        $dataVencimento = $vencimento;
+
+        for($i=0; $i<$qtdeParcela+1; $i++){
+
+            $mensalidade->responsavels_id = $responsavelID;
+            $mensalidade->alunos_id = $alunoID;
+            $mensalidade->matriculas_id = $matriculaID;
+            $mensalidade->qtde_mensalidades = $qtdeParcela;
+            $mensalidade->valor_parcela = $valorParcela;
+
+        //CONTINUAR DESTA PARTE
+
+        }
+
     }
 }

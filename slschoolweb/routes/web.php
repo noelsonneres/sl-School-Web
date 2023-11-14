@@ -32,6 +32,7 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\ResponsavelController;
 use App\Http\Controllers\MatriculaTurmaController;
+use App\Http\Controllers\MensalidadesController;
 
 Route::get('/', function () {
     return view('home');
@@ -93,3 +94,6 @@ Route::resource('matricula_turmas', MatriculaTurmaController::class);
 Route::get('/turmas_matricula_lista/{aluno}/{matricula}', [MatriculaTurmaController::class, 'listaTurmas']);
 Route::get('/turmas_matriculas_inserir/{matricula}', [MatriculaTurmaController::class, 'inserir']);
 Route::delete('/turmas_matriculas_remover/{matricula}/{turma}', [MatriculaTurmaController::class, 'remover']);
+
+Route::resource('mensalidades', MensalidadesController::class);
+Route::get('/mensalidades_gerar{fields}',[MensalidadesController::class, 'gerarMensalidades']);

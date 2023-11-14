@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Rfc4122\FieldsInterface;
 
-class MnealidadesController extends Controller
+class MensalidadesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -61,4 +62,11 @@ class MnealidadesController extends Controller
     {
         //
     }
+
+    public function gerarMensalidades($field){
+
+        dd($field);
+
+    }
+
 }
