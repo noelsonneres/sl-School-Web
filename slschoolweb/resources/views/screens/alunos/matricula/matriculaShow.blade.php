@@ -30,41 +30,12 @@
 
         <div class="col-4">
 
-            <a href="{{route('matricula.create')}}" class="btn btn-primary">
+            <a href="{{'/matricula_adicionar/'.$aluno->id}}"class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
-                Novo </a>
+                Nova Matrícula </a>
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
-        </div>
-
-        <div class="col-8">
-
-            <form action="/matricula_pesquisar" method="get">
-                @csrf
-
-                <div class="row">
-
-                    <div class="col-md-3">
-                        <select class="form-control" name="opt" id="opt">
-                            <option value="id">Código</option>
-                            <option value="nome">Nome</option>
-                            <option value="apelido">Apelido</option>
-                            <option value="cpf">CPF</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" name="find" id="find" placeholder="Digite o que deseja buscar">
-                    </div>
-
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
-                    </div>
-
-                </div>
-
-            </form>
-        </div>       
+        </div>     
 
     </div>
 

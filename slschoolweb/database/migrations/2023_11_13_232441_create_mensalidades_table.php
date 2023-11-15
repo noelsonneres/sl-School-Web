@@ -23,16 +23,16 @@ return new class extends Migration
             $table->integer('qtde_mensalidades');
             $table->float('valor_parcela');
             $table->date('vencimento');
-            $table->float('juros');
-            $table->float('multa');
-            $table->float('desconto');
-            $table->float('acrescimo');
-            $table->float('valor_pago');
-            $table->date('data_pagamento');
-            $table->string('pago');
-            $table->string(' responsavel_pagamento');
-            $table->integer('funcionario');
-            $table->string('observacao');
+            $table->float('juros')->nullable();
+            $table->float('multa')->nullable();
+            $table->float('desconto')->nullable();
+            $table->float('acrescimo')->nullable();
+            $table->float('valor_pago')->nullable();
+            $table->date('data_pagamento')->nullable();
+            $table->string('pago')->nullable();
+            $table->string(' responsavel_pagamento')->nullable();
+            $table->integer('funcionario')->nullable();
+            $table->string('observacao')->nullable();
 
             $table->foreign('responsavels_id')->references('id')->on('responsavels');
 

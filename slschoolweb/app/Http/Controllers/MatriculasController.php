@@ -10,6 +10,7 @@ use App\Models\Curso;
 use App\Models\Responsavel;
 
 use App\Models\Mensalidade;
+use DateTime;
 use Ramsey\Uuid\Type\Integer;
 
 class MatriculasController extends Controller
@@ -97,9 +98,32 @@ class MatriculasController extends Controller
             $matricula->save();
 
             $aluno = Aluno::find($alunoID);
-            $responsavel = Responsavel::where('alunos_id', $alunoID);
+            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
 
-            // $matricula = $this->matricula->where('alunos_id', $alunoID);
+            $vencimento = new DateTime($request->input('vencimento'));
+            $vencimentoMatricula = new DateTime($request->input('vencimentoMatricula'));
+
+            if (!empty($request->input('vencimentoMatricula')) 
+                    && !empty($request->input('valorMatricula'))) {
+                $this->gerarParcelas(
+                    $aluno->id,
+                    $responsavel->id,
+                    $matricula->id,
+                    1,
+                    $request->input('valorMatricula'),
+                    $vencimentoMatricula,
+                    'Parcela referente à matrícula do aluno'
+                );
+            }            
+
+            $this->gerarParcelas(
+                $aluno->id,
+                $responsavel->id,
+                $matricula->id,
+                $request->input('qtdeParcelas'),
+                $request->input('valorPorParcela'),
+                $vencimento
+            );
 
             return view(self::PATH . 'matriculaHome')
                 ->with('aluno', $aluno)
@@ -264,8 +288,6 @@ class MatriculasController extends Controller
         }
     }
 
-    //PROCESSO PARA REDIRECIONAR DEPENDENDO DA QUANTIDADE DE MATRÍCULAS DO ALUNO
-
     public function homeMatricula(string $idAluno)
     {
 
@@ -319,16 +341,15 @@ class MatriculasController extends Controller
         string $alunoID,
         string $responsavelID,
         string $matriculaID,
-        Integer $qtdeParcela,
+        int $qtdeParcela,
         float $valorParcela,
-        string $vencimento
+        DateTime $vencimento,
+        string $obs=" "
     ) {
 
-        $mensalidade = new Mensalidade();
+        for ($i = 0; $i < $qtdeParcela; $i++) {
 
-        $dataVencimento = $vencimento;
-
-        for($i=0; $i<$qtdeParcela+1; $i++){
+            $mensalidade = new Mensalidade();
 
             $mensalidade->responsavels_id = $responsavelID;
             $mensalidade->alunos_id = $alunoID;
@@ -336,9 +357,14 @@ class MatriculasController extends Controller
             $mensalidade->qtde_mensalidades = $qtdeParcela;
             $mensalidade->valor_parcela = $valorParcela;
 
-        //CONTINUAR DESTA PARTE
+            $dataVencimento = clone $vencimento;
+            $dataVencimento->modify('+' . $i . ' months');
+            $mensalidade->vencimento = $dataVencimento;
 
+            $mensalidade->pago = 'nao';
+            $mensalidade->observacao = $obs;
+
+            $mensalidade->save();
         }
-
     }
 }

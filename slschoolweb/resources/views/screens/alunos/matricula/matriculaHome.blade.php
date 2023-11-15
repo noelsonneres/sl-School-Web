@@ -23,17 +23,16 @@
         <div class="row">
 
             <div class="col-md-8">
-                <h4>Aluno(a): {{$aluno->nome}}</h4>
-                <h4>Matrícula: {{$matricula->id}}</h4>
-                <h5>Código: {{$aluno->id}}</h5>
+                <h4>Aluno(a): {{ $aluno->nome }}</h4>
+                <h4>Matrícula: {{ $matricula->id }}</h4>
+                <h5>Código: {{ $aluno->id }}</h5>
             </div>
 
             <div class="col-md-4">
 
-                <a href="{{'/matricula_adicionar/'.$aluno->id}}" class="btn btn-primary">
+                <a href="{{ '/matricula_adicionar/' . $aluno->id }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
                     Nova Matrícula </a>
-                <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
             </div>
 
@@ -46,7 +45,7 @@
             <div class="row">
 
                 <div class="col-sm-2">
-                    <a href="{{route('matricula.edit', $matricula->id)}}" class="link-card">
+                    <a href="{{ route('matricula.edit', $matricula->id) }}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 156, 14); font-weight: 500;">Matricula</h2>
@@ -58,7 +57,7 @@
 
 
                 <div class="col-sm-2">
-                    <a href="{{'/turmas_matricula_lista/'.$matricula->alunos_id.'/'.$matricula->id}}" class="link-card">
+                    <a href="{{ '/turmas_matricula_lista/' . $matricula->alunos_id . '/' . $matricula->id }}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Turmas</h2>
@@ -70,12 +69,14 @@
 
 
                 <div class="col-sm-2">
-                    <div class="card" style="display: flex; justify-content: center; align-items: center;">
-                        <div class="card-body text-center">
-                            <h2 style="color:color: rgb(86, 6, 74); font-weight: 500;">Mensalidades</h2>
-                            <i class="bi bi-currency-dollar" style="font-size: 70px; color: rgb(86, 6, 74);"></i>
+                    <a href="{{ route('mensalidades.show', $matricula->id) }}">
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 style="color:color: rgb(86, 6, 74); font-weight: 500;">Mensalidades</h2>
+                                <i class="bi bi-currency-dollar" style="font-size: 70px; color: rgb(86, 6, 74);"></i>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
 

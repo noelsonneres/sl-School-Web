@@ -97,3 +97,6 @@ Route::delete('/turmas_matriculas_remover/{matricula}/{turma}', [MatriculaTurmaC
 
 Route::resource('mensalidades', MensalidadesController::class);
 Route::get('/mensalidades_gerar{fields}',[MensalidadesController::class, 'gerarMensalidades']);
+
+Route::resource('mensalidades', MensalidadesController::class);
+Route::get('/selecionar_pagameto/{mensalidade}/{matricula}', [MensalidadesController::class, 'selecionarPagamento']);
