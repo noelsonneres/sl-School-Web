@@ -65,7 +65,8 @@
                         <div class="col-md-4 mb-3">
                             <label for="valor" class="form-label lblCaption">Valor da parcela</label>
                             <input type="text" class="form-control" id="valor" name="valor" readonly
-                                value="R$ {{ number_format($mensalidade->valor_parcela, '2', ',', '.') }}">
+                                value="R$ {{ number_format($mensalidade->valor_parcela, '2', ',', '.') }}"
+                                style="color: red">
                         </div>
 
                     </div>
@@ -81,26 +82,80 @@
                         <div class="col-md-3 mb-3">
                             <label for="juros" class="form-label lblCaption">Juros ({{ $juros['taxaJuros'] }}%)</label>
                             <input type="text" class="form-control" id="juros" name="juros" readonly
-                                value="R$ {{ number_format($juros['valorJuros'], '2', ',', '.') }}">
+                                value="R$ {{ number_format($juros['valorJuros'], '2', ',', '.') }}"
+                                style="color: red">
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <label for="multa" class="form-label lblCaption">Multa</label>
                             <input type="text" class="form-control" id="multa" name="multa" readonly
-                                value="R$ {{ number_format($juros['multa'], '2', ',', '.') }}">
+                                value="R$ {{ number_format($juros['multa'], '2', ',', '.') }}"
+                                style="color: red">
                         </div>
 
+                        <div class="col-md-3 mb-3">
+                            <label for="desconto" class="form-label lblCaption">Desconto</label>
+                            <input type="number" step="0.01" min="0.01" class="form-control" id="desconto"
+                                name="desconto">
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="acrescimo" class="form-label lblCaption">Acréscimo</label>
+                            <input type="number" step="0.01" min="0.01" class="form-control" id="acrescimo"
+                                name="acrescimo">
+                        </div>
 
                     </div>
+
+                    <div class="row">
+
+                        <div class="col-md-2 mb-b">
+                            <label for="valorPago" class="form-label lblCaption">Valor pago (R$)</label>
+                            <input type="number" class="form-control" step="0.01" min="0.01"  
+                                name="valorPago" id="valorPago" style="color: red">
+                        </div>
+
+                        <div class="col-md-2 mb-3">
+                            <label for="dataPagamento" class="form-label lblCaption">Data de pagamento</label>
+                            <input type="date" class="form-control" name="dataPagamento" id="dataPagamento"
+                                style="color: red">
+                        </div>
+
+                        <div class="col-md-2 mb-3">
+                            <label for="pago" class="form-label lblCaption">Pago</label>
+                            <select class="form-control" name="pago" id="pago">
+                                <option value="">Selecione uma opção</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="responsavelPgto" class="form-label lblCaption">Responsável pelo pagamento</label>
+                            <input type="text" class="form-control" name="responsavelPgto" id="responsavelPgto">
+                        </div>                   
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="meioPagamento" class="form-label lblCaption">Meio de pagamento</label>
+                        <select class="form-control" name="meioPagamento" id="meioPagamento" style="color: red">
+                            <option value="">Selecione uma forma de pagamento</option>
+
+                            @foreach ($formas_pagamentos as $forma)
+                                <option value="{{$forma->meio_pagamento}}">{{$forma->meio_pagamento}}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="obs" class="form-label lblCaption">Observação</label>
+                        <input type="text" class="form-control" name="obs" id="obs" 
+                            value="{{$mensalidade->observacao}}" maxlength="255">
+                    </div>
+
                 </div>
-                {{-- 
-            <div class="mb-3">
-                <label for="curso" class="form-label lblCaption">Curso</label>
-                <input type="text" class="form-control" name="curso" id="curso"
-                     placeholder="Digite um curso para o professor" maxlength="100" autofocus required>
-            </div> --}}
-
-
 
 
                 <div>

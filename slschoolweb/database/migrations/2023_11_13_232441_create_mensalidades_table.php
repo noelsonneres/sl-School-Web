@@ -30,7 +30,8 @@ return new class extends Migration
             $table->float('valor_pago')->nullable();
             $table->date('data_pagamento')->nullable();
             $table->string('pago')->nullable();
-            $table->string(' responsavel_pagamento')->nullable();
+            $table->string('responsavel_pagamento')->nullable();
+            $table->string('forma_pagamento')->nullable();
             $table->integer('funcionario')->nullable();
             $table->string('observacao')->nullable();
 
@@ -49,8 +50,6 @@ return new class extends Migration
                         ->constrained()
                         ->onUpdate('cascade')
                         ->onDelete('cascade');
-    
-
 
         });
     }

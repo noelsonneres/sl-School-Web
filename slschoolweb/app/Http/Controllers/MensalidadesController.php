@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ConfigMensalidade;
 use App\Models\Matricula;
+use App\Models\MeiosPagamento;
 use App\Models\Mensalidade;
 use DateTime;
 use Illuminate\Http\Request;
@@ -87,6 +88,8 @@ class MensalidadesController extends Controller
         $matricula = Matricula::find($matricula);
         $aluno = $matricula->alunos()->first();
 
+        $formaPagamento = MeiosPagamento::all();
+
         $vencimento = new DateTime($mensalidade->vencimento);
 
         $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
@@ -96,7 +99,8 @@ class MensalidadesController extends Controller
         return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
             ->with('matricula', $matricula)
             ->with('aluno', $aluno)
-            ->with('juros', $juros);
+            ->with('juros', $juros)
+            ->with('formas_pagamentos', $formaPagamento);
     }
 
     public function gerarMensalidades($field)
