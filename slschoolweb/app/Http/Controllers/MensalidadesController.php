@@ -91,11 +91,12 @@ class MensalidadesController extends Controller
 
         $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
 
-        dd($juros);
+        // dd($juros);
 
         return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
             ->with('matricula', $matricula)
-            ->with('aluno', $aluno);
+            ->with('aluno', $aluno)
+            ->with('juros', $juros);
     }
 
     public function gerarMensalidades($field)
