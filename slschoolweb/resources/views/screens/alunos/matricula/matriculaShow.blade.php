@@ -62,8 +62,8 @@
                 <tr>
                     <td>{{$matricula->id}} </td>
                     <td>{{ Str::substr($matricula->cursos->curso, 0, 30)}} </td>
-                    <td>{{$matricula->data_inicio}} </td>
-                    <td>{{$matricula->data_termino}} </td>
+                    <td>{{date('d/m/Y', strtotime($matricula->data_inicio))}} </td>
+                    <td>{{date('d/m/Y', strtotime($matricula->data_termino))}} </td>
                     <td>{{$matricula->status}} </td>
 
                     <td>

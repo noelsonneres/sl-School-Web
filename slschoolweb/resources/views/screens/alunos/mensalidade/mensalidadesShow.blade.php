@@ -61,8 +61,10 @@
                 <tr>
                     <td>{{$mensalidade->id}} </td>
                     <td>R$ {{number_format($mensalidade->valor_parcela, '2', ',', '.')}} </td>
-                    <td>{{$mensalidade->vencimento}} </td>
-                    <td>{{$mensalidade->data_pagamento}} </td>
+                    <td>{{date('d/m/Y', strtotime($mensalidade->vencimento))}} </td>
+                    <td>@if ($mensalidade->data_pagamento <> null)
+                        {{date('d/m/Y', strtotime($mensalidade->data_pagamento))}}
+                    @endif </td>
                     <td>{{$mensalidade->pago}} </td>
 
                     <td>

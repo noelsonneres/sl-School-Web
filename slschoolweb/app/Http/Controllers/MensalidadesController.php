@@ -138,7 +138,7 @@ class MensalidadesController extends Controller
             $resultado = ['total'=>$totalAPagar, 'valorJuros'=>$valorJuros, 'taxaJuros'=>$juros, 'multa'=>$multa ];
 
         }else{
-            $resultado = ['total'=>$totalAPagar, 'valorJuros'=>0, 'taxaJuros'=>$juros, 'multa'=>$multa ];
+            $resultado = ['total'=>$totalAPagar, 'valorJuros'=>0, 'taxaJuros'=>0, 'multa'=>0 ];
         }
 
         return $resultado;

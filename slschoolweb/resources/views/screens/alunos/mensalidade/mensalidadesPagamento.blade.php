@@ -59,7 +59,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="vencimento" class="form-label lblCaption">Vencimento</label>
                             <input type="text" class="form-control" id="vencimento" name="vencimento" readonly
-                                value="{{ $mensalidade->vencimento }}">
+                                value="{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}">
                         </div>
 
                         <div class="col-md-4 mb-3">
@@ -96,13 +96,13 @@
                         <div class="col-md-3 mb-3">
                             <label for="desconto" class="form-label lblCaption">Desconto</label>
                             <input type="number" step="0.01" min="0.01" class="form-control" id="desconto"
-                                name="desconto">
+                                name="desconto" onchange="calcular()" value="0">
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <label for="acrescimo" class="form-label lblCaption">Acréscimo</label>
                             <input type="number" step="0.01" min="0.01" class="form-control" id="acrescimo"
-                                name="acrescimo">
+                                name="acrescimo" onchange="calcular()" onblur="calcular()"  value="0">
                         </div>
 
                     </div>
@@ -112,7 +112,9 @@
                         <div class="col-md-2 mb-b">
                             <label for="valorPago" class="form-label lblCaption">Valor pago (R$)</label>
                             <input type="number" class="form-control" step="0.01" min="0.01"  
-                                name="valorPago" id="valorPago" style="color: red">
+                                name="valorPago" id="valorPago" style="color: red"
+                                value="{{$mensalidade->valor_parcela + $juros['multa'] + $juros['valorJuros']}}" 
+                                    oninput="calcular()">
                         </div>
 
                         <div class="col-md-2 mb-3">
@@ -157,7 +159,6 @@
 
                 </div>
 
-
                 <div>
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-floppy2"></i>
@@ -177,15 +178,21 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function calcular() {
-            var qtdeParcelaInput = document.getElementById("qtdeParcelas");
-            var ValorParceladoInput = document.getElementById("valorParcelado");
+            var valorParcelaInput = document.getElementById("valor");
+            var descontoInput = document.getElementById("desconto");
+            var acrescimoInput = document.getElementById("acrescimo");
 
-            var qtdeParcela = parseFloat(qtdeParcelaInput.value);
-            var ValorParcelado = parseFloat(ValorParceladoInput.value);
+            var valorParcela = {{$mensalidade->valor_parcela}};
+            var desconto = parseFloat(descontoInput.value);
+            var acrescimo = parseFloat(acrescimoInput.value);
 
-            if (!isNaN(qtdeParcela) && !isNaN(ValorParcelado)) {
-                var resultadoDivisao = ValorParcelado / qtdeParcela;
-                document.getElementById("valorPorParcela").value = resultadoDivisao.toFixed(2);
+            var juros = {{$juros['valorJuros']}};
+            var multa = {{$juros['multa']}};
+
+            if (!isNaN(valorParcela) && !isNaN(desconto) && !isNaN(acrescimo))
+             {
+                var resultado = (valorParcela + acrescimo + multa + juros) - desconto;
+                document.getElementById("valorPago").value = resultado.toFixed(2);
             }
         }
     </script>
