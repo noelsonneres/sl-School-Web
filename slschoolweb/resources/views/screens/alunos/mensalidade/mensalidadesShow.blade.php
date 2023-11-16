@@ -74,7 +74,7 @@
                                 <div class="col-2">
                                     <a href="{{('/selecionar_pagameto/'.$mensalidade->id.'/'.$mensalidade->matriculas_id) }}" 
                                            title="Visualizar informações do alunos" class="btn btn-success btn-sm">
-                                           <i class="bi bi-eye"></i>
+                                           <i class="bi bi-currency-dollar"></i>
                                     </a>
                                 </div>
 

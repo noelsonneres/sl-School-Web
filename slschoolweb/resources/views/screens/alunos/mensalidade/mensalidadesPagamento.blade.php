@@ -12,9 +12,10 @@
 
         <div class="card p-5">
 
-            <form action="{{ route('cursos.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('mensalidades.update', $mensalidade->id) }}" method="post" enctype="multipart/form-data">
 
                 @csrf
+                @method('PUT')
 
                 <div class="card p5">
 
@@ -95,13 +96,13 @@
 
                         <div class="col-md-3 mb-3">
                             <label for="desconto" class="form-label lblCaption">Desconto</label>
-                            <input type="number" step="0.01" min="0.01" class="form-control" id="desconto"
+                            <input type="number" step="0.01" min="0.00" class="form-control" id="desconto"
                                 name="desconto" onchange="calcular()" value="0">
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <label for="acrescimo" class="form-label lblCaption">Acréscimo</label>
-                            <input type="number" step="0.01" min="0.01" class="form-control" id="acrescimo"
+                            <input type="number" step="0.01" min="0.00" class="form-control" id="acrescimo"
                                 name="acrescimo" onchange="calcular()" onblur="calcular()"  value="0">
                         </div>
 
@@ -123,7 +124,7 @@
                                 style="color: red">
                         </div>
 
-                        <div class="col-md-2 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="pago" class="form-label lblCaption">Pago</label>
                             <select class="form-control" name="pago" id="pago">
                                 <option value="">Selecione uma opção</option>
@@ -132,7 +133,7 @@
                             </select>
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-5 mb-3">
                             <label for="responsavelPgto" class="form-label lblCaption">Responsável pelo pagamento</label>
                             <input type="text" class="form-control" name="responsavelPgto" id="responsavelPgto">
                         </div>                   
