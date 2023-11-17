@@ -69,7 +69,7 @@
 
 
                 <div class="col-sm-2">
-                    <a href="{{ route('mensalidades.show', $matricula->id) }}">
+                    <a href="{{ route('mensalidades.show', $matricula->id) }}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color:color: rgb(86, 6, 74); font-weight: 500;">Mensalidades</h2>

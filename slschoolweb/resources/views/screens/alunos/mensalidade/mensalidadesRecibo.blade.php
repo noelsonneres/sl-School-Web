@@ -1,0 +1,1 @@
+<h1>impressão do recibo de pagamento</h1>

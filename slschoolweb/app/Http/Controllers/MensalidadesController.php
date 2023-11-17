@@ -6,6 +6,7 @@ use App\Models\ConfigMensalidade;
 use App\Models\Matricula;
 use App\Models\MeiosPagamento;
 use App\Models\Mensalidade;
+use App\Models\Responsavel;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
@@ -68,7 +69,7 @@ class MensalidadesController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //CRIAR O PROCEDIMENTO PARA QUITAR A PARCELA
+        //
     }
 
     /**
@@ -85,6 +86,7 @@ class MensalidadesController extends Controller
         $mensalidade = $this->mensalidade->find($mensalidade);
         $matricula = Matricula::find($matricula);
         $aluno = $matricula->alunos()->first();
+        $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
 
         $formaPagamento = MeiosPagamento::all();
 
@@ -98,13 +100,48 @@ class MensalidadesController extends Controller
             ->with('matricula', $matricula)
             ->with('aluno', $aluno)
             ->with('juros', $juros)
-            ->with('formas_pagamentos', $formaPagamento);
+            ->with('formas_pagamentos', $formaPagamento)
+            ->with('responsavel', $responsavel);
     }
 
-    public function gerarMensalidades($field)
-    {
+    public function quitar(Request $request){
 
-        dd($field);
+        $mensalidadeID = $request->input('menalidade');
+
+        $mensalidade = $this->mensalidade->find($mensalidadeID);
+
+        $request->validate([
+            'codigo' => 'required',
+            'matricula' => 'required',
+            'menalidade' => 'required',
+            'vencimento' => 'required',
+            'valor' => 'required',
+            'valorPago' => 'required',
+            'dataPagamento' => 'required',
+            'meioPagamento' => 'required',
+        ]);
+
+        try { ;
+
+            $mensalidade->juros = str_replace(['R$', ','], '', $request->input('juros'));
+            $mensalidade->multa = str_replace(['R$', ','], '', $request->input('multa'));
+            $mensalidade->desconto = $request->input('desconto');
+            $mensalidade->acrescimo = $request->input('acrescimo');
+            $mensalidade->valor_pago = $request->input('valorPago');
+            $mensalidade->data_pagamento = $request->input('dataPagamento');
+            $mensalidade->pago = 'sim';
+            $mensalidade->responsavel_pagamento = $request->input('responsavelPgto');
+            $mensalidade->forma_pagamento = $request->input('forma_pagamento');
+            $mensalidade->observacao = $request->input('obs');
+
+            $mensalidade->save();
+
+            return view(self::PATH.'mensalidadesRecibo');
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
     }
 
     private function calcularJuros(string $valor, DateTime $vencimento)

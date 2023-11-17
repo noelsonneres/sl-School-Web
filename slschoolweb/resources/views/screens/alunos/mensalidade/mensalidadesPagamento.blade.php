@@ -8,11 +8,15 @@
             <h3 class="text-center text-white p-3">Informa quitação de mensalidade</h3>
         </div>
 
+        {{-- {{$responsavel->nome}} --}}
+
         <hr>
 
         <div class="card p-5">
 
-            <form action="{{ route('mensalidades.update', $mensalidade->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{('/mensalidades_quitar') }}" method="post" enctype="multipart/form-data">
+
+                <input type="hidden" name="responsavel" id="responsavel" value="{{$responsavel->id}}">
 
                 @csrf
                 @method('PUT')
@@ -74,7 +78,7 @@
 
                 </div>
 
-                <div class="card-p5">
+                <div class="card-p5 mt-4">
 
                     <h4 class="p-3">Informações para pagamento</h4>
 
@@ -112,9 +116,9 @@
 
                         <div class="col-md-2 mb-b">
                             <label for="valorPago" class="form-label lblCaption">Valor pago (R$)</label>
-                            <input type="number" class="form-control" step="0.01" min="0.01"  
+                            <input type="number" class="form-control" step="0.01" min="0.01"
                                 name="valorPago" id="valorPago" style="color: red"
-                                value="{{$mensalidade->valor_parcela + $juros['multa'] + $juros['valorJuros']}}" 
+                                value="{{$mensalidade->valor_parcela + $juros['multa'] + $juros['valorJuros']}}"
                                     oninput="calcular()">
                         </div>
 
@@ -136,7 +140,7 @@
                         <div class="col-md-5 mb-3">
                             <label for="responsavelPgto" class="form-label lblCaption">Responsável pelo pagamento</label>
                             <input type="text" class="form-control" name="responsavelPgto" id="responsavelPgto">
-                        </div>                   
+                        </div>
 
                     </div>
 
@@ -154,7 +158,7 @@
 
                     <div class="mb-4">
                         <label for="obs" class="form-label lblCaption">Observação</label>
-                        <input type="text" class="form-control" name="obs" id="obs" 
+                        <input type="text" class="form-control" name="obs" id="obs"
                             value="{{$mensalidade->observacao}}" maxlength="255">
                     </div>
 
