@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\ConfigMensalidade;
+use App\Models\Empresa;
 use App\Models\Matricula;
 use App\Models\MeiosPagamento;
 use App\Models\Mensalidade;
@@ -136,7 +138,13 @@ class MensalidadesController extends Controller
 
             $mensalidade->save();
 
-            return view(self::PATH.'mensalidadesRecibo');
+            $empresa = Empresa::all()->first();
+            $aluno = Aluno::find($mensalidade->alunos_id);
+
+            return view(self::PATH.'mensalidadesRecibo')
+                        ->with('empresa', $empresa)
+                        ->with('mensalidade', $mensalidade)
+                        ->with('aluno', $aluno);
 
         } catch (\Throwable $th) {
             return $th;

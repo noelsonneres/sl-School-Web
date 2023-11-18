@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Recibo de pagamento</title>
     <style>
-        .row-cols-3 > * {
+        .row-cols-3>* {
             flex: 0 0 33.33%;
-            max-width: 35.33%;
+            max-width: 33.33%;
         }
     </style>
 </head>
@@ -23,7 +23,7 @@
         <div class="row p-3">
 
             <div class="col-md-2">
-                <button class="btn btn-primary" onclick="cont();">Impressora laser</button>
+                <button class="btn btn-primary" onclick="printForm()">Impressora laser</button>
             </div>
 
             <div class="col-md-2">
@@ -33,93 +33,124 @@
         </div>
 
         <div class="card ps-2 pe-2" id="print">
-            <h1>Recibo</h1>
 
-            <form action="">
+            <div class="row p-3">
 
-                <div class="row mb-2 border-top border-bottom pb-2">
-
-                    <div class="col-md-6">
-                        <label for="aluno" class="form-label">Alunos</label>
-                        <input type="text" class="form-control" name="aluno" id="aluno" readonly
-                            value="Ana maria de souza santos">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label for="codAluno" class="form-label">Código do aluno</label>
-                        <input type="text" class="form-control" name="codAluno" id="codAluno" readonly
-                            value="12">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label for="matricula" class="form-label">Matrícula</label>
-                        <input type="text" class="form-control" name="matricula" id="matricula" readonly
-                            value="15">
-                    </div>
-
+                <div class="col-md-3">
+                    <img src="/img/logo/24dd8b30949110b09dfd426390924d53.png" alt="" width="70px">
                 </div>
 
-                <div class="row row-cols-3 mb-2">
-
-                    <div class="col-md-4">
-                        <label for="aluno" class="form-label">Alunos</label>
-                        <input type="text" class="form-control" name="aluno" id="aluno" readonly
-                            value="Ana maria de souza santos">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="codAluno" class="form-label">Código do aluno</label>
-                        <input type="text" class="form-control" name="codAluno" id="codAluno" readonly
-                            value="12">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="matricula" class="form-label">Matrícula</label>
-                        <input type="text" class="form-control" name="matricula" id="matricula" readonly
-                            value="15">
-                    </div>
-
-                </div>    
-                
-                <div class="row">
-                    <div class="border">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <p>Maria Rita de Souza</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p>Valor matrícula: R$ 50.00</p>
-                            </div>
-
-                            <div class="col-md-3">
-                                <p>Valor matrícula: R$ 50.00</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-9">
+                    <h3>Recibo de pagamento</h3>
+                    <h6>{{ $empresa->nome }} - CNPJ: {{ $empresa->cnpj }}</h6>
+                    <h6>Tel: {{ $empresa->telefone }} Cel/WhatsApp: {{ $empresa->celular }}</h6>
                 </div>
 
-            </form>
+            </div>
+
+            <hr>
+
+            <div class="pb-3">
+
+                <p class="border p-1 m-0" style="font-size: 12px">Aluno(a): {{ $aluno->nome }}</p>
+                <p class="border p-1 m-0" style="font-size: 12px">Código: {{ $aluno->id }} | Matrícula:
+                    {{ $mensalidade->matriculas_id }}</p>
+                <p class="border p-1 m-0" style="font-size: 12px">Mensalidade: {{ $mensalidade->id }} |
+                    <span style="font-weight: 600" style="font-size: 12px">Valor: R$
+                        {{ number_format($mensalidade->valor_parcela, '2', ',', '.') }}</span>
+                    | <span style="font-weight: 600" style="font-size: 12px">Vencimento:
+                        {{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</span>
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px">Juros:
+                    {{ number_format($mensalidade->juros, '2', ',', '.') }} |
+                    Multa: {{ number_format($mensalidade->multa, '2', ',', '.') }} |
+                    Desconto: {{ number_format($mensalidade->desconto, '2', ',', '.') }} |
+                    Acrésimo: {{ number_format($mensalidade->juros, '2', ',', '.') }} |
+                    <span style="font-weight: 600">Total: R$
+                        {{ number_format($mensalidade->valor_pago, '2', ',', '.') }} </span>
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px"><span style="font-weight: 600">Data de pagamento:
+                        {{ date('d/m/Y', strtotime($mensalidade->data_pagamento)) }}</span>
+                    Pago: {{ $mensalidade->pago }} | Forma de pagamento: {{ $mensalidade->forma_pagamento }}
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px">
+                    Responsável pelo pagamento: {{ $mensalidade->forma_pagamento }}
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px">
+                    Observação: {{ $mensalidade->observacao }}
+                </p>
+
+            </div>
+
+            <p>-------------------------------------------------------------------------</p>
+
+            <div class="row p-3">
+
+                <div class="col-md-3">
+                    <img src="/img/logo/24dd8b30949110b09dfd426390924d53.png" alt="" width="70px">
+                </div>
+
+                <div class="col-md-9">
+                    <h3>Recibo de pagamento</h3>
+                    <h6>{{ $empresa->nome }} - CNPJ: {{ $empresa->cnpj }}</h6>
+                    <h6>Tel: {{ $empresa->telefone }} Cel/WhatsApp: {{ $empresa->celular }}</h6>
+                </div>
+
+            </div>
+
+
+            <div class="pb-3">
+
+                <p class="border p-1 m-0" style="font-size: 12px">Aluno(a): {{ $aluno->nome }}</p>
+                <p class="border p-1 m-0" style="font-size: 12px">Código: {{ $aluno->id }} | Matrícula:
+                    {{ $mensalidade->matriculas_id }}</p>
+                <p class="border p-1 m-0" style="font-size: 12px">Mensalidade: {{ $mensalidade->id }} |
+                    <span style="font-weight: 600" style="font-size: 12px">Valor: R$
+                        {{ number_format($mensalidade->valor_parcela, '2', ',', '.') }}</span>
+                    | <span style="font-weight: 600" style="font-size: 12px">Vencimento:
+                        {{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</span>
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px">Juros:
+                    {{ number_format($mensalidade->juros, '2', ',', '.') }} |
+                    Multa: {{ number_format($mensalidade->multa, '2', ',', '.') }} |
+                    Desconto: {{ number_format($mensalidade->desconto, '2', ',', '.') }} |
+                    Acrésimo: {{ number_format($mensalidade->juros, '2', ',', '.') }} |
+                    <span style="font-weight: 600">Total: R$
+                        {{ number_format($mensalidade->valor_pago, '2', ',', '.') }} </span>
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px"><span style="font-weight: 600">Data de pagamento:
+                        {{ date('d/m/Y', strtotime($mensalidade->data_pagamento)) }}</span>
+                    Pago: {{ $mensalidade->pago }} | Forma de pagamento: {{ $mensalidade->forma_pagamento }}
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px">
+                    Responsável pelo pagamento: {{ $mensalidade->forma_pagamento }}
+                </p>
+                <p class="border p-1 m-0" style="font-size: 12px">
+                    Observação: {{ $mensalidade->observacao }}
+                </p>
+
+            </div>
 
         </div>
 
     </div>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script> --}}
+    </script>
 
     <script>
-        function cont() {
-            var conteudo = document.getElementById('print').outerHTML;
-            var tela_impressao = window.open('', '_blank');
-            tela_impressao.document.write('<html><head><title>Recibo de Pagamento</title>');
-            tela_impressao.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />');
-            tela_impressao.document.write('<style>.row-cols-3 > * {flex: 0 0 33.33%;max-width: 33.33%;}</style>');
-            tela_impressao.document.write('</head><body>');
-            tela_impressao.document.write(conteudo);
-            tela_impressao.document.write('</body></html>');
-            tela_impressao.document.close();
-            tela_impressao.print();
+        function printForm() {
+            var printContents = document.getElementById('print').innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
         }
     </script>
 
