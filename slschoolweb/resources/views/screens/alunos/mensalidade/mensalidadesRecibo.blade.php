@@ -37,7 +37,7 @@
             <div class="row p-3">
 
                 <div class="col-md-3">
-                    <img src="/img/logo/24dd8b30949110b09dfd426390924d53.png" alt="" width="70px">
+                    <img src="/img/logo/{{$empresa->foto}}" alt="" width="70px">
                 </div>
 
                 <div class="col-md-9">
@@ -47,8 +47,6 @@
                 </div>
 
             </div>
-
-            <hr>
 
             <div class="pb-3">
 
@@ -70,8 +68,9 @@
                         {{ number_format($mensalidade->valor_pago, '2', ',', '.') }} </span>
                 </p>
                 <p class="border p-1 m-0" style="font-size: 12px"><span style="font-weight: 600">Data de pagamento:
-                        {{ date('d/m/Y', strtotime($mensalidade->data_pagamento)) }}</span>
-                    Pago: {{ $mensalidade->pago }} | Forma de pagamento: {{ $mensalidade->forma_pagamento }}
+                        {{ date('d/m/Y', strtotime($mensalidade->data_pagamento)) }}</span>  |  
+                    <span style="font-weight: 800">Pago: {{ $mensalidade->pago }}</span> | 
+                        Forma de pagamento: {{ $mensalidade->forma_pagamento }}
                 </p>
                 <p class="border p-1 m-0" style="font-size: 12px">
                     Responsável pelo pagamento: {{ $mensalidade->forma_pagamento }}
@@ -79,6 +78,8 @@
                 <p class="border p-1 m-0" style="font-size: 12px">
                     Observação: {{ $mensalidade->observacao }}
                 </p>
+                <br>
+                <p>Assinatura ___________________________________________</p>
 
             </div>
 
@@ -87,7 +88,7 @@
             <div class="row p-3">
 
                 <div class="col-md-3">
-                    <img src="/img/logo/24dd8b30949110b09dfd426390924d53.png" alt="" width="70px">
+                    <img src="/img/logo/{{$empresa->foto}}" alt="" width="70px">
                 </div>
 
                 <div class="col-md-9">
@@ -119,8 +120,8 @@
                         {{ number_format($mensalidade->valor_pago, '2', ',', '.') }} </span>
                 </p>
                 <p class="border p-1 m-0" style="font-size: 12px"><span style="font-weight: 600">Data de pagamento:
-                        {{ date('d/m/Y', strtotime($mensalidade->data_pagamento)) }}</span>
-                    Pago: {{ $mensalidade->pago }} | Forma de pagamento: {{ $mensalidade->forma_pagamento }}
+                        {{ date('d/m/Y', strtotime($mensalidade->data_pagamento)) }}</span> |
+                        <span style="font-weight: 800">Pago: {{ $mensalidade->pago }}</span>  | Forma de pagamento: {{ $mensalidade->forma_pagamento }}
                 </p>
                 <p class="border p-1 m-0" style="font-size: 12px">
                     Responsável pelo pagamento: {{ $mensalidade->forma_pagamento }}
@@ -128,6 +129,10 @@
                 <p class="border p-1 m-0" style="font-size: 12px">
                     Observação: {{ $mensalidade->observacao }}
                 </p>
+                <br>
+
+                <p>Assinatura ___________________________________________</p>
+
 
             </div>
 
