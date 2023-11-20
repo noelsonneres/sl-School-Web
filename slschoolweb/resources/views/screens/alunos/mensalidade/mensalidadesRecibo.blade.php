@@ -25,9 +25,15 @@
             <div class="col-md-2">
                 <button class="btn btn-primary" onclick="printForm()">Impressora laser</button>
             </div>
-
+            
             <div class="col-md-2">
                 <button class="btn btn-primary">Impressora térmica</button>
+            </div>
+
+            <div class="col-md-2">
+                <a href="{{ route('mensalidades.show', $mensalidade->matriculas_id) }}" class="btn btn-danger">
+                    Voltar    
+                </a>
             </div>
 
         </div>

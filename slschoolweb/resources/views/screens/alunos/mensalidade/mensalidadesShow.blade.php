@@ -112,14 +112,14 @@
 
                                     <div class="col-2">
                                         <a href="{{ '/selecionar_pagameto/' . $mensalidade->id . '/' . $mensalidade->matriculas_id }}"
-                                            title="Visualizar informações do alunos" class="btn btn-success btn-sm">
+                                            title="Informar quitação" class="btn btn-success btn-sm">
                                             <i class="bi bi-currency-dollar"></i>
                                         </a>
                                     </div>
 
                                     <div class="col-2">
-                                        <a href="{{ route('mensalidades.edit', $mensalidade->id) }}"
-                                            title="Visualizar informações do alunos" class="btn btn-info btn-sm">
+                                        <a href="{{'/mensalidades_impressao/'.$mensalidade->matriculas_id }}"
+                                            title="Imprimir carnê" class="btn btn-info btn-sm">
                                             <i class="bi bi-printer-fill"></i>
                                         </a>
                                     </div>

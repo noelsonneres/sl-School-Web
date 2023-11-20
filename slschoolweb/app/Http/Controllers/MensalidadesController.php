@@ -9,6 +9,7 @@ use App\Models\Matricula;
 use App\Models\MeiosPagamento;
 use App\Models\Mensalidade;
 use App\Models\Responsavel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
@@ -96,8 +97,6 @@ class MensalidadesController extends Controller
 
         $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
 
-        // dd($juros);
-
         return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
             ->with('matricula', $matricula)
             ->with('aluno', $aluno)
@@ -141,6 +140,11 @@ class MensalidadesController extends Controller
             $empresa = Empresa::all()->first();
             $aluno = Aluno::find($mensalidade->alunos_id);
 
+            // $pdf = PDF::loadView(self::PATH.'mensalidadesRecibo', 
+            //         ['mensalidade' => $mensalidade, 'empresa' => $empresa, 'aluno' => $aluno]);
+
+            // return $pdf->download('recibo.pdf');
+
             return view(self::PATH.'mensalidadesRecibo')
                         ->with('empresa', $empresa)
                         ->with('mensalidade', $mensalidade)
@@ -149,6 +153,20 @@ class MensalidadesController extends Controller
         } catch (\Throwable $th) {
             return $th;
         }
+
+    }
+
+    public function impressao(string $matricula){
+
+        $mensalidades = $this->mensalidade->where('matriculas_id', $matricula)->get();
+
+        // dd($mensalidades);
+
+            // $pdf = PDF::loadView(self::PATH.'mensalidadesImpressao', 
+            //         ['mensalidades' => $mensalidades]);
+            // return $pdf->download('mensalidades.pdf');        
+
+        return view(self::PATH.'mensalidadesImpressao', ['mensalidades'=>$mensalidades]);
 
     }
 
