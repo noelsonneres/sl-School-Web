@@ -101,7 +101,7 @@
                         <div class="col-md-3 mb-3">
                             <label for="desconto" class="form-label lblCaption">Desconto</label>
                             <input type="number" step="0.01" min="0.00" class="form-control" id="desconto"
-                                name="desconto" onchange="calcular()" value="0">
+                                name="desconto" onchange="calcular()" onblur="calcular()" value="0">
                         </div>
 
                         <div class="col-md-3 mb-3">
@@ -119,7 +119,7 @@
                             <input type="number" class="form-control" step="0.01" min="0.01"
                                 name="valorPago" id="valorPago" style="color: red"
                                 value="{{$mensalidade->valor_parcela + $juros['multa'] + $juros['valorJuros']}}"
-                                    oninput="calcular()">
+                                    >
                         </div>
 
                         <div class="col-md-2 mb-3">
@@ -190,6 +190,11 @@
             var valorParcela = {{$mensalidade->valor_parcela}};
             var desconto = parseFloat(descontoInput.value);
             var acrescimo = parseFloat(acrescimoInput.value);
+
+            desconto = (isNaN(desconto))?0:desconto;
+            acrescimo = (isNaN(acrescimo))?0:acrescimo;
+
+             console.log(acrescimo);
 
             var juros = {{$juros['valorJuros']}};
             var multa = {{$juros['multa']}};

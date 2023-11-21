@@ -20,6 +20,13 @@
     @endif
 
     <hr>
+        
+    <div class="p-2">
+        <h4>Aluno(a): {{$aluno->nome}}</h4>
+        <h4>Matrícula: {{$mensalidade->matriculas_id}}</h4>
+    </div>
+
+    <hr>
 
     <div class="card p-5">
 

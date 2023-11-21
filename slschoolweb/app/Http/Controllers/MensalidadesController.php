@@ -32,20 +32,60 @@ class MensalidadesController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'qtdeParcelas' => 'required',
+            'valor' => 'required',
+            'vencimento' => 'required',
+        ],[
+            'qtdeParcelas.required'=>'Informe a quantidade de parcelas que deseja inserir',
+            'valor.required'=>'Informe um valor para o campos "Valor da parcela"', 
+            'vencimento.required'=>'Você deve digitar uma data de vencimento valida', 
+        ]);
+
+        $qtdeParcelas = $request->old('qtdeParcelas');
+        $valor = $request->old('valor');
+        $vencimento = $request->old('vencimento');
+
+        $dataVencimento = $request->old('vencimento');
+
+        $qtdeParcela = $request->input('qtdeParcelas');
+
+        try {
+            
+            for ($i = 0; $i < $qtdeParcela; $i++) {
+
+                $mensalidade = new Mensalidade();
+    
+                $mensalidade->responsavels_id = $request->input('responsavel');
+                $mensalidade->alunos_id = $request->input('aluno');
+                $mensalidade->matriculas_id = $request->input('matricula');
+                $mensalidade->qtde_mensalidades = $qtdeParcela;
+                $mensalidade->valor_parcela = $request->input('valor');
+    
+                $dataVencimento = new DateTime($request->input('vencimento'));
+                $dataVencimento->modify('+' . $i . ' months');
+                $mensalidade->vencimento = $dataVencimento;
+    
+                $mensalidade->pago = 'nao';
+                $mensalidade->observacao = $request->input('obs');
+    
+                $mensalidade->save();
+            }
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
+       
+
     }
 
     public function show(string $id)
