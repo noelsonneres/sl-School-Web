@@ -38,7 +38,7 @@
 
             <div class="col-4">
 
-                <a href="{{ route('alunos.create') }}" class="btn btn-primary">
+                <a href="{{('/mensalidades_adicionar/'.$matricula->id) }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
                     Incluir mensalidade </a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -104,8 +104,6 @@
 
                             @endif
 
-
-
                             <td>
 
                                 <div class="row">
@@ -125,7 +123,7 @@
                                     </div>
 
                                     <div class="col-2">
-                                        <a href="#"
+                                        <a href="{{route('mensalidades.edit', $mensalidade->id)}}"
                                             title="Editar mensalidade" class="btn btn-primary btn-sm">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>

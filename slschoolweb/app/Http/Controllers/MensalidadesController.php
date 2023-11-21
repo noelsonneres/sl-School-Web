@@ -61,18 +61,64 @@ class MensalidadesController extends Controller
             ->with('aluno', $aluno);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        
+        $mensalidade = $this->mensalidade->find($id);
+        $matriculaID = $mensalidade->matriculas_id;
+
+        $matricula = Matricula::find($matriculaID);
+        $aluno = $matricula->alunos()->first();    
+
+        if($mensalidade->count() >= 1){
+            if($mensalidade->pago === 'nao'){
+                return view(self::PATH.'mensalidadeEdit', ['mensalidade'=>$mensalidade, 'aluno'=>$aluno]);
+            }else{
+                return back();
+            }
+            
+        }
+
     }
 
 
     public function update(Request $request, string $id)
     {
-        //
+        
+        $mensalidade = $this->mensalidade->find($id);
+
+        $request->validate([
+            'valor' => 'required',
+            'dataVencimento' => 'required',
+        ],[
+            'valor.required'=>'Você deve digitar um valor',
+            'dataVencimento.required'=>'Você deve digitar uma data de vencimento valida', 
+        ]);
+
+        try {
+
+            $matriculaID = $request->input('matricula');
+            
+            $mensalidade->valor_parcela = $request->input('valor');
+            $mensalidade->vencimento = $request->input('dataVencimento');
+            $mensalidade->observacao = $request->input('obs');
+
+            $mensalidade->save();
+
+            $mensalidade = $this->mensalidade->where('matriculas_id', $matriculaID)->paginate();
+
+            $matricula = Matricula::find($matriculaID);
+            $aluno = $matricula->alunos()->first();
+
+            return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidade])
+            ->with('matricula', $matricula)
+            ->with('aluno', $aluno)
+            ->with('msg', 'Informações atualizadas com sucesso!!!');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
     }
 
     /**
@@ -175,6 +221,17 @@ class MensalidadesController extends Controller
                         ->with('empresa', $empresa)
                         ->with('aluno', $aluno)
                         ->with('config', $confMensalidades);
+    }
+
+    public function adicionar(string $matricula){
+
+        $matricula = Matricula::find($matricula);
+        $aluno = $matricula->alunos()->first();
+
+        if($matricula->count() >= 1){
+            return view(self::PATH.'mensalidadesCreate', ['matricula'=>$matricula, 'aluno'=>$aluno ]);
+        }       
+
     }
 
     private function calcularJuros(string $valor, DateTime $vencimento)
