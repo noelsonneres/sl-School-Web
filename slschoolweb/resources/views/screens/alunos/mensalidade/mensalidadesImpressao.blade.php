@@ -174,6 +174,11 @@
             background: green;
         }
 
+        .bto .btn-capa {
+            color: #fff;
+            background: rgb(0, 13, 128);
+        }
+
         .bto .btn {
             color: #555;
             background: transparent;
@@ -254,7 +259,7 @@
         <button class="btn-impress" onclick="window.print()">Imprimir</button>
         &nbsp;
         &nbsp;
-        <button class="btn" onclick="window.history.back()">Voltar ao formulário</button>
+        <button class="btn-capa" onclick="window.history.back()">Imprmir Capa</button>
     </div>
 
     <!-- PARCELA -->
@@ -271,30 +276,31 @@
                             <tr>
                                 <td colspan="2">
                                     <small>Matrícula</small>
-                                    <br>135
+                                    <br>{{ $mensalidade->matriculas_id }}
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>
                                     <small>Parcela</small>
-                                    <br>237
+                                    <br>{{ $mensalidade->id }}
                                 </td>
                                 <td>
                                     <small>Valor</small>
-                                    <br>R$ 100,00
+                                    <br>R$ {{ number_format($mensalidade->valor_parcela, 2, ',', '.') }}
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <small>Vencimento</small>
-                                    <br>01/01/2023
+                                    <br>{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}
                                 </td>
 
                             <tr>
                                 <td colspan="2">
                                     <small>Observações</small>
-                                    <br><br><br><br>
+                                    <br>{{ $mensalidade->observacao }}
+                                    
                                 </td>
                             </tr>
                         </table>
@@ -305,37 +311,37 @@
                     <table width="100%">
                         <tr>
                             <td colspan="5" class="text-center">
-                                <small>AltSotware Sistema de Informação </small>
-                                <br>Telefone: (00) 0000000000 | Celular: (00) 000000000
+                                <br> {{ $empresa->nome }} - {{ $empresa->cnpj }}
+                                <br>Telefone: {{ $empresa->telefone }} | Celular: {{$empresa->celular}}
                             </td>
                         </tr>
 
                         <tr>
                             <td colspan="2">
                                 <small>Aluno</small>
-                                <br>Ana Julia Ribeiro de Souza
+                                <br>{{$aluno->nome}}
                             </td>
 
                             <td>
                                 <small>Matrícula</small>
-                                <br>155
+                                <br>{{$mensalidade->matriculas_id}}
                             </td>
 
                             <td>
                                 <small>Parcela</small>
-                                <br>235
+                                <br>{{$mensalidade->id}}
                             </td>
 
                             <td>
                                 <small>Valor</small>
-                                <br><span style="">R$ 100,00</span>
+                                <br><span style="font-weight: 700">R$ {{ number_format($mensalidade->valor_parcela, 2, ',', '.') }}</span>
                             </td>
                         </tr>
 
                         <tr>
                             <td colspan="1">
                                 <small>Vencimento</small>
-                                <br>20/11/2023
+                                <br><span style="font-weight: 700">{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</span>
                             </td>
 
                             <td>
@@ -352,22 +358,21 @@
                                 <small>Pagamento</small>
                                 <br>___/___/_____
                             </td>
-                            <td></td>
 
                         </tr>
 
                         <tr>
                             <td colspan="5">
-                                <small>Multa de R$ 5,00 por atraso e juros 0.5% ao mês
-                                    Pagamento somento na escola
+                                <small>
+                                    {{ Str::substr($config->mensagem, 0, 75) }}
                                 </small>
                             </td>
                         </tr>
 
                         <tr>
                             <td colspan="5">
-                                <svg class="barcode" data-value="{{$mensalidade->id}}" 
-                                style="width: 100px; height: 50px;"></svg>
+                                <svg class="barcode" data-value="{{ $mensalidade->id }}"
+                                    style="width: 100px; height: 50px;"></svg>
                             </td>
                         </tr>
 
@@ -379,8 +384,11 @@
         <br><br>
 
         @if ($index == 2)
-            <div class="quebra-pagina">              
+            <div class="quebra-pagina">
             </div>
+            @php
+                $index = 0;
+            @endphp
         @endif
     @endforeach
 

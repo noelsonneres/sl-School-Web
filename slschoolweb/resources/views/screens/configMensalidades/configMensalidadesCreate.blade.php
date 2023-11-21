@@ -42,7 +42,7 @@
 
             <div class="mb-4">
                 <label for="mensagem" class="form-label lblCaption">Mensagem do carnê</label>
-                <textarea class="form-control" name="mensagem" id="mensagem" cols="30" rows="5" maxlength="255"></textarea>
+                <textarea class="form-control" name="mensagem" id="mensagem" cols="30" rows="5" maxlength="75"></textarea>
             </div>
 
             </div>

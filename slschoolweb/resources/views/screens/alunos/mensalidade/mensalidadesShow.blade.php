@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Alunos cadastrados')
+@section('title', 'Lista de mensalidades')
 @section('content')
 
     <style>
@@ -19,7 +19,7 @@
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Alunos cadastrados</h3>
+            <h3 class="text-center text-white p-3">Mensalidades</h3>
         </div>
 
         @if (isset($msg))
@@ -40,7 +40,7 @@
 
                 <a href="{{ route('alunos.create') }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
-                    Novo </a>
+                    Incluir mensalidade </a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
             </div>
@@ -121,6 +121,13 @@
                                         <a href="{{'/mensalidades_impressao/'.$mensalidade->matriculas_id }}"
                                             title="Imprimir carnê" class="btn btn-info btn-sm">
                                             <i class="bi bi-printer-fill"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <a href="#"
+                                            title="Editar mensalidade" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
                                     </div>
 

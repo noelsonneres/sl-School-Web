@@ -105,7 +105,8 @@ class MensalidadesController extends Controller
             ->with('responsavel', $responsavel);
     }
 
-    public function quitar(Request $request){
+    public function quitar(Request $request)
+    {
 
         $mensalidadeID = $request->input('menalidade');
 
@@ -122,7 +123,7 @@ class MensalidadesController extends Controller
             'meioPagamento' => 'required',
         ]);
 
-        try { ;
+        try {;
 
             $mensalidade->juros = str_replace(['R$', ','], '', $request->input('juros'));
             $mensalidade->multa = str_replace(['R$', ','], '', $request->input('multa'));
@@ -145,29 +146,35 @@ class MensalidadesController extends Controller
 
             // return $pdf->download('recibo.pdf');
 
-            return view(self::PATH.'mensalidadesRecibo')
-                        ->with('empresa', $empresa)
-                        ->with('mensalidade', $mensalidade)
-                        ->with('aluno', $aluno);
+            return view(self::PATH . 'mensalidadesRecibo')
+                ->with('empresa', $empresa)
+                ->with('mensalidade', $mensalidade)
+                ->with('aluno', $aluno);
 
         } catch (\Throwable $th) {
             return $th;
         }
-
     }
 
-    public function impressao(string $matricula){
+    public function impressao(string $matricula)
+    {
 
         $mensalidades = $this->mensalidade->where('matriculas_id', $matricula)->get();
 
-        // dd($mensalidades);
+        $men = $mensalidades->first();
 
-            // $pdf = PDF::loadView(self::PATH.'mensalidadesImpressao', 
-            //         ['mensalidades' => $mensalidades]);
-            // return $pdf->download('mensalidades.pdf');        
+        $alunosID = $men->alunos_id;
 
-        return view(self::PATH.'mensalidadesImpressao', ['mensalidades'=>$mensalidades]);
+        $aluno = Aluno::find($alunosID);
 
+        $confMensalidades = ConfigMensalidade::all()->first();
+
+        $empresa = Empresa::all()->first();
+
+        return view(self::PATH . 'mensalidadesImpressao', ['mensalidades' => $mensalidades])
+                        ->with('empresa', $empresa)
+                        ->with('aluno', $aluno)
+                        ->with('config', $confMensalidades);
     }
 
     private function calcularJuros(string $valor, DateTime $vencimento)
@@ -196,10 +203,9 @@ class MensalidadesController extends Controller
 
             $totalAPagar = $valorTotal;
 
-            $resultado = ['total'=>$totalAPagar, 'valorJuros'=>$valorJuros, 'taxaJuros'=>$juros, 'multa'=>$multa ];
-
-        }else{
-            $resultado = ['total'=>$totalAPagar, 'valorJuros'=>0, 'taxaJuros'=>0, 'multa'=>0 ];
+            $resultado = ['total' => $totalAPagar, 'valorJuros' => $valorJuros, 'taxaJuros' => $juros, 'multa' => $multa];
+        } else {
+            $resultado = ['total' => $totalAPagar, 'valorJuros' => 0, 'taxaJuros' => 0, 'multa' => 0];
         }
 
         return $resultado;
