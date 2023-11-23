@@ -20,17 +20,22 @@
 
     <div class="container pt-5">
 
+        <div style="background-color: #0c6135;">
+            <h4 class="text-center text-white p-1">Mensalidade quitada com sucesso!!!</h4>
+        </div>
+
+
         <div class="row p-3">
 
-            <div class="col-md-2">
+            <div class="col-md-2 mb-3">
                 <button class="btn btn-primary" onclick="printForm()">Impressora laser</button>
             </div>
             
-            <div class="col-md-2">
+            <div class="col-md-2 mb-3">
                 <button class="btn btn-primary">Impressora térmica</button>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 mb-3">
                 <a href="{{ route('mensalidades.show', $mensalidade->matriculas_id) }}" class="btn btn-danger">
                     Voltar    
                 </a>
@@ -138,7 +143,6 @@
                 <br>
 
                 <p>Assinatura ___________________________________________</p>
-
 
             </div>
 

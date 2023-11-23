@@ -103,3 +103,4 @@ Route::get('/selecionar_pagameto/{mensalidade}/{matricula}', [MensalidadesContro
 Route::put('/mensalidades_quitar', [MensalidadesController::class, 'quitar']);
 Route::get('/mensalidades_impressao/{matricula}', [MensalidadesController::class, 'impressao']);
 Route::get('/mensalidades_adicionar/{matricula}', [MensalidadesController::class, 'adicionar']);
+Route::get('/mensalidades_capa', [MensalidadesController::class, 'capaCarne']);

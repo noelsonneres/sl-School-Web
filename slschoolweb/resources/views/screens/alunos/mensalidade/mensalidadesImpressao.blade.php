@@ -179,6 +179,11 @@
             background: rgb(0, 13, 128);
         }
 
+        .bto .btn-voltar {
+            color: #fff;
+            background: rgb(242, 4, 4);
+        }
+
         .bto .btn {
             color: #555;
             background: transparent;
@@ -259,7 +264,11 @@
         <button class="btn-impress" onclick="window.print()">Imprimir</button>
         &nbsp;
         &nbsp;
-        <button class="btn-capa" onclick="window.history.back()">Imprmir Capa</button>
+        <a href="{{ '/mensalidades_capa' }}"><button class="btn-capa">Imprimir capa</button></a>
+        &nbsp;
+        &nbsp;
+        <button class="btn-voltar" onclick="window.history.back()">Voltar</button>
+
     </div>
 
     <!-- PARCELA -->
@@ -300,7 +309,7 @@
                                 <td colspan="2">
                                     <small>Observações</small>
                                     <br>{{ $mensalidade->observacao }}
-                                    
+
                                 </td>
                             </tr>
                         </table>
@@ -312,36 +321,38 @@
                         <tr>
                             <td colspan="5" class="text-center">
                                 <br> {{ $empresa->nome }} - {{ $empresa->cnpj }}
-                                <br>Telefone: {{ $empresa->telefone }} | Celular: {{$empresa->celular}}
+                                <br>Telefone: {{ $empresa->telefone }} | Celular: {{ $empresa->celular }}
                             </td>
                         </tr>
 
                         <tr>
                             <td colspan="2">
                                 <small>Aluno</small>
-                                <br>{{$aluno->nome}}
+                                <br>{{ $aluno->nome }}
                             </td>
 
                             <td>
                                 <small>Matrícula</small>
-                                <br>{{$mensalidade->matriculas_id}}
+                                <br>{{ $mensalidade->matriculas_id }}
                             </td>
 
                             <td>
                                 <small>Parcela</small>
-                                <br>{{$mensalidade->id}}
+                                <br>{{ $mensalidade->id }}
                             </td>
 
                             <td>
                                 <small>Valor</small>
-                                <br><span style="font-weight: 700">R$ {{ number_format($mensalidade->valor_parcela, 2, ',', '.') }}</span>
+                                <br><span style="font-weight: 700">R$
+                                    {{ number_format($mensalidade->valor_parcela, 2, ',', '.') }}</span>
                             </td>
                         </tr>
 
                         <tr>
                             <td colspan="1">
                                 <small>Vencimento</small>
-                                <br><span style="font-weight: 700">{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</span>
+                                <br><span
+                                    style="font-weight: 700">{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</span>
                             </td>
 
                             <td>
@@ -400,7 +411,7 @@
                 var barcodeValue = element.dataset.value;
                 JsBarcode(element, barcodeValue, {
                     format: "CODE128", // Escolha o formato de código de barras desejado
-                    displayValue: true,
+                    displayValue: false,
                     width: 1,
                     height: 30,
                 });

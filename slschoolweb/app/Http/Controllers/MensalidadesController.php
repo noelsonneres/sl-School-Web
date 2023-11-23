@@ -121,7 +121,6 @@ class MensalidadesController extends Controller
 
     }
 
-
     public function update(Request $request, string $id)
     {
         
@@ -161,12 +160,44 @@ class MensalidadesController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        
+        $mensalidade = $this->mensalidade->find($id);
+
+        $matriculaID = $mensalidade->matriculas_id;
+        $alunoID = $mensalidade->alunos_id;        
+
+        if($mensalidade->count() >= 1){
+
+            if($mensalidade->pago === 'nao'){
+
+                try {
+
+                    $mensalidade->delete();
+                    $msg = "Mensalidade excluida com sucesso!!!";
+        
+                } catch (\Throwable $th) {
+                    $msg = "ERRO! Não foi possível excluir a mensalidade!";
+                }    
+
+            }else{
+                $msg = 'ERRO! Não é possível exluir uma mensalidade que já esteja paga';
+            }
+
+
+        }
+
+        $mensalidade = $this->mensalidade->where('matriculas_id', $matriculaID)->paginate();
+
+        $matricula = Matricula::find($matriculaID);
+        $aluno = $matricula->alunos()->first();
+
+        return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidade])
+        ->with('matricula', $matricula)
+        ->with('aluno', $aluno)
+        ->with('msg', $msg);        
+
     }
 
     public function selecionarPagamento(string $mensalidade, string $matricula)
@@ -177,18 +208,25 @@ class MensalidadesController extends Controller
         $aluno = $matricula->alunos()->first();
         $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
 
-        $formaPagamento = MeiosPagamento::all();
+        if($mensalidade->pago === 'nao'){
 
-        $vencimento = new DateTime($mensalidade->vencimento);
+            $formaPagamento = MeiosPagamento::all();
 
-        $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
+            $vencimento = new DateTime($mensalidade->vencimento);
+    
+            $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
+    
+            return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
+                ->with('matricula', $matricula)
+                ->with('aluno', $aluno)
+                ->with('juros', $juros)
+                ->with('formas_pagamentos', $formaPagamento)
+                ->with('responsavel', $responsavel);
 
-        return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
-            ->with('matricula', $matricula)
-            ->with('aluno', $aluno)
-            ->with('juros', $juros)
-            ->with('formas_pagamentos', $formaPagamento)
-            ->with('responsavel', $responsavel);
+        }else{
+            return back();
+        }
+        
     }
 
     public function quitar(Request $request)
@@ -271,6 +309,13 @@ class MensalidadesController extends Controller
         if($matricula->count() >= 1){
             return view(self::PATH.'mensalidadesCreate', ['matricula'=>$matricula, 'aluno'=>$aluno ]);
         }       
+
+    }
+
+    public function capaCarne(){
+
+        $empresa = Empresa::all()->first();
+        return view(self::PATH.'mensalidadesCapa', ['empresa'=>$empresa]);
 
     }
 

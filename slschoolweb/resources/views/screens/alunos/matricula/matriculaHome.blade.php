@@ -22,7 +22,7 @@
 
         <div class="row">
 
-            <div class="col-md-8">
+            <div class="col-md-7 ms-3">
                 <h4>Aluno(a): {{ $aluno->nome }}</h4>
                 <h4>Matrícula: {{ $matricula->id }}</h4>
                 <h5>Código: {{ $aluno->id }}</h5>
@@ -93,8 +93,8 @@
                 <div class="col-sm-2">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                         <div class="card-body text-center">
-                            <h2 style="color: rgb(204, 127, 44); font-weight: 500;">Contrato</h2>
-                            <i class="bi bi-file-text" style="font-size: 70px; color: rgb(204, 127, 44);"></i>
+                            <h2 style="color: rgb(204, 127, 44); font-weight: 500;">Disciplinas</h2>
+                            <i class="bi bi-journals" style="font-size: 70px; color: rgb(204, 127, 44);"></i>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                 <div class="col-sm-2">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                         <div class="card-body text-center">
-                            <h2 class="text-primary" style="font-weight: 500;">Responsável</h2>
+                            <h2 class="text-primary" style="font-weight: 500;">Contrato</h2>
                             <i class="bi bi-file-text text-primary" style="font-size: 70px;"></i>
                         </div>
                     </div>
@@ -113,6 +113,15 @@
             <hr>
 
             <div class="row">
+
+                <div class="col-sm-2">
+                    <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                        <div class="card-body text-center">
+                            <h2 class="text-primary" style="font-weight: 500;">Responsável</h2>
+                            <i class="bi bi-person-rolodex text-primary" style="font-size: 70px;"></i>
+                        </div>
+                    </div>
+                </div>                
 
                 <div class="col-sm-2">
                     <a href="http://" class="link-card">

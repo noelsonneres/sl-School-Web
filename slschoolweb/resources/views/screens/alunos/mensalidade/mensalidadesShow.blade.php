@@ -36,11 +36,16 @@
 
         <div class="row">
 
-            <div class="col-4">
+            <div class="col-6">
 
                 <a href="{{('/mensalidades_adicionar/'.$matricula->id) }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
                     Incluir mensalidade </a>
+
+                <a href="{{'/mensalidades_impressao/'.$matricula->id }}"class="btn btn-info">
+                    <i class="bi bi-printer-fill"></i>
+                    Carnê de pagamento</a>  
+
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
             </div>
@@ -116,18 +121,34 @@
                                     </div>
 
                                     <div class="col-2">
-                                        <a href="{{'/mensalidades_impressao/'.$mensalidade->matriculas_id }}"
-                                            title="Imprimir carnê" class="btn btn-info btn-sm">
-                                            <i class="bi bi-printer-fill"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-2">
                                         <a href="{{route('mensalidades.edit', $mensalidade->id)}}"
                                             title="Editar mensalidade" class="btn btn-primary btn-sm">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                     </div>
+
+                                    <div class="col-2">
+
+                                        <form method="POST" class="delete-form" action="{{ route('mensalidades.destroy', $mensalidade->id) }}">
+                                            @csrf
+                                            {{-- o método HTTP para exclusão deve ser o DELETE --}}
+                                            @method('DELETE')
+                                            <button type="button" title="Excluir professor" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
+                                                <i class="bi bi-trash3-fill"></i>
+                                            </button>
+                                        </form>
+    
+                                        <script>
+                                            function confirmDelete(button) {
+                                                if (confirm('Tem certeza de que deseja excluir este item?')) {
+                                                    var form = button.closest('form');
+                                                    form.submit();
+                                                }
+                                            }
+                                        </script>
+    
+    
+                                    </div>                                    
 
                                 </div>
 

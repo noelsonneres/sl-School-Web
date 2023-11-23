@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-11-13T23:28:29.198Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="MB1iqtsoGXz9ylTxnfHs" version="22.0.3" type="device">
+<mxfile host="Electron" modified="2023-11-23T00:23:12.787Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="PsEVqHLD8gBDCRv1N-En" version="22.1.2" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
-    <mxGraphModel dx="989" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="683" dy="400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -138,20 +138,25 @@
         <mxCell id="nvbjZyCiDaDG4opXZh0n-54" value="Matriculas_materiais" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="345" y="2260" width="160" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-55" value="id&#xa;id_matricula&#xa;id_aluno&#xa;id_material&#xa;valor_un&#xa;qtde&#xa;valor_total&#xa;incluso_nas_mesalidades&#xa;pago&#xa;observacao&#xa;funcionario" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-54" vertex="1">
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-55" value="id&#xa;matriculas_id&#xa;alunos_id&#xa;materiais_escolars_id&#xa;valor_un&#xa;qtde&#xa;valor_total&#xa;incluso_nas_mesalidades&#xa;pago&#xa;observacao&#xa;funcionario" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-54" vertex="1">
           <mxGeometry y="30" width="160" height="180" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nvbjZyCiDaDG4opXZh0n-47" target="nvbjZyCiDaDG4opXZh0n-55" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-57" value="Matriculas_modulos" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
-          <mxGeometry x="350" y="2500" width="160" height="120" as="geometry" />
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-57" value="Matriculas_disciplinas" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
+          <mxGeometry x="600" y="2490" width="160" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-58" value="id&#xa;iid_matricula&#xa;id_curso&#xa;id_madulo" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-57" vertex="1">
-          <mxGeometry y="30" width="160" height="90" as="geometry" />
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-58" value="id&#xa;matriculas_id&#xa;alunos_id&#xa;cursos_id&#xa;disciplinas_id&#xa;inicio&#xa;termino&#xa;concluido&#xa;obs" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-57" vertex="1">
+          <mxGeometry y="30" width="160" height="150" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nvbjZyCiDaDG4opXZh0n-47" target="nvbjZyCiDaDG4opXZh0n-58" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="435" y="2500" />
+              <mxPoint x="435" y="2565" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-60" value="Matriculas_turmas" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="345" y="2640" width="160" height="120" as="geometry" />
