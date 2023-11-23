@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 use App\Http\Controllers\CadastroDiasController;
 use App\Http\Controllers\CadastroHorariosController;
 use App\Http\Controllers\SalasController;
@@ -107,3 +96,4 @@ Route::get('/mensalidades_adicionar/{matricula}', [MensalidadesController::class
 Route::get('/mensalidades_capa', [MensalidadesController::class, 'capaCarne']);
 
 Route::resource('matricula_materiais', MatriculaMateriaisController::class);
+Route::get('/matricula_materiais_adicionar/{matricula}', [MatriculaMateriaisController::class, 'adicionar']);

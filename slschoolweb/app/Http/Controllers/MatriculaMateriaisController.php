@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MateriaisEscolar;
+use App\Models\Matricula;
 use Illuminate\Http\Request;
 use App\Models\MatriculaMaterial;
 
@@ -34,7 +36,13 @@ class MatriculaMateriaisController extends Controller
     public function show(string $id)
     {
         
-        return view(self::PATH.'matriculaMateriais');
+        $matricula = Matricula::find($id);
+        $aluno = $matricula->alunos()->first();
+
+        $materiais = $this->material->with('material')->where('matriculas_id', $id)->paginate();
+
+        return view(self::PATH.'matriculaMateriais', ['materiais'=>$materiais, 
+                            'matricula'=>$matricula, 'aluno'=>$aluno]);
 
     }
 
@@ -52,4 +60,21 @@ class MatriculaMateriaisController extends Controller
     {
         //
     }
+
+    public function adicionar(string $matricula){
+
+        $matricula = Matricula::find($matricula);
+        $aluno = $matricula->alunos()->first();
+
+        $listaMateriais = MateriaisEscolar::all();
+
+        if($matricula->count() >= 1){
+            return view(self::PATH.'matriculaMateriaisCreate', ['matricula'=>$matricula,
+                             'aluno'=>$aluno, 'listaMaterias'=>$listaMateriais]);
+        }else{
+            return back();
+        }
+
+    }
+
 }
