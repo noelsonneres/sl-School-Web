@@ -81,12 +81,14 @@
 
 
                 <div class="col-sm-2">
+                    <a href="{{ route('matricula_materiais.show', $matricula->id) }}" class="link-card">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                         <div class="card-body text-center">
                             <h2 style="color: rgb(246, 83, 97); font-weight: 500;">Materiais</h2>
                             <i class="bi bi-journal-check" style="font-size: 70px; color: rgb(246, 83, 97);"></i>
                         </div>
                     </div>
+                    </a>
                 </div>
 
 

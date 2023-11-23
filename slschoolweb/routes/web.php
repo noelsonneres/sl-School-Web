@@ -29,6 +29,7 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\MatriculaMateriaisController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\ResponsavelController;
 use App\Http\Controllers\MatriculaTurmaController;
@@ -104,3 +105,5 @@ Route::put('/mensalidades_quitar', [MensalidadesController::class, 'quitar']);
 Route::get('/mensalidades_impressao/{matricula}', [MensalidadesController::class, 'impressao']);
 Route::get('/mensalidades_adicionar/{matricula}', [MensalidadesController::class, 'adicionar']);
 Route::get('/mensalidades_capa', [MensalidadesController::class, 'capaCarne']);
+
+Route::resource('matricula_materiais', MatriculaMateriaisController::class);
