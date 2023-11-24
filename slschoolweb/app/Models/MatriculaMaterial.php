@@ -14,4 +14,8 @@ class MatriculaMaterial extends Model
         return $this->belongsTo(MateriaisEscolar::class, 'materiais_escolars_id');
     }
 
+    public function alunos(){
+        return $this->belongsTo(Aluno::class, 'alunos_id');
+    }
+
 }

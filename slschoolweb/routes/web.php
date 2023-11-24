@@ -97,3 +97,5 @@ Route::get('/mensalidades_capa', [MensalidadesController::class, 'capaCarne']);
 
 Route::resource('matricula_materiais', MatriculaMateriaisController::class);
 Route::get('/matricula_materiais_adicionar/{matricula}', [MatriculaMateriaisController::class, 'adicionar']);
+Route::get('/matricula_material_parcela/{matricula}/{material}', [MatriculaMateriaisController::class, 'adicionarParcela']);
+Route::post('/matricula_material_gerar_parcela', [MatriculaMateriaisController::class, 'parcela']);

@@ -6,6 +6,9 @@ use App\Models\MateriaisEscolar;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
 use App\Models\MatriculaMaterial;
+use App\Models\Mensalidade;
+use App\Models\Responsavel;
+use DateTime;
 
 class MatriculaMateriaisController extends Controller
 {
@@ -30,8 +33,6 @@ class MatriculaMateriaisController extends Controller
 
     public function store(Request $request)
     {
-
-        // UTILIZAR A DATA DE VENCIMENTO PARA GERAR AS PARCELAS
         
         $material = $this->material;
 
@@ -126,8 +127,69 @@ class MatriculaMateriaisController extends Controller
 
     }
 
-    public function gerarParcelas(array $value){
-        dd($value);
+    public function adicionarParcela(string $matricula, string $material){
+
+        $materiais = $this->material->with('alunos')
+                            ->where('matriculas_id', $matricula)
+                            ->where('id', $material)->first();   
+
+        $alunoID = $materiais->alunos_id;
+
+        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+        return view(self::PATH.'matriculaMaterialParcela', ['material'=>$materiais])
+                    ->with('responsavelID', $responsavel->id);
+
+    }
+
+    public function adicionarParcelas(string $matricula){
+        
+    }
+
+
+    public function parcela(Request $request){
+        dd($request);
+        // CONTINUAR DESTA PARTE EM DIANTE
+    }
+
+
+
+
+
+
+
+
+
+
+    public function gerarParcelas(
+        string $alunoID,
+        string $responsavelID,
+        string $matriculaID,
+        int $qtdeParcela,
+        float $valorParcela,
+        DateTime $vencimento,
+        string $obs=" "
+    ) {
+
+        for ($i = 0; $i < $qtdeParcela; $i++) {
+
+            $mensalidade = new Mensalidade();
+
+            $mensalidade->responsavels_id = $responsavelID;
+            $mensalidade->alunos_id = $alunoID;
+            $mensalidade->matriculas_id = $matriculaID;
+            $mensalidade->qtde_mensalidades = $qtdeParcela;
+            $mensalidade->valor_parcela = $valorParcela;
+
+            $dataVencimento = clone $vencimento;
+            $dataVencimento->modify('+' . $i . ' months');
+            $mensalidade->vencimento = $dataVencimento;
+
+            $mensalidade->pago = 'nao';
+            $mensalidade->observacao = $obs;
+
+            $mensalidade->save();
+        }
     }
 
 }

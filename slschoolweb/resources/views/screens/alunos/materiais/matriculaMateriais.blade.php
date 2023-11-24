@@ -27,9 +27,10 @@
 
             <a href="{{'/matricula_materiais_adicionar/'.$matricula->id}}"class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
-                Incuir material </a>
+                Incuir material </a>           
 
-                <a href="{{'/matricula_materiais_adicionar/'.$matricula->id}}"class="btn btn-success">
+                <a href="{{'/matricula_materiais_adicionar/'.$matricula->id}}"class="btn btn-success" 
+                title="Gerar parcelas" >
                     <i class="bi bi-currency-dollar"></i>
                     Gerar parcelas </a>                
 
@@ -78,8 +79,8 @@
                             <div class="row">                          
 
                                 <div class="col-2">
-                                    <a href="{{ route('matricula.show', $matricula->id) }}" 
-                                           title="Visualizar informações do matricula" class="btn btn-primary btn-sm">
+                                    <a href="{{('/matricula_material_parcela/'.$material->matriculas_id.'/'.$material->id) }}" 
+                                           title="Gerar parcela apenas deste" class="btn btn-success btn-sm">
                                            <i class="bi bi-card-list"></i>
                                     </a>
                                 </div>
