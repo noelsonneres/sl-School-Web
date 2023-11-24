@@ -123,6 +123,12 @@
       <path value="$PROJECT_DIR$/slschoolweb/vendor/league/mime-type-detection" />
       <path value="$PROJECT_DIR$/slschoolweb/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/slschoolweb/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/slschoolweb/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/slschoolweb/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/slschoolweb/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/slschoolweb/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/slschoolweb/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/slschoolweb/vendor/dompdf/dompdf" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
