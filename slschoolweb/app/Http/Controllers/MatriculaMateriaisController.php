@@ -33,7 +33,7 @@ class MatriculaMateriaisController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $material = $this->material;
 
         $request->validate([
@@ -42,12 +42,12 @@ class MatriculaMateriaisController extends Controller
             'qtde' => 'required',
             'total' => 'required',
             'vencimento' => 'required',
-        ],[
-            'material.required'=>'Selecione um material',
-            'valorUN.required'=>'Digite um valor valido para o campo Valor Unit[ario',
-            'qtde.required'=>'Selecione um valor valido para o campo Quantidade',
-            'total.required'=>'Digite um valor valido para o campo Total',
-            'vencimento.required'=>'Selecione uma data para o vencimento',
+        ], [
+            'material.required' => 'Selecione um material',
+            'valorUN.required' => 'Digite um valor valido para o campo Valor Unit[ario',
+            'qtde.required' => 'Selecione um valor valido para o campo Quantidade',
+            'total.required' => 'Digite um valor valido para o campo Total',
+            'vencimento.required' => 'Selecione uma data para o vencimento',
         ]);
 
         $matriculaID = $request->input('matricula');
@@ -64,7 +64,6 @@ class MatriculaMateriaisController extends Controller
             $material->save();
 
             $msg = 'Material incluido com sucesso!!!';
-            
         } catch (\Throwable $th) {
             $msg = 'ERRO! Não foi possível incluir o material!';
             return $th;
@@ -74,26 +73,28 @@ class MatriculaMateriaisController extends Controller
         $aluno = $matricula->alunos()->first();
 
         $materiais = $this->material->with('material')->where('matriculas_id', $matriculaID)
-                                ->orderBy('id', 'desc')->paginate();
+            ->orderBy('id', 'desc')->paginate();
 
-        return view(self::PATH.'matriculaMateriais', ['materiais'=>$materiais, 
-                            'matricula'=>$matricula, 'aluno'=>$aluno])
-                            ->with('msg', $msg);     
-
+        return view(self::PATH . 'matriculaMateriais', [
+            'materiais' => $materiais,
+            'matricula' => $matricula, 'aluno' => $aluno
+        ])
+            ->with('msg', $msg);
     }
 
     public function show(string $id)
     {
-        
+
         $matricula = Matricula::find($id);
         $aluno = $matricula->alunos()->first();
 
         $materiais = $this->material->with('material')->where('matriculas_id', $id)
             ->orderBy('id', 'desc')->paginate();
 
-        return view(self::PATH.'matriculaMateriais', ['materiais'=>$materiais, 
-                            'matricula'=>$matricula, 'aluno'=>$aluno]);
-
+        return view(self::PATH . 'matriculaMateriais', [
+            'materiais' => $materiais,
+            'matricula' => $matricula, 'aluno' => $aluno
+        ]);
     }
 
     public function edit(string $id)
@@ -111,45 +112,118 @@ class MatriculaMateriaisController extends Controller
         //
     }
 
-    public function adicionar(string $matricula){
+    public function adicionar(string $matricula)
+    {
 
         $matricula = Matricula::find($matricula);
         $aluno = $matricula->alunos()->first();
 
         $listaMateriais = MateriaisEscolar::all();
 
-        if($matricula->count() >= 1){
-            return view(self::PATH.'matriculaMateriaisCreate', ['matricula'=>$matricula,
-                             'aluno'=>$aluno, 'listaMaterias'=>$listaMateriais]);
-        }else{
+        if ($matricula->count() >= 1) {
+            return view(self::PATH . 'matriculaMateriaisCreate', [
+                'matricula' => $matricula,
+                'aluno' => $aluno, 'listaMaterias' => $listaMateriais
+            ]);
+        } else {
             return back();
         }
-
     }
 
-    public function adicionarParcela(string $matricula, string $material){
+    public function adicionarParcela(string $matricula, string $material)
+    {
 
         $materiais = $this->material->with('alunos')
-                            ->where('matriculas_id', $matricula)
-                            ->where('id', $material)->first();   
+            ->where('matriculas_id', $matricula)
+            ->where('id', $material)->first();
 
         $alunoID = $materiais->alunos_id;
 
         $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
 
-        return view(self::PATH.'matriculaMaterialParcela', ['material'=>$materiais])
-                    ->with('responsavelID', $responsavel->id);
+        return view(self::PATH . 'matriculaMaterialParcela', ['material' => $materiais])
+            ->with('responsavelID', $responsavel->id);
+    }
+
+    public function adicionarParcelas(string $matricula)
+    {
+
+        $total = 0;
+        $alunoID = 0;
+        $matriculaID = 0;
+
+        $materiais = $this->material->with('alunos')
+            ->where('matriculas_id', $matricula)->get();
+
+         foreach($materiais as $material){
+            $total = $total + $material->valor_total;
+            $alunoID = $material->alunos_id;
+            $matriculaID = $material->matriculas_id;
+         }    
+
+        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+        $dadosAluno = ['matriculaID'=>$matriculaID, 'alunoID'=>$alunoID, 
+                        'responsavelID'=>$responsavel->id];
+
+        return view(self::PATH . 'matriculaMaterialParcelas', ['material' => $materiais])
+            ->with('dadosAluno', $dadosAluno)
+            ->with('totalMateriais', $total);
 
     }
 
-    public function adicionarParcelas(string $matricula){
-        
-    }
 
+    public function parcela(Request $request)
+    {
 
-    public function parcela(Request $request){
-        dd($request);
-        // CONTINUAR DESTA PARTE EM DIANTE
+        $alunoID = $request->input('aluno');
+        $responsavelID = $request->input('responsavel');
+        $matriculaID = $request->input('matricula');
+        $qtdeParcela = $request->input('qtde');
+        $valorParcela = $request->input('valorParcela');
+        $vencimento = new DateTime($request->input('vencimento'));
+        $obs = $request->input('obs');
+
+        try {
+
+            for ($i = 0; $i < $qtdeParcela; $i++) {
+
+                $mensalidade = new Mensalidade();
+
+                $mensalidade->responsavels_id = $responsavelID;
+                $mensalidade->alunos_id = $alunoID;
+                $mensalidade->matriculas_id = $matriculaID;
+                $mensalidade->qtde_mensalidades = $qtdeParcela;
+                $mensalidade->valor_parcela = $valorParcela;
+
+                $dataVencimento = clone $vencimento;
+                $dataVencimento->modify('+' . $i . ' months');
+                $mensalidade->vencimento = $dataVencimento;
+
+                $mensalidade->pago = 'nao';
+                $mensalidade->observacao = $obs;
+
+                $mensalidade->save();
+
+                $msg = 'A(s) parcela(s) foram incluidas na mensalidade com sucesso!!!';
+
+            }
+
+        } catch (\Throwable $th) {
+            $msg = 'ERRO! Não foi possível gerar as parcelas!';
+        }
+
+        $matricula = Matricula::find($matriculaID);
+        $aluno = $matricula->alunos()->first();
+
+        $materiais = $this->material->with('material')->where('matriculas_id', $matriculaID)
+            ->orderBy('id', 'desc')->paginate();
+
+        return view(self::PATH . 'matriculaMateriais', [
+            'materiais' => $materiais,
+            'matricula' => $matricula, 'aluno' => $aluno
+        ])
+            ->with('msg', $msg);
     }
 
 
@@ -168,7 +242,7 @@ class MatriculaMateriaisController extends Controller
         int $qtdeParcela,
         float $valorParcela,
         DateTime $vencimento,
-        string $obs=" "
+        string $obs = " "
     ) {
 
         for ($i = 0; $i < $qtdeParcela; $i++) {
@@ -191,5 +265,4 @@ class MatriculaMateriaisController extends Controller
             $mensalidade->save();
         }
     }
-
 }

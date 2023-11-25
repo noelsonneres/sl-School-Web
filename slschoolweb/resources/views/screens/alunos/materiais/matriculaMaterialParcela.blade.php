@@ -21,8 +21,8 @@
 
                 @csrf
 
-                <input type="hidden" name="matricula" id="matricula" value="{{$material->id}}">
-                <input type="hidden" name="aluno" id="aluno" value="{{$material->id}}">
+                <input type="hidden" name="matricula" id="matricula" value="{{$material->matriculas_id}}">
+                <input type="hidden" name="aluno" id="aluno" value="{{$material->alunos_id}}">
                 <input type="hidden" name="responsavel" id="responsavel" value="{{$responsavelID}}">
 
                 <div class="row">
@@ -54,7 +54,8 @@
                 
                 <div class="mb-4">
                     <label for="obs" class="form-label lblCaption">Observação</label>
-                    <input type="text" class="form-control" name="obs" id="obs" maxlength="50">
+                    <input type="text" class="form-control" name="obs" id="obs" maxlength="50"
+                    value="Parcela referente a inclusão do material escolar">
                 </div>
 
                 <div>

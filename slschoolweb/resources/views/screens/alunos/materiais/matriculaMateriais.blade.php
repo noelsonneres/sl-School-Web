@@ -29,7 +29,7 @@
                 <i class="bi bi-plus-circle-fill"></i>
                 Incuir material </a>           
 
-                <a href="{{'/matricula_materiais_adicionar/'.$matricula->id}}"class="btn btn-success" 
+                <a href="{{'/matricula_material_parcelas/'.$matricula->id}}"class="btn btn-success" 
                 title="Gerar parcelas" >
                     <i class="bi bi-currency-dollar"></i>
                     Gerar parcelas </a>                
