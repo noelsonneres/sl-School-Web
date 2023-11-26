@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\MateriaisEscolar;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
@@ -162,8 +163,10 @@ class MatriculaMateriaisController extends Controller
          }    
 
         $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+        $alunoNome = Aluno::find($alunoID)->first()->nome;
 
-        $dadosAluno = ['matriculaID'=>$matriculaID, 'alunoID'=>$alunoID, 
+        $dadosAluno = ['matriculaID'=>$matriculaID, 'alunoID'=>$alunoID,
+                        'alunoNome'=>$alunoNome, 
                         'responsavelID'=>$responsavel->id];
 
         return view(self::PATH . 'matriculaMaterialParcelas', ['material' => $materiais])

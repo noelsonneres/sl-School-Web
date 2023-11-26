@@ -8,6 +8,18 @@
             <h3 class="text-center text-white p-3">Confirme as informações antes de gerar a parcela</h3>
         </div>
 
+        <div class="row">
+
+            <div class="col-4">
+    
+                <a href="{{ route('matricula.show', $material->matriculas_id) }}"class="btn btn-info">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Matrícula </a>           
+    
+            </div>  
+            
+        </div>   
+
         <hr>
 
         <h4 class="m-2">Aluno(a): {{$material->alunos->nome}}</h4>
@@ -84,7 +96,7 @@
         var qtde = parseFloat(qtdeInput.value);
 
         if (!isNaN(valor) && !isNaN(qtde)) {
-            var resultadoDivisao = valor * qtde;
+            var resultadoDivisao = valor / qtde;
             document.getElementById("valorParcela").value = resultadoDivisao.toFixed(2);
         }
     }

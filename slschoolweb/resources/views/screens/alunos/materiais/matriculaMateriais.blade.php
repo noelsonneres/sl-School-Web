@@ -58,7 +58,6 @@
                     <th scope="col">Valor UN</th>
                     <th scope="col">Qtde</th>
                     <th scope="col">Valor total</th>
-                    <th scope="col">Pago</th>
                     <th scope="col">Operações</th>
                 </tr>
             </thead>
@@ -72,7 +71,6 @@
                     <td>R$ {{number_format($material->valor_un, 2, ',', '.')}} </td>
                     <td>{{$material->qtde}} </td>
                     <td>R$ {{number_format($material->valor_total, 2, ',', '.')}} </td>
-                    <td>{{$material->pago}} </td>
 
                     <td>
 

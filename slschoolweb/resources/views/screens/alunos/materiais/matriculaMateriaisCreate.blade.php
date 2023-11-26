@@ -8,6 +8,19 @@
             <h3 class="text-center text-white p-3">Incluir material</h3>
         </div>
 
+        <div class="row">
+
+            <div class="col-4">
+    
+                <a href="{{ route('matricula.show', $matricula->id) }}"class="btn btn-info">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Matrícula </a>           
+    
+            </div>  
+            
+        </div>   
+
+
         <hr>
 
         <h4 class="m-2">Aluno(a): {{$aluno->nome}}</h4>

@@ -82,19 +82,18 @@ class MensalidadesController extends Controller
 
         } catch (\Throwable $th) {
             return $th;
-        }
-
-       
+        }       
 
     }
 
     public function show(string $id)
     {
 
-        $mensalidades = $this->mensalidade->where('matriculas_id', $id)->paginate();
-
         $matricula = Matricula::find($id);
         $aluno = $matricula->alunos()->first();
+
+
+        $mensalidades = $this->mensalidade->where('matriculas_id', $id)->paginate(30);
 
         return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidades])
             ->with('matricula', $matricula)

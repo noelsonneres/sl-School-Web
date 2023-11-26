@@ -42,9 +42,13 @@
                     <i class="bi bi-plus-circle-fill"></i>
                     Incluir mensalidade </a>
 
-                <a href="{{'/mensalidades_impressao/'.$matricula->id }}"class="btn btn-info">
+                <a href="{{'/mensalidades_impressao/'.$matricula->id }}"class="btn btn-success">
                     <i class="bi bi-printer-fill"></i>
                     Carnê de pagamento</a>  
+
+                    <a href="{{ route('matricula.show', $matricula->id) }}"class="btn btn-info">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Matrícula </a>                    
 
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 

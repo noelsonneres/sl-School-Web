@@ -32,6 +32,11 @@
             <a href="{{('/turmas_matriculas_inserir/'.$matricula)}}" class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
                 Adicionar turma </a>
+
+                <a href="{{ route('matricula.show', $matricula) }}"class="btn btn-info">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Matrícula </a>                
+
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
         </div>
 
