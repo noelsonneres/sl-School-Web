@@ -367,4 +367,11 @@ class MatriculasController extends Controller
             $mensalidade->save();
         }
     }
+
+    private function adicionarDisciplinas(string $matricula, string $curso){
+
+        // CRIAR O PROCEDIMENTO PARA ADICIONAR AS DISCIPLINAS DOS ALUNOS
+
+    }
+
 }
