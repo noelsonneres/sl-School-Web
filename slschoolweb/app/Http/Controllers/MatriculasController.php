@@ -7,6 +7,9 @@ use App\Models\Matricula;
 use App\Models\Aluno;
 use App\Models\Consultor;
 use App\Models\Curso;
+use App\Models\CursosDisciplina;
+use App\Models\Disciplina;
+use App\Models\MatriculaDisciplina;
 use App\Models\Responsavel;
 
 use App\Models\Mensalidade;
@@ -91,7 +94,7 @@ class MatriculasController extends Controller
             $matricula->qtde_dias = $request->input('qtdeDias');
             $matricula->horas_semana = $request->input('qtdeHoras');
             $matricula->consultors_id = $request->input('consultor');
-            $matricula->status = 'sim';
+            $matricula->status = 'ativa';
             $matricula->obs = $request->input('obs');
             $matricula->deletado = 'nao';
 
@@ -103,8 +106,10 @@ class MatriculasController extends Controller
             $vencimento = new DateTime($request->input('vencimento'));
             $vencimentoMatricula = new DateTime($request->input('vencimentoMatricula'));
 
-            if (!empty($request->input('vencimentoMatricula')) 
-                    && !empty($request->input('valorMatricula'))) {
+            if (
+                !empty($request->input('vencimentoMatricula'))
+                && !empty($request->input('valorMatricula'))
+            ) {
                 $this->gerarParcelas(
                     $aluno->id,
                     $responsavel->id,
@@ -114,7 +119,7 @@ class MatriculasController extends Controller
                     $vencimentoMatricula,
                     'Parcela referente à matrícula do aluno'
                 );
-            }            
+            }
 
             $this->gerarParcelas(
                 $aluno->id,
@@ -124,6 +129,8 @@ class MatriculasController extends Controller
                 $request->input('valorPorParcela'),
                 $vencimento
             );
+
+            $this->adicionarDisciplinas($matricula->alunos_id, $matricula->id, $matricula->cursos_id);
 
             return view(self::PATH . 'matriculaHome')
                 ->with('aluno', $aluno)
@@ -163,8 +170,6 @@ class MatriculasController extends Controller
         $matricula = $this->matricula->with('cursos')->find($id);
         $listaCursos = Curso::all();
         $listaConsultores = Consultor::all();
-
-
 
         if ($matricula->count() >= 1) {
 
@@ -344,7 +349,7 @@ class MatriculasController extends Controller
         int $qtdeParcela,
         float $valorParcela,
         DateTime $vencimento,
-        string $obs=" "
+        string $obs = " "
     ) {
 
         for ($i = 0; $i < $qtdeParcela; $i++) {
@@ -368,10 +373,31 @@ class MatriculasController extends Controller
         }
     }
 
-    private function adicionarDisciplinas(string $matricula, string $curso){
+    private function adicionarDisciplinas(string $aluno, string $matricula, string $curso)
+    {
 
-        // CRIAR O PROCEDIMENTO PARA ADICIONAR AS DISCIPLINAS DOS ALUNOS
+        $disciplinas = new CursosDisciplina();
 
+        $disciplinas = $disciplinas->with('disciplinas')->where('cursos_id', $curso)->get();
+
+        // dd($disciplinas);
+
+        foreach ($disciplinas as $disciplina) {
+
+            $matDis = new MatriculaDisciplina();
+
+            try {
+
+                $matDis->matriculas_id = $matricula;
+                $matDis->alunos_id = $aluno;
+                $matDis->cursos_id = $disciplina->cursos_id;
+                $matDis->disciplinas_id = $disciplina->disciplinas_id;
+                $matDis->concluido = 'Não iniciado';
+
+                $matDis->save();
+            } catch (\Throwable $th) {
+                return 'Erro ao adicionar disciplinas: ' . $th->getMessage();
+            }
+        }
     }
-
 }

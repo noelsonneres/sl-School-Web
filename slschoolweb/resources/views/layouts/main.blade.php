@@ -89,9 +89,9 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Disciplinas</span></a>
 
-                            <a class="sidebar-link text-white" href="/cursos">
-                                <i class="align-middle" data-feather="arrow-right"></i>
-                                <span class="align-middle">Cursos</span></a>                            
+                        <a class="sidebar-link text-white" href="/cursos">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Cursos</span></a>
 
                         <a class="sidebar-link text-white" href="/professores">
                             <i class="align-middle" data-feather="arrow-right"></i>
@@ -109,9 +109,13 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Turmas</span></a>
 
+                        <a class="sidebar-link text-white" href="/motivos_cancelamento">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Motivo cancelamento</span></a>
+
                     </div>
 
-                    {{-- Menu responsável financeiro --}}
+                    {{-- Matrículas --}}
 
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu1" data-bs-toggle="collapse">
@@ -124,13 +128,36 @@
                         <a class="sidebar-link text-white" href="/home_aluno">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Alunos</span></a>
-                        <a class="sidebar-link" href="#">
 
+                        <a class="sidebar-link text-white" href="/grade_horarios">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">
-                                Opção 2 </span></a>
+                                Grade de horários </span></a>
 
                     </div>
+
+                    {{-- Financeiro --}}
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-white" href="#sub-menu4" data-bs-toggle="collapse">
+                            <i class="align-middle" data-feather="user"></i> <span
+                                class="align-middle">Financeiro</span>
+                        </a>
+                    </li>
+                    <div id="sub-menu4" class="collapse" style="margin-left: 15px;">
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Contas a pagar</span></a>
+
+                        <a class="sidebar-link text-white" href="/grade_horarios">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">
+                                Estornar mensalidades </span></a>
+
+                    </div>     
+                    
+                    
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="pages-sign-in.html">
@@ -397,13 +424,14 @@
             </nav>
 
             <main class="content">
-                <div class="container-fluid p-0">
+                <div class="container-fluid p-0 ">
 
                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
+                        <div class="text text-danger p-4">
+                            <h4 class="text text-danger p-3">Verifiques os campos informados</h4>
+                            <ul class="list-group list-group-flush">
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li class="list-group-item text text-danger fs-4">* {{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>

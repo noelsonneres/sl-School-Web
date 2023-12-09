@@ -113,7 +113,11 @@ class ResponsavelController extends Controller
 
     public function edit(string $id)
     {
-        //
+
+        $responsavel = $this->responsavel->find($id);
+        $alunos = $responsavel->alunos()->first();
+        return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])->with('aluno', $alunos);
+
     }
 
     public function update(Request $request, string $id) 

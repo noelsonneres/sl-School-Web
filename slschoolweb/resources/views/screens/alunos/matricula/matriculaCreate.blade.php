@@ -41,10 +41,10 @@
 
                         @foreach ($cursos as $curso)
                             <option value="{{$curso->id}}"
-                                data-qtde-parcelas="{{$curso->qtde_parcelas}}" 
-                                data-valor-avista="{{$curso->valor_avista}}" 
-                                data-valor_com_desconto="{{$curso->valor_com_desconto}}" 
-                                data-valor-parcelado="{{$curso->valor_parcelado}}" 
+                                data-qtde-parcelas="{{$curso->qtde_parcelas}}"
+                                data-valor-avista="{{$curso->valor_avista}}"
+                                data-valor_com_desconto="{{$curso->valor_com_desconto}}"
+                                data-valor-parcelado="{{$curso->valor_parcelado}}"
                                 data-valor-por-parcela="{{$curso->valor_por_parcela}}">
                                 {{$curso->curso}}</option>
                         @endforeach
@@ -68,18 +68,18 @@
 
                 <div class="col-md-3 mb-3">
                     <label for="valorComDesconto" class="form-label lblCaption">Valor com desconto</label>
-                    <input type="number" class="form-control" step="0.01" min="0.01" name="valorComDesconto" id="valorComDesconto">                    
+                    <input type="number" class="form-control" step="0.01" min="0.01" name="valorComDesconto" id="valorComDesconto">
                 </div>
-                
+
                 <div class="col-md-3 mb-3">
                     <label for="valorParcelado" class="form-label lblCaption">Valor parcelado</label>
-                    <input type="number" class="form-control" step="0.01" min="0.01" onchange="calcular()" name="valorParcelado" id="valorParcelado">                      
+                    <input type="number" class="form-control" step="0.01" min="0.01" onchange="calcular()" name="valorParcelado" id="valorParcelado">
                 </div>
 
                 <div class="col-md-3 mb-3">
                     <label for="valorPorParcela" class="form-label lblCaption">Valor por parcela</label>
-                    <input type="number" class="form-control" step="0.01" min="0.01" name="valorPorParcela" id="valorPorParcela" oninput="calcular()" >                      
-                </div>                
+                    <input type="number" class="form-control" step="0.01" min="0.01" name="valorPorParcela" id="valorPorParcela" oninput="calcular()" >
+                </div>
 
             </div>
 
@@ -94,11 +94,11 @@
                     <label for="valorMatricula" class="form-label lblCaption">Valor da matrícula</label>
                     <input type="number" class="form-control" step="0.01" min="0.01" name="valorMatricula" id="valorMatricula">
                 </div>
-                
+
                 <div class="col-md-4 mb-3">
                     <label for="vencimentoMatricula" class="form-label">Vencimento da matrícula</label>
                     <input type="date" class="form-control" name="vencimentoMatricula" id="vencimentoMatricula">
-                </div>                
+                </div>
 
             </div>
 
@@ -111,18 +111,18 @@
 
                 <div class="col-md-3 mb-4">
                     <label for="dataTermino" class="form-label lblCaption">Data de término</label>
-                    <input type="date" class="form-control" name="dataTermino" id="dataTermino">                    
+                    <input type="date" class="form-control" name="dataTermino" id="dataTermino">
                 </div>
-                
+
                 <div class="col-md-3 mb-4">
                     <label for="qtdeDias" class="form-label lblCaption">Dias por semana</label>
                     <input type="number" class="form-control" name="qtdeDias" id="qtdeDias">
                 </div>
-                
+
                 <div class="col-md-3 mb-4">
                     <label for="qtdeHoras" class="form-label lblCaption">Horas por semana</label>
-                    <input type="number" class="form-control" name="qtdeHoras" id="qtdeHoras">                    
-                </div>                
+                    <input type="number" class="form-control" name="qtdeHoras" id="qtdeHoras">
+                </div>
 
             </div>
 
@@ -163,7 +163,7 @@
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar
                     </a>
-                    
+
             </div>
 
         </form>
@@ -179,8 +179,8 @@
     function calcular() {
 
         var qtdeParcelaInput = document.getElementById("qtdeParcelas");
-        var valorParceladoInput = document.getElementById("valorParcelado"); 
-        
+        var valorParceladoInput = document.getElementById("valorParcelado");
+
         var qtdeParcela = parseFloat(qtdeParcelaInput.value);
         var valorParcelado = parseFloat(valorParceladoInput.value);
 

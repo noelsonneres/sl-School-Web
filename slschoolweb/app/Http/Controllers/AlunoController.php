@@ -36,7 +36,7 @@ class AlunoController extends Controller
         $request->validate([
             'aluno' => 'required|min:3'
         ],[
-            'aluno.required' => 'Nome requirido',
+            'aluno.required' => 'O campo Aluno é obrigatório',
             'aluno.min' => 'O nome deve ter no mínimo três letras',
         ]);
 
@@ -99,7 +99,10 @@ class AlunoController extends Controller
 
     public function show(string $id)
     {
-        //
+        
+        $aluno = $this->alunos->find($id);
+        
+
     }
 
     public function edit(string $id)

@@ -172,8 +172,8 @@
 
                 <div class="col-md-3 mb-3">
                     <label for="ativo" class="form-label lblCaption">Ativo</label>
-                    <input type="text" class="form-control" name="ativo" id="ativo" 
-                        readonly value="sim" value="{{$matricula->status}}">
+                    <input style="color: #1976D2; font-weight: 800" type="text" class="form-control" name="ativo" id="ativo" 
+                        readonly value="{{$matricula->status}}">
                 </div>
 
             </div>

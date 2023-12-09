@@ -18,11 +18,19 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\FrequenciaController;
+use App\Http\Controllers\GradeHorariosController;
+use App\Http\Controllers\MatriculaCancelamentoController;
+use App\Http\Controllers\MatriculaDisciplinasController;
+use App\Http\Controllers\MatriculaFinalizarController;
 use App\Http\Controllers\MatriculaMateriaisController;
+use App\Http\Controllers\MatriculaReativarController;
 use App\Http\Controllers\MatriculasController;
+use App\Http\Controllers\MatriculaTrancamentoController;
 use App\Http\Controllers\ResponsavelController;
 use App\Http\Controllers\MatriculaTurmaController;
 use App\Http\Controllers\MensalidadesController;
+use App\Http\Controllers\MotivoCancelamentoController;
 
 Route::get('/', function () {
     return view('home');
@@ -101,3 +109,25 @@ Route::get('/matricula_material_parcela/{matricula}/{material}', [MatriculaMater
 Route::get('/matricula_material_parcelas/{matricula}', [MatriculaMateriaisController::class, 'adicionarParcelas']);
 Route::post('/matricula_material_gerar_parcela', [MatriculaMateriaisController::class, 'parcela']);
 
+Route::resource('matricula_disciplina', MatriculaDisciplinasController::class);
+Route::get('/matricula_disciplina_adicionar/{matricula}', [MatriculaDisciplinasController::class, 'adicionar']);
+
+Route::resource('motivos_cancelamento', MotivoCancelamentoController::class);
+Route::get('/motivos_cancelamento_find',  [MotivoCancelamentoController::class, 'find']);
+
+Route::resource('matricula_cancelar', MatriculaCancelamentoController::class);
+Route::get('/cancelar_matricula/{id}', [MatriculaCancelamentoController::class, 'cancelarMatricula']);
+// Route::get('/remover_turma_matricula/{id}', [MatriculaCancelamentoController::class, 'removerTurmas']);
+
+Route::resource('trancar_matricula', MatriculaTrancamentoController::class);
+
+Route::resource('matricula_finalizar', MatriculaFinalizarController::class);
+
+Route::resource('matricula_reativar', MatriculaReativarController::class);
+
+Route::get('/grade_horarios', [GradeHorariosController::class, 'grade']);
+Route::get('/grade_horarios_filtrar', [GradeHorariosController::class, 'filtrarGrade']);
+Route::get('/grade_horarios_alunos/{turma}', [GradeHorariosController::class, 'gradeAlunos']);
+
+Route::resource('frequencia', FrequenciaController::class);
+Route::get('frequancia_adicionar/{id}', [FrequenciaController::class, 'adicionar']);

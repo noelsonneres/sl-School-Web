@@ -61,10 +61,11 @@
             <table class="table p-1">
                 <thead>
                     <tr>
-                        <th scope="col">Código</th>
+                        {{-- <th scope="col">Código</th> --}}
                         <th scope="col">Turma</th>
                         <th scope="col">Dias</th>
                         <th scope="col">Horários</th>
+                        <th scope="col">Sala</th>
                         <th scope="col">Adicionar</th>
                     </tr>
                 </thead>
@@ -73,10 +74,11 @@
 
                     @foreach ($listaTurmas as $turma)
                         <tr>
-                            <td>{{ $turma->id }} </td>
+                            {{-- <td>{{ $turma->id }} </td> --}}
                             <td>{{ Str::substr($turma->turma, 0, 30) }} </td>
                             <td>{{ $turma->cadastroDias->dia1 }} - {{ $turma->cadastroDias->dia2 }}</td>
                             <td>{{ $turma->cadastroHorarios->entrada }} - {{ $turma->cadastroHorarios->saida }}</td>
+                            <td>{{ $turma->sala->sala}}</td>
                             
                             <td>
 
@@ -84,7 +86,11 @@
 
                                     <form method="POST" action="{{ route('matricula_turmas.store') }}">
                                         @csrf             
-                                        <input type="hidden" name="matricula" id="matricula" value="{{$matricula}}">
+                                        <input type="hidden" name="matricula" id="matricula" value="{{$matricula->id}}">
+                                        <input type="hidden" name="aluno" id="aluno" value="{{$matricula->alunos->id}}">
+                                        <input type="hidden" name="dia" id="dia" value="{{$turma->cadastroDias->id}}">
+                                        <input type="hidden" name="horario" id="horario" value="{{$turma->cadastroHorarios->id}}">
+                                        <input type="hidden" name="sala" id="sala" value={{$turma->sala->id}}>
                                         <input type="hidden" name="turma" id="turma" value="{{$turma->id}}">                           
                                         <button type="submit" class="btn btn-success btn">Adicionar</button>
                                     </form>

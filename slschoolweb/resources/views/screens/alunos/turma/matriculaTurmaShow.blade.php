@@ -53,6 +53,7 @@
                     <th scope="col">Turma</th>
                     <th scope="col">Dias</th>
                     <th scope="col">Horários</th>
+                    <th scope="col">Sala</th>
                     <th scope="col">Operações</th>
                 </tr>
             </thead>
@@ -64,6 +65,7 @@
                     <td>{{$turma->turmas->turma}} </td>
                     <td>{{$turma->turmas->dias->dia1}} - {{$turma->turmas->dias->dia2}} </td>
                     <td>{{$turma->turmas->horarios->entrada}} - {{$turma->turmas->horarios->saida}} </td>
+                    <td>{{$turma->turmas->sala->sala}} </td>
 
                     <td>
 

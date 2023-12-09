@@ -60,6 +60,8 @@ class MatriculaTurmaController extends Controller
         );
 
         $matriculaID = $request->input('matricula');
+
+
         $alunoID = Matricula::find($matriculaID)->alunos_id;
 
         $aluno = Aluno::find($alunoID)->first();
@@ -69,24 +71,33 @@ class MatriculaTurmaController extends Controller
 
         if ($this->verificar($request->input('matricula'), $request->input('turma')) == false) {
 
-            try {
+            if ($this->verificarDisponibilidade($request->input('turma')) === true) {
 
-                $turma->matriculas_id = $request->input('matricula');
-                $turma->turmas_id = $request->input('turma');
+                try {
 
-                $turma->save();
+                    $turma->matriculas_id = $request->input('matricula');
+                    $turma->alunos_id = $request->input('aluno');
+                    $turma->cadastro_dias_id = $request->input('dia');
+                    $turma->cadastro_horarios_id = $request->input('horario');
+                    $turma->salas_id = $request->input('sala');
+                    $turma->turmas_id = $request->input('turma');
 
-                $msg = 'Turma adicionada na matrícula com sucesso!!!';
+                    $turma->save();
 
-            } catch (\Throwable $th) {
+                    $msg = 'Turma adicionada na matrícula com sucesso!!!';
+                    
+                } catch (\Throwable $th) {
 
-                $msg = 'ERRO! Não foi possível salvar as informações no banco de dados!';
-                
+                    $msg = 'ERRO! Não foi possível salvar as informações no banco de dados: '.$th->getMessage();
+                }
+            } else {
+                $msg = 'ATENÇÃO! Não há vagas disponíveis. Tente outra turma';
             }
-        } else {
 
+        } else {
             $msg = 'ERRO! A turma ja está adicionada para a matrícula!';
         }
+
 
         $turma = MatriculaTurma::with('turmas')
             ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
@@ -140,8 +151,11 @@ class MatriculaTurmaController extends Controller
 
         $listaTurmas = Turma::paginate();
 
-        return view(self::PATH . 'matriculaTurmasCreate', ['matricula' => $matriculaID])
+        $matricula = Matricula::find($matriculaID);
+
+        return view(self::PATH . 'matriculaTurmasCreate', ['matricula' => $matricula])
             ->with('listaTurmas', $listaTurmas);
+
     }
 
     public function remover(string $matriculaID, string $matriculaTurmaID)
@@ -169,5 +183,20 @@ class MatriculaTurmaController extends Controller
             ->with('responsavel', $responsavel)
             ->with('matricula', $matriculaID)
             ->with('msg', $msg);
+    }
+
+    private function verificarDisponibilidade(string $turma)
+    {
+
+        $matriculaTurmas = MatriculaTurma::where('turmas_id', $turma)->get();
+
+        $total = $matriculaTurmas->count();
+
+        $salaTurmas = Turma::with('sala')->find($turma);
+
+        $vagasSala = $salaTurmas->sala->vagas;
+
+        return ($total < $vagasSala) ? true : false;
+
     }
 }
