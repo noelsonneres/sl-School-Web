@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('alunos_id');
             $table->unsignedBigInteger('matriculas_id');
             $table->unsignedBigInteger('disciplina_id');
-            $table->unsignedBigInteger('turmas_id');
             $table->date('data_lancamento');
             $table->time('hora_lancamento');
             $table->string('situacao');
@@ -38,10 +37,9 @@ return new class extends Migration
             $table->foreign('alunos_id')->references('id')->on('alunos')
                 ->constrained()
                 ->onUpdate('cascade')
-                ->onDelete('cascade');      
-                
+                ->onDelete('cascade');
+
             $table->foreign('disciplina_id')->references('id')->on('disciplinas');
-            $table->foreign('turmas_id')->references('id')->on('turmas');
 
         });
     }

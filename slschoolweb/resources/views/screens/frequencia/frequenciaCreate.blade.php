@@ -10,7 +10,7 @@
 
         <hr>
 
-        <div class="row p-2">
+        <div class="row ms-4">
 
             <div class="col md-4">
                 <h4>Aluno(a): {{ $matricula->alunos->nome }}</h4>
@@ -24,6 +24,18 @@
                 <h4>Curso: {{ $matricula->cursos->curso }}</h4>
             </div>
 
+        </div>
+
+        <hr>
+
+        <div class="row ms-4">
+            <div class="col-4">
+                <button onclick="javascript:history.back()" class="btn btn-danger">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    Voltar
+                </button>
+
+            </div>
         </div>
 
 
@@ -51,23 +63,33 @@
                 <div class="row">
 
                     <div class="col-md-6 mb-3">
+                        @error('disciplina')
+                        <span class="text text-danger">*</span>
+                        @enderror
                         <label for="disciplina" class="form-label lblCaption">Disciplina</label>
                         <select class="form-control" name="disciplina" id="disciplina" required>
                             <option value="">Selecione a disciplina</option>
 
                             @foreach ($listaDisciplinas as $lista)
-                                <option value="{{ $lista->disciplinas->id }}">{{ $lista->disciplinas->disciplina }}</option>
+                                <option
+                                    value="{{ $lista->disciplinas->id }}">{{ $lista->disciplinas->disciplina }}</option>
                             @endforeach
 
                         </select>
                     </div>
 
                     <div class="col-md-3 mb-3">
+                        @error('dataLancamento')
+                        <span class="text text-danger">*</span>
+                        @enderror
                         <label for="dataLancamento" class="form-label lblCaption">Data de lançamento</label>
                         <input type="date" class="form-control" name="dataLancamento" id="dataLancamento" required>
                     </div>
 
                     <div class="col-md-3 mb-3">
+                        @error('horaLancamento')
+                        <span class="text text-danger">*</span>
+                        @enderror
                         <label for="horaLancamento" class="form-label lblCaption">Hora lançamento</label>
                         <input type="time" class="form-control" name="horaLancamento" id="horaLancamento" required>
                     </div>
@@ -77,6 +99,9 @@
                 <div class="row">
 
                     <div class="col-md-4 mb-3">
+                        @error('situacao')
+                        <span class="text text-danger">*</span>
+                        @enderror
                         <label for="situacao" class="form-label lblCaption">Situação</label>
                         <select class="form-control" name="situacao" id="situacao" required>
 
@@ -102,11 +127,17 @@
                 <div class="row">
 
                     <div class="col-md-2 mb-4">
+                        @error('dataPresenca')
+                        <span class="text text-danger">*</span>
+                        @enderror
                         <label for="dataPresenca" class="form-label lblCaption">Data de presença</label>
                         <input type="date" class="form-control" name="dataPresenca" id="dataPresenca" required>
                     </div>
 
                     <div class="col-md-2 mb-4">
+                        @error('horaPresenca')
+                        <span class="text text-danger">*</span>
+                        @enderror
                         <label for="horaPresenca" class="form-label lblCaption"> Horário da presença</label>
                         <input type="time" class="form-control" name="horaPresenca" id="horaPresenca" required>
                     </div>
@@ -121,7 +152,8 @@
                 <div>
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-floppy2"></i>
-                        Salvar</button>
+                        Salvar
+                    </button>
 
                     <a href="javascript:history.back()" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>

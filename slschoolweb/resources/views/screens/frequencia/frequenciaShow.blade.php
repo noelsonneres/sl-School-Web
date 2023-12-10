@@ -8,9 +8,24 @@
             <h4 class="text-center text-white p-3">Frequência do aluno</h4>
         </div>
 
+        <div class="row p-2">
+
+            <div class="col md-4">
+                <h4>Aluno(a): {{ $matricula->alunos->nome }}</h4>
+            </div>
+
+            <div class="col-md-2">
+                <h4>Matricula: {{ $matricula->id }}</h4>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Curso: {{ $matricula->cursos->curso }}</h4>
+            </div>
+
+        </div>
 
         @if (isset($msg))
-            <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+            <div class="alert alert-warning alert-dismissible fade show msg d-flex
                         justify-content-between align-items-end mb-3"
                 role="alert" style="text-align: center;">
                 <h5>{{ $msg }} </h5>
@@ -25,10 +40,14 @@
 
             <div class="col-4">
 
-                <a href="{{ ('/frequancia_adicionar/'.$matricula) }}" class="btn btn-primary">
+                <a href="{{ ('/frequancia_adicionar/'.$matricula->id) }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
                     Lançar frequência</a>
-                <button onclick="(print())" class="btn $teal-300">Imprimir</button>
+
+                <button onclick="(print())" class="btn btn-info">Imprimir</button>
+                <button onclick="javascript:history.back()" class="btn btn-danger">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    Voltar</button>
 
             </div>
 
@@ -40,20 +59,15 @@
                     <div class="row">
 
                         <div class="col-md-3">
-                            <select class="form-control" name="opt" id="opt">
-                                <option value="id">Código</option>
-                                <option value="sala">Sala</option>
-                                <option value="descricao">Descrição</option>
-                            </select>
+                            <input type="date" class="form-control" name="inicio" id="inicio">
                         </div>
 
                         <div class="col-md-4">
-                            <input type="text" class="form-control" name="find" id="find"
-                                placeholder="Digite o que deseja buscar">
+                            <input type="date" class="form-control" name="fim" id="fim">
                         </div>
 
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
+                            <button type="submit" class="btn btn-success">Pesquisar</button>
                         </div>
 
                     </div>
@@ -71,10 +85,10 @@
             <table class="table p-1">
                 <thead>
                     <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Sala</th>
-                        <th scope="col">Vagas</th>
-                        <th scope="col">Operações</th>
+                        <th scope="col">Frequência</th>
+                        <th scope="col">Data frequência</th>
+                        <th scope="col">Hora frequência</th>
+                        <th scope="col">situação</th>
                     </tr>
                 </thead>
 
@@ -83,16 +97,16 @@
                     @foreach ($frequencias as $frequencia)
                         <tr>
                             <td>{{ $frequencia->id }} </td>
-                            <td>{{ $frequencia->frequencia }} </td>
-                            <td>{{ $frequencia->vagas }} </td>
-
+                            <td>{{date('d/m/Y', strtotime($frequencia->data_presenca))}} </td>
+                            <td>{{ $frequencia->hora_presenca}} </td>
+                            <td>{{ $frequencia->situacao}} </td>
                             <td>
 
                                 <div>
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('salas.edit', $sala->id) }}" class="btn btn-success btn-sm">
+                                            <a href="{{ route('frequencia.edit', $frequencia->id) }}" class="btn btn-success btn-sm">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
@@ -100,7 +114,7 @@
                                         <div class="col-2">
 
                                             <form method="POST" class="delete-form"
-                                                action="{{ route('salas.destroy', $sala->id) }}">
+                                                action="{{ route('frequencia.destroy', $frequencia->id) }}">
                                                 @csrf
                                                 {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                                 @method('DELETE')
@@ -134,7 +148,7 @@
 
 
             </table>
- 
+
             <div class="container-fluid pl-5 d-flex justify-content-center">
             {{$frequencias->links('pagination::pagination')}}
             </div>
