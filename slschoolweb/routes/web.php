@@ -136,3 +136,4 @@ Route::get('frequencia_adicionar/{id}', [FrequenciaController::class, 'adicionar
 Route::get('frequencia_localizar', [FrequenciaController::class, 'localizarFrequencias']);
 
 Route::resource('reposicoes',ReposicoesController::class);
+Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 'reposicao_adicionar']);

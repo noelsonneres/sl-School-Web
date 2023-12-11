@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matricula;
 use App\Models\Reposicao;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,9 @@ class ReposicoesController extends Controller
     public function show(string $id)
     {
 
-        return view(self::PATH.'reposicoesShow');
+        $matricula = Matricula::find($id);
+        $reposicoes = $this->reposicoes->where('matriculas_id', $id)->paginate();
+        return view(self::PATH.'reposicoesShow', ['matricula'=>$matricula, 'reposicoes'=>$reposicoes]);
 
     }
 
@@ -53,4 +56,9 @@ class ReposicoesController extends Controller
     {
         //
     }
+
+    public function reposicao_adicionar(string $matricula){
+        return view(self::PATH.'reposicaoCreate');
+    }
+
 }
