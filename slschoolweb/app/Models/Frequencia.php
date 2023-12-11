@@ -22,7 +22,7 @@ class Frequencia extends Model
     }
 
     public function disciplinas(){
-        return $this->belongsTo(Disciplina::class, 'disciplinas_id');
+        return $this->belongsTo(Disciplina::class, 'disciplina_id');
     }
 
     public function turmas(){
