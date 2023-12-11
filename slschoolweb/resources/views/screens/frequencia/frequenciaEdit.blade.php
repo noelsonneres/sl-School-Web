@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Nova frequência')
+@section('title', 'Atualizar informações da matrícula')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Nova frequência</h3>
+            <h3 class="text-center text-white p-3">Atualizar informações da matrícula</h3>
         </div>
 
         <hr>
@@ -38,7 +38,6 @@
             </div>
         </div>
 
-
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -52,7 +51,6 @@
         <hr>
         <p>{{$frequencia->disciplinas->id}}</p>
         <hr>
-
 
         <div class="card p-5">
 
