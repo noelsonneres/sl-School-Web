@@ -8,6 +8,7 @@ use App\Models\Frequencia;
 use App\Models\Matricula;
 use App\Models\MatriculaDisciplina;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class FrequenciaController extends Controller
 {
@@ -225,6 +226,20 @@ class FrequenciaController extends Controller
         } else {
             return back();
         }
+    }
+
+    public function localizarFrequencias(Request $request)
+    {
+        $inicio = Carbon::parse($request->input('inicio'));
+        $fim = Carbon::parse($request->input('fim'));
+        $matriculaID = $request->input('matricula');
+
+        $frequencia = $this->frequencia->whereBetween('data_presenca', [$inicio, $fim])
+                    ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+
+        $matricula = Matricula::find($matriculaID);
+
+        return view(self::PATH . 'frequenciaShow', ['frequencias' => $frequencia, 'matricula' => $matricula]);
 
     }
 

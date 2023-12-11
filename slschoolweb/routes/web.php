@@ -132,6 +132,7 @@ Route::get('/grade_horarios_filtrar', [GradeHorariosController::class, 'filtrarG
 Route::get('/grade_horarios_alunos/{turma}', [GradeHorariosController::class, 'gradeAlunos']);
 
 Route::resource('frequencia', FrequenciaController::class);
-Route::get('frequancia_adicionar/{id}', [FrequenciaController::class, 'adicionar']);
+Route::get('frequencia_adicionar/{id}', [FrequenciaController::class, 'adicionar']);
+Route::get('frequencia_localizar', [FrequenciaController::class, 'localizarFrequencias']);
 
 Route::resource('reposicoes',ReposicoesController::class);

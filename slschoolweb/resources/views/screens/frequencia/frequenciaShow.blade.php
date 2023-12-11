@@ -40,7 +40,7 @@
 
             <div class="col-4">
 
-                <a href="{{ ('/frequancia_adicionar/'.$matricula->id) }}" class="btn btn-primary mb-2">
+                <a href="{{ ('/frequencia_adicionar/'.$matricula->id) }}" class="btn btn-primary mb-2">
                     <i class="bi bi-plus-circle-fill"></i>
                     Nova</a>
 
@@ -54,8 +54,10 @@
 
             <div class="col-6">
 
-                <form action="/sala_pesquisar" method="get">
+                <form action="/frequencia_localizar" method="get">
                     @csrf
+
+                    <input type="hidden" name="matricula" value="{{ $matricula->id }}">
 
                     <div class="row">
 

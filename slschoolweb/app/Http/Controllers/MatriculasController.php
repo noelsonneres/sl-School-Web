@@ -339,7 +339,7 @@ class MatriculasController extends Controller
         return view(self::PATH . 'matriculaHome')
             ->with('aluno', $aluno)
             ->with('responsavel', $responsavel)
-            ->with('matricula', $matricula->first());
+            ->with('matricula', $matricula);
     }
 
     public function adicionar(string $idAluno)
