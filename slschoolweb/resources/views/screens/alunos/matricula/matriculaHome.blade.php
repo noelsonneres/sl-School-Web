@@ -169,7 +169,7 @@
 
 
                 <div class="col-sm-2">
-                    <a href="http://" class="link-card">
+                    <a href="{{route('reposicoes.show', $matricula->id)}}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Resposição</h2>

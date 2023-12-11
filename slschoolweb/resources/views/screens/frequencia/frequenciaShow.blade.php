@@ -46,10 +46,10 @@
 
                 <button onclick="(print())" class="btn btn-info mb-2">Imprimir</button>
 
-                <button onclick="javascript:history.back()" class="btn btn-danger mb-2">
+                <a href="{{('/exibirInfoMatricula/'.$matricula->id)}}" class="btn btn-danger mb-2">
                     <i class="bi bi-arrow-left-circle-fill"></i>
                     Voltar
-                </button>
+                </a>
             </div>
 
             <div class="col-6">

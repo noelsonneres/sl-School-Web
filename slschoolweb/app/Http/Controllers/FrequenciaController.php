@@ -88,7 +88,7 @@ class FrequenciaController extends Controller
 
         }
 
-        $frequencia = $this->frequencia->where('matriculas_id', $matriculaID)->paginate();
+        $frequencia = $this->frequencia->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
         $matricula = Matricula::find($matriculaID);
         return view(self::PATH . 'frequenciaShow', ['frequencias' => $frequencia, 'matricula' => $matricula])
             ->with('msg', $msg);
@@ -97,7 +97,7 @@ class FrequenciaController extends Controller
 
     public function show(string $id)
     {
-        $frequencia = $this->frequencia->where('matriculas_id', $id)->paginate();
+        $frequencia = $this->frequencia->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
 
         $matricula = Matricula::find($id);
 
@@ -168,7 +168,7 @@ class FrequenciaController extends Controller
 
             $frequencia->save();
 
-            $frequencia = $this->frequencia->where('matriculas_id', $matriculaID)->paginate();
+            $frequencia = $this->frequencia->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
 
             $matricula = Matricula::find($matriculaID);
 
@@ -188,7 +188,29 @@ class FrequenciaController extends Controller
 
     public function destroy(string $id)
     {
-        //
+
+        $frequencia = $this->frequencia->find($id);
+
+        $matriculaID = $frequencia->matriculas_id;
+
+        $msg = '';
+
+        try {
+
+            $frequencia->delete();
+            $msg = 'Frequência excluida com sucesso!';
+
+        }catch (\Throwable $th){
+            $msg = 'ERRO! Não foi possível remover a presença do aluno';
+        }
+
+        $frequencia = $this->frequencia->where('matriculas_id', $matriculaID)->paginate();
+
+        $matricula = Matricula::find($matriculaID);
+
+        return view(self::PATH . 'frequenciaShow', ['frequencias' => $frequencia, 'matricula' => $matricula])
+            ->with('msg', $msg);
+
     }
 
     public function adicionar(string $matricula)

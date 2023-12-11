@@ -326,6 +326,22 @@ class MatriculasController extends Controller
         }
     }
 
+    public function exibirInfoMatriculas(string $matricula)
+    {
+
+        $matricula = $this->matricula->find($matricula);
+
+        $alunoID = $matricula->alunos_id;
+
+        $aluno = Aluno::find($alunoID);
+        $responsavel = Responsavel::where('alunos_id', $alunoID);
+
+        return view(self::PATH . 'matriculaHome')
+            ->with('aluno', $aluno)
+            ->with('responsavel', $responsavel)
+            ->with('matricula', $matricula->first());
+    }
+
     public function adicionar(string $idAluno)
     {
 

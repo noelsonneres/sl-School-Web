@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReposicoesController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CadastroDiasController;
@@ -87,6 +88,7 @@ Route::get('/responsavel_adicionar/{id}/{home}', [ResponsavelController::class, 
 Route::resource('matricula', MatriculasController::class);
 Route::get('/matricula_home/{id}', [MatriculasController::class, 'homeMatricula']);
 Route::get('/matricula_adicionar/{id}', [MatriculasController::class, 'adicionar']);
+Route::get('/exibirInfoMatricula/{matricula}', [MatriculasController::class, 'exibirInfoMatriculas']);
 
 Route::resource('matricula_turmas', MatriculaTurmaController::class);
 Route::get('/turmas_matricula_lista/{aluno}/{matricula}', [MatriculaTurmaController::class, 'listaTurmas']);
@@ -131,3 +133,5 @@ Route::get('/grade_horarios_alunos/{turma}', [GradeHorariosController::class, 'g
 
 Route::resource('frequencia', FrequenciaController::class);
 Route::get('frequancia_adicionar/{id}', [FrequenciaController::class, 'adicionar']);
+
+Route::resource('reposicoes',ReposicoesController::class);
