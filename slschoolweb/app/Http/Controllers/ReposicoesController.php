@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Matricula;
 use App\Models\Reposicao;
+use App\Models\Turma;
 use Illuminate\Http\Request;
 
 class ReposicoesController extends Controller
@@ -58,7 +59,15 @@ class ReposicoesController extends Controller
     }
 
     public function reposicao_adicionar(string $matricula){
-        return view(self::PATH.'reposicaoCreate');
+
+        $matricula = Matricula::find($matricula);
+        $turmas = Turma::all();
+
+        // Exibir a lista de turmas e o total de vagas por turma
+        // Verificar se esta turma já esta cheia
+        // Verificar se o aluno não esta matrículado nesta turma
+
+        return view(self::PATH.'listarTurmasDisponiveis', ['matricula'=>$matricula, 'turmas'=>$turmas]);
     }
 
 }

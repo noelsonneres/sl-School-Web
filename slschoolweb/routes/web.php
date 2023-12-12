@@ -32,6 +32,7 @@ use App\Http\Controllers\ResponsavelController;
 use App\Http\Controllers\MatriculaTurmaController;
 use App\Http\Controllers\MensalidadesController;
 use App\Http\Controllers\MotivoCancelamentoController;
+use App\Http\Controllers\LocalizarTurmaController;
 
 Route::get('/', function () {
     return view('home');
@@ -137,3 +138,4 @@ Route::get('frequencia_localizar', [FrequenciaController::class, 'localizarFrequ
 
 Route::resource('reposicoes',ReposicoesController::class);
 Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 'reposicao_adicionar']);
+

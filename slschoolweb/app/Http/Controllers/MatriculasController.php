@@ -14,7 +14,6 @@ use App\Models\Responsavel;
 
 use App\Models\Mensalidade;
 use DateTime;
-use Ramsey\Uuid\Type\Integer;
 
 class MatriculasController extends Controller
 {

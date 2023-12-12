@@ -5,7 +5,7 @@
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h4 class="text-center text-white p-3">Repoisćões do aluno</h4>
+            <h4 class="text-center text-white p-3">Repoisções do aluno</h4>
         </div>
 
         <div class="row p-2">
