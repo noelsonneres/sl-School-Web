@@ -59,14 +59,16 @@
 
                 <input type="hidden" name="aluno" value="{{$matricula->alunos->id}}">
                 <input type="hidden" name="matricula" value="{{$matricula->id}}">
+                <input type="hidden" name="turma" id="turma" value="{{$turmas->id}}">
+
 
                 {{--      Campos do formulário    --}}
 
                 <div class="row mb-4">
 
                     <div class="col-md-12">
-                        <label for="turma" class="form-label lblCaption">Turma </label>
-                        <input type="text" class="form-control" name="turma" id="turma"
+                        <label for="nomeTurma" class="form-label lblCaption">Turma </label>
+                        <input type="text" class="form-control" name="nomeTurma" id="nomeTurma"
                                value="{{$turmas->turma}}" readonly required>
                     </div>
 

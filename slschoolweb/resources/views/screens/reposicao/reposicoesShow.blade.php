@@ -90,8 +90,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Turma</th>
-                    <th scope="col">Data de repoição</th>
-                    <th scope="col">Horário de repoição</th>
+                    <th scope="col">Data de reposição</th>
+                    <th scope="col">Horário de reposição</th>
                     <th scope="col">Status</th>
                     <th scope="col">Operação</th>
                 </tr>
@@ -100,11 +100,12 @@
                 <tbody>
                 @foreach ($reposicoes as $reposicao)
                     <tr>
-                        <td>{{ $reposicoes->id }} </td>
-                        <td>{{ $reposicoes->turmas->turma}} </td>
-                        <td>{{ $reposicoes->data_reposicao }} </td>
-                        <td>{{ $reposicoes->hora_reposicao }} </td>
-                        <td>{{ $reposicoes->status }} </td>
+
+                        <td>{{ $reposicao->id }} </td>
+                        <td>{{ $reposicao->turmas->turma}} </td>
+                        <td>{{date('d/m/Y', strtotime( $reposicao->data_reposicao))}} </td>
+                        <td>{{ $reposicao->hora_reposicao }} </td>
+                        <td>{{ $reposicao->status }} </td>
 
                         <td>
 
@@ -112,7 +113,7 @@
                                 <div class="row">
 
                                     <div class="col-2">
-                                        <a href="{{ route('frequencia.edit', $frequencia->id) }}"
+                                        <a href="{{ route('frequencia.edit', $reposicao->id) }}"
                                            class="btn btn-success btn-sm"
                                            title="Editar informações da frequência">
                                             <i class="bi bi-pencil-square"></i>
@@ -122,7 +123,7 @@
                                     <div class="col-2">
 
                                         <form method="POST" class="delete-form"
-                                              action="{{ route('frequencia.destroy', $frequencia->id) }}">
+                                              action="{{ route('frequencia.destroy', $reposicao->id) }}">
                                             @csrf
                                             {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                             @method('DELETE')
