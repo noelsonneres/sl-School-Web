@@ -68,12 +68,12 @@ class ReposicoesController extends Controller
         return view(self::PATH.'listarTurmasDisponiveis', ['matricula'=>$matricula, 'turmas'=>$turmas]);
     }
 
-    public function selecionarTurma(string $matricula, string $turma){
+    public function selecionarTurma(string $matriculaID, string $turma){
 
-        $matricula = Matricula::find($matricula);
+        $matricula = Matricula::find($matriculaID);
         $turmas = Turma::paginate();
 
-        if($this->verificarDuplicidade($matricula, $turma)){
+        if($this->verificarDuplicidade($matriculaID, $turma) >= 1){
 
             return view(self::PATH.'listarTurmasDisponiveis', ['matricula'=>$matricula, 'turmas'=>$turmas])
                             ->with('msg', 'Esta turma já adcionanda a matrícula. Escolha outra turma!');
@@ -83,11 +83,34 @@ class ReposicoesController extends Controller
             return view(self::PATH.'listarTurmasDisponiveis', ['matricula'=>$matricula, 'turmas'=>$turmas])
                 ->with('msg', 'Não há vagas disponíveis nesta turma. Selecione outra turma!');
 
+        }else{
+            $turmaSelecionada = Turma::find($turma);
+            return view(self::PATH.'reposicaoCreate', ['matricula'=>$matricula, 'turmas'=>$turmaSelecionada]);
         }
 
+    }
 
-//        CRIAR O PROCEDIMENTO PARA ADICIONAR A REPOSIÇÃO DO ALUNO
+    public function marcarReposicao(Request $request)
+    {
 
+        $reposicao = $this->reposicoes;
+
+        $request->validate([
+            'turma'=>'required',
+            'dataMarcacao'=>'required',
+            'horaMarcacao'=>'required',
+            'dataReposicao'=>'required',
+            'horaReposicao'=>'required',
+            'status'=>'required',
+        ]);
+
+        try {
+
+        }catch (\Throwable $th){
+
+            $reposicao->alunos_id = $request->input('aluno');
+
+        }
     }
 
     private function verificarDisponibilidade(string $turma){

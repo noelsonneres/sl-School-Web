@@ -86,7 +86,7 @@
             <table class="table p-1">
                 <thead>
                 <tr>
-                    <th scope="col">Código</th>
+                    <th scope="col">#</th>
                     <th scope="col">Turma</th>
                     <th scope="col">Dias</th>
                     <th scope="col">Horários</th>

@@ -53,7 +53,7 @@
 
         <div class="card p-5">
 
-            <form action="{{ route('frequencia.store') }}" method="post">
+            <form action="{{('/resposicao_marcar') }}" method="post">
 
                 @csrf
 
@@ -64,15 +64,10 @@
 
                 <div class="row mb-4">
 
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <label for="turma" class="form-label lblCaption">Turma </label>
-                        <input type="text" class="form-control" name="turma" id="turma" readonly required>
-                    </div>
-
-                    <div class="col-md-4 mt-4">
-                        <a href="{{('/localizar_turma')}}" class="btn btn-info">
-                            Localizar
-                        </a>
+                        <input type="text" class="form-control" name="turma" id="turma"
+                               value="{{$turmas->turma}}" readonly required>
                     </div>
 
                 </div>
@@ -81,7 +76,8 @@
 
                     <div class="col-md-3">
                         <label for="dataMarcacao" class="form-label lblCaption">Data de marcação</label>
-                        <input type="date" class="form-control" name="dataMarcacao" id="dataMarcacao" required>
+                        <input type="date" class="form-control" name="dataMarcacao" id="dataMarcacao"
+                               value="" required>
                     </div>
 
                     <div class="col-md-3">
@@ -95,8 +91,8 @@
                     </div>
 
                     <div class="col-md-3">
-                        <label for="dataReposicao" class="form-label lblCaption">Data para a reposição</label>
-                        <input type="time" class="form-control" name="dataReposicao" id="dataReposicao" required>
+                        <label for="dataReposicao" class="form-label lblCaption">Horário de reposição</label>
+                        <input type="time" class="form-control" name="horaReposicao" id="horaReposicao" required>
                     </div>
 
                 </div>
@@ -138,5 +134,23 @@
 
         </div>
     </div>
+
+    <script>
+        // Obtém a data atual
+        var dataAtual = new Date();
+        var ano = dataAtual.getFullYear();
+        var mes = (dataAtual.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda se o mês for menor que 10
+        var dia = dataAtual.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda se o dia for menor que 10
+
+        // Formata a data como uma string no formato 'YYYY-MM-DD'
+        var dataFormatada = ano + '-' + mes + '-' + dia;
+
+        // Formata a hora como uma string no formato 'HH:MM'
+        var horaFormatada = dataAtual.getHours().toString().padStart(2, '0') + ':' + dataAtual.getMinutes().toString().padStart(2, '0');
+
+        // Define o valor do campo input com a data e hora formatadas
+        document.getElementById('dataMarcacao').value = dataFormatada;
+        document.getElementById('horaMarcacao').value = horaFormatada;
+    </script>
 
 @endsection
