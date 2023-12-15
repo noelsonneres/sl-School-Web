@@ -66,7 +66,7 @@
                         <td>{{ $turma->turmas->sala->sala }}</td>
 
                         <td>
-                            <a href="#" class="btn btn-info btn-sm" title="Lançar frequência">
+                            <a href="{{('/frequencia_adicionar/'.$turma->matriculas_id)}}" class="btn btn-info btn-sm" title="Lançar frequência">
                                 <i class="bi bi-check-circle-fill"></i>
                             </a>
                         </td>
@@ -107,7 +107,7 @@
                         <td>{{ $reposicao->turmas->sala->sala }}</td>
 
                         <td>
-                            <a href="#" class="btn btn-info btn-sm" title="Lançar frequência">
+                            <a href="{{('/frequencia_adicionar/'.$reposicao->matriculas_id)}}" class="btn btn-info btn-sm" title="Lançar frequência">
                                 <i class="bi bi-check-circle-fill"></i>
                             </a>
                         </td>
