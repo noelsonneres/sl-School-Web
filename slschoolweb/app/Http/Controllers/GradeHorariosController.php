@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CadastroDia;
 use App\Models\MatriculaTurma;
+use App\Models\Reposicao;
 use App\Models\Sala;
 use App\Models\Turma;
 use Illuminate\Http\Request;
@@ -47,11 +48,12 @@ class GradeHorariosController extends Controller
     public function gradeAlunos(string $turma){
 
         $matriculaTurmas = MatriculaTurma::where('turmas_id', $turma)->paginate();
+        $reposicoes = Reposicao::where('turmas_id', $turma)->where('status', 'marcada')->paginate();
 
-        return view(self::PATH.'gradeHorariosAlunos', ['matriculasTurmas'=>$matriculaTurmas]);
+        return view(self::PATH.'gradeHorariosAlunos', ['matriculasTurmas'=>$matriculaTurmas, 'reposicoes'=>$reposicoes]);
 
     }
 
-    
+
 
 }

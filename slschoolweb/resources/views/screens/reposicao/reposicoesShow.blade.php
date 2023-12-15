@@ -54,7 +54,7 @@
 
             <div class="col-6">
 
-                <form action="/frequencia_localizar" method="get">
+                <form action="/resposicao_localizar" method="get">
                     @csrf
 
                     <input type="hidden" name="matricula" value="{{ $matricula->id }}">
@@ -113,7 +113,7 @@
                                 <div class="row">
 
                                     <div class="col-2">
-                                        <a href="{{ route('frequencia.edit', $reposicao->id) }}"
+                                        <a href="{{ route('reposicoes.edit', $reposicao->id) }}"
                                            class="btn btn-success btn-sm"
                                            title="Editar informações da frequência">
                                             <i class="bi bi-pencil-square"></i>
@@ -123,7 +123,7 @@
                                     <div class="col-2">
 
                                         <form method="POST" class="delete-form"
-                                              action="{{ route('frequencia.destroy', $reposicao->id) }}">
+                                              action="{{ route('reposicoes.destroy', $reposicao->id) }}">
                                             @csrf
                                             {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                             @method('DELETE')

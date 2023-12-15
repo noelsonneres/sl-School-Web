@@ -140,4 +140,5 @@ Route::resource('reposicoes',ReposicoesController::class);
 Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 'reposicao_adicionar']);
 Route::get('/reposicao_selecionar/{matricula}/{turma}', [ReposicoesController::class, 'selecionarTurma']);
 Route::post('/resposicao_marcar', [ReposicoesController::class, 'marcarReposicao']);
+Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar']);
 
