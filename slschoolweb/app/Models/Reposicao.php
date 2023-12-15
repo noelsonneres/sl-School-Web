@@ -10,8 +10,13 @@ class Reposicao extends Model
 {
     use HasFactory;
 
-    public  function turmas(){
+    public function turmas(){
         return $this->belongsTo(Turma::class, 'turmas_id');
     }
+
+    public function alunos(){
+        return $this->belongsTo(Aluno::class, 'alunos_id');
+    }
+
 
 }

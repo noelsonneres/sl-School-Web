@@ -8,8 +8,9 @@
             <h3 class="text-center text-white p-3">Grade de horários</h3>
         </div>
 
+
         @if (isset($msg))
-            <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+            <div class="alert alert-warning alert-dismissible fade show msg d-flex
 							justify-content-between align-items-end mb-3"
                 role="alert" style="text-align: center;">
                 <h5>{{ $msg }} </h5>

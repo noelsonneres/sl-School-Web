@@ -8,6 +8,12 @@
             <h4 class="text-center text-white p-3">Alunos por turma</h4>
         </div>
 
+        <hr>
+        <div class="ps-3">
+            <h3>{{$turma->turma}}</h3>
+        </div>
+        <hr>
+
         <div class="row">
 
             <div class="col-4">
@@ -35,7 +41,7 @@
         <hr>
 
         <div class="card pt-2 mt-4 border">
-
+            <h3 class="ms-5">Lista de alunos</h3>
             <table class="table p-1">
                 <thead>
                 <tr>
@@ -44,6 +50,7 @@
                     <th scope="col">Dias</th>
                     <th scope="col">Horários</th>
                     <th scope="col">Sala</th>
+                    <th scope="col">Operação</th>
                 </tr>
                 </thead>
 
@@ -54,9 +61,15 @@
 
                         <td>{{ $turma->matriculas_id }} </td>
                         <td>{{ $turma->alunos->nome }} </td>
-                        <td>{{ $turma->cadastroDias->dia1 }} - {{ $turma->cadastroDias->dia2 }} </td>
-                        <td>{{ $turma->cadastroHorarios->entrada }} - {{ $turma->cadastroHorarios->saida }} </td>
-                        <td>{{ $turma->salas->sala }}</td>
+                        <td>{{ $turma->turmas->cadastroDias->dia1 }} - {{ $turma->turmas->cadastroDias->dia2 }} </td>
+                        <td>{{ $turma->turmas->cadastroHorarios->entrada }} - {{ $turma->turmas->cadastroHorarios->saida }} </td>
+                        <td>{{ $turma->turmas->sala->sala }}</td>
+
+                        <td>
+                            <a href="#" class="btn btn-info btn-sm" title="Lançar frequência">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </a>
+                        </td>
 
                     </tr>
                 @endforeach
@@ -79,11 +92,9 @@
                     <th scope="col">Dias</th>
                     <th scope="col">Horários</th>
                     <th scope="col">Sala</th>
+                    <th scope="col">Operação</th>
                 </tr>
                 </thead>
-
-
-{{--                Criar ps relacionamento para buscar as informações do aluno, dias, horários e sala--}}
 
                 <tbody>
                 @foreach ($reposicoes as $reposicao)
@@ -91,9 +102,15 @@
 
                         <td>{{ $reposicao->matriculas_id }} </td>
                         <td>{{ $reposicao->alunos->nome }} </td>
-                        <td>{{ $turma->cadastroDias->dia1 }} - {{ $turma->cadastroDias->dia2 }} </td>
-                        <td>{{ $turma->cadastroHorarios->entrada }} - {{ $turma->cadastroHorarios->saida }} </td>
-                        <td>{{ $turma->salas->sala }}</td>
+                        <td>{{ $reposicao->turmas->cadastroDias->dia1 }} - {{ $reposicao->turmas->cadastroDias->dia2 }} </td>
+                        <td>{{ $reposicao->turmas->cadastroHorarios->entrada }} - {{ $reposicao->turmas->cadastroHorarios->saida }} </td>
+                        <td>{{ $reposicao->turmas->sala->sala }}</td>
+
+                        <td>
+                            <a href="#" class="btn btn-info btn-sm" title="Lançar frequência">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </a>
+                        </td>
 
                     </tr>
                 @endforeach

@@ -47,13 +47,14 @@ class GradeHorariosController extends Controller
 
     public function gradeAlunos(string $turma){
 
-        $matriculaTurmas = MatriculaTurma::where('turmas_id', $turma)->paginate();
-        $reposicoes = Reposicao::where('turmas_id', $turma)->where('status', 'marcada')->paginate();
+        $turmas = Turma::find($turma);
 
-        return view(self::PATH.'gradeHorariosAlunos', ['matriculasTurmas'=>$matriculaTurmas, 'reposicoes'=>$reposicoes]);
+        $matriculaTurmas = MatriculaTurma::where('turmas_id', $turma)->get();
+        $reposicoes = Reposicao::where('turmas_id', $turma)->where('status', 'marcada')->get();
+
+        return view(self::PATH.'gradeHorariosAlunos', ['matriculasTurmas'=>$matriculaTurmas,
+                                        'reposicoes'=>$reposicoes, 'turma'=>$turmas]);
 
     }
-
-
 
 }
