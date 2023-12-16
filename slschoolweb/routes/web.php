@@ -32,7 +32,7 @@ use App\Http\Controllers\ResponsavelController;
 use App\Http\Controllers\MatriculaTurmaController;
 use App\Http\Controllers\MensalidadesController;
 use App\Http\Controllers\MotivoCancelamentoController;
-use App\Http\Controllers\LocalizarTurmaController;
+use App\Http\Controllers\PlanoContasController;
 
 Route::get('/', function () {
     return view('home');
@@ -141,4 +141,7 @@ Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 're
 Route::get('/reposicao_selecionar/{matricula}/{turma}', [ReposicoesController::class, 'selecionarTurma']);
 Route::post('/resposicao_marcar', [ReposicoesController::class, 'marcarReposicao']);
 Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar']);
+
+Route::resource('plano_contas', PlanoContasController::class);
+Route::get('plano_contas_localizar', [PlanoContasController::class, 'find']);
 

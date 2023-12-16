@@ -8,7 +8,7 @@
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminKit">
     <meta name="keywords"
-        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, 
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard,
 			template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -146,6 +146,10 @@
                     </li>
                     <div id="sub-menu4" class="collapse" style="margin-left: 15px;">
 
+                        <a class="sidebar-link text-white" href="/plano_contas">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Plano de contas</span></a>
+
                         <a class="sidebar-link text-white" href="/home_aluno">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Contas a pagar</span></a>
@@ -155,9 +159,9 @@
                             <span class="align-middle">
                                 Estornar mensalidades </span></a>
 
-                    </div>     
-                    
-                    
+                    </div>
+
+
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="pages-sign-in.html">
