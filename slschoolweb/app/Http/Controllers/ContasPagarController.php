@@ -2,24 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContasPagar;
+use App\Models\PlanoContas;
 use Illuminate\Http\Request;
 
 class ContasPagarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    const PATH = 'screens.contasPagar.';
+    private $contas;
+
+    public function __construct()
     {
-        //
+        $this->contas = new ContasPagar();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index()
+    {
+        $contas = $this->contas->paginate();
+        return view(self::PATH.'contasPagarShow', ['contas'=>$contas]);
+
+    }
+
     public function create()
     {
-        //
+        $planoContas = PlanoContas::all();
+        return view(self::PATH.'planoContasCreate', ['planoContas'=>$planoContas]);
     }
 
     /**

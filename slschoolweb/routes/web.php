@@ -33,6 +33,7 @@ use App\Http\Controllers\MatriculaTurmaController;
 use App\Http\Controllers\MensalidadesController;
 use App\Http\Controllers\MotivoCancelamentoController;
 use App\Http\Controllers\PlanoContasController;
+use App\Http\Controllers\ContasPagarController;
 
 Route::get('/', function () {
     return view('home');
@@ -144,4 +145,6 @@ Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar']);
 
 Route::resource('plano_contas', PlanoContasController::class);
 Route::get('plano_contas_localizar', [PlanoContasController::class, 'find']);
+
+Route::resource('contas_pagar', ContasPagarController::class);
 

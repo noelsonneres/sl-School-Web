@@ -42,7 +42,7 @@
 
         <div class="card pt-2 mt-4 border">
             <h3 class="ms-5">Lista de alunos</h3>
-            <table class="table p-1">
+            <table class="table p-1 table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Matrícula</th>
@@ -84,7 +84,7 @@
         <div class="card pt-2 mt-4 border">
             <h3 class="ms-5">Lista de reposições</h3>
 
-            <table class="table p-1">
+            <table class="table p-1 table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Matrícula</th>
