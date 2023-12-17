@@ -81,16 +81,17 @@
                 </tr>
                 </thead>
 
-
                 <tbody>
                 @foreach ($contas as $conta)
                     <tr>
                         <td>{{ $conta->id }} </td>
                         <td>{{ $conta->conta }} </td>
-                        <td>{{ $conta->vencimento }} </td>
-                        <td>{{ $conta->valor }} </td>
+                        <td>{{date('d/m/Y', strtotime( $conta->vencimento)) }} </td>
+                        <td>R$ {{number_format( $conta->valor, 2, ',', '.') }} </td>
                         <td>{{ $conta->pago }} </td>
-                        <td>{{ $conta->data_pagametno }} </td>
+                        <td>@if($conta->data_pagametno != null)
+                                {{date('d/m/Y', strtotime( $conta->data_pagametno)) }}
+                            @endif</td>
 
                         <td>
 
@@ -98,7 +99,8 @@
                                 <div class="row">
 
                                     <div class="col-2">
-                                        <a href="{{ route('contas_pagar.edit', $conta->id) }}" class="btn btn-success btn-sm">
+                                        <a href="{{ route('contas_pagar.edit', $conta->id) }}"
+                                           class="btn btn-success btn-sm">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                     </div>
@@ -138,7 +140,6 @@
                 </tbody>
 
 
-
             </table>
 
             <div class="container-fluid pl-5 d-flex justify-content-center">
@@ -146,7 +147,6 @@
             </div>
 
         </div>
-
 
 
     </div>

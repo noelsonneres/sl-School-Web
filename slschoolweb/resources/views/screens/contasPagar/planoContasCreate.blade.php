@@ -31,7 +31,7 @@
                     <div class="col-md-8 mb-4">
                         <label for="conta" class="form-label lblCaption">Conta</label>
                         <input type="text" class="form-control" name="conta" id="conta" maxlength="50"
-                               autofocus required>
+                               autofocus required value="{{old('conta')}}">
                     </div>
                     <div class="col-md-4 mb-4">
                         <label for="tipo" class="form-label lblCaption">Plano de contas</label>
@@ -55,12 +55,14 @@
 
                     <div class="col-md-3 mb-4">
                         <label for="valor" class="form-label lblCaption">Valor</label>
-                        <input type="number" class="form-control" name="valor" id="valor" step="0.01" min="0.01" required>
+                        <input type="number" class="form-control" name="valor" id="valor" step="0.01" min="0.01"
+                               required value="{{old('valor')}}">
                     </div>
 
                     <div class="col-md-3 mb-4">
                         <label for="vencimento" class="form-label lblCaption">Vencimento</label>
-                        <input type="date" class="form-control" name="vencimento" id="vencimento" required>
+                        <input type="date" class="form-control" name="vencimento" id="vencimento"
+                               required value="{{old('vencimento')}}">
                     </div>
 
                     <div class="col-md-3 mb-4">
