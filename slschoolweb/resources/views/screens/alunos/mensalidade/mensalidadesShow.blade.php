@@ -44,11 +44,11 @@
 
                 <a href="{{'/mensalidades_impressao/'.$matricula->id }}"class="btn btn-success">
                     <i class="bi bi-printer-fill"></i>
-                    Carnê de pagamento</a>  
+                    Carnê de pagamento</a>
 
                     <a href="{{ route('matricula.show', $matricula->id) }}"class="btn btn-info">
                         <i class="bi bi-plus-circle-fill"></i>
-                        Matrícula </a>                    
+                        Matrícula </a>
 
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
@@ -92,6 +92,7 @@
                                 <td style="color: #34d74a; font-weight: bold">{{ $mensalidade->pago }} </td>
 
                                 @elseif ($mensalidade->pago == 'nao' and $mensalidade->vencimento < now())
+
                                 <td style="color: #e30f41; font-weight: bold">{{ $mensalidade->id }} </td>
                                 <td style="color: #e30f41; font-weight: bold">R$ {{ number_format($mensalidade->valor_parcela, '2', ',', '.') }} </td>
                                 <td style="color: #e30f41; font-weight: bold">{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }} </td>
@@ -109,7 +110,7 @@
                                 <td style="color: font-weight: bold">@if ($mensalidade->data_pagamento <> null)
                                     {{date('d/m/Y', strtotime($mensalidade->data_pagamento))}}
                                 @endif </td>
-                                <td>{{$mensalidade->pago}} </td> 
+                                <td>{{$mensalidade->pago}} </td>
 
                             @endif
 
@@ -141,7 +142,7 @@
                                                 <i class="bi bi-trash3-fill"></i>
                                             </button>
                                         </form>
-    
+
                                         <script>
                                             function confirmDelete(button) {
                                                 if (confirm('Tem certeza de que deseja excluir este item?')) {
@@ -150,9 +151,9 @@
                                                 }
                                             }
                                         </script>
-    
-    
-                                    </div>                                    
+
+
+                                    </div>
 
                                 </div>
 

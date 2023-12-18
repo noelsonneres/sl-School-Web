@@ -84,14 +84,45 @@
                 <tbody>
                 @foreach ($contas as $conta)
                     <tr>
-                        <td>{{ $conta->id }} </td>
-                        <td>{{ $conta->conta }} </td>
-                        <td>{{date('d/m/Y', strtotime( $conta->vencimento)) }} </td>
-                        <td>R$ {{number_format( $conta->valor, 2, ',', '.') }} </td>
-                        <td>{{ $conta->pago }} </td>
-                        <td>@if($conta->data_pagametno != null)
+
+                        @if($conta->pago == 'sim')
+
+                        <td style="color: #34d74a; font-weight: bold">{{ $conta->id }} </td>
+                        <td style="color: #34d74a; font-weight: bold">{{ $conta->conta }} </td>
+                        <td style="color: #34d74a; font-weight: bold">{{date('d/m/Y', strtotime( $conta->vencimento)) }} </td>
+                        <td style="color: #34d74a; font-weight: bold">R$ {{number_format( $conta->valor, 2, ',', '.') }} </td>
+                        <td style="color: #34d74a; font-weight: bold">{{ $conta->pago }} </td>
+                        <td style="color: #34d74a; font-weight: bold">
+                            @if($conta->data_pagametno != null)
                                 {{date('d/m/Y', strtotime( $conta->data_pagametno)) }}
                             @endif</td>
+
+                            @elseif($conta->pago == 'nao' and $conta->vencimento < now())
+
+                            <td style="color: #e30f41; font-weight: bold">{{ $conta->id }} </td>
+                            <td style="color: #e30f41; font-weight: bold">{{ $conta->conta }} </td>
+                            <td style="color: #e30f41; font-weight: bold">{{date('d/m/Y', strtotime( $conta->vencimento)) }} </td>
+                            <td style="color: #e30f41; font-weight: bold">R$ {{number_format( $conta->valor, 2, ',', '.') }} </td>
+                            <td style="color: #e30f41; font-weight: bold">{{ $conta->pago }} </td>
+                            <td style="color: #e30f41; font-weight: bold">
+                                @if($conta->data_pagametno != null)
+                                    {{date('d/m/Y', strtotime( $conta->data_pagametno)) }}
+                                @endif</td>
+
+                        @elseif($conta->pago == 'nao' and $conta->vencimento >= now())
+
+                            <td style="color: font-weight: bold">{{ $conta->id }} </td>
+                            <td style="font-weight: bold">{{ $conta->conta }} </td>
+                            <td style="font-weight: bold">{{date('d/m/Y', strtotime( $conta->vencimento)) }} </td>
+                            <td style="font-weight: bold">R$ {{number_format( $conta->valor, 2, ',', '.') }} </td>
+                            <td style="font-weight: bold">{{ $conta->pago }} </td>
+                            <td style="font-weight: bold">
+                                @if($conta->data_pagametno != null)
+                                    {{date('d/m/Y', strtotime( $conta->data_pagametno)) }}
+                                @endif</td>
+
+
+                        @endif
 
                         <td>
 
