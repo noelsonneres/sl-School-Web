@@ -234,7 +234,8 @@ class ReposicoesController extends Controller
         $matriculaID = $request->input('matricula');
 
         $reposicoes = $this->reposicoes->whereBetween('data_reposicao', [$inicio, $fim])
-            ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+            ->where('matriculas_id', $matriculaID)
+                ->orderBy('id', 'desc')->paginate();
 
         $matricula = Matricula::find($matriculaID);
 

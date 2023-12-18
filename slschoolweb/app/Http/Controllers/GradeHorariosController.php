@@ -50,7 +50,10 @@ class GradeHorariosController extends Controller
         $turmas = Turma::find($turma);
 
         $matriculaTurmas = MatriculaTurma::where('turmas_id', $turma)->get();
-        $reposicoes = Reposicao::where('turmas_id', $turma)->where('status', 'marcada')->get();
+        $reposicoes = Reposicao::where('turmas_id', $turma)
+                                    ->where('status', 'marcada')
+                                    ->whereDate('data_reposicao', '>=', now())
+                                    ->get();
 
         return view(self::PATH.'gradeHorariosAlunos', ['matriculasTurmas'=>$matriculaTurmas,
                                         'reposicoes'=>$reposicoes, 'turma'=>$turmas]);
