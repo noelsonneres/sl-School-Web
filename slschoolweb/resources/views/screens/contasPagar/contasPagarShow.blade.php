@@ -34,7 +34,7 @@
 
             <div class="col-8">
 
-                <form action="#" method="get">
+                <form action="{{('/contas_localizar')}}" method="get">
                     @csrf
 
                     <div class="row">
@@ -42,7 +42,7 @@
                         <div class="col-md-3">
                             <select class="form-control" name="opt" id="opt">
                                 <option value="id">Código</option>
-                                <option value="sala">Sala</option>
+                                <option value="conta">Conta</option>
                                 <option value="descricao">Descrição</option>
                             </select>
                         </div>

@@ -96,8 +96,8 @@
                     <div class="col-md-1">
                         <label for="pago" class="form-label lblCaption">Pago ?</label>
                         <select class="form-control" name="pago" id="pago" >
-                            <option value="sim">sim</option>
                             <option value="nao" >nao</option>
+                            <option value="sim">sim</option>
                         </select>
                     </div>
 
@@ -117,7 +117,7 @@
                         <i class="bi bi-floppy2"></i>
                         Salvar</button>
 
-                    <a href="/config_mensalidades" class="btn btn-danger">
+                    <a href="javascript:history.back()" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar</a>
                 </div>

@@ -147,4 +147,5 @@ Route::resource('plano_contas', PlanoContasController::class);
 Route::get('plano_contas_localizar', [PlanoContasController::class, 'find']);
 
 Route::resource('contas_pagar', ContasPagarController::class);
+Route::get('/contas_localizar', [ContasPagarController::class, 'find']);
 
