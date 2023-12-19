@@ -8,7 +8,6 @@
             <h4 class="text-center text-white p-3">Estornar Mensalidades</h4>
         </div>
 
-
         @if (isset($msg))
             <div class="alert alert-warning alert-dismissible fade show msg d-flex
                         justify-content-between align-items-end mb-3"

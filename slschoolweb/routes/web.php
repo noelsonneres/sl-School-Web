@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EntradaValoresController;
 use App\Http\Controllers\EstornarMensalidadeController;
 use App\Http\Controllers\ReposicoesController;
 use Illuminate\Support\Facades\Route;
@@ -153,4 +154,6 @@ Route::get('/contas_localizar', [ContasPagarController::class, 'find']);
 Route::get('/estornar_mensalidade', [EstornarMensalidadeController::class, 'index']);
 Route::get('/estornar_mensalidade_localizar', [EstornarMensalidadeController::class, 'localizarMensalidade']);
 Route::get('/estornar_mensalidade_estornar/{mensalidade}', [EstornarMensalidadeController::class, 'estornar']);
+
+Route::resource('entrada_valores', EntradaValoresController::class);
 

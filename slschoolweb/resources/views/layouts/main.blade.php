@@ -159,9 +159,12 @@
                             <span class="align-middle">
                                 Estornar mensalidades </span></a>
 
+                        <a class="sidebar-link text-white" href="/entrada_valores">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">
+                                Entrada de valores </span></a>
+
                     </div>
-
-
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="pages-sign-in.html">
