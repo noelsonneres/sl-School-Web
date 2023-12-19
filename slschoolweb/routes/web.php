@@ -156,4 +156,5 @@ Route::get('/estornar_mensalidade_localizar', [EstornarMensalidadeController::cl
 Route::get('/estornar_mensalidade_estornar/{mensalidade}', [EstornarMensalidadeController::class, 'estornar']);
 
 Route::resource('entrada_valores', EntradaValoresController::class);
+Route::get('entrada_valores_localizar', [EntradaValoresController::class, 'find']);
 

@@ -28,27 +28,35 @@
 
                 <div class="row">
 
-                    <div class="col-md-8 mb-3">
+                    <div class="mb-4">
                         <label for="motivo" class="form-label lblCaption">Motivo</label>
                         <input type="text" class="form-control" name="motivo" id="motivo" maxlength="50"
                                autofocus required value="{{old('sala')}}">
                     </div>
 
-                    <div class="col-md-2 mb-3">
+                <div class="row">
+
+                    <div class="col-md-4 mb-4">
                         <label for="data" class="form-label lblCaption">Data</label>
                         <input type="date" class="form-control" name="data" id="data" required>
                     </div>
 
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-4">
                         <label for="hora" class="form-label lblCaption">Hora</label>
                         <input type="time" class="form-control" name="hora" id="hora" required>
                     </div>
 
-
-                    <div class="mb-4">
-                        <label for="descricao" class="form-label lblCaption">Descrição</label>
-                        <input type="text" class="form-control" name="descricao" id="descricao" maxlength="100">
+                    <div class="col-md-4 mb-4">
+                        <label for="valor" class="form-label lblCaption">valor</label>
+                        <input type="number" step="0.01" min="0.01" class="form-control" name="valor" id="valor" required>
                     </div>
+
+                </div>
+
+                <div class="mb-4">
+                    <label for="obs" class="form-label lblCaption">Observação</label>
+                    <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
+                </div>
 
                 </div>
 

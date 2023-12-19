@@ -26,14 +26,14 @@
 
                 <a href="{{ route('entrada_valores.create') }}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
-                    Novo</a>
+                    Nova</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
             </div>
 
             <div class="col-8">
 
-                <form action="/sala_pesquisar" method="get">
+                <form action="/entrada_valores_localizar" method="get">
                     @csrf
 
                     <div class="row">
@@ -41,7 +41,7 @@
                         <div class="col-md-3">
                             <select class="form-control" name="opt" id="opt">
                                 <option value="id">Código</option>
-                                <option value="sala">Motivo</option>
+                                <option value="motivo">Motivo</option>
                             </select>
                         </div>
 
@@ -85,9 +85,9 @@
 
                         <td>{{ $entrada->id }} </td>
                         <td>{{ $entrada->motivo }} </td>
-                        <td>{{ $entrada->data }} </td>
+                        <td>{{ date('d/m/Y', strtotime($entrada->data ))}} </td>
                         <td>{{ $entrada->hora }} </td>
-                        <td>{{ $entrada->valor }} </td>
+                        <td>R$ {{number_format( $entrada->valor, 2, ',', '.')}} </td>
 
                         <td>
 
@@ -95,15 +95,9 @@
                                 <div class="row">
 
                                     <div class="col-2">
-                                        <a href="{{ route('salas.edit', $sala->id) }}" class="btn btn-success btn-sm">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-2">
 
                                         <form method="POST" class="delete-form"
-                                              action="{{ route('salas.destroy', $sala->id) }}">
+                                              action="{{ route('entrada_valores.destroy', $entrada->id) }}">
                                             @csrf
                                             {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                             @method('DELETE')
