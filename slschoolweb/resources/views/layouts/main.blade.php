@@ -154,7 +154,7 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Contas a pagar</span></a>
 
-                        <a class="sidebar-link text-white" href="/grade_horarios">
+                        <a class="sidebar-link text-white" href="/estornar_mensalidade">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">
                                 Estornar mensalidades </span></a>

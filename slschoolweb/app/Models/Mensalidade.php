@@ -11,7 +11,7 @@ class Mensalidade extends Model
     use HasFactory;
 
     public function alunos(){
-        $this->belongsTo(Aluno::class, 'alunos_id');
+       return $this->belongsTo(Aluno::class, 'alunos_id');
     }
 
 }
