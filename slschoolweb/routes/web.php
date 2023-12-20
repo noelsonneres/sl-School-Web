@@ -3,6 +3,7 @@
 use App\Http\Controllers\EntradaValoresController;
 use App\Http\Controllers\EstornarMensalidadeController;
 use App\Http\Controllers\ReposicoesController;
+use App\Http\Controllers\SaidaValoresController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CadastroDiasController;
@@ -159,5 +160,6 @@ Route::get('/estornar_mensalidade_estornar/{mensalidade}', [EstornarMensalidadeC
 Route::resource('entrada_valores', EntradaValoresController::class);
 Route::get('entrada_valores_localizar', [EntradaValoresController::class, 'find']);
 
-Route::resource('saida_valores', \App\Http\Controllers\SaidaValoresController::class);
+Route::resource('saida_valores', SaidaValoresController::class);
+Route::get('/saida_valores_localizar', [SaidaValoresController::class, 'find']);
 

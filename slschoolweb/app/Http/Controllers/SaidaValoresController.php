@@ -134,7 +134,20 @@ class SaidaValoresController extends Controller
 
     }
 
-    
+    public function find(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if(empty($field)){
+            $field = 'id';
+        }
+
+        $saidas = Saidavalor::where($field, 'LIKE', $value.'%')->orderBy('id', 'desc')->paginate(15);
+
+        return view(self::PATH . 'saidaValoresShow', ['saidaValores' => $saidas]);
+
+    }
 
     private function verificarCaixa()
     {

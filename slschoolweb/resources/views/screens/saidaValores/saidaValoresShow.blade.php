@@ -33,7 +33,7 @@
 
             <div class="col-8">
 
-                <form action="/entrada_valores_localizar" method="get">
+                <form action="/saida_valores_localizar" method="get">
                     @csrf
 
                     <div class="row">
