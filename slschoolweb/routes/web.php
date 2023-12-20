@@ -36,6 +36,7 @@ use App\Http\Controllers\MensalidadesController;
 use App\Http\Controllers\MotivoCancelamentoController;
 use App\Http\Controllers\PlanoContasController;
 use App\Http\Controllers\ContasPagarController;
+use App\Models\Saidavalor;
 
 Route::get('/', function () {
     return view('home');
@@ -157,4 +158,6 @@ Route::get('/estornar_mensalidade_estornar/{mensalidade}', [EstornarMensalidadeC
 
 Route::resource('entrada_valores', EntradaValoresController::class);
 Route::get('entrada_valores_localizar', [EntradaValoresController::class, 'find']);
+
+Route::resource('saida_valores', \App\Http\Controllers\SaidaValoresController::class);
 

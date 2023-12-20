@@ -164,6 +164,11 @@
                             <span class="align-middle">
                                 Entrada de valores </span></a>
 
+                        <a class="sidebar-link text-white" href="/saida_valores">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">
+                                Saida de valores </span></a>
+
                     </div>
 
                     <li class="sidebar-item">
