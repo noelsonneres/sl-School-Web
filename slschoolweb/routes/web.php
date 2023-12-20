@@ -37,7 +37,7 @@ use App\Http\Controllers\MensalidadesController;
 use App\Http\Controllers\MotivoCancelamentoController;
 use App\Http\Controllers\PlanoContasController;
 use App\Http\Controllers\ContasPagarController;
-use App\Models\Saidavalor;
+use App\Http\Controllers\ControleCaixaController;
 
 Route::get('/', function () {
     return view('home');
@@ -162,4 +162,6 @@ Route::get('entrada_valores_localizar', [EntradaValoresController::class, 'find'
 
 Route::resource('saida_valores', SaidaValoresController::class);
 Route::get('/saida_valores_localizar', [SaidaValoresController::class, 'find']);
+
+Route::resource('controle_caixa', ControleCaixaController::class);
 
