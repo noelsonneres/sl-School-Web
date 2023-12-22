@@ -23,14 +23,14 @@ class AlunoController extends Controller
 
     public function create()
     {
-        
+
         return view(self::PATH.'alunosCreate');
 
     }
 
     public function store(Request $request)
     {
-        
+
         $alunos = $this->alunos;
 
         $request->validate([
@@ -43,7 +43,7 @@ class AlunoController extends Controller
         $aluno = $request->old('aluno');
 
         try {
-        
+
             $alunos->nome = $request->input('aluno');
             $alunos->apelido = $request->input('apelido');
             $alunos->data_nascimento = $request->input('dataNascimento');
@@ -84,14 +84,15 @@ class AlunoController extends Controller
                 $requestImage->move(public_path('img/aluno'), $imgName);
 
                 $alunos->foto = $imgName;
-            }                
-            
-            $alunos->save();   
+            }
+
+            $alunos->save();
 
             return redirect()->route('home.alunos')->with('msg', 'Aluno incluído com sucesso!!!');
 
         } catch (\Throwable $th) {
-            return back();
+            return view(self::PATH.'alunosCreate')->with('msg', 'ERRO! Não foi possível salvar as informações do aluno. '
+                                                                    .$th->getMessage());
         }
 
 
@@ -99,15 +100,15 @@ class AlunoController extends Controller
 
     public function show(string $id)
     {
-        
+
         $aluno = $this->alunos->find($id);
-        
+
 
     }
 
     public function edit(string $id)
     {
-        
+
         $alunos = $this->alunos->find($id);
 
         if($alunos->count() >= 1){
@@ -118,7 +119,7 @@ class AlunoController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
         $alunos = $this->alunos->find($id);
 
         if($alunos->count() >= 1){
@@ -129,11 +130,11 @@ class AlunoController extends Controller
                 'aluno.required' => 'Nome requirido',
                 'aluno.min' => 'O nome deve ter no mínimo três letras',
             ]);
-    
+
             $aluno = $request->old('aluno');
-    
+
             try {
-            
+
                 $alunos->nome = $request->input('aluno');
                 $alunos->apelido = $request->input('apelido');
                 $alunos->data_nascimento = $request->input('dataNascimento');
@@ -164,22 +165,22 @@ class AlunoController extends Controller
                 $alunos->cpf_pai = $request->input('cpfPai');
                 $alunos->observacao = $request->input('obs');
                 $alunos->deletado = 'nao';
-    
+
                 //upload da foto
                 if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                     $requestImage = $request->file('foto');
                     $extension = $requestImage->getClientOriginalExtension();
                     $imgName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-    
+
                     $requestImage->move(public_path('img/aluno'), $imgName);
-    
+
                     $alunos->foto = $imgName;
-                }                
-                
-                $alunos->save();   
-    
+                }
+
+                $alunos->save();
+
                 return redirect()->route('home.alunos')->with('msg', 'As informações do aluno foram atualizadas com sucesso!');
-    
+
             } catch (\Throwable $th) {
                 return back()->with('msg', 'Não foi possível atualizar as informações do aluno');
             }
@@ -192,7 +193,7 @@ class AlunoController extends Controller
 
     public function destroy(string $id)
     {
-        
+
         $alunos = $this->alunos->find($id);
 
         if($alunos->count() >= 1){
