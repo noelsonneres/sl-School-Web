@@ -26,17 +26,25 @@ class ControleCaixaController extends Controller
         }else{
 
             $caixa = $this->caixa->latest()->first();
-            dd($caixa);
-
-//            Verificar o status do caixa e decidir qual rota retornar com base no status do caixa
-
+//            dd($caixa);
+            $caixa = $this->caixa->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'caixaShow', ['caixas'=>$caixa]);
         }
 
     }
 
     public function create()
     {
-        //
+        $caixa = $this->caixa->latest()->first();
+
+        if ($caixa->status == 'aberto'){
+            $caixa = $this->caixa->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'caixaShow', ['caixas'=>$caixa])
+                ->with('msg', 'ATENÇÃO! Não é possível iniciar um novo caixa se o anterior estiver aberto!');
+        }else{
+            return view(self::PATH.'caixaCreate');
+        }
+
     }
 
     public function store(Request $request)
@@ -62,6 +70,55 @@ class ControleCaixaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function iniciarCaixa(Request $request){
+
+        $caixa = $this->caixa;
+
+        $request->validate([
+            'dtAbetura'=>'required',
+            'hrAbetura'=>'required',
+            'saldoAnterior'=>'required',
+            'valorInformado'=>'required',
+        ],[
+            'dtAbetura.required'=>'Selecione uma data de Abertura valida',
+            'hrAbetura.required'=>'Selecione uma data de abertura valida',
+            'saldoAnterior.required'=>'Informe um valor valido para o campo Saldo Anterior',
+            'valorInformado.required'=>'Infomre um valor valido pra o campo Valor informado',
+        ]);
+
+        $msg = '';
+
+        try {
+
+            $caixa->data_abertura = $request->input('dtAbetura');
+            $caixa->hora_abertura = $request->input('hrAbetura');
+            $caixa->saldo_anterior = $request->input('saldoAnterior');
+            $caixa->saldo_informado = $request->input('valorInformado');
+            $caixa->status = 'aberto';
+
+            $caixa->save();
+
+            $msg = 'Caixa iniciando com sucesso!';
+
+        }catch (\Throwable $th){
+            return view(self::PATH.'caixaCreate')
+                        ->with('msg', 'Não foi possível iniciar um novo caixa: '.$th->getMessage());
+        }
+
+        $caixa = $this->caixa->orderBy('id', 'desc')->paginate();
+        return view(self::PATH.'caixaShow', ['caixas'=>$caixa])
+                ->with('msg', $msg);
+
+    }
+
+    public function finalizarCaixa(string $caixaID)
+    {
+
+        $caixa = $this->caixa->find($caixaID);
+//      CRIAR O PROCEDIMENTO PARA FINALIZAR O CAIXA
+
     }
 
     private function calcularMensalidades(string $data){

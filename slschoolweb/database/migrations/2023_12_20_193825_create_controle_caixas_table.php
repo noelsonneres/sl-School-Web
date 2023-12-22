@@ -17,12 +17,12 @@ return new class extends Migration
             $table->time('hora_abertura');
             $table->integer('funcionario_abertura')->nullable();
             $table->float('saldo_anterior');
-            $table->float('saldo informado');
-            $table->date('data_encerramento');
-            $table->time('hora_encerramento');
-            $table->float('saldo_encerramento');
+            $table->float('saldo_informado');
+            $table->date('data_encerramento')->nullable();
+            $table->time('hora_encerramento')->nullable();
+            $table->float('saldo_encerramento')->nullable();
             $table->integer('funcionario_encerramento')->nullable();
-            $table->string('status');
+            $table->string('status')->default('aberto');
             $table->string('observacao')->nullable();
 
         });

@@ -164,4 +164,5 @@ Route::resource('saida_valores', SaidaValoresController::class);
 Route::get('/saida_valores_localizar', [SaidaValoresController::class, 'find']);
 
 Route::resource('controle_caixa', ControleCaixaController::class);
+Route::post('/controle_caixa_iniciar', [ControleCaixaController::class, 'iniciarCaixa']);
 

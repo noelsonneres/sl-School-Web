@@ -13,7 +13,7 @@
 
         <div class="card p-5">
 
-            <form action="{{route('controle_caixa.store')}}" method="post">
+            <form action="{{('/controle_caixa_iniciar')}}" method="post">
 
                 @csrf
 

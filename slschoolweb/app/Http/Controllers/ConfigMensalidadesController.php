@@ -21,7 +21,7 @@ class ConfigMensalidadesController extends Controller
 
         $config = $this->config->first();
 
-        if ($config->count() >= 1) {
+        if ($config != null) {
             return view(self::PATH . 'configMensalidadesEdit', ['config' => $config]);
         } else {
             return view(self::PATH . 'configMensalidadesCreate');
@@ -76,7 +76,7 @@ class ConfigMensalidadesController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
         $config = $this->config;
 
         $request->validate([
@@ -99,7 +99,7 @@ class ConfigMensalidadesController extends Controller
             $config = $this->config->first();
             return view(self::PATH . 'configMensalidadesEdit', ['config' => $config])
                 ->with('msg', 'ERRO! Não possível incluir a nova configuração!!!');
-        }      
+        }
 
     }
 
