@@ -72,7 +72,10 @@
                         <div class="col-md-2">
                             <label for="hrEncerramento" class="form-label lblCaption">HR. encerramento</label>
                             <input type="time" class="form-control" name="hrEncerramento" id="hrEncerramento"
-                                   value="{{\Carbon\Carbon::now()->format('h:m:s')}}" required>
+                                 required>
+                            <script>
+                                document.getElementById('hrEncerramento').value = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                            </script>
                         </div>
 
                         <div class="col-md-4">

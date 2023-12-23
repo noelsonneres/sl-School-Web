@@ -24,7 +24,7 @@
 
             <div class="col-4">
 
-                <a href="{{route('controle_caixa.create')}}" class="btn btn-primary">
+                <a href="{{('/controle_caixa_novo_caixa')}}" class="btn btn-primary">
                     <i class="bi bi-plus-circle-fill"></i>
                     Novo caixa</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
