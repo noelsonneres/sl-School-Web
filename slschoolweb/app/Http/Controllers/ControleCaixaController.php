@@ -49,7 +49,43 @@ class ControleCaixaController extends Controller
 
     public function store(Request $request)
     {
-        //
+
+        $caixa = $this->caixa;
+
+        $request->validate([
+            'dtAberturaAtual' => 'required',
+            'hrAberturaAtual' => 'required',
+            'valorAnteriorAtual' => 'required',
+            'valorInformadoAtual' => 'required',
+        ], [
+            'dtAberturaAtual.required' => 'Selecione uma data de Abertura valida',
+            'hrAberturaAtual.required' => 'Selecione um horário de abertura valida',
+            'valorAnteriorAtual.required' => 'Informe um valor valido para o campo Saldo Anterior',
+            'valorInformadoAtual.required' => 'Informe um valor valido pra o campo Valor informado',
+        ]);
+
+        $msg = '';
+
+        try {
+
+            $caixa->data_abertura = $request->input('dtAberturaAtual');
+            $caixa->hora_abertura = $request->input('hrAberturaAtual');
+            $caixa->saldo_anterior = $request->input('valorAnteriorAtual');
+            $caixa->saldo_informado = $request->input('valorInformadoAtual');
+            $caixa->status = 'aberto';
+
+            $caixa->save();
+
+            $msg = 'Caixa iniciando com sucesso!';
+        } catch (\Throwable $th) {
+            return view(self::PATH . 'caixaNovo')
+                ->with('msg', 'Não foi possível iniciar um novo caixa: ' . $th->getMessage());
+        }
+
+        $caixa = $this->caixa->orderBy('id', 'desc')->paginate();
+        return view(self::PATH . 'caixaShow', ['caixas' => $caixa])
+            ->with('msg', $msg);
+
     }
 
     public function show(string $id)
@@ -145,7 +181,7 @@ class ControleCaixaController extends Controller
             'valorInformado' => 'required',
         ], [
             'dtAbetura.required' => 'Selecione uma data de Abertura valida',
-            'hrAbetura.required' => 'Selecione uma data de abertura valida',
+            'hrAbetura.required' => 'Selecione um horário de abertura valida',
             'saldoAnterior.required' => 'Informe um valor valido para o campo Saldo Anterior',
             'valorInformado.required' => 'Infomre um valor valido pra o campo Valor informado',
         ]);

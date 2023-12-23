@@ -52,7 +52,7 @@
                 <table class="table p-1">
                     <thead>
                     <tr>
-                        <th scope="col">Código</th>
+                        <th scope="col">#</th>
                         <th scope="col">DT Abertura</th>
                         <th scope="col">HR Abertura</th>
                         <th scope="col">Saldo anterior</th>
