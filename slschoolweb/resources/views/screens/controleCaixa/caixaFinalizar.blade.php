@@ -25,12 +25,14 @@
 
                         <div class="col-md-2">
                             <label for="dtAbertura" class="form-label lblCaption">Data de abertura</label>
-                            <input type="date" class="form-control" name="dtAbertura" id="dtAbertura" readonly>
+                            <input type="date" class="form-control" name="dtAbertura" id="dtAbertura"
+                                   value="{{$caixa->data_abertura}}" readonly>
                         </div>
 
                         <div class="col-md-2">
-                            <label for="hrAbertura" class="form-label lblCaption">HOrário de abertura</label>
-                            <input type="time" class="form-control" name="hrAbertura" id="hrAbertura" readonly>
+                            <label for="hrAbertura" class="form-label lblCaption">Horário de abertura</label>
+                            <input type="time" class="form-control" name="hrAbertura" id="hrAbertura"
+                                   value="{{$caixa->hora_abertura}}" readonly>
                         </div>
 
                         <div class="col-md-4">
@@ -41,12 +43,14 @@
 
                         <div class="col-md-2">
                             <label for="valorAnterior" class="form-label lblCaption">Valor anterior</label>
-                            <input type="number" class="form-control" name="valorAnterior" id="valorAnterior" readonly>
+                            <input type="number" class="form-control" name="valorAnterior" id="valorAnterior"
+                                   value="{{$caixa->saldo_anterior}}" readonly>
                         </div>
 
                         <div class="col-md-2">
                             <label for="valorInformado" class="form-label lblCaption">Valor informado</label>
-                            <input type="number" class="form-control" name="valorInformado" id="valorInformado" readonly>
+                            <input type="number" class="form-control" name="valorInformado" id="valorInformado"
+                                   value="{{$caixa->saldo_informado}}" readonly>
                         </div>
 
                     </div>
@@ -61,12 +65,14 @@
 
                         <div class="col-md-2">
                             <label for="dtEncerramento" class="form-label lblCaption">Data de encerramento</label>
-                            <input type="date" class="form-control" name="dtEncerramento" id="dtEncerramento" required>
+                            <input type="date" class="form-control" name="dtEncerramento" id="dtEncerramento"
+                                   value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" required>
                         </div>
 
                         <div class="col-md-2">
                             <label for="hrEncerramento" class="form-label lblCaption">HR. encerramento</label>
-                            <input type="time" class="form-control" name="hrEncerramento" id="hrEncerramento" required>
+                            <input type="time" class="form-control" name="hrEncerramento" id="hrEncerramento"
+                                   value="{{\Carbon\Carbon::now()->format('h:m:s')}}" required>
                         </div>
 
                         <div class="col-md-4">
@@ -76,12 +82,13 @@
 
                         <div class="col-md-2">
                             <label for="saldoEncerramento" class="form-label lblCaption">Saldo de encerramento</label>
-                            <input type="number" class="form-control" name="saldoEncerramento" id="saldoEncerramento" required>
+                            <input type="number" class="form-control" name="saldoEncerramento" id="saldoEncerramento"
+                                   value="{{$total}}" required>
                         </div>
 
                         <div class="col-md-2">
                             <label for="status" class="form-label lblCaption">Status</label>
-                            <input type="text" class="form-control" name="status" id="status" required>
+                            <input type="text" class="form-control" name="status" id="status" readonly>
                         </div>
 
                     </div>
