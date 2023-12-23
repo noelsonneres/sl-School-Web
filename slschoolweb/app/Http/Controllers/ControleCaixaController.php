@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ControleCaixa;
+use App\Models\EntradaValor;
+use App\Models\Mensalidade;
+use App\Models\Saidavalor;
 use Illuminate\Http\Request;
 
 class ControleCaixaController extends Controller
@@ -139,19 +142,20 @@ class ControleCaixaController extends Controller
     }
 
     private function calcularMensalidades(string $data){
-//        RETORNAR O TOTAL DE MENSALIDADES PAGAS EM UM PERIODO
-        return 0;
+
+        $total = Mensalidade::where('data_pagamento', $data)->sum('valor_pago');
+        return $total;
     }
 
     private function calcularEntradas(string $data)
     {
-//        RETORNAR O TOTAL DE ENTRADAS DE UM PERIODO
-        return 0;
+        $total = EntradaValor::where('data', $data)->sum('valor');
+        return $total;
     }
 
     private function calcularSaias(string $data){
-//        RETORNAR O TOTAL DE SAIDAS DE UM DETERMINDO PERIODO
-        return 0;
+        $total = Saidavalor::where('data', $data)->sum('valor');
+        return $total;
     }
 
     private function ultimoValor(string $data)
