@@ -57,7 +57,8 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="dataCadastro" class="form-label lblCaption">Data de cadatro</label>
-                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro">
+                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro"
+                            value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                     </div>
 
                     <div class="col-md-3 mb-3">

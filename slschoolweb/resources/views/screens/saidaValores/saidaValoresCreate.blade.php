@@ -38,7 +38,8 @@
 
                         <div class="col-md-4 mb-4">
                             <label for="data" class="form-label lblCaption">Data</label>
-                            <input type="date" class="form-control" name="data" id="data" required>
+                            <input type="date" class="form-control" name="data" id="data" required
+                                   value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                         </div>
 
                         <div class="col-md-4 mb-4">

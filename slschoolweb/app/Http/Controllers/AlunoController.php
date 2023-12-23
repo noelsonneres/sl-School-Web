@@ -68,7 +68,7 @@ class AlunoController extends Controller
             $alunos->profissao = $request->input('profissao');
             $alunos->nome_mae = $request->input('nomeMae');
             $alunos->rg_mae = $request->input('rgMae');
-            $alunos->cep_mae = $request->input('cpfMae');
+            $alunos->cpf_mae = $request->input('cpfMae');
             $alunos->nome_pai = $request->input('nomePai');
             $alunos->rg_pai = $request->input('rgPai');
             $alunos->cpf_pai = $request->input('cpfPai');
@@ -159,7 +159,7 @@ class AlunoController extends Controller
                 $alunos->profissao = $request->input('profissao');
                 $alunos->nome_mae = $request->input('nomeMae');
                 $alunos->rg_mae = $request->input('rgMae');
-                $alunos->cep_mae = $request->input('cpfMae');
+                $alunos->cpf_mae = $request->input('cpfMae');
                 $alunos->nome_pai = $request->input('nomePai');
                 $alunos->rg_pai = $request->input('rgPai');
                 $alunos->cpf_pai = $request->input('cpfPai');

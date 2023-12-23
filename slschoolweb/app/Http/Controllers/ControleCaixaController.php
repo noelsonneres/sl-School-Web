@@ -59,7 +59,32 @@ class ControleCaixaController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $caixa = $this->caixa->find($id);
+
+        if ($caixa->status == 'aberto'){
+
+            $dataCaixa = $caixa->data_abertura;
+            $valorCaixa = $caixa->saldo_informado;
+
+            $valorMensalidade = $this->calcularMensalidades($dataCaixa);
+            $valorEntrada = $this->calcularEntradas($dataCaixa);
+            $valorSaida = $this->calcularSaias($dataCaixa);
+
+            $total = ($valorCaixa + $valorMensalidade + $valorEntrada) - $valorSaida;
+
+            return view(self::PATH.'caixaFinalizar', ['caixa'=>$caixa,
+                'valorMensalidade'=>$valorMensalidade,
+                'valorEntrada'=>$valorEntrada,
+                'valorSaida'=>$valorSaida,
+                'total'=>$total
+            ]);
+
+        }else{
+            $caixa = $this->caixa->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'caixaShow', ['caixas'=>$caixa])
+                ->with('msg', 'O caixa não pode ser finalizado');
+        }
+
     }
 
     public function update(Request $request, string $id)
@@ -113,30 +138,26 @@ class ControleCaixaController extends Controller
 
     }
 
-    public function finalizarCaixa(string $caixaID)
-    {
-
-        $caixa = $this->caixa->find($caixaID);
-//      CRIAR O PROCEDIMENTO PARA FINALIZAR O CAIXA
-
-    }
-
     private function calcularMensalidades(string $data){
 //        RETORNAR O TOTAL DE MENSALIDADES PAGAS EM UM PERIODO
+        return 0;
     }
 
     private function calcularEntradas(string $data)
     {
 //        RETORNAR O TOTAL DE ENTRADAS DE UM PERIODO
+        return 0;
     }
 
     private function calcularSaias(string $data){
 //        RETORNAR O TOTAL DE SAIDAS DE UM DETERMINDO PERIODO
+        return 0;
     }
 
     private function ultimoValor(string $data)
     {
 //      RETORNAR O VALOR DO ULTIMO CAIXA
+        return 0;
     }
 
 }

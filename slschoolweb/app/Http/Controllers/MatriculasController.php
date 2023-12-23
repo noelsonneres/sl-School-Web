@@ -31,9 +31,6 @@ class MatriculasController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
@@ -394,8 +391,6 @@ class MatriculasController extends Controller
         $disciplinas = new CursosDisciplina();
 
         $disciplinas = $disciplinas->with('disciplinas')->where('cursos_id', $curso)->get();
-
-        // dd($disciplinas);
 
         foreach ($disciplinas as $disciplina) {
 

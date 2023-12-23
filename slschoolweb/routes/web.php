@@ -165,4 +165,5 @@ Route::get('/saida_valores_localizar', [SaidaValoresController::class, 'find']);
 
 Route::resource('controle_caixa', ControleCaixaController::class);
 Route::post('/controle_caixa_iniciar', [ControleCaixaController::class, 'iniciarCaixa']);
+//Route::post('/controle_caixa_finalizar/{caixa}', [ControleCaixaController::class, 'finalizarCaixa']);
 

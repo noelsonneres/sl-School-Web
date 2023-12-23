@@ -77,6 +77,8 @@
 
                             @if($caixa->data_encerramento != null)
                                 <td>{{date('d/m/Y', strtotime($caixa->data_encerramento))}} </td>
+                            @else
+                                <td></td>
                             @endif
                             <td>{{$caixa->hora_encerramento}} </td>
                             <td>R$ {{number_format($caixa->saldo_encerramento, 2, ',', '.')}} </td>
@@ -90,7 +92,7 @@
                             @if($caixa->status == 'aberto')
                                 <td>
                                     <div class="col-2">
-                                        <a href="{{ route('dias.edit', $caixa->id) }}" class="btn btn-success btn-sm"
+                                        <a href="{{route('controle_caixa.edit', $caixa->id) }}" class="btn btn-success btn-sm"
                                            title="Encerrar caixa">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
