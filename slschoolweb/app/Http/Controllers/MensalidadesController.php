@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aluno;
 use App\Models\ConfigMensalidade;
+use App\Models\ControleCaixa;
 use App\Models\Empresa;
 use App\Models\Matricula;
 use App\Models\MeiosPagamento;
@@ -202,29 +203,54 @@ class MensalidadesController extends Controller
     public function selecionarPagamento(string $mensalidade, string $matricula)
     {
 
-        $mensalidade = $this->mensalidade->find($mensalidade);
-        $matricula = Matricula::find($matricula);
-        $aluno = $matricula->alunos()->first();
-        $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
+        $caixa = ControleCaixa::latest()->first();
 
-        if($mensalidade->pago === 'nao'){
+        $dataAtual = Carbon::now();
+        $dataAtual = $dataAtual->format('d/m/Y');
 
-            $formaPagamento = MeiosPagamento::all();
+        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
 
-            $vencimento = new DateTime($mensalidade->vencimento);
+        if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
+           
+            $mensalidade = $this->mensalidade->find($mensalidade);
+            $matricula = Matricula::find($matricula);
+            $aluno = $matricula->alunos()->first();
+            $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
     
-            $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
+            if($mensalidade->pago === 'nao'){
     
-            return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
-                ->with('matricula', $matricula)
-                ->with('aluno', $aluno)
-                ->with('juros', $juros)
-                ->with('formas_pagamentos', $formaPagamento)
-                ->with('responsavel', $responsavel);
+                $formaPagamento = MeiosPagamento::all();
+    
+                $vencimento = new DateTime($mensalidade->vencimento);
+        
+                $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
+        
+                return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
+                    ->with('matricula', $matricula)
+                    ->with('aluno', $aluno)
+                    ->with('juros', $juros)
+                    ->with('formas_pagamentos', $formaPagamento)
+                    ->with('responsavel', $responsavel);
+    
+            }else{
+                return back();
+            }
 
         }else{
-            return back();
-        }
+
+            $msg = '';
+
+            if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+                $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+            }elseif($caixa->status == 'encerrado'){
+                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+            }
+
+            $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
+            return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
+                ->with('msg', $msg);
+        }        
         
     }
 
@@ -263,11 +289,6 @@ class MensalidadesController extends Controller
 
             $empresa = Empresa::all()->first();
             $aluno = Aluno::find($mensalidade->alunos_id);
-
-            // $pdf = PDF::loadView(self::PATH.'mensalidadesRecibo', 
-            //         ['mensalidade' => $mensalidade, 'empresa' => $empresa, 'aluno' => $aluno]);
-
-            // return $pdf->download('recibo.pdf');
 
             return view(self::PATH . 'mensalidadesRecibo')
                 ->with('empresa', $empresa)
