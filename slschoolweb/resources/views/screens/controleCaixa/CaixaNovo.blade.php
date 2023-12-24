@@ -125,12 +125,13 @@
                         <div class="col-md-2">
                             <label for="valorAnteriorAtual" class="form-label lblCaption">Valor anterior</label>
                             <input type="number" class="form-control" name="valorAnteriorAtual" id="valorAnteriorAtual" 
-                               value="{{$caixa->saldo_encerramento}}" readonly>
+                            id="valor" step="0.01" min="0.01" value="{{$caixa->saldo_encerramento}}" readonly>
                         </div>
 
                         <div class="col-md-2">
                             <label for="valorInformadoAtual" class="form-label lblCaption">Valor informado</label>
-                            <input type="number" class="form-control" name="valorInformadoAtual" id="valorInformadoAtual" required>
+                            <input type="number" class="form-control" name="valorInformadoAtual" id="valorInformadoAtual"
+                            id="valor" step="0.01" min="0.01" required>
                         </div>
 
                     </div>  

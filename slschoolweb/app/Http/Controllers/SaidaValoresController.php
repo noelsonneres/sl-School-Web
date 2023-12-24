@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Saidavalor;
 use Illuminate\Http\Request;
+use App\Models\ControleCaixa;
+use Carbon\Carbon;
 
 class SaidaValoresController extends Controller
 {
@@ -19,8 +21,33 @@ class SaidaValoresController extends Controller
     public function index()
     {
 
-        $saidas = $this->saidas->paginate();
-        return view(self::PATH . 'saidaValoresShow', ['saidaValores' => $saidas]);
+        $caixa = ControleCaixa::latest()->first();
+
+        $dataAtual = Carbon::now();
+        $dataAtual = $dataAtual->format('d/m/Y');
+
+        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+
+        if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
+           
+            $saidas = $this->saidas->paginate();
+            return view(self::PATH . 'saidaValoresShow', ['saidaValores' => $saidas]);
+
+        }else{
+
+            $msg = '';
+
+            if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+                $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+            }elseif($caixa->status == 'encerrado'){
+                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+            }
+
+            $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
+            return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
+                ->with('msg', $msg);
+        }          
 
     }
 

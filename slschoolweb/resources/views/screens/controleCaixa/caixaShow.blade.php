@@ -5,7 +5,7 @@
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Caixa</h3>
+            <h3 class="text-center text-white p-3">Iniciar ou encerrar um caixa</h3>
         </div>
 
 

@@ -157,22 +157,47 @@
                     <a class="sidebar-link text-white" href="/estornar_mensalidade">
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">
-                                Estornar mensalidades </span></a>
+                                Estornar mensalidades </span>
+                    </a>
 
                     <a class="sidebar-link text-white" href="/entrada_valores">
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">
-                                Entrada de valores </span></a>
+                                Entrada de valores </span>
+                    </a>
 
                     <a class="sidebar-link text-white" href="/saida_valores">
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">
-                                Saida de valores </span></a>
+                                Saida de valores </span>
+                    </a>
 
                     <a class="sidebar-link text-white" href="/controle_caixa">
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">
-                                Caixa </span></a>
+                                Caixa </span>
+                    </a>
+
+                </div>
+
+                {{-- Extras --}}
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link text-white" href="#sub-menu5" data-bs-toggle="collapse">
+                        <i class="align-middle" data-feather="user"></i> <span
+                            class="align-middle">Extras</span>
+                    </a>
+                </li>
+                <div id="sub-menu5" class="collapse" style="margin-left: 15px;">
+
+                    <a class="sidebar-link text-white" href="/plano_contas">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Conf. Imp. Cateira</span></a>
+
+                    <a class="sidebar-link text-white" href="/contas_pagar">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Impressão carteira</span>
+                    </a>
 
 
                 </div>

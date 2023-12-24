@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mensalidade;
+use App\Models\ControleCaixa;
+use Carbon\Carbon;
 
 class EstornarMensalidadeController extends Controller
 {
@@ -18,8 +20,34 @@ class EstornarMensalidadeController extends Controller
 
     public  function index()
     {
-        $mensalidade = Mensalidade::where('id', '0')->paginate();
-        return view(self::PATH.'estornarShow', ['mensalidades'=>$mensalidade]);
+        $caixa = ControleCaixa::latest()->first();
+
+        $dataAtual = Carbon::now();
+        $dataAtual = $dataAtual->format('d/m/Y');
+
+        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+
+        if ($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual) {
+
+            $mensalidade = Mensalidade::where('id', '0')->paginate();
+            return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
+
+        } else {
+
+            $msg = '';
+
+            if ($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual) {
+                $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+            } elseif ($caixa->status == 'encerrado') {
+                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+            }
+
+            $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
+            return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
+                ->with('msg', $msg);
+        }
+
     }
 
     public function localizarMensalidade(Request $request)
@@ -28,25 +56,25 @@ class EstornarMensalidadeController extends Controller
         $campo = $request->input('opt');
         $valor = $request->input('find');
 
-        if(empty($campo)){
+        if (empty($campo)) {
             $mensalidade = Mensalidade::where('id', '0')->paginate();
-            return view(self::PATH.'estornarShow', ['mensalidades'=>$mensalidade])
-                                ->with('msg', 'ATENÇÃO! Selecione o criterio de pesquisa!');
+            return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade])
+                ->with('msg', 'ATENÇÃO! Selecione o criterio de pesquisa!');
         }
 
-        if (empty($valor)){
+        if (empty($valor)) {
             $valor = 0;
         }
 
-        $mensalidade = Mensalidade::where($campo, 'LIKE', $valor.'%')
-                                    ->where('pago', 'sim')
-                                    ->paginate(15);
+        $mensalidade = Mensalidade::where($campo, 'LIKE', $valor . '%')
+            ->where('pago', 'sim')
+            ->paginate(15);
 
-        return view(self::PATH.'estornarShow', ['mensalidades'=>$mensalidade]);
-
+        return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
     }
 
-    public function estornar(string $mensalidade){
+    public function estornar(string $mensalidade)
+    {
 
         $mensalidade = $this->mensalidade->find($mensalidade);
 
@@ -65,8 +93,7 @@ class EstornarMensalidadeController extends Controller
             $mensalidade->save();
 
             $msg = 'Sucesso! Mensalidade estornada com sucesso!';
-
-        }catch (\Throwable $th){
+        } catch (\Throwable $th) {
             $msg = 'ERRO! Não foi possível estornar a mensalidade!';
         }
 
@@ -74,9 +101,7 @@ class EstornarMensalidadeController extends Controller
             ->where('pago', 'sim')
             ->paginate(15);
 
-        return view(self::PATH.'estornarShow', ['mensalidades'=>$mensalidade])
+        return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade])
             ->with('msg', $msg);
-
     }
-
 }

@@ -103,11 +103,10 @@
 
                 </div>
 
-
                 <div>
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-floppy2"></i>
-                        Salvar
+                        Finalizar
                     </button>
 
                     <a href="/dias" class="btn btn-danger">
