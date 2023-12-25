@@ -34,7 +34,20 @@ class ImpressaoCarteiraController extends Controller
 
     public function store(Request $request)
     {
-        //
+
+        $carteira = $this->carteira;
+
+        $request->validate([
+           'dtImpressao'=>'required',
+            'dtValidade'=>'required',
+            'mensagem'=>'required|min:3|max:255',
+        ]);
+
+        dd($request);
+
+//        CONTINUAR DESTA PARTA
+//        FAZER O PROCESSO PARA SELECIONAR OS ALUNOS
+
     }
 
     public function show(string $id)
@@ -56,4 +69,29 @@ class ImpressaoCarteiraController extends Controller
     {
         //
     }
+
+    public function confirmarDados(string $matricula)
+    {
+
+        $matricula = Matricula::find($matricula);
+        $confCarteira = ConfCarteira::all()->first();
+
+        return view(self::PATH.'carteiraConfirmarDados', ['matricula'=>$matricula, 'conf'=>$confCarteira]);
+
+    }
+
+    public function find(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if(empty($field)){
+            $field = 'id';
+        }
+
+        $matricula = Matricula::where($field, 'LIKE', $value.'%')->paginate(15);
+        return view(self::PATH.'carteiraSelecionarAlunos', ['matriculas'=>$matricula]);
+
+    }
+
 }

@@ -23,15 +23,15 @@
 
             <div class="col-8">
 
-                <form action="/professores_pesquisar" method="get">
+                <form action="/impressao_carteira_loc_alunos" method="get">
                     @csrf
 
                     <div class="row">
 
                         <div class="col-md-3">
                             <select class="form-control" name="opt" id="opt">
-                                <option value="id">Cód. Aluno</option>
-                                <option value="nome">Matrícula</option>
+                                <option value="alunos_id">Cód. Aluno</option>
+                                <option value="id">Matrícula</option>
                             </select>
                         </div>
 
@@ -87,7 +87,7 @@
                                 <div class="row">
                                     @if($matricula->status == 'ativa')
                                         <div class="col-2">
-                                            <a href="#" class="btn btn-success btn-sm" title="Selecionar o aluno para impressão">
+                                            <a href="{{('/impressao_carteira_confirmar/'.$matricula->id)}}" class="btn btn-success btn-sm" title="Selecionar o aluno para impressão">
                                                 <i class="bi bi-check2-circle" style="font-size: 15px"></i>
                                             </a>
                                         </div>

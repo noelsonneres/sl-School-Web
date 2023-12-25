@@ -172,4 +172,6 @@ Route::get('/controle_caixa_novo_caixa', [ControleCaixaController::class, 'novoC
 Route::resource('conf_carteira', ConfCarteiraController::class);
 
 Route::resource('impressao_carteira', ImpressaoCarteiraController::class);
+Route::get('/impressao_carteira_confirmar/{matricula}', [ImpressaoCarteiraController::class, 'confirmarDados']);
+Route::get('/impressao_carteira_loc_alunos', [ImpressaoCarteiraController::class, 'find']);
 

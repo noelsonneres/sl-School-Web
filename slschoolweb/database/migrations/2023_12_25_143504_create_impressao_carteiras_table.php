@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('alunos_id');
             $table->date('data_impressao');
             $table->date('Validade')->nullable();
+            $table->string('mensagem');
             $table->integer('funcionario')->nullable();
             $table->string('Observacao')->nullable();
 
