@@ -194,7 +194,7 @@
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">Conf. Imp. Cateira</span></a>
 
-                    <a class="sidebar-link text-white" href="/contas_pagar">
+                    <a class="sidebar-link text-white" href="/impressao_carteira">
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">Impressão carteira</span>
                     </a>

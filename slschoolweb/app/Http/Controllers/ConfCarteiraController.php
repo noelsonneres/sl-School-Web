@@ -34,41 +34,94 @@ class ConfCarteiraController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $conf = $this->conf;
+
+        $request->validate([
+            'mensagem'=>'required',
+        ]);
+
+        try {
+
+            $conf->mensagem = $request->input('mensagem');
+
+            //upload da foto
+            if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+
+                $requestImage = $request->file('foto');
+                $extension = $requestImage->getClientOriginalExtension();
+                $imgName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+                $requestImage->move(public_path('img/carteira'), $imgName);
+
+                $conf->logo = $imgName;
+
+            }
+
+            $conf->save();
+
+            $confCarteira = $this->conf->all()->first();
+            return view(self::PATH.'configurarCarteiraEdit', ['conf'=>$confCarteira])
+                ->with('msg', 'SUCESSO! Configurações da carteira salvas com sucesso!');
+
+        }catch (\Throwable $th){
+            return view(self::PATH.'configurarCarteiraCreate')
+                    ->with('msg', 'ERRO! Não foi possível atualizar as informações da carteira: '.$th->getMessage());
     }
 
-    /**
-     * Display the specified resource.
-     */
+    }
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+
+        $conf = $this->conf->find($id);
+
+        $request->validate([
+            'mensagem'=>'required',
+        ]);
+
+        try {
+
+            $conf->mensagem = $request->input('mensagem');
+
+            //upload da foto
+            if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+
+                $requestImage = $request->file('foto');
+                $extension = $requestImage->getClientOriginalExtension();
+                $imgName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+                $requestImage->move(public_path('img/carteira'), $imgName);
+
+                $conf->logo = $imgName;
+
+            }
+
+            $conf->save();
+
+            $confCarteira = $this->conf->all()->first();
+            return view(self::PATH.'configurarCarteiraEdit', ['conf'=>$confCarteira])
+                ->with('msg', 'SUCESSO! Configurações da carteira atualizadas com sucesso!');
+
+        }catch (\Throwable $th){
+            return view(self::PATH.'configurarCarteiraCreate')
+                ->with('msg', 'ERRO! Não foi possível atualizar as informações da carteira: '.$th->getMessage());
+        }
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

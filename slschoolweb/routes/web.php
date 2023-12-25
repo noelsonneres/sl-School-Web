@@ -39,6 +39,7 @@ use App\Http\Controllers\PlanoContasController;
 use App\Http\Controllers\ContasPagarController;
 use App\Http\Controllers\ControleCaixaController;
 use App\Http\Controllers\ConfCarteiraController;
+use App\Http\Controllers\ImpressaoCarteiraController;
 
 Route::get('/', function () {
     return view('home');
@@ -169,4 +170,6 @@ Route::post('/controle_caixa_iniciar', [ControleCaixaController::class, 'iniciar
 Route::get('/controle_caixa_novo_caixa', [ControleCaixaController::class, 'novoCaixa']);
 
 Route::resource('conf_carteira', ConfCarteiraController::class);
+
+Route::resource('impressao_carteira', ImpressaoCarteiraController::class);
 

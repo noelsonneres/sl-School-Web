@@ -9,11 +9,20 @@
             <h3 class="text-center text-white p-3">Configurações da carteira</h3>
         </div>
 
+        @if(isset($msg))
+            <div class="alert alert-warning alert-dismissible fade show msg d-flex
+							justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
+                <h5>{{$msg}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            </div>
+        @endif
+
         <hr>
 
         <div class="card p-5">
 
-            <form action="{{route('dias.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('conf_carteira.store')}}" method="post" enctype="multipart/form-data">
 
                 @csrf
 
