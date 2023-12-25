@@ -190,7 +190,7 @@
                 </li>
                 <div id="sub-menu5" class="collapse" style="margin-left: 15px;">
 
-                    <a class="sidebar-link text-white" href="/plano_contas">
+                    <a class="sidebar-link text-white" href="/conf_carteira">
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">Conf. Imp. Cateira</span></a>
 

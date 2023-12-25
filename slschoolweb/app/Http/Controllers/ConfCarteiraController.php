@@ -2,21 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConfCarteira;
 use Illuminate\Http\Request;
 
 class ConfCarteiraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    const PATH = 'screens.confCarteira.';
+    private $conf;
+
+    public function __construct()
     {
-        //
+        $this->conf = new ConfCarteira();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index()
+    {
+
+        $confCarteira = $this->conf->all()->first();
+
+        if ($confCarteira != null){
+            return view(self::PATH.'configurarCarteiraEdit', ['conf'=>$confCarteira]);
+        }else{
+            return view(self::PATH.'configurarCarteiraCreate');
+        }
+
+    }
+
     public function create()
     {
         //

@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('conf_carteiras', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('mensagem');
+            $table->string('logo')->nullable();
+
         });
     }
 

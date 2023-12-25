@@ -38,6 +38,7 @@ use App\Http\Controllers\MotivoCancelamentoController;
 use App\Http\Controllers\PlanoContasController;
 use App\Http\Controllers\ContasPagarController;
 use App\Http\Controllers\ControleCaixaController;
+use App\Http\Controllers\ConfCarteiraController;
 
 Route::get('/', function () {
     return view('home');
@@ -167,4 +168,5 @@ Route::resource('controle_caixa', ControleCaixaController::class);
 Route::post('/controle_caixa_iniciar', [ControleCaixaController::class, 'iniciarCaixa']);
 Route::get('/controle_caixa_novo_caixa', [ControleCaixaController::class, 'novoCaixa']);
 
+Route::resource('conf_carteira', ConfCarteiraController::class);
 
