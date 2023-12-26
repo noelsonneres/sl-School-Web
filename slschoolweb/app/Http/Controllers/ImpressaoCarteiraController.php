@@ -20,7 +20,7 @@ class ImpressaoCarteiraController extends Controller
 
     public function index()
     {
-        $carteira = $this->carteira->where('matriculas_id', '0')->paginate();
+        $carteira = $this->carteira->paginate();
         return view(self::PATH.'carteiraShow', ['carteiras'=>$carteira]);
     }
 
@@ -43,11 +43,28 @@ class ImpressaoCarteiraController extends Controller
             'mensagem'=>'required|min:3|max:255',
         ]);
 
-        dd($request);
+        $matriculaID = $request->input('matriculas');
 
-//        CONTINUAR DESTA PARTA
-//        FAZER O PROCESSO PARA SELECIONAR OS ALUNOS
+        try {
+          $carteira->matriculas_id = $request->input('matriculas');
+          $carteira->alunos_id = $request->input('alunos');
+          $carteira->data_impressao = $request->input('dtImpressao');
+          $carteira->Validade = $request->input('dtValidade');
+          $carteira->mensagem = $request->input('mensagem');
+          $carteira->Observacao = $request->input('obs');
 
+          $carteira->save();
+
+            $carteira = $this->carteira->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'carteiraShow', ['carteiras'=>$carteira])
+                    ->with('msg', 'SUCESSO! Carteira gerada com sucesso!');
+
+        }catch (\Throwable $th){
+            $matricula = Matricula::find($matriculaID);
+            $confCarteira = ConfCarteira::all()->first();
+
+            return view(self::PATH.'carteiraConfirmarDados', ['matricula'=>$matricula, 'conf'=>$confCarteira]);
+        }
     }
 
     public function show(string $id)
@@ -67,7 +84,27 @@ class ImpressaoCarteiraController extends Controller
 
     public function destroy(string $id)
     {
-        //
+    
+        $carteira = $this->carteira->find($id);
+        $msg = '';
+
+        if($carteira != null){
+            
+            try {
+                $carteira->delete();
+                $msg = 'Registro deletado com sucesso!';
+            } catch (\Throwable $th) {
+                $msg = 'ERRO! Não foi possível deletar o registro selecionado: '.$th->getMessage();
+            }
+
+        }else{
+            $msg = 'ATENÇÃO! Não foi possível localizar o reistro para exclusão';
+        }
+
+        $carteira = $this->carteira->orderBy('id', 'desc')->paginate();
+        return view(self::PATH.'carteiraShow', ['carteiras'=>$carteira])
+                ->with('msg', $msg);      
+
     }
 
     public function confirmarDados(string $matricula)
@@ -91,6 +128,19 @@ class ImpressaoCarteiraController extends Controller
 
         $matricula = Matricula::where($field, 'LIKE', $value.'%')->paginate(15);
         return view(self::PATH.'carteiraSelecionarAlunos', ['matriculas'=>$matricula]);
+
+    }
+
+    public function impressao(string $carteiraID){
+
+        $carteira = $this->carteira->find($carteiraID);
+        $matriculaID = $carteira->matriculas_id;
+
+        $matricula = Matricula::find($matriculaID);
+
+        // return '<h1>Chegou</h1>';
+
+        return view(self::PATH.'carteiraImpressao', ['carteira'=>$carteira, 'matricula'=>$matricula]);
 
     }
 

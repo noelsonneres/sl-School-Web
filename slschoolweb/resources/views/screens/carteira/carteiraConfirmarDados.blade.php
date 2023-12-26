@@ -25,6 +25,9 @@
 
                 @csrf
 
+                <input type="hidden" name="alunos" value="{{$matricula->alunos_id}}">
+                <input type="hidden" name="matriculas" value="{{$matricula->id}}">
+
                 <div class="row mb-4">
 
                     <div class="col-md-6">
@@ -52,9 +55,9 @@
 
                 <div class="mb-4">
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="foto">Selecione uma foto</label>
-                        <input type="file" class="form-control" name="foto" id="foto"
-                               onchange="exibirFotoSelecionada()">
+{{--                        <label class="input-group-text" for="foto">Selecione uma foto</label>--}}
+{{--                        <input type="file" class="form-control" name="foto" id="foto"--}}
+{{--                               onchange="exibirFotoSelecionada()">--}}
                     </div>
                     <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px"
                          src="/img/aluno/{{ $matricula->alunos->foto }}">
@@ -63,8 +66,8 @@
                 <div>
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-floppy2"></i>
-
-                    Gerar Carteira</button>
+                    Gerar Carteira
+                </button>
 
                     <a href="/dias" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>

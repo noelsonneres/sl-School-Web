@@ -68,23 +68,24 @@
                         <td>{{$carteira->alunos_id}} </td>
                         <td>{{$carteira->matriculas_id}} </td>
                         <td>{{$carteira->alunos->nome}} </td>
-                        <td>{{$carteira->data_impressao}} </td>
-                        <td>{{$carteira->Validade}} </td>
+                        <td>{{date('d/m/Y', strtotime($carteira->data_impressao))}} </td>
+                        <td>{{date('d/m/Y', strtotime($carteira->Validade))}} </td>
 
                         <td>
 
                             <div>
                                 <div class="row">
 
-                                    <div class="col-2">
-                                        <a href="{{ route('dias.edit', $dia->id) }}" class="btn btn-success btn-sm">
-                                            <i class="bi bi-pencil-square"></i>
+                                    <div class="col-3">
+                                        <a href="{{('/impressao_carteira_impressao/'.$carteira->id)}}"
+                                            class="btn btn-success btn-sm" title="Imprimir carteira selecioada">
+                                            <i class="bi bi-printer-fill"></i>
                                         </a>
                                     </div>
 
-                                    <div class="col-2">
+                                    <div class="col-3">
 
-                                        <form method="POST" class="delete-form" action="{{ route('dias.destroy', $dia->id) }}">
+                                        <form method="POST" class="delete-form" action="{{ route('impressao_carteira.destroy', $carteira->id) }}">
                                             @csrf
                                             {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                             @method('DELETE')
