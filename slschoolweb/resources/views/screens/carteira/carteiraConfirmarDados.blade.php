@@ -63,6 +63,7 @@
                          src="/img/aluno/{{ $matricula->alunos->foto }}">
                 </div>
 
+
                 <div>
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-floppy2"></i>

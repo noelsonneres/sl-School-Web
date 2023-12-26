@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ConfCarteira;
+use App\Models\Empresa;
 use App\Models\ImpressaoCarteira;
 use Illuminate\Http\Request;
 use App\Models\Matricula;
@@ -137,10 +138,15 @@ class ImpressaoCarteiraController extends Controller
         $matriculaID = $carteira->matriculas_id;
 
         $matricula = Matricula::find($matriculaID);
+        $empresa = Empresa::all()->first();
+        $confCarteira = ConfCarteira::all()->first();       
 
-        // return '<h1>Chegou</h1>';
-
-        return view(self::PATH.'carteiraImpressao', ['carteira'=>$carteira, 'matricula'=>$matricula]);
+        return view(self::PATH.'carteiraImpressao', 
+                    ['carteiras'=>$carteira, 
+                    'matricula'=>$matricula,
+                    'empresa'=>$empresa,
+                    'confCarteira'=>$confCarteira
+                    ]);
 
     }
 
