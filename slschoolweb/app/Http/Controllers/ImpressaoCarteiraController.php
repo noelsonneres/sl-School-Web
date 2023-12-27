@@ -22,7 +22,7 @@ class ImpressaoCarteiraController extends Controller
 
     public function index()
     {
-        $carteira = $this->carteira->paginate();
+        $carteira = $this->carteira->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'carteiraShow', ['carteiras'=>$carteira]);
     }
 

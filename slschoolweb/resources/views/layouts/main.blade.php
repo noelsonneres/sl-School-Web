@@ -199,6 +199,11 @@
                         <span class="align-middle">Impressão carteira</span>
                     </a>
 
+                    <a class="sidebar-link text-white" href="/visitas">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Visitas</span>
+                    </a>
+
 
                 </div>
 

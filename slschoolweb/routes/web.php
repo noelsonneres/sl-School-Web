@@ -40,6 +40,7 @@ use App\Http\Controllers\ContasPagarController;
 use App\Http\Controllers\ControleCaixaController;
 use App\Http\Controllers\ConfCarteiraController;
 use App\Http\Controllers\ImpressaoCarteiraController;
+use App\Http\Controllers\CadastroVisitaController;
 
 Route::get('/', function () {
     return view('home');
@@ -176,3 +177,4 @@ Route::get('/impressao_carteira_confirmar/{matricula}', [ImpressaoCarteiraContro
 Route::get('/impressao_carteira_loc_alunos', [ImpressaoCarteiraController::class, 'find']);
 Route::get('/impressao_carteira_impressao/{carteira}', [ImpressaoCarteiraController::class, 'impressao']);
 
+Route::resource('visitas', CadastroVisitaController::class);
