@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ConfCarteira;
 use App\Models\Empresa;
 use App\Models\ImpressaoCarteira;
+use App\Models\MatriculaTurma;
 use Illuminate\Http\Request;
 use App\Models\Matricula;
 
@@ -85,12 +86,12 @@ class ImpressaoCarteiraController extends Controller
 
     public function destroy(string $id)
     {
-    
+
         $carteira = $this->carteira->find($id);
         $msg = '';
 
         if($carteira != null){
-            
+
             try {
                 $carteira->delete();
                 $msg = 'Registro deletado com sucesso!';
@@ -104,7 +105,7 @@ class ImpressaoCarteiraController extends Controller
 
         $carteira = $this->carteira->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'carteiraShow', ['carteiras'=>$carteira])
-                ->with('msg', $msg);      
+                ->with('msg', $msg);
 
     }
 
@@ -139,13 +140,13 @@ class ImpressaoCarteiraController extends Controller
 
         $matricula = Matricula::find($matriculaID);
         $empresa = Empresa::all()->first();
-        $confCarteira = ConfCarteira::all()->first();       
+        $confCarteira = ConfCarteira::all()->first();
 
-        return view(self::PATH.'carteiraImpressao', 
-                    ['carteiras'=>$carteira, 
+        return view(self::PATH.'carteiraImpressao',
+                    ['carteiras'=>$carteira,
                     'matricula'=>$matricula,
                     'empresa'=>$empresa,
-                    'confCarteira'=>$confCarteira
+                    'confCarteira'=>$confCarteira,
                     ]);
 
     }
