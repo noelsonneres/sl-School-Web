@@ -76,15 +76,15 @@
                             <div>
                                 <div class="row">
 
-                                    <div class="col-2">
-                                        <a href="{{ route('vistas.edit', $visita->id) }}" class="btn btn-success btn-sm">
+                                    <div class="col-3">
+                                        <a href="{{ route('visitas.edit', $visita->id) }}" class="btn btn-success btn-sm">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                     </div>
 
-                                    <div class="col-2">
+                                    <div class="col-3">
 
-                                        <form method="POST" class="delete-form" action="{{ route('vistas.destroy', $visita->id) }}">
+                                        <form method="POST" class="delete-form" action="{{ route('visitas.destroy', $visita->id) }}">
                                             @csrf
                                             {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                             @method('DELETE')
