@@ -51,8 +51,6 @@ class CadastroVisitaController extends Controller
         $nome = $request->old('nome');
         $celular = $request->old('celular');
 
-//        dd($request);
-
         try {
 
             $vistas->nome = $request->input('nome');
@@ -127,8 +125,6 @@ class CadastroVisitaController extends Controller
         $nome = $request->old('nome');
         $celular = $request->old('celular');
 
-//        dd($request);
-
         try {
 
             $vistas->nome = $request->input('nome');
@@ -167,9 +163,38 @@ class CadastroVisitaController extends Controller
 
     }
 
-
     public function destroy(string $id)
     {
-        //
+        
+        $visitas = $this->visitas->find($id);
+
+        $msg = '';
+
+        if($visitas != null){
+
+            try {
+                $visitas->delete();
+                $msg = 'Registro deletado com sucesso!';
+            } catch (\Throwable $th) {
+                $msg = 'ERRO! Não foi possível deletar o registro selecionado';
+            }
+
+        }else{
+          $msg = 'ATENBÇÃO! Não foi possível localizar o registro';  
+        }
+
+        $visitas = $this->visitas->orderBy('id', 'desc')->paginate();
+        return view(self::PATH.'visitasShow', ['visitas'=>$visitas])
+                        ->with('msg', $msg);        
+
     }
+
+    public function find(Request $request){
+
+        $value = $request->input('find');     
+        $visitas = CadastroVisita::where('nome', 'LIKE', $value.'%')->orderBy('id', 'desc')->paginate(15);
+        return view(self::PATH.'visitasShow', ['visitas'=>$visitas]);
+
+    }    
+
 }

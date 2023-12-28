@@ -178,3 +178,4 @@ Route::get('/impressao_carteira_loc_alunos', [ImpressaoCarteiraController::class
 Route::get('/impressao_carteira_impressao/{carteira}', [ImpressaoCarteiraController::class, 'impressao']);
 
 Route::resource('visitas', CadastroVisitaController::class);
+Route::get('/visitas_localizar', [CadastroVisitaController::class, 'find']);
