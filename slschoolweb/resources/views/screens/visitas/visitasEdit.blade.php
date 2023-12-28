@@ -13,9 +13,10 @@
 
         <div class="card p-5">
 
-            <form action="{{route('visitas.store')}}" method="post">
+            <form action="{{route('visitas.update', $visitas->id)}}" method="post">
 
                 @csrf
+                @method('PUT')
 
                 <div class="row mb-4">
 
@@ -73,7 +74,7 @@
 
                     <div class="col-md-4">
                         <label for="complemento" class="form-label lblCaption">Complemento</label>
-                        <input type="text" class="form-control" name=complemento" id="complemento" maxlength="50"
+                        <input type="text" class="form-control" name="complemento" id="complemento" maxlength="50"
                                value="{{$visitas->complemento}}" >
                     </div>
 

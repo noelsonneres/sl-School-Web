@@ -51,6 +51,8 @@ class CadastroVisitaController extends Controller
         $nome = $request->old('nome');
         $celular = $request->old('celular');
 
+//        dd($request);
+
         try {
 
             $vistas->nome = $request->input('nome');
@@ -110,7 +112,59 @@ class CadastroVisitaController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+
+        $vistas = $this->visitas->find($id);
+
+        $request->validate([
+            'nome'=>'required|min:3|max:100',
+            'celular'=>'required',
+        ],[
+            'nome.required'=>'Informe um valor valido para o campo Nome Completo',
+            'nome.min'=>'O campo Nome Completo deve ter no mínimo três caracateres',
+            'nome.max'=>'O campo Nome Completo deve ter no máximo 100 caracateres',
+        ]);
+
+        $nome = $request->old('nome');
+        $celular = $request->old('celular');
+
+//        dd($request);
+
+        try {
+
+            $vistas->nome = $request->input('nome');
+            $vistas->telefone = $request->input('telefone');
+            $vistas->celular = $request->input('celular');
+            $vistas->email = $request->input('email');
+            $vistas->endereco = $request->input('endereco');
+            $vistas->bairro = $request->input('bairro');
+            $vistas->numero = $request->input('numero');
+            $vistas->complemento = $request->input('complemento');
+            $vistas->cep = $request->input('cep');
+            $vistas->cidade = $request->input('cidade');
+            $vistas->estado = $request->input('estado');
+            $vistas->retorno = $request->input('retorno');
+            $vistas->situacao = $request->input('situacao');
+            $vistas->grau_interesse = $request->input('grauInteresse');
+            $vistas->curso_de_interesse = $request->input('curso');
+            $vistas->turno = $request->input('turno');
+            $vistas->dia = $request->input('dia');
+            $vistas->horario = $request->input('horarios');
+            $vistas->observacao = $request->input('obs');
+
+            $vistas->save();
+
+            $visitas = $this->visitas->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'visitasShow', ['visitas'=>$visitas])
+                                        ->with('msg', 'SUCESSO! Registro atualizado com sucesso!');
+
+        }catch (\Throwable $th){
+            $cursos = Curso::all();
+            $dias = CadastroDia::all();
+            $horarios = CadastroHorario::all();
+            return view(self::PATH.'visitasEdit', ['cursos'=>$cursos, 'dias'=>$dias, 'horarios'=>$horarios])
+                                            ->with('msg', 'ERRO! Não foi possível atualizar as informações: '.$th->getMessage());
+        }
+
     }
 
 

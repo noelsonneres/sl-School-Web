@@ -71,7 +71,7 @@
 
                      <div class="col-md-4">
                          <label for="complemento" class="form-label lblCaption">Complemento</label>
-                         <input type="text" class="form-control" name=complemento" id="complemento" maxlength="50">
+                         <input type="text" class="form-control" name="complemento" id="complemento" maxlength="50">
                      </div>
 
                 </div>

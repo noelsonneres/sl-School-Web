@@ -33,11 +33,8 @@ return new class extends Migration
             $table->string('turno')->nullable();
             $table->string('dia')->nullable();
             $table->string('horario')->nullable();
-            $table->integer('funcioario')->nullable();
+            $table->integer('funcionario')->nullable();
             $table->string('observacao')->nullable();
-
-
-
         });
     }
 
