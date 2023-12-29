@@ -8,6 +8,16 @@
             <h3 class="text-center text-white p-3">Novo usuário</h3>
         </div>
 
+        @if (isset($msg))
+        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                    justify-content-between align-items-end mb-3"
+            role="alert" style="text-align: center;">
+            <h5>{{ $msg }} </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        </div>
+    @endif
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -18,11 +28,18 @@
             </div>
         @endif
 
+    @if(session('erro'))
+        <div class="alert alert-danger p-3">
+           <p style="color: red; font-weight: bold; font-size: 18px">{{ session('erro') }}</p> 
+        </div>
+    @endif
+
+
         <hr>
 
         <div class="card p-5">
 
-            <form action="{{ route('salas.store') }}" method="post">
+            <form action="{{ route('usuarios.store') }}" method="post">
 
                 @csrf
 
@@ -47,7 +64,8 @@
                         
                         <div class="col-md-2">
                             <label for="confirmarSenha" class="form-label lblCaption">Confirmar senha</label>
-                            <input type="password" class="form-control" name="confirmarSenha" id="confirmarSenha" required maxlength="50">
+                            <input type="password" class="form-control" name="confirmarSenha" 
+                                   onchange="validarSenha()" id="confirmarSenha" required maxlength="50">
                         </div>
     
                     </div>  
@@ -184,6 +202,28 @@
 
         </div>
     </div>
+
+    <script>
+        let senha = document.getElementById('senha');
+        let senhaC = document.getElementById('confirmarSenha');
+
+        function validarSenha() {
+        if (senha.value != senhaC.value) {
+            senhaC.setCustomValidity("Senhas diferentes!");
+            console.log("Senhas diferentes!");
+            senhaC.reportValidity();
+            return false;
+        } else {
+            senhaC.setCustomValidity("");
+            return true;
+         }
+    }
+
+        // verificar também quando o campo for modificado, para que a mensagem suma quando as senhas forem iguais
+        senhaC.addEventListener('input', validarSenha);
+
+    </script>
+
 
 {{-- Localiza a foto do professor --}}
 

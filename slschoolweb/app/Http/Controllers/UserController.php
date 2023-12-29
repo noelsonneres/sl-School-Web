@@ -31,7 +31,23 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        //
+        
+        $usuarios = $this->usuarios;
+
+        $request->validate([
+            'nome'=>'required|min:3|max:100',
+            'usuario'=>'required|min:2|max:10',
+            'senha'=>'required|min:6|max:50',
+            'confirmarSenha'=>'required|min:6|max:50',
+            'email'=>'required|email',
+        ]);
+
+        if($request->input('senha') != $request->input('confirmarSenha')){
+            return redirect()->back()->with('erro', 'Senha não são iguais!');
+        }
+
+        // CONTINUAR DESTA PARTE EM DIANTE
+
     }
 
     public function show(string $id)
