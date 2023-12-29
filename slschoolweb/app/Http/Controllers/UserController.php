@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         
-        $usuarios = $this->usuarios->paginate();
+        $usuarios = $this->usuarios->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'usuarioShow', ['usuarios'=>$usuarios]);
 
     }
@@ -37,10 +37,24 @@ class UserController extends Controller
 
         $request->validate([
             'nome'=>'required|min:3|max:100',
-            'usuario'=>'required|min:2|max:10',
-            'senha'=>'required|min:6|max:50',
-            'confirmarSenha'=>'required|min:6|max:50',
+            'usuario'=>'required|min:2|max:20',
+            'senha'=>'required|min:6',
+            'confirmarSenha'=>'required|min:6',
             'email'=>'required|email',
+        ],[
+            'nome.required'=>'Digite o nome do usuário que deseja cadatrar',
+            'nome.min'=>'O nome do usuário deve ter no mínimo três caracteres',
+            'nome.max'=>'O nome do usuário deve ter no máximo 100 caracteres',
+
+            'senha.required'=>'Informe uma senha para este usuário. A senha deve ter mais de 6 caracteres',
+            'senha.min'=>'A senha deve ter mais de 6 caracteres',
+
+            'confirmarSenha.required'=>'Informe uma senha para este usuário. A senha deve ter mais de 6 caracteres',
+            'confirmarSenha.min'=>'A senha deve ter mais de 6 caracteres',
+
+            'email.required'=>'Você deve informar um e-mail para este usuário',
+            'email.email'=>'Você deve informar um e-mail valido',
+    
         ]);
 
         if($request->input('senha') != $request->input('confirmarSenha')){
@@ -87,8 +101,14 @@ class UserController extends Controller
             
             $usuarios->save();
 
+            $usuarios = $this->usuarios->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'usuarioShow', ['usuarios'=>$usuarios])
+                                    ->with('msg', 'SUCESSO! Usuário cadastrado com sucesso!');
+
         } catch (\Throwable $th) {
-            //throw $th;
+            return redirect()->back()->with('erro',
+                                 'ERRO! Não foi possível salvar as informações do usuário. Verifique os campo de usuários e email. 
+                                        Verifique também se o usuário e e-mail não já estão cadastrados');
         }
 
     }
@@ -100,7 +120,10 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
-        //
+        
+        $usuario = $this->usuarios->find($id);
+        return view(self::PATH.'usuarioEdit', ['usuario'=>$usuario]);
+
     }
 
     public function update(Request $request, string $id)

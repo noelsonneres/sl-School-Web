@@ -29,11 +29,12 @@
         @endif
 
     @if(session('erro'))
-        <div class="alert alert-danger p-3">
-           <p style="color: red; font-weight: bold; font-size: 18px">{{ session('erro') }}</p> 
+        <div class="alert alert-danger alert-dismissible fade show msg d-flex 
+        justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
+           <h6 style="color: red">{{ session('erro') }}</h6> 
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-
 
         <hr>
 
@@ -49,32 +50,35 @@
 
                         <div class="col-md-4">
                             <label for="nome" class="form-label lblCaption">Nome *</label>
-                            <input type="text" class="form-control" name="nome" id="nome" required maxlength="100">
+                            <input type="text" class="form-control" name="nome" id="nome" 
+                                required maxlength="100" value="{{old('nome')}}">
                         </div>
     
                         <div class="col-md-4">
                             <label for="usuario" class="form-label lblCaption">Usuario *</label>
-                            <input type="text" class="form-control" name="usuario" id="usuario" required maxlength="10">
+                            <input type="text" class="form-control" name="usuario" id="usuario" 
+                                        required maxlength="20" value="{{old('nomeUsuario')}}">
                         </div>               
                         
                         <div class="col-md-2">
                             <label for="senha" class="form-label lblCaption">Senha *</label>
                             <input type="password" class="form-control" name="senha" id="senha" 
-                                    required minlength="6" maxlength="50">
+                                    required minlength="6" maxlength="255">
                         </div>
                         
                         <div class="col-md-2">
                             <label for="confirmarSenha" class="form-label lblCaption">Confirmar senha</label>
                             <input type="password" class="form-control" name="confirmarSenha" 
                                    onchange="validarSenha()" id="confirmarSenha" 
-                                    required minlength="6" maxlength="50">
+                                    required minlength="6" maxlength="255">
                         </div>
     
                     </div>  
                     
                     <div class="md-4 mt-4">
                         <label for="email" class="form-label lblCaption">E-mail *</label>
-                        <input type="email" class="form-control" name="email" id="email" required maxlength="100">
+                        <input type="email" class="form-control" name="email" id="email" 
+                            required maxlength="100" value="{{old('email')}}">
                     </div>
 
                 </div>
@@ -206,6 +210,7 @@
     </div>
 
     <script>
+    
         let senha = document.getElementById('senha');
         let senhaC = document.getElementById('confirmarSenha');
 
@@ -220,7 +225,6 @@
             return true;
          }
     }
-
         // verificar também quando o campo for modificado, para que a mensagem suma quando as senhas forem iguais
         senhaC.addEventListener('input', validarSenha);
 

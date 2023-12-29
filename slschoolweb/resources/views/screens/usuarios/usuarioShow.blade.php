@@ -88,7 +88,13 @@
                             <td>{{ $usuario->name }} </td>
                             <td>{{ $usuario->user_name }} </td>
                             <td>{{ $usuario->email }} </td>
-                            <td>{{ $usuario->ativo }} </td>
+
+                            @if ($usuario->ativo == '1')
+                                <td>Sim</td>
+                            @else
+                                <td>Não</td> 
+                            @endif
+                            
                             <td>
 
                                 <div>
