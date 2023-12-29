@@ -41,6 +41,7 @@ use App\Http\Controllers\ControleCaixaController;
 use App\Http\Controllers\ConfCarteiraController;
 use App\Http\Controllers\ImpressaoCarteiraController;
 use App\Http\Controllers\CadastroVisitaController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home');
@@ -179,3 +180,5 @@ Route::get('/impressao_carteira_impressao/{carteira}', [ImpressaoCarteiraControl
 
 Route::resource('visitas', CadastroVisitaController::class);
 Route::get('/visitas_localizar', [CadastroVisitaController::class, 'find']);
+
+Route::resource('usuarios', UserController::class);

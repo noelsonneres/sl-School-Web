@@ -129,8 +129,6 @@
     </div>
 </div>
 
-
-
 {{-- Localiza a foto do professor --}}
 
 <script>

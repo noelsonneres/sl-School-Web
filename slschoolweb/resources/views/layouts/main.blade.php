@@ -188,6 +188,7 @@
                             class="align-middle">Extras</span>
                     </a>
                 </li>
+
                 <div id="sub-menu5" class="collapse" style="margin-left: 15px;">
 
                     <a class="sidebar-link text-white" href="/conf_carteira">
@@ -203,29 +204,34 @@
                         <i class="align-middle" data-feather="arrow-right"></i>
                         <span class="align-middle">Visitas</span>
                     </a>
-
-
                 </div>
 
+                {{-- Adminstrativo --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-in.html">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign
-                                In</span>
+                    <a class="sidebar-link text-white" href="#sub-menu6" data-bs-toggle="collapse">
+                        <i class="align-middle" data-feather="user"></i> <span
+                            class="align-middle">Adminstrativo</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link submenu" href="pages-sign-up.html">
-                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
-                                Up</span>
-                    </a>
-                </li>
+                <div id="sub-menu6" class="collapse" style="margin-left: 15px;">
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-blank.html">
-                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+                    <a class="sidebar-link text-white" href="/usuarios">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Usuários</span></a>
+
+                    <a class="sidebar-link text-white" href="/impressao_carteira">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Impressão carteira</span>
                     </a>
-                </li>
+
+                    <a class="sidebar-link text-white" href="/visitas">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Visitas</span>
+                    </a>
+                </div>                
+
+              
 
                 <li class="sidebar-header">
                     Tools & Components
