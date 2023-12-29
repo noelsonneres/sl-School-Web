@@ -39,7 +39,7 @@
 
         <div class="card p-5">
 
-            <form action="{{ route('usuarios.store') }}" method="post">
+            <form action="{{ route('usuarios.store') }}" method="post" enctype="multipart/form-data">
 
                 @csrf
 
@@ -59,13 +59,15 @@
                         
                         <div class="col-md-2">
                             <label for="senha" class="form-label lblCaption">Senha *</label>
-                            <input type="password" class="form-control" name="senha" id="senha" required maxlength="50">
+                            <input type="password" class="form-control" name="senha" id="senha" 
+                                    required minlength="6" maxlength="50">
                         </div>
                         
                         <div class="col-md-2">
                             <label for="confirmarSenha" class="form-label lblCaption">Confirmar senha</label>
                             <input type="password" class="form-control" name="confirmarSenha" 
-                                   onchange="validarSenha()" id="confirmarSenha" required maxlength="50">
+                                   onchange="validarSenha()" id="confirmarSenha" 
+                                    required minlength="6" maxlength="50">
                         </div>
     
                     </div>  
@@ -82,7 +84,7 @@
                     <div class="row">
 
                         <div class="col-md-4">
-                            <label for="cpf" class="form-label lblCaption">CEP</label>
+                            <label for="cpf" class="form-label lblCaption">CPF</label>
                             <input type="text" class="form-control" name="cpf" id="cpf">
                         </div>
 
@@ -119,7 +121,7 @@
                         </div> 
 
                         <div class="col-md-6">
-                            <label for="celular" class="form-label lblCaption">Telefone</label>
+                            <label for="celular" class="form-label lblCaption">Celular</label>
                             <input type="text" class="form-control" name="celular" id="celular">
                         </div>                         
 
@@ -143,7 +145,7 @@
                        
                         <div class="col-md-6">
                             <label for="bairro" class="form-label lblCaption">Bairro</label>
-                            <input type="text" class="form-control" name="endereco" id="endereco">
+                            <input type="text" class="form-control" name="bairro" id="bairro">
                         </div>
 
                         <div class="col-md-4">
