@@ -65,14 +65,13 @@
                         <div class="col-md-2">
                             <label for="senha" class="form-label lblCaption">Senha *</label>
                             <input type="password" class="form-control" name="senha" id="senha" 
-                                    required minlength="6" maxlength="255" autocomplete="off">
+                                minlength="6" maxlength="255" autocomplete="off">
                         </div>
                         
                         <div class="col-md-2">
                             <label for="confirmarSenha" class="form-label lblCaption">Confirmar senha</label>
                             <input type="password" class="form-control" name="confirmarSenha" 
-                                   onchange="validarSenha()" id="confirmarSenha" 
-                                    required minlength="6" maxlength="255" autocomplete="off">
+                                    id="confirmarSenha"  minlength="6" maxlength="255" autocomplete="off">
                         </div>
     
                     </div>  
@@ -231,22 +230,22 @@
 
     <script>
     
-        let senha = document.getElementById('senha');
-        let senhaC = document.getElementById('confirmarSenha');
+    //     let senha = document.getElementById('senha');
+    //     let senhaC = document.getElementById('confirmarSenha');
 
-        function validarSenha() {
-        if (senha.value != senhaC.value) {
-            senhaC.setCustomValidity("Senhas diferentes!");
-            console.log("Senhas diferentes!");
-            senhaC.reportValidity();
-            return false;
-        } else {
-            senhaC.setCustomValidity("");
-            return true;
-         }
-    }
+    //     function validarSenha() {
+    //     if (senha.value != senhaC.value) {
+    //         senhaC.setCustomValidity("Senhas diferentes!");
+    //         console.log("Senhas diferentes!");
+    //         senhaC.reportValidity();
+    //         return false;
+    //     } else {
+    //         senhaC.setCustomValidity("");
+    //         return true;
+    //      }
+    // }
         // verificar também quando o campo for modificado, para que a mensagem suma quando as senhas forem iguais
-        senhaC.addEventListener('input', validarSenha);
+        // senhaC.addEventListener('input', validarSenha);
 
     </script>
 
