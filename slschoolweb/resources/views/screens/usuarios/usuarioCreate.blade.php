@@ -51,26 +51,25 @@
                         <div class="col-md-4">
                             <label for="nome" class="form-label lblCaption">Nome *</label>
                             <input type="text" class="form-control" name="nome" id="nome" 
-                                required maxlength="100" value="{{old('nome')}}">
+                                required maxlength="100" value="{{old('nome')}}" autocomplete="off">
                         </div>
     
                         <div class="col-md-4">
                             <label for="usuario" class="form-label lblCaption">Usuario *</label>
                             <input type="text" class="form-control" name="usuario" id="usuario" 
-                                        required maxlength="20" value="{{old('nomeUsuario')}}">
+                                        required maxlength="20" value="{{old('nomeUsuario')}}" autocomplete="off">
                         </div>               
                         
                         <div class="col-md-2">
                             <label for="senha" class="form-label lblCaption">Senha *</label>
                             <input type="password" class="form-control" name="senha" id="senha" 
-                                    required minlength="6" maxlength="255">
+                                     minlength="6" maxlength="255" autocomplete="off">
                         </div>
                         
                         <div class="col-md-2">
                             <label for="confirmarSenha" class="form-label lblCaption">Confirmar senha</label>
                             <input type="password" class="form-control" name="confirmarSenha" 
-                                   onchange="validarSenha()" id="confirmarSenha" 
-                                    required minlength="6" maxlength="255">
+                                id="confirmarSenha" minlength="6" maxlength="255" autocomplete="off">
                         </div>
     
                     </div>  
@@ -78,7 +77,7 @@
                     <div class="md-4 mt-4">
                         <label for="email" class="form-label lblCaption">E-mail *</label>
                         <input type="email" class="form-control" name="email" id="email" 
-                            required maxlength="100" value="{{old('email')}}">
+                            required maxlength="100" value="{{old('email')}}" autocomplete="off">
                     </div>
 
                 </div>
@@ -89,7 +88,7 @@
 
                         <div class="col-md-4">
                             <label for="cpf" class="form-label lblCaption">CPF</label>
-                            <input type="text" class="form-control" name="cpf" id="cpf">
+                            <input type="text" class="form-control" name="cpf" id="cpf" autocomplete="off">
                         </div>
 
                         <div class="col-md-2">
@@ -121,12 +120,12 @@
 
                        <div class="col-md-6">
                             <label for="telefone" class="form-label lblCaption">Telefone</label>
-                            <input type="text" class="form-control" name="telefone" id="telefone">
+                            <input type="text" class="form-control" name="telefone" id="telefone" autocomplete="off">
                         </div> 
 
                         <div class="col-md-6">
                             <label for="celular" class="form-label lblCaption">Celular</label>
-                            <input type="text" class="form-control" name="celular" id="celular">
+                            <input type="text" class="form-control" name="celular" id="celular" autocomplete="off">
                         </div>                         
 
                     </div>
@@ -135,12 +134,12 @@
 
                         <div class="col-md-3">
                             <label for="cep" class="form-label lblCaption">CEP</label>
-                            <input type="text" class="form-control" name="cep" id="cep">
+                            <input type="text" class="form-control" name="cep" id="cep" autocomplete="off">
                         </div>
 
                         <div class="col-md-9">
                             <label for="endereco" class="form-label lblCaption">Endereço</label>
-                            <input type="text" class="form-control" name="endereco" id="endereco">
+                            <input type="text" class="form-control" name="endereco" id="endereco" autocomplete="off">
                         </div>
 
                     </div>
@@ -149,17 +148,17 @@
                        
                         <div class="col-md-6">
                             <label for="bairro" class="form-label lblCaption">Bairro</label>
-                            <input type="text" class="form-control" name="bairro" id="bairro">
+                            <input type="text" class="form-control" name="bairro" id="bairro" autocomplete="off">
                         </div>
 
                         <div class="col-md-4">
                             <label for="complemento" class="form-label lblCaption">Complemento</label>
-                            <input type="text" class="form-control" name="complemento" id="complemento">
+                            <input type="text" class="form-control" name="complemento" id="complemento" autocomplete="off">
                         </div>
 
                         <div class="col-md-2">
                             <label for="numero" class="form-label lblCaption">Número</label>
-                            <input type="text" class="form-control" name="numero" id="numero">                            
+                            <input type="text" class="form-control" name="numero" id="numero" autocomplete="off">                            
                         </div>
                         
                     </div>
@@ -168,19 +167,19 @@
 
                         <div class="col-md-9">
                             <label for="cidade" class="form-label lblCaption">Cidade</label>
-                            <input type="text" class="form-control" name="cidade" id="cidade" maxlength="100">
+                            <input type="text" class="form-control" name="cidade" id="cidade" maxlength="100" autocomplete="off">
                         </div>
 
                         <div class="col-md-3">
                             <label for="estado" class="form-label lblCaption">Estado</label>
-                            <input type="text" class="form-control" name="estado" id="estado">
+                            <input type="text" class="form-control" name="estado" id="estado" autocomplete="off">
                         </div>
 
                     </div>
 
                     <div class="mb-4">
                         <label for="obs" class="form-label lblCaption">Observação</label>
-                        <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
+                        <input type="text" class="form-control" name="obs" id="obs" maxlength="255" autocomplete="off">
                     </div>
 
                     <div class="mb-4">
@@ -199,7 +198,7 @@
                         <i class="bi bi-floppy2"></i>
                         Salvar</button>
 
-                    <a href="/config_mensalidades" class="btn btn-danger">
+                    <a href="javascript:history.back()" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar</a>
                 </div>
