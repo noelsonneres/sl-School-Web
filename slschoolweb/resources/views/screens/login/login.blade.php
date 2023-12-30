@@ -40,36 +40,53 @@
     <div class="container-fluid h-custom">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-md-9 col-lg-6 col-xl-5">
-          <img src="/img/login/login.png" class="img-fluid"
+          <img src="/img/login/login.jpg" class="img-fluid"
             alt="Sample image">
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 card border p-4">
 
-          <form action="#" method="post"></form>
+      @if(isset($msg))
+
+          <div class="alert alert-warning alert-dismissible fade show msg d-flex
+            justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
+              <h5>{{$msg}} </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+          </div>
+          
+      @endif
+
+      @error('error')
+        <span style="color: red" class="p-2">{{ $message }}</span>
+      @enderror
+
+          <form action="{{route('login.login')}}" method="post">
            
+            @csrf
+
            <div class="mb-4">
-            <label for="username" class="form-label">Usuário</label>
-            <input type="text" class="form-control" name="username" id="username" maxlength="255" required>
+                @error('username')
+                <span>{{ $message }}</span>
+                @enderror
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" class="form-control" name="username" id="username" maxlength="255" required>
            </div>
 
            <div class="mb-4">
-            <label for="password" class="form-label">Senha</label>
-            <input type="password" class="form-control" name="password" id="password" maxlength="255" required>
+                @error('password')
+                <span>{{ $message }}</span>
+                @enderror
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" name="password" id="password" maxlength="255" required>
            </div>
 
             <div class="d-flex justify-content-between align-items-center">
               <!-- Checkbox -->
-              <div class="form-check mb-0">
-                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                <label class="form-check-label" for="form2Example3">
-                  Lembrar
-                </label>
-              </div>
               <a href="#!" class="text-body">Esqueceu sua senha?</a>
             </div>
 
             <div class="text-center text-lg-start mt-4 pt-2">
-              <button type="button" class="btn btn-primary btn-lg"
+              <button type="submit" class="btn btn-primary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
             </div>
 
@@ -77,37 +94,22 @@
         </div>
       </div>
     </div>
+  </div>
     <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
       <!-- Copyright -->
       <div class="text-white mb-3 mb-md-0">
-        Criosoftware Sistemas {{date('d/m/Y', strtotime(\Carbon\Carbon::now()->format('Y-m-d')))}}
+       <p> Criosoftware Sistemas {{date('d/m/Y', strtotime(\Carbon\Carbon::now()->format('Y-m-d')))}}</p>
       </div>
       <!-- Copyright -->
 
-      <!-- Right -->
-      <div>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="#!" class="text-white">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </div>
       <!-- Right -->
     </div>
   </section>
   <!-- End your project here-->
 
   <!-- MDB -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- Custom scripts -->
-  <script type="text/javascript"></script>
+  <script type="text/javascript" src="/js/mdb.min.js"></script>
+  
 </body>
 
 </html>
