@@ -43,9 +43,14 @@ use App\Http\Controllers\ImpressaoCarteiraController;
 use App\Http\Controllers\CadastroVisitaController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('home');
+
+Route::get('/', function(){
+    return view('screens.login.login');
 });
+
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Route::resource('dias', CadastroDiasController::class);
 Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find']);
