@@ -242,4 +242,19 @@ class UserController extends Controller
                                 ->with('msg', $msg);
 
     }
+
+    public function find(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if(empty($field)){
+            $field = 'id';
+        }
+
+        $usuarios = User::where($field, 'LIKE', $value.'%')->orderBy('id', 'desc')->paginate();
+        return view(self::PATH.'usuarioShow', ['usuarios'=>$usuarios]); 
+
+    }    
+
 }

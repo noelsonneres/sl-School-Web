@@ -34,7 +34,7 @@
 
             <div class="col-8">
 
-                <form action="/sala_pesquisar" method="get">
+                <form action="/usuarios_localizar" method="get">
                     @csrf
 
                     <div class="row">
@@ -42,8 +42,8 @@
                         <div class="col-md-3">
                             <select class="form-control" name="opt" id="opt">
                                 <option value="id">Código</option>
-                                <option value="sala">Sala</option>
-                                <option value="descricao">Descrição</option>
+                                <option value="name">Nome</option>
+                                <option value="user_name">Usuário</option>
                             </select>
                         </div>
 
@@ -101,7 +101,8 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success btn-sm">
+                                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success btn-sm"
+                                                    title="Atualizar informações do usuário">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
@@ -113,7 +114,8 @@
                                                 @csrf
                                                 {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-danger btn-sm"
+                                                <button type="button" class="btn btn-danger btn-sm" 
+                                                    title="Deletar usuãrio selecionado"
                                                     onclick="confirmDelete(this)">
                                                     <i class="bi bi-trash3-fill"></i>
                                                 </button>

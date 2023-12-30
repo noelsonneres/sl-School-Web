@@ -182,3 +182,4 @@ Route::resource('visitas', CadastroVisitaController::class);
 Route::get('/visitas_localizar', [CadastroVisitaController::class, 'find']);
 
 Route::resource('usuarios', UserController::class);
+Route::get('/usuarios_localizar', [UserController::class, 'find']);
