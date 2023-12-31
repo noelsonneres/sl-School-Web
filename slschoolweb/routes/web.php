@@ -44,6 +44,7 @@ use App\Http\Controllers\CadastroVisitaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NivelAcessoController;
 
 
 Route::get('/', function(){
@@ -197,3 +198,5 @@ Route::get('/visitas_localizar', [CadastroVisitaController::class, 'find']);
 
 Route::resource('usuarios', UserController::class);
 Route::get('/usuarios_localizar', [UserController::class, 'find']);
+
+Route::resource('nivel_acesso', NivelAcessoController::class);

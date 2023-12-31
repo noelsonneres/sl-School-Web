@@ -1,11 +1,12 @@
 @extends('layouts.main')
-@section('title', 'Usuários cadastrados')
+@section('title', 'Níveis de acesso dos usuários')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h4 class="text-center text-white p-3">Usuários cadastrados</h4>
+            <h4 class="text-center text-white ps-3 pt-2">Níveis de acesso dos usuários</h4>
+            <p class="text-center text-white ps-3 pt-1 pb-3">Definir ou ajustar os níveis de acesso dos funcionário</p>
         </div>
 
 
@@ -19,50 +20,34 @@
             </div>
         @endif
 
-        <hr>
-
-        <div class="row">
-
-            <div class="col-4">
-
-                <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Novo</a>
-                <button onclick="(print())" class="btn $teal-300">Imprimir</button>
-
-            </div>
-
-            <div class="col-8">
-
-                <form action="/usuarios_localizar" method="get">
-                    @csrf
-
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <select class="form-control" name="opt" id="opt">
-                                <option value="id">Código</option>
-                                <option value="name">Nome</option>
-                                <option value="user_name">Usuário</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="find" id="find"
-                                placeholder="Digite o que deseja buscar">
-                        </div>
-
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
-                        </div>
-
-                    </div>
-
-                </form>
-
-            </div>
+        @if (isset($msg))
+        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                    justify-content-between align-items-end mb-3"
+            role="alert" style="text-align: center;">
+            <h5>{{ $msg }} </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
         </div>
+    @endif
+    
+    <hr>
+
+    <div class="row">
+
+        <div class="col-4">
+
+            <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-circle-fill"></i>
+                Nova regra</a>
+        </div>
+
+    </div>
+
+        <hr>
+            <div class="ps-3 pt-2 pb-2">
+                <h4>Usuário: {{$usuario->user_name}}</h4>
+                <h4>Nome: {{$usuario->name}}</h4>
+            </div>
 
         <hr>
 
@@ -71,18 +56,15 @@
             <table class="table p-1">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Usuário</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Ativo</th>
+                        <th scope="col">Recurso</th>
+                        <th scope="col">Permitido</th>
                         <th scope="col">Operações</th>
                     </tr>
                 </thead>
 
 
                 <tbody>
-                    @foreach ($usuarios as $usuario)
+                    @foreach ($niveis as $nivel)
                         <tr>
                             <td>{{ $usuario->id }} </td>
                             <td>{{ $usuario->name }} </td>
@@ -92,29 +74,27 @@
                             @if ($usuario->ativo == '1')
                                 <td>Sim</td>
                             @else
-                                <td>Não</td>
+                                <td>Não</td> 
                             @endif
-
+                            
                             <td>
 
                                 <div>
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('usuarios.edit', $usuario->id) }}"
-                                                class="btn btn-success btn-sm" title="Atualizar informações do usuário">
+                                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success btn-sm"
+                                                    title="Atualizar informações do usuário">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
 
-                                        @if ($usuario->ativo == '1')
-                                            <div class="col-2">
-                                                <a href="{{ route('nivel_acesso.show', $usuario->id) }}"
-                                                    class="btn btn-info btn-sm" title="Níveis de acesso">
+                                        <div class="col-2">
+                                            <a href="{{ route('nivel_acesso.show', $usuario->id) }}" class="btn btn-info btn-sm"
+                                                    title="Níveis de acesso">
                                                     <i class="bi bi-lock"></i>
-                                                </a>
-                                            </div>
-                                        @endif
+                                            </a>
+                                        </div>                                        
 
                                         <div class="col-2">
 
@@ -123,8 +103,9 @@
                                                 @csrf
                                                 {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-danger btn-sm"
-                                                    title="Deletar usuãrio selecionado" onclick="confirmDelete(this)">
+                                                <button type="button" class="btn btn-danger btn-sm" 
+                                                    title="Deletar usuãrio selecionado"
+                                                    onclick="confirmDelete(this)">
                                                     <i class="bi bi-trash3-fill"></i>
                                                 </button>
                                             </form>
@@ -151,10 +132,10 @@
                 </tbody>
 
             </table>
-
+ 
             <div class="container-fluid pl-5 d-flex justify-content-center">
-                {{ $usuarios->links('pagination::pagination') }}
-            </div>
+            {{$niveis->links('pagination::pagination')}}
+            </div>            
 
         </div>
 
