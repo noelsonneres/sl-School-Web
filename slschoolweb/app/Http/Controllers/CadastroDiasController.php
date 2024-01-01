@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CadastroDia;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 
 class CadastroDiasController extends Controller
@@ -19,8 +20,12 @@ class CadastroDiasController extends Controller
 
     public function index()
     {
-        $dias = $this->dias->paginate();
-        return view(self::PATH . 'diasShow', ['dias' => $dias]);
+        if ($this->verificarAcesso() == 1) {
+            $dias = $this->dias->paginate();
+            return view(self::PATH . 'diasShow', ['dias' => $dias]);
+        } else {
+            return 'Você não tem acesso a este recurso';
+        }
     }
 
     public function create()
@@ -119,5 +124,22 @@ class CadastroDiasController extends Controller
         }
 
         return view(self::PATH . 'diasShow', ['dias' => $dias]);
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Cad.Dias')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

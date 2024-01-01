@@ -476,7 +476,8 @@
             </div>
         </nav>
 
-        <main class="content">
+        <main class="content">            
+
             <div class="container-fluid p-0 ">
 
                 @if ($errors->any())

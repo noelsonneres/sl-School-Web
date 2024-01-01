@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CadastroHorario;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 
 class CadastroHorariosController extends Controller
@@ -19,8 +20,12 @@ class CadastroHorariosController extends Controller
     public function index()
     {
 
-        $horarios = $this->horarios->paginate();
-        return view(self::PATH . 'horariosShow', ['horarios' => $horarios]);
+        if($this->verificarAcesso() == 1){
+            $horarios = $this->horarios->paginate();
+            return view(self::PATH . 'horariosShow', ['horarios' => $horarios]);
+        }else{
+            return redirect('home')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function create()
@@ -120,4 +125,22 @@ class CadastroHorariosController extends Controller
         }
 
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Cad.Horários')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }    
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\NivelAcesso;
@@ -34,8 +33,6 @@ class NivelAcessoController extends Controller
 
     public function show(string $id)
     {
-       
-        dd(auth()->user()->id);
 
         $nivel = $this->nivel->where('users_id', $id)->paginate();
         $usuario = User::find($id);
@@ -121,5 +118,6 @@ class NivelAcessoController extends Controller
         }
 
     }
+
 
 }
