@@ -13,8 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function nivelAceso(){
-        return $this->belongsToMany(User::class, 'users_id');
+    public function nivelAcesso(){
+        return $this->belongsToMany(NivelAcesso::class, 'users_id');
     }
 
     /**

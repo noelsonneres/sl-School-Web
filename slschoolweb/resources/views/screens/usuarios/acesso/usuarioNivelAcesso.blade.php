@@ -19,29 +19,10 @@
 
             </div>
         @endif
-
-        @if (isset($msg))
-        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
-                    justify-content-between align-items-end mb-3"
-            role="alert" style="text-align: center;">
-            <h5>{{ $msg }} </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-        </div>
-    @endif
     
     <hr>
 
     <div class="row">
-
-        <div class="col-4">
-
-            <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-circle-fill"></i>
-                Nova regra</a>
-        </div>
-
-    </div>
 
         <hr>
             <div class="ps-3 pt-2 pb-2">
@@ -50,6 +31,35 @@
             </div>
 
         <hr>
+
+        <div class="card p-2 mb-4">
+
+            <form action="/nivel_acesso_adicionar" method="post">
+
+                @csrf
+
+                <input type="hidden" name="userID" value="{{$usuario->id}}">
+
+                <div class="mb-4">
+                    <label for="recurso" class="form-label lblCaption">Selecione o recurso que deseja adionar</label>
+                    <select class="form-control" name="recurso" id="recurso">
+
+                        <option value="">Selecione uma opção</option>
+
+                        @foreach ($recursos as $recurso)
+                            <option value="{{$recurso}}">{{$recurso}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success mb-4">
+                    <i class="bi bi-floppy2"></i>
+                    Adicionar regra</button>
+
+            </form>
+
+        </div>
 
         <div class="card pt-2 mt-4">
 
@@ -66,16 +76,9 @@
                 <tbody>
                     @foreach ($niveis as $nivel)
                         <tr>
-                            <td>{{ $usuario->id }} </td>
-                            <td>{{ $usuario->name }} </td>
-                            <td>{{ $usuario->user_name }} </td>
-                            <td>{{ $usuario->email }} </td>
 
-                            @if ($usuario->ativo == '1')
-                                <td>Sim</td>
-                            @else
-                                <td>Não</td> 
-                            @endif
+                            <td>{{ $nivel->recurso }} </td>
+                            <td>{{ $nivel->permitido }} </td>
                             
                             <td>
 
@@ -83,18 +86,11 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success btn-sm"
-                                                    title="Atualizar informações do usuário">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-warning btn-sm"
+                                                    title="Bloquear acesso a este recurso">
+                                                    <i class="bi bi-ban"></i>
                                             </a>
-                                        </div>
-
-                                        <div class="col-2">
-                                            <a href="{{ route('nivel_acesso.show', $usuario->id) }}" class="btn btn-info btn-sm"
-                                                    title="Níveis de acesso">
-                                                    <i class="bi bi-lock"></i>
-                                            </a>
-                                        </div>                                        
+                                        </div>                                 
 
                                         <div class="col-2">
 
@@ -119,7 +115,6 @@
                                                 }
                                             </script>
 
-
                                         </div>
 
                                     </div>
@@ -138,8 +133,6 @@
             </div>            
 
         </div>
-
-
 
     </div>
 

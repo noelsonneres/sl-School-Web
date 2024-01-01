@@ -200,3 +200,4 @@ Route::resource('usuarios', UserController::class);
 Route::get('/usuarios_localizar', [UserController::class, 'find']);
 
 Route::resource('nivel_acesso', NivelAcessoController::class);
+Route::post('/nivel_acesso_adicionar', [NivelAcessoController::class, 'adcionarRegra']);
