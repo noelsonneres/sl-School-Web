@@ -91,15 +91,8 @@
 
                     <a class="sidebar-link text-white" href="/cursos">
                         <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Cursos</span></a>
-
-                    <a class="sidebar-link text-white" href="/professores">
-                        <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Professores</span></a>
-
-                    <a class="sidebar-link text-white" href="/consultores">
-                        <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Consultores</span></a>
+                        <span class="align-middle">Cursos</span>
+                    </a>
 
                     <a class="sidebar-link text-white" href="/materiais">
                         <i class="align-middle" data-feather="arrow-right"></i>
@@ -218,17 +211,20 @@
 
                     <a class="sidebar-link text-white" href="/usuarios">
                         <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Usuários</span></a>
-
-                    <a class="sidebar-link text-white" href="/impressao_carteira">
-                        <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Impressão carteira</span>
+                        <span class="align-middle">Usuários</span>
                     </a>
 
-                    <a class="sidebar-link text-white" href="/visitas">
+                    <a class="sidebar-link text-white" href="/professores">
                         <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Visitas</span>
+                        <span class="align-middle">Professores</span>
                     </a>
+
+                    <a class="sidebar-link text-white" href="/consultores">
+                        <i class="align-middle" data-feather="arrow-right"></i>
+                        <span class="align-middle">Consultores</span>
+                    </a>
+
+                    
                 </div>                
 
               

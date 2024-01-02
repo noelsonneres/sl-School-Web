@@ -24,7 +24,7 @@ class CadastroHorariosController extends Controller
             $horarios = $this->horarios->paginate();
             return view(self::PATH . 'horariosShow', ['horarios' => $horarios]);
         }else{
-            return redirect('home')->with('msgERRO', 'Recurso bloqueado!');
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 

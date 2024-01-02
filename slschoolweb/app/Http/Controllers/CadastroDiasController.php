@@ -24,7 +24,7 @@ class CadastroDiasController extends Controller
             $dias = $this->dias->paginate();
             return view(self::PATH . 'diasShow', ['dias' => $dias]);
         } else {
-            return 'Você não tem acesso a este recurso';
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
