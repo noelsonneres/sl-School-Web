@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MeiosPagamento;
+use App\Models\NivelAcesso;
 
 class MeiosPagamentosController extends Controller
 {
@@ -19,10 +20,15 @@ class MeiosPagamentosController extends Controller
 
     public function index()
     {
-        
-        $meiosPagamento = $this->meiosPagamento->paginate();
 
-        return view(self::PATH.'meiosPagamentoShow', ['meios'=>$meiosPagamento]);
+        if($this->verificarAcesso() == 1){
+
+            $meiosPagamento = $this->meiosPagamento->paginate();
+            return view(self::PATH.'meiosPagamentoShow', ['meios'=>$meiosPagamento]);
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
@@ -33,7 +39,7 @@ class MeiosPagamentosController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $meios = $this->meiosPagamento;
 
         $request->validate([
@@ -43,7 +49,7 @@ class MeiosPagamentosController extends Controller
         $pgto = $request->old('meios');
 
         try {
-            
+
             $meios->meio_pagamento = $request->input('meios');
             $meios->save();
 
@@ -52,7 +58,7 @@ class MeiosPagamentosController extends Controller
                 ->with('msg', 'Meio de pagamento adicionado com sucesso!!!');
 
         } catch (\Throwable $th) {
-            
+
             $meios = $this->meiosPagamento->paginate();
             return view(self::PATH.'meiosPagamentoShow', ['meios'=>$meios])
                 ->with('msg', 'ERRO! Não foi possível adicionar o meio de pagamento');
@@ -71,7 +77,7 @@ class MeiosPagamentosController extends Controller
 
     public function edit(string $id)
     {
-    
+
         $meios = $this->meiosPagamento->find($id);
 
         if($meios->count() != 0){
@@ -84,7 +90,7 @@ class MeiosPagamentosController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
         $meios = $this->meiosPagamento->find($id);
 
         $request->validate([
@@ -94,7 +100,7 @@ class MeiosPagamentosController extends Controller
         $pgto = $request->old('meios');
 
         try {
-            
+
             $meios->meio_pagamento = $request->input('meios');
             $meios->save();
 
@@ -103,7 +109,7 @@ class MeiosPagamentosController extends Controller
                 ->with('msg', 'Informações do meios de pagamento atualizadas com sucesso!!!');
 
         } catch (\Throwable $th) {
-            
+
             $meios = $this->meiosPagamento->paginate();
             return view(self::PATH.'meiosPagamentoShow', ['meios'=>$meios])
                 ->with('msg', 'ERRO! Não foi possível atualizar as informações do meio de pagamento');
@@ -114,7 +120,7 @@ class MeiosPagamentosController extends Controller
 
     public function destroy(string $id)
     {
-        
+
         $meios = $this->meiosPagamento->find($id);
 
         try {
@@ -129,4 +135,23 @@ class MeiosPagamentosController extends Controller
         }
 
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Meios de pagamento')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\ConfigMensalidade;
 
@@ -19,12 +20,17 @@ class ConfigMensalidadesController extends Controller
     public function index()
     {
 
-        $config = $this->config->first();
+        if($this->verificarAcesso() == 1){
 
-        if ($config != null) {
-            return view(self::PATH . 'configMensalidadesEdit', ['config' => $config]);
-        } else {
-            return view(self::PATH . 'configMensalidadesCreate');
+            $config = $this->config->first();
+            if ($config != null) {
+                return view(self::PATH . 'configMensalidadesEdit', ['config' => $config]);
+
+            } else {
+                return view(self::PATH . 'configMensalidadesCreate');
+            }
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
@@ -103,11 +109,26 @@ class ConfigMensalidadesController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Conf.Mensalidades')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

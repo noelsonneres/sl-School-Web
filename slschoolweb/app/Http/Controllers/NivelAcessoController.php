@@ -60,7 +60,7 @@ class NivelAcessoController extends Controller
             'Cad.Dias',
             'Cad.Horários',
             'Cad.Salas',
-            'Meios ee pagamento',
+            'Meios de pagamento',
             'Conf.Mensalidades',
             'Dados da empresa',
             'Disciplinas',
@@ -89,7 +89,7 @@ class NivelAcessoController extends Controller
             'Adicionar materiais',
             'Adicionar disciplinas',
             'Gerar contrato',
-            'Frequencia do aluno', 
+            'Frequencia do aluno',
             'Reposição do aluno',
             'Cancelar matricula',
             'Trancar matricula',
@@ -116,7 +116,7 @@ class NivelAcessoController extends Controller
 
     public function adcionarRegra(Request $request)
     {
-        
+
         $nivel = $this->nivel;
 
         $request->validate([
@@ -135,22 +135,22 @@ class NivelAcessoController extends Controller
                 $nivel->recurso = $request->input('recurso');
                 $nivel->permitido = 'sim';
                 $nivel->save();
-    
+
                 $msg = 'SUCESSO! Acesso concedido ao usuário!';
-    
+
             } catch (\Throwable $th) {
                 $msg = 'ERRO! Não foi possível conceder acesso a este recurso para o usuário: '.$th->getMessage();
-            }            
+            }
 
         }else{
             $msg = 'ATENÇÃO! Este recurso já esta adiconado para este usuário';
-        }        
+        }
 
         $nivel = $this->nivel->where('users_id', $request->input('userID'))->paginate();
         $usuario = User::find($request->input('userID'));
-        return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
+        return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel,
                                     'usuario' => $usuario, 'recursos' => $this->listaRecursos()])
-                                    ->with('msg', $msg);        
+                                    ->with('msg', $msg);
 
     }
 
