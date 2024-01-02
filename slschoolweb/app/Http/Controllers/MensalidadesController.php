@@ -9,6 +9,7 @@ use App\Models\Empresa;
 use App\Models\Matricula;
 use App\Models\MeiosPagamento;
 use App\Models\Mensalidade;
+use App\Models\NivelAcesso;
 use App\Models\Responsavel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
@@ -47,8 +48,8 @@ class MensalidadesController extends Controller
             'vencimento' => 'required',
         ],[
             'qtdeParcelas.required'=>'Informe a quantidade de parcelas que deseja inserir',
-            'valor.required'=>'Informe um valor para o campos "Valor da parcela"', 
-            'vencimento.required'=>'Você deve digitar uma data de vencimento valida', 
+            'valor.required'=>'Informe um valor para o campos "Valor da parcela"',
+            'vencimento.required'=>'Você deve digitar uma data de vencimento valida',
         ]);
 
         $qtdeParcelas = $request->old('qtdeParcelas');
@@ -60,30 +61,30 @@ class MensalidadesController extends Controller
         $qtdeParcela = $request->input('qtdeParcelas');
 
         try {
-            
+
             for ($i = 0; $i < $qtdeParcela; $i++) {
 
                 $mensalidade = new Mensalidade();
-    
+
                 $mensalidade->responsavels_id = $request->input('responsavel');
                 $mensalidade->alunos_id = $request->input('aluno');
                 $mensalidade->matriculas_id = $request->input('matricula');
                 $mensalidade->qtde_mensalidades = $qtdeParcela;
                 $mensalidade->valor_parcela = $request->input('valor');
-    
+
                 $dataVencimento = new DateTime($request->input('vencimento'));
                 $dataVencimento->modify('+' . $i . ' months');
                 $mensalidade->vencimento = $dataVencimento;
-    
+
                 $mensalidade->pago = 'nao';
                 $mensalidade->observacao = $request->input('obs');
-    
+
                 $mensalidade->save();
             }
 
         } catch (\Throwable $th) {
             return $th;
-        }       
+        }
 
     }
 
@@ -103,27 +104,33 @@ class MensalidadesController extends Controller
 
     public function edit(string $id)
     {
-        
-        $mensalidade = $this->mensalidade->find($id);
-        $matriculaID = $mensalidade->matriculas_id;
 
-        $matricula = Matricula::find($matriculaID);
-        $aluno = $matricula->alunos()->first();    
+        if($this->verificarAcesso('Editar mensalidade') == 1){
 
-        if($mensalidade->count() >= 1){
-            if($mensalidade->pago === 'nao'){
-                return view(self::PATH.'mensalidadeEdit', ['mensalidade'=>$mensalidade, 'aluno'=>$aluno]);
-            }else{
-                return back();
+            $mensalidade = $this->mensalidade->find($id);
+            $matriculaID = $mensalidade->matriculas_id;
+
+            $matricula = Matricula::find($matriculaID);
+            $aluno = $matricula->alunos()->first();
+
+            if($mensalidade->count() >= 1){
+                if($mensalidade->pago === 'nao'){
+                    return view(self::PATH.'mensalidadeEdit', ['mensalidade'=>$mensalidade, 'aluno'=>$aluno]);
+                }else{
+                    return back();
+                }
+
             }
-            
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
 
     }
 
     public function update(Request $request, string $id)
     {
-        
+
         $mensalidade = $this->mensalidade->find($id);
 
         $request->validate([
@@ -131,13 +138,13 @@ class MensalidadesController extends Controller
             'dataVencimento' => 'required',
         ],[
             'valor.required'=>'Você deve digitar um valor',
-            'dataVencimento.required'=>'Você deve digitar uma data de vencimento valida', 
+            'dataVencimento.required'=>'Você deve digitar uma data de vencimento valida',
         ]);
 
         try {
 
             $matriculaID = $request->input('matricula');
-            
+
             $mensalidade->valor_parcela = $request->input('valor');
             $mensalidade->vencimento = $request->input('dataVencimento');
             $mensalidade->observacao = $request->input('obs');
@@ -162,29 +169,34 @@ class MensalidadesController extends Controller
 
     public function destroy(string $id)
     {
-        
-        $mensalidade = $this->mensalidade->find($id);
 
-        $matriculaID = $mensalidade->matriculas_id;
-        $alunoID = $mensalidade->alunos_id;        
+        if ($this->verificarAcesso('Excluir mensalidade') == 1){
 
-        if($mensalidade->count() >= 1){
+            $mensalidade = $this->mensalidade->find($id);
 
-            if($mensalidade->pago === 'nao'){
+            $matriculaID = $mensalidade->matriculas_id;
+            $alunoID = $mensalidade->alunos_id;
 
-                try {
+            if($mensalidade->count() >= 1){
 
-                    $mensalidade->delete();
-                    $msg = "Mensalidade excluida com sucesso!!!";
-        
-                } catch (\Throwable $th) {
-                    $msg = "ERRO! Não foi possível excluir a mensalidade!";
-                }    
+                if($mensalidade->pago === 'nao'){
 
-            }else{
-                $msg = 'ERRO! Não é possível exluir uma mensalidade que já esteja paga';
-            }
+                    try {
 
+                        $mensalidade->delete();
+                        $msg = "Mensalidade excluida com sucesso!!!";
+
+                    } catch (\Throwable $th) {
+                        $msg = "ERRO! Não foi possível excluir a mensalidade!";
+                    }
+
+                }else{
+                    $msg = 'ERRO! Não é possível exluir uma mensalidade que já esteja paga';
+                }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
         }
 
@@ -196,62 +208,68 @@ class MensalidadesController extends Controller
         return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidade])
         ->with('matricula', $matricula)
         ->with('aluno', $aluno)
-        ->with('msg', $msg);        
+        ->with('msg', $msg);
 
     }
 
     public function selecionarPagamento(string $mensalidade, string $matricula)
     {
 
-        $caixa = ControleCaixa::latest()->first();
+        if($this->verificarAcesso('Quitar mensalidade') == 1){
 
-        $dataAtual = Carbon::now();
-        $dataAtual = $dataAtual->format('d/m/Y');
+            $caixa = ControleCaixa::latest()->first();
 
-        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
-        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+            $dataAtual = Carbon::now();
+            $dataAtual = $dataAtual->format('d/m/Y');
 
-        if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
-           
-            $mensalidade = $this->mensalidade->find($mensalidade);
-            $matricula = Matricula::find($matricula);
-            $aluno = $matricula->alunos()->first();
-            $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
-    
-            if($mensalidade->pago === 'nao'){
-    
-                $formaPagamento = MeiosPagamento::all();
-    
-                $vencimento = new DateTime($mensalidade->vencimento);
-        
-                $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
-        
-                return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
-                    ->with('matricula', $matricula)
-                    ->with('aluno', $aluno)
-                    ->with('juros', $juros)
-                    ->with('formas_pagamentos', $formaPagamento)
-                    ->with('responsavel', $responsavel);
-    
+            $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+            $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+
+            if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
+
+                $mensalidade = $this->mensalidade->find($mensalidade);
+                $matricula = Matricula::find($matricula);
+                $aluno = $matricula->alunos()->first();
+                $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
+
+                if($mensalidade->pago === 'nao'){
+
+                    $formaPagamento = MeiosPagamento::all();
+
+                    $vencimento = new DateTime($mensalidade->vencimento);
+
+                    $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
+
+                    return view(self::PATH . 'mensalidadesPagamento', ['mensalidade' => $mensalidade])
+                        ->with('matricula', $matricula)
+                        ->with('aluno', $aluno)
+                        ->with('juros', $juros)
+                        ->with('formas_pagamentos', $formaPagamento)
+                        ->with('responsavel', $responsavel);
+
+                }else{
+                    return back();
+                }
+
             }else{
-                return back();
+
+                $msg = '';
+
+                if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+                    $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+                }elseif($caixa->status == 'encerrado'){
+                    $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+                }
+
+                $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
+                return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
+                    ->with('msg', $msg);
             }
 
         }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
-            $msg = '';
-
-            if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
-                $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
-            }elseif($caixa->status == 'encerrado'){
-                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
-            }
-
-            $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
-            return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
-                ->with('msg', $msg);
-        }        
-        
     }
 
     public function quitar(Request $request)
@@ -323,13 +341,18 @@ class MensalidadesController extends Controller
 
     public function adicionar(string $matricula){
 
-        $matricula = Matricula::find($matricula);
-        $aluno = $matricula->alunos()->first();
+        if($this->verificarAcesso('Adicionar mensalidade') == 1){
 
-        if($matricula->count() >= 1){
-            return view(self::PATH.'mensalidadesCreate', ['matricula'=>$matricula, 'aluno'=>$aluno ]);
-        }       
+            $matricula = Matricula::find($matricula);
+            $aluno = $matricula->alunos()->first();
 
+            if($matricula->count() >= 1){
+                return view(self::PATH.'mensalidadesCreate', ['matricula'=>$matricula, 'aluno'=>$aluno ]);
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function capaCarne(){
@@ -372,4 +395,22 @@ class MensalidadesController extends Controller
 
         return $resultado;
     }
+
+    private function verificarAcesso(string $recursos)
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', $recursos)
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

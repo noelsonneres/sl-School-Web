@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use App\Models\Responsavel;
 use Illuminate\Http\Request;
 
 class ResponsavelController extends Controller
 {
-  
+
     const PATH = 'screens.alunos.responsavel.';
     private $responsavel;
     public function __construct()
@@ -28,7 +29,7 @@ class ResponsavelController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $responsavel = $this->responsavel;
 
         $request->validate([
@@ -43,10 +44,10 @@ class ResponsavelController extends Controller
         ],
     [
         'nome.required' => 'Informe o nome do responsável',
-    ]);  
-    
+    ]);
+
     try {
-    
+
         $responsavel->nome = $request->input('nome');
         $responsavel->alunos_id = $request->input('idAluno');
         $responsavel->apelido = $request->input('apelido');
@@ -77,7 +78,7 @@ class ResponsavelController extends Controller
             $requestImage->move(public_path('img/responsavel'), $imgName);
 
             $responsavel->foto = $imgName;
-        }      
+        }
 
         $responsavel->save();
 
@@ -93,14 +94,14 @@ class ResponsavelController extends Controller
         return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])
                         ->with('aluno', $alunos)
                         ->with('msg', 'ERRO! Não foi possível incluir o responsável!');
-        
+
     }
 
     }
 
     public function show(string $id)
     {
-        
+
         $responsavel = $this->responsavel->where('id_aluno', $id);
 
         if($responsavel->count() >= 1){
@@ -114,15 +115,21 @@ class ResponsavelController extends Controller
     public function edit(string $id)
     {
 
-        $responsavel = $this->responsavel->find($id);
-        $alunos = $responsavel->alunos()->first();
-        return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])->with('aluno', $alunos);
+        if ($this->verificarAcesso('Editar responsavel') == 1){
+
+            $responsavel = $this->responsavel->find($id);
+            $alunos = $responsavel->alunos()->first();
+            return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])->with('aluno', $alunos);
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
-    public function update(Request $request, string $id) 
+    public function update(Request $request, string $id)
     {
-    
+
         $responsavel = $this->responsavel->find($id);
 
         $request->validate([
@@ -137,10 +144,10 @@ class ResponsavelController extends Controller
         ],
     [
         'nome.required' => 'Informe o nome do responsável',
-    ]);  
-    
+    ]);
+
     try {
-    
+
         $responsavel->nome = $request->input('nome');
         $responsavel->alunos_id = $request->input('idAluno');
         $responsavel->apelido = $request->input('apelido');
@@ -171,7 +178,7 @@ class ResponsavelController extends Controller
             $requestImage->move(public_path('img/responsavel'), $imgName);
 
             $responsavel->foto = $imgName;
-        }      
+        }
 
         $responsavel->save();
 
@@ -187,42 +194,71 @@ class ResponsavelController extends Controller
         return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])
                         ->with('aluno', $alunos)
                         ->with('msg', 'ERRO! Não foi possível atualizar as informações do responsável!');
-        
-    }       
+
+    }
 
     }
 
     public function destroy(string $id)
     {
 
-        $responsavel = $this->responsavel->find($id);
+        if ($this->verificarAcesso('Excluir responsavel') == 1){
 
-        if($responsavel->count() >= 1){
-            $responsavel->delete();
+            $responsavel = $this->responsavel->find($id);
 
-            return redirect()->route('home.alunos')->with('msg', 'O responsável pelo aluno foi excluido com sucesso!!!');            
+            if($responsavel->count() >= 1){
+                $responsavel->delete();
+
+                return redirect()->route('home.alunos')->with('msg', 'O responsável pelo aluno foi excluido com sucesso!!!');
+
+            }else{
+                return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])
+                    ->with('msg', 'ERRO! Não foi possível excluir o responsável!');
+            }
 
         }else{
-            return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])
-                    ->with('msg', 'ERRO! Não foi possível excluir o responsável!');
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
 
     }
 
     public function adicionar(string $idAluno, string $nomeAluno){
-     
-        $responsavel = $this->responsavel->where('alunos_id', $idAluno);
 
-        if($responsavel->count() >= 1){
-            $responsavel = $this->responsavel->where('alunos_id', $idAluno)->first();
-            $alunos = $responsavel->alunos()->first();
-            return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])->with('aluno', $alunos);
+        if($this->verificarAcesso('Cadastrar responsavel') == 1){
+
+            $responsavel = $this->responsavel->where('alunos_id', $idAluno);
+
+            if($responsavel->count() >= 1){
+                $responsavel = $this->responsavel->where('alunos_id', $idAluno)->first();
+                $alunos = $responsavel->alunos()->first();
+                return view(self::PATH.'responsavelEdit', ['responsavel'=>$responsavel])->with('aluno', $alunos);
+            }else{
+                return view(self::PATH.'responsavelCreate')
+                    ->with('idAluno', $idAluno)
+                    ->with('nomeAluno', $nomeAluno);
+            }
+
         }else{
-            return view(self::PATH.'responsavelCreate')
-                            ->with('idAluno', $idAluno)
-                            ->with('nomeAluno', $nomeAluno);
-        }        
-        
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
+    }
+
+    private function verificarAcesso(string $recurso)
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', $recurso)
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

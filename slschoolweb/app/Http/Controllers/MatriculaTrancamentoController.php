@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Matricula;
 use App\Models\MatriculaTrancamento;
 use App\Models\MotivoCancelamento;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Aluno;
 use App\Models\MatriculaTurma;
@@ -85,27 +86,34 @@ class MatriculaTrancamentoController extends Controller
     public function show(string $id)
     {
 
-        $trancar = $this->trancar->where('matriculas_id', $id);
-        $matricula = Matricula::find($id);
+        if($this->verificarAcesso() == 1){
 
-        if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
+            $trancar = $this->trancar->where('matriculas_id', $id);
+            $matricula = Matricula::find($id);
 
-            $alunoID = $matricula->alunos_id;
+            if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
 
-            $aluno = Aluno::find($alunoID);
-            $responsavel = Responsavel::where('alunos_id', $alunoID);
+                $alunoID = $matricula->alunos_id;
 
-            return view('screens.alunos.matricula.matriculaHome')
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('matricula', $matricula)
-                ->with('msg', 'Esta matrícula se encontra trancada!');
-        } else {
+                $aluno = Aluno::find($alunoID);
+                $responsavel = Responsavel::where('alunos_id', $alunoID);
 
-            $listaMotivos = MotivoCancelamento::all();
+                return view('screens.alunos.matricula.matriculaHome')
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel)
+                    ->with('matricula', $matricula)
+                    ->with('msg', 'Esta matrícula se encontra trancada!');
+            } else {
 
-            return view(self::PATH . 'trancarMatricula', ['matricula' => $matricula, 'listaMotivos' => $listaMotivos]);
+                $listaMotivos = MotivoCancelamento::all();
+
+                return view(self::PATH . 'trancarMatricula', ['matricula' => $matricula, 'listaMotivos' => $listaMotivos]);
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function edit(string $id)
@@ -146,6 +154,23 @@ class MatriculaTrancamentoController extends Controller
             $turmas->delete();
         } catch (\Throwable $th) {
             return 'ERRO! Não foi possível excluir as turmas dos alunos: ' . $th;
+        }
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Trancar matricula')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 }

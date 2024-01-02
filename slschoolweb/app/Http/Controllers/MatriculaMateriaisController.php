@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\MateriaisEscolar;
 use App\Models\Matricula;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\MatriculaMaterial;
 use App\Models\Mensalidade;
@@ -86,16 +87,23 @@ class MatriculaMateriaisController extends Controller
     public function show(string $id)
     {
 
-        $matricula = Matricula::find($id);
-        $aluno = $matricula->alunos()->first();
+        if ($this->verificarAcesso() == 1) {
 
-        $materiais = $this->material->with('material')->where('matriculas_id', $id)
-            ->orderBy('id', 'desc')->paginate();
+            $matricula = Matricula::find($id);
+            $aluno = $matricula->alunos()->first();
 
-        return view(self::PATH . 'matriculaMateriais', [
-            'materiais' => $materiais,
-            'matricula' => $matricula, 'aluno' => $aluno
-        ]);
+            $materiais = $this->material->with('material')->where('matriculas_id', $id)
+                ->orderBy('id', 'desc')->paginate();
+
+            return view(self::PATH . 'matriculaMateriais', [
+                'materiais' => $materiais,
+                'matricula' => $matricula, 'aluno' => $aluno
+            ]);
+
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function edit(string $id)
@@ -156,18 +164,18 @@ class MatriculaMateriaisController extends Controller
         $materiais = $this->material->with('alunos')
             ->where('matriculas_id', $matricula)->get();
 
-         foreach($materiais as $material){
+        foreach ($materiais as $material) {
             $total = $total + $material->valor_total;
             $alunoID = $material->alunos_id;
             $matriculaID = $material->matriculas_id;
-         }    
+        }
 
         $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
         $alunoNome = Aluno::find($alunoID)->first()->nome;
 
-        $dadosAluno = ['matriculaID'=>$matriculaID, 'alunoID'=>$alunoID,
-                        'alunoNome'=>$alunoNome, 
-                        'responsavelID'=>$responsavel->id];
+        $dadosAluno = ['matriculaID' => $matriculaID, 'alunoID' => $alunoID,
+            'alunoNome' => $alunoNome,
+            'responsavelID' => $responsavel->id];
 
         return view(self::PATH . 'matriculaMaterialParcelas', ['material' => $materiais])
             ->with('dadosAluno', $dadosAluno)
@@ -229,24 +237,16 @@ class MatriculaMateriaisController extends Controller
             ->with('msg', $msg);
     }
 
-
-
-
-
-
-
-
-
-
     public function gerarParcelas(
-        string $alunoID,
-        string $responsavelID,
-        string $matriculaID,
-        int $qtdeParcela,
-        float $valorParcela,
+        string   $alunoID,
+        string   $responsavelID,
+        string   $matriculaID,
+        int      $qtdeParcela,
+        float    $valorParcela,
         DateTime $vencimento,
-        string $obs = " "
-    ) {
+        string   $obs = " "
+    )
+    {
 
         for ($i = 0; $i < $qtdeParcela; $i++) {
 
@@ -268,4 +268,22 @@ class MatriculaMateriaisController extends Controller
             $mensalidade->save();
         }
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Adicionar materiais')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

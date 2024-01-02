@@ -7,6 +7,7 @@ use App\Models\Disciplina;
 use App\Models\Frequencia;
 use App\Models\Matricula;
 use App\Models\MatriculaDisciplina;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -98,11 +99,14 @@ class FrequenciaController extends Controller
 
     public function show(string $id)
     {
-        $frequencia = $this->frequencia->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
 
-        $matricula = Matricula::find($id);
-
-        return view(self::PATH . 'frequenciaShow', ['frequencias' => $frequencia, 'matricula' => $matricula]);
+        if ($this->verificarAcesso() == 1){
+            $frequencia = $this->frequencia->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
+            $matricula = Matricula::find($id);
+            return view(self::PATH . 'frequenciaShow', ['frequencias' => $frequencia, 'matricula' => $matricula]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
@@ -241,6 +245,23 @@ class FrequenciaController extends Controller
 
         return view(self::PATH . 'frequenciaShow', ['frequencias' => $frequencia, 'matricula' => $matricula]);
 
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Frequencia do aluno')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Models\MatriculaTurma;
+use App\Models\NivelAcesso;
 use App\Models\Responsavel;
 use App\Models\Turma;
 use Illuminate\Http\Request;
@@ -85,10 +86,10 @@ class MatriculaTurmaController extends Controller
                     $turma->save();
 
                     $msg = 'Turma adicionada na matrícula com sucesso!!!';
-                    
+
                 } catch (\Throwable $th) {
 
-                    $msg = 'ERRO! Não foi possível salvar as informações no banco de dados: '.$th->getMessage();
+                    $msg = 'ERRO! Não foi possível salvar as informações no banco de dados: ' . $th->getMessage();
                 }
             } else {
                 $msg = 'ATENÇÃO! Não há vagas disponíveis. Tente outra turma';
@@ -134,16 +135,23 @@ class MatriculaTurmaController extends Controller
     public function listaTurmas(string $alunoID, string $matriculaID)
     {
 
-        $aluno = Aluno::find($alunoID);
-        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+        if ($this->verificarAcesso() == 1) {
 
-        $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
-            ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+            $aluno = Aluno::find($alunoID);
+            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
 
-        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
-            ->with('aluno', $aluno)
-            ->with('responsavel', $responsavel)
-            ->with('matricula', $matriculaID);
+            $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
+                ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+
+            return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel)
+                ->with('matricula', $matriculaID);
+
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function inserir(Request $request, string $matriculaID)
@@ -199,4 +207,22 @@ class MatriculaTurmaController extends Controller
         return ($total < $vagasSala) ? true : false;
 
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Adicionar turmas')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Matricula;
 use App\Models\MatriculaTurma;
+use App\Models\NivelAcesso;
 use App\Models\Reposicao;
 use App\Models\Turma;
 use Illuminate\Http\Request;
@@ -39,9 +40,13 @@ class ReposicoesController extends Controller
     public function show(string $id)
     {
 
-        $matricula = Matricula::find($id);
+        if($this->verificarAcesso() == 1){
+            $matricula = Matricula::find($id);
         $reposicoes = $this->reposicoes->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
         return view(self::PATH . 'reposicoesShow', ['matricula' => $matricula, 'reposicoes' => $reposicoes]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
@@ -145,11 +150,9 @@ class ReposicoesController extends Controller
 
     public function reposicao_adicionar(string $matricula)
     {
-
-        $matricula = Matricula::find($matricula);
-        $turmas = Turma::paginate();
-
-        return view(self::PATH . 'listarTurmasDisponiveis', ['matricula' => $matricula, 'turmas' => $turmas]);
+            $matricula = Matricula::find($matricula);
+            $turmas = Turma::paginate();
+            return view(self::PATH . 'listarTurmasDisponiveis', ['matricula' => $matricula, 'turmas' => $turmas]);
     }
 
     public function selecionarTurma(string $matriculaID, string $turma)
@@ -281,6 +284,23 @@ class ReposicoesController extends Controller
             return false;
         }
 
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Reposição do aluno')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

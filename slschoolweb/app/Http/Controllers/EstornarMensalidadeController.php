@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Mensalidade;
 use App\Models\ControleCaixa;
@@ -20,32 +21,39 @@ class EstornarMensalidadeController extends Controller
 
     public  function index()
     {
-        $caixa = ControleCaixa::latest()->first();
 
-        $dataAtual = Carbon::now();
-        $dataAtual = $dataAtual->format('d/m/Y');
+        if ($this->verificarAcesso() == 1){
 
-        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
-        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+            $caixa = ControleCaixa::latest()->first();
 
-        if ($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual) {
+            $dataAtual = Carbon::now();
+            $dataAtual = $dataAtual->format('d/m/Y');
 
-            $mensalidade = Mensalidade::where('id', '0')->paginate();
-            return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
+            $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+            $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
 
-        } else {
+            if ($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual) {
 
-            $msg = '';
+                $mensalidade = Mensalidade::where('id', '0')->paginate();
+                return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
 
-            if ($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual) {
-                $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
-            } elseif ($caixa->status == 'encerrado') {
-                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+            } else {
+
+                $msg = '';
+
+                if ($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual) {
+                    $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+                } elseif ($caixa->status == 'encerrado') {
+                    $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+                }
+
+                $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
+                return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
+                    ->with('msg', $msg);
             }
 
-            $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
-            return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
-                ->with('msg', $msg);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
 
     }
@@ -104,4 +112,22 @@ class EstornarMensalidadeController extends Controller
         return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade])
             ->with('msg', $msg);
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Estornar mensalidade')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Disciplina;
 use App\Models\Matricula;
 use App\Models\MatriculaDisciplina;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isEmpty;
@@ -25,9 +26,6 @@ class MatriculaDisciplinasController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
@@ -86,14 +84,21 @@ class MatriculaDisciplinasController extends Controller
     public function show(string $id)
     {
 
-        $matDisc = $this->disciplina
-            ->with('disciplinas')
-            ->with('cursos')
-            ->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
+        if ($this->verificarAcesso() == 1) {
 
-        $matricula = Matricula::with('alunos')->find($id);
+            $matDisc = $this->disciplina
+                ->with('disciplinas')
+                ->with('cursos')
+                ->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
 
-        return view(self::PATH . 'disciplinasShow', ['disciplinas' => $matDisc, 'matricula' => $matricula]);
+            $matricula = Matricula::with('alunos')->find($id);
+
+            return view(self::PATH . 'disciplinasShow', ['disciplinas' => $matDisc, 'matricula' => $matricula]);
+
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function edit(string $id)
@@ -203,4 +208,22 @@ class MatriculaDisciplinasController extends Controller
             return back();
         }
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Adicionar disciplinas')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

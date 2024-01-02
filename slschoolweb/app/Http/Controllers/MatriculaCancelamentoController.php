@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Matricula;
 use App\Models\MatriculaCancelamento;
 use App\Models\MotivoCancelamento;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Aluno;
 use App\Models\MatriculaTurma;
@@ -104,26 +105,33 @@ class MatriculaCancelamentoController extends Controller
     public function cancelarMatricula(string $matricula)
     {
 
-        $cancelar = $this->cancelar->where('matriculas_id', $matricula);
-        $matricula = Matricula::find($matricula);
+        if($this->verificarAcesso() == 1){
 
-        if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
+            $cancelar = $this->cancelar->where('matriculas_id', $matricula);
+            $matricula = Matricula::find($matricula);
 
-            $alunoID = $matricula->alunos_id;
+            if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
 
-            $aluno = Aluno::find($alunoID);
-            $responsavel = Responsavel::where('alunos_id', $alunoID);
+                $alunoID = $matricula->alunos_id;
 
-            return view('screens.alunos.matricula.matriculaHome')
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('matricula', $matricula)
-                ->with('msg', 'Esta matrícula já esta cancelada!');
-        } else {
+                $aluno = Aluno::find($alunoID);
+                $responsavel = Responsavel::where('alunos_id', $alunoID);
 
-            $listaMotivos = MotivoCancelamento::all();
-            return view(self::PATH . 'cancelarMatricula', ['matricula' => $matricula, 'listaMotivos' => $listaMotivos]);
+                return view('screens.alunos.matricula.matriculaHome')
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel)
+                    ->with('matricula', $matricula)
+                    ->with('msg', 'Esta matrícula já esta cancelada!');
+            } else {
+
+                $listaMotivos = MotivoCancelamento::all();
+                return view(self::PATH . 'cancelarMatricula', ['matricula' => $matricula, 'listaMotivos' => $listaMotivos]);
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     private function atualizarMatricula(string $mat)
@@ -150,7 +158,23 @@ class MatriculaCancelamentoController extends Controller
             return 'ERRO! Não foi possível excluir as turmas dos alunos: '.$th;
         }
 
+    }
 
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Cancelar matricula')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
