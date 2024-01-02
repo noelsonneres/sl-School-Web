@@ -11,7 +11,7 @@
         @if (isset($msg))
             <div class="alert alert-warning alert-dismissible fade show msg d-flex
 							justify-content-between align-items-end mb-3"
-                role="alert" style="text-align: center;">
+                 role="alert" style="text-align: center;">
                 <h5>{{ $msg }} </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -22,7 +22,7 @@
 
         <div class="row">
 
-            <div class="col-md-7 ms-3">
+            <div class="col-md-6 ms-3">
                 <h4>Aluno(a): {{ $aluno->nome }}</h4>
                 <h4>Matrícula: {{ $matricula->id }}</h4>
                 <h5>Curso: {{$matricula->cursos->curso}}</h5>
@@ -37,12 +37,29 @@
 
             </div>
 
-            <div class="col-md-4">
-
+            <div class="col-md-3 mb-2">
                 <a href="{{ '/matricula_adicionar/' . $aluno->id }}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Nova Matrícula </a>
+                    <i class="bi bi-plus-circle-fill"></i> Nova Matrícula
+                </a>
+            </div>
 
+            <div class="col-md-2 mb-2">
+                <form method="POST" class="delete-form" action="{{ route('matricula.destroy', $matricula->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete(this)">
+                        <i class="bi bi-trash3-fill"></i> Excluir
+                    </button>
+                </form>
+
+                <script>
+                    function confirmDelete(button) {
+                        if (confirm('Tem certeza de que deseja excluir este item?')) {
+                            var form = button.closest('form');
+                            form.submit();
+                        }
+                    }
+                </script>
             </div>
 
         </div>
@@ -67,7 +84,7 @@
 
                 <div class="col-sm-2">
                     <a href="{{ '/turmas_matricula_lista/' . $matricula->alunos_id . '/' . $matricula->id }}"
-                        class="link-card">
+                       class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Turmas</h2>
@@ -130,23 +147,23 @@
 
                 <div class="col-sm-2">
                     <a href="{{route('responsavel.edit', $matricula->responsavels_id)}}" class="link-card">
-                    <div class="card" style="display: flex; justify-content: center; align-items: center;">
-                        <div class="card-body text-center">
-                            <h2 class="text-primary" style="font-weight: 500;">Responsável</h2>
-                            <i class="bi bi-person-gear text-primary" style="font-size: 70px;"></i>
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 class="text-primary" style="font-weight: 500;">Responsável</h2>
+                                <i class="bi bi-person-gear text-primary" style="font-size: 70px;"></i>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
 
                 <div class="col-sm-3">
                     <a href="{{route('alunos.edit', $matricula->alunos_id)}}" class="link-card">
-                    <div class="card" style="display: flex; justify-content: center; align-items: center;">
-                        <div class="card-body text-center">
-                            <h2 style="font-weight: 500; color: rgb(8, 51, 4)">Dados do aluno</h2>
-                            <i class="bi bi-person-gear" style="font-size: 70px; color: rgb(8, 51, 4);"></i>
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 style="font-weight: 500; color: rgb(8, 51, 4)">Dados do aluno</h2>
+                                <i class="bi bi-person-gear" style="font-size: 70px; color: rgb(8, 51, 4);"></i>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
 
@@ -203,7 +220,7 @@
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(235, 65, 23); font-weight: 500;">Trancar</h2>
                                 <i class="i bi-person-fill-exclamation"
-                                    style="font-size: 70px; color:  rgb(235, 65, 23); "></i>
+                                   style="font-size: 70px; color:  rgb(235, 65, 23); "></i>
                             </div>
                         </div>
                     </a>
@@ -214,7 +231,8 @@
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(40, 39, 34); font-weight: 500;">Finalizar</h2>
-                                <i class="bi bi-person-check-fill" style="font-size: 70px; color:  rgb(40, 39, 34); "></i>
+                                <i class="bi bi-person-check-fill"
+                                   style="font-size: 70px; color:  rgb(40, 39, 34); "></i>
                             </div>
                         </div>
                     </a>

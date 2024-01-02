@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Turma;
 use App\Models\CadastroDia;
@@ -22,15 +23,19 @@ class TurmasController extends Controller
 
     public function index()
     {
-        
-        $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
-        return view(self::PATH.'turmasShow', ['turmas'=>$turmas]);
+
+        if ($this->verificarAcesso() == 1){
+            $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+            return view(self::PATH.'turmasShow', ['turmas'=>$turmas]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
     public function create()
     {
-        
+
         $dias = CadastroDia::all();
         $horarios = CadastroHorario::all();
         $sala = Sala::all();
@@ -47,7 +52,7 @@ class TurmasController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $turmas = $this->turmas;
 
         $request->validate([
@@ -60,7 +65,7 @@ class TurmasController extends Controller
         ]);
 
         try {
-            
+
             $turmas->turma = $request->input('turma');
             $turmas->descricao = $request->input('descricao');
             $turmas->cadastro_dias_id = $request->input('dias');
@@ -78,10 +83,10 @@ class TurmasController extends Controller
                         ->with('msg', 'Turma cadastrada com sucesso!!!');
 
         } catch (\Throwable $th) {
-            
+
             $turmas = $this->turmas->paginate();
             return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                        ->with('msg', 'ERRO! Não foi possível salvar as informações da turmas!');            
+                        ->with('msg', 'ERRO! Não foi possível salvar as informações da turmas!');
 
         }
 
@@ -95,13 +100,13 @@ class TurmasController extends Controller
 
     public function edit(string $id)
     {
-        
+
         $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios', 'sala', 'professor'])->find($id);
 
         $dias = CadastroDia::all();
         $horarios = CadastroHorario::all();
         $sala = Sala::all();
-        $professor = Professor::all();        
+        $professor = Professor::all();
 
         if($turmas->count() >= 1){
             return view(self::PATH.'turmasEdit', ['turmas'=>$turmas])
@@ -115,9 +120,9 @@ class TurmasController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
         $turmas = $this->turmas->find($id);
-            
+
             $request->validate([
                 'turma' => 'required|min:3|max:100',
                 'dias' => 'required',
@@ -126,9 +131,9 @@ class TurmasController extends Controller
                 'turno' => 'required',
                 'ativa' => 'required',
             ]);
-    
+
             try {
-                
+
                 $turmas->turma = $request->input('turma');
                 $turmas->descricao = $request->input('descricao');
                 $turmas->cadastro_dias_id = $request->input('dias');
@@ -138,26 +143,26 @@ class TurmasController extends Controller
                 $turmas->turno = $request->input('turno');
                 $turmas->ativa = $request->input('ativa');
                 $turmas->obs = $request->input('obs');
-    
+
                 $turmas->save();
-    
+
                 $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
                 return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
                             ->with('msg', 'Informações da turma atualizadas com sucesso!!!');
-    
+
             } catch (\Throwable $th) {
-                
+
                 $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
                 return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                            ->with('msg', 'ERRO! Não foi possível atualizar as informações da turma!');            
-    
+                            ->with('msg', 'ERRO! Não foi possível atualizar as informações da turma!');
+
             }
 
     }
 
     public function destroy(string $id)
     {
-        
+
         $turmas = $this->turmas->find($id);
 
         try {
@@ -171,8 +176,8 @@ class TurmasController extends Controller
 
             $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
             return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                        ->with('msg', 'ERRO! Não foi possível excluir a turma! '.$th); 
-                        
+                        ->with('msg', 'ERRO! Não foi possível excluir a turma! '.$th);
+
         }
 
     }
@@ -182,7 +187,7 @@ class TurmasController extends Controller
         $field = $request->input('opt');
 
         $value = $request->input('find');
-        $field = $request->input('opt');        
+        $field = $request->input('opt');
 
         if(empty($field)){
             $field = 'id';
@@ -192,6 +197,23 @@ class TurmasController extends Controller
 
         return view(self::PATH.'turmasShow', ['turmas'=>$turmas]);
 
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Turmas')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

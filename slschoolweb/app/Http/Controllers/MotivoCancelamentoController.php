@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MotivoCancelamento;
+use App\Models\NivelAcesso;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,13 @@ class MotivoCancelamentoController extends Controller
     public function index()
     {
 
-        $motivos = $this->motivos->orderBy('id', 'desc')->paginate();
+        if ($this->verificarAcesso() == 1){
+            $motivos = $this->motivos->orderBy('id', 'desc')->paginate();
+            return view(self::PATH . 'motivoCancelamentoShow', ['motivos' => $motivos]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
-        return view(self::PATH . 'motivoCancelamentoShow', ['motivos' => $motivos]);
     }
 
     public function create()
@@ -141,4 +146,23 @@ class MotivoCancelamentoController extends Controller
         return view(self::PATH . 'motivoCancelamentoShow', ['motivos' => $motivos]);
 
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Motivos de cancelamento')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
 }

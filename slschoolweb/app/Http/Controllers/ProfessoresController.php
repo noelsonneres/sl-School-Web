@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use App\Models\Professor;
 use Illuminate\Http\Request;
 use Nette\Utils\Finder;
@@ -11,7 +12,7 @@ class ProfessoresController extends Controller
 
     const PAHT = 'screens.professores.';
     public $professores;
-    
+
     public function __construct()
     {
         $this->professores = new Professor();
@@ -19,23 +20,27 @@ class ProfessoresController extends Controller
 
     public function index()
     {
-        
-        $professores = $this->professores->paginate();
-        return view(self::PAHT.'professoresShow', ['professores'=>$professores]);
+
+        if ($this->verificarAcesso() == 1) {
+            $professores = $this->professores->paginate();
+            return view(self::PAHT . 'professoresShow', ['professores' => $professores]);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
     public function create()
     {
-        
-        return view(self::PAHT.'professoresCreate'); 
+
+        return view(self::PAHT . 'professoresCreate');
 
     }
 
 
     public function store(Request $request)
     {
-        
+
         $professor = $this->professores;
 
         $request->validate([
@@ -51,7 +56,7 @@ class ProfessoresController extends Controller
         $prof = $request->old('nome');
 
         try {
-            
+
             $professor->nome = $request->input('nome');
             $professor->data_nascimento = $request->input('dataNascimento');
             $professor->cpf = $request->input('cpf');
@@ -64,7 +69,7 @@ class ProfessoresController extends Controller
             $professor->coplemento = $request->input('complemento');
             $professor->cep = $request->input('cep');
             $professor->cidade = $request->input('cidade');
-            $professor->estado = $request->input('estado');            
+            $professor->estado = $request->input('estado');
             $professor->obs = $request->input('obs');
 
             //upload da foto
@@ -76,19 +81,19 @@ class ProfessoresController extends Controller
                 $requestImage->move(public_path('img/professor'), $imgName);
 
                 $professor->foto = $imgName;
-            }            
+            }
 
             $professor->save();
 
             $professores = $this->professores->paginate();
-            return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                        ->with('msg', 'Professor cadastrado com sucesso!!!');
+            return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                ->with('msg', 'Professor cadastrado com sucesso!!!');
 
 
         } catch (\Throwable $th) {
             $professores = $this->professores->paginate();
-            return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                        ->with('msg', 'ERRO! Não foi pssível incluir as informações do professor!');
+            return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                ->with('msg', 'ERRO! Não foi pssível incluir as informações do professor!');
         }
 
 
@@ -96,23 +101,23 @@ class ProfessoresController extends Controller
 
     public function show(string $id)
     {
-        //        
+        //
     }
 
     public function edit(string $id)
     {
-        
+
         $professor = $this->professores->find($id);
-        return view(self::PAHT.'professoresEdit', ['professor'=>$professor]);        
+        return view(self::PAHT . 'professoresEdit', ['professor' => $professor]);
 
     }
 
     public function update(Request $request, string $id)
     {
-        
+
         $professor = $this->professores->find($id);
 
-        if($professor->count() >= 1){
+        if ($professor->count() >= 1) {
 
             $request->validate([
                 'nome' => 'required|min:3|max:100',
@@ -123,9 +128,9 @@ class ProfessoresController extends Controller
                     'mimes:jpeg,jpg,png,gif',
                 ],
             ]);
-    
+
             try {
-                
+
                 $professor->nome = $request->input('nome');
                 $professor->data_nascimento = $request->input('dataNascimento');
                 $professor->cpf = $request->input('cpf');
@@ -138,79 +143,95 @@ class ProfessoresController extends Controller
                 $professor->coplemento = $request->input('complemento');
                 $professor->cep = $request->input('cep');
                 $professor->cidade = $request->input('cidade');
-                $professor->estado = $request->input('estado');            
+                $professor->estado = $request->input('estado');
                 $professor->obs = $request->input('obs');
-    
+
                 //upload da foto
                 if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                     $requestImage = $request->file('foto');
                     $extension = $requestImage->getClientOriginalExtension();
                     $imgName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-    
+
                     $requestImage->move(public_path('img/professor'), $imgName);
-    
+
                     $professor->foto = $imgName;
-                }            
-    
+                }
+
                 $professor->save();
-    
+
                 $professores = $this->professores->paginate();
-                return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                            ->with('msg', 'Informações do professor atualizadas com sucesso!!!');
-    
-    
+                return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                    ->with('msg', 'Informações do professor atualizadas com sucesso!!!');
+
+
             } catch (\Throwable $th) {
                 $professores = $this->professores->paginate();
-                return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                            ->with('msg', 'ERRO! Não foi pssível atualizar as informações do professor!');
-            }         
+                return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                    ->with('msg', 'ERRO! Não foi pssível atualizar as informações do professor!');
+            }
 
-        }else{
-
-            $professores = $this->professores->paginate();
-            return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                        ->with('msg', 'ERRO! Não foi pssível localizar o professorr!');
-        }           
-
-
-    }
-
-
-    public function destroy(string $id)
-    {
-        
-        $professor = $this->professores->find($id);
-
-        if($professor->count() >= 1){
-            $professor->delete();
+        } else {
 
             $professores = $this->professores->paginate();
-            return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                        ->with('msg', 'Professor excluido com sucesso!!!');            
-
-        }else{
-           
-            $professores = $this->professores->paginate();
-            return view(self::PAHT.'professoresShow', ['professores'=>$professores])
-                        ->with('msg', 'ERRO! Não foi pssível localizar o professorr!');            
-            
+            return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                ->with('msg', 'ERRO! Não foi pssível localizar o professorr!');
         }
 
     }
 
-    public function find(Request $request){
+    public function destroy(string $id)
+    {
+
+        $professor = $this->professores->find($id);
+
+        if ($professor->count() >= 1) {
+            $professor->delete();
+
+            $professores = $this->professores->paginate();
+            return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                ->with('msg', 'Professor excluido com sucesso!!!');
+
+        } else {
+
+            $professores = $this->professores->paginate();
+            return view(self::PAHT . 'professoresShow', ['professores' => $professores])
+                ->with('msg', 'ERRO! Não foi pssível localizar o professorr!');
+
+        }
+
+    }
+
+    public function find(Request $request)
+    {
 
         $value = $request->input('find');
         $field = $request->input('opt');
 
-        if(empty($field)){
+        if (empty($field)) {
             $field = 'id';
         }
 
-        $professor = Professor::where($field, 'LIKE', $value.'%')->paginate(15);
+        $professor = Professor::where($field, 'LIKE', $value . '%')->paginate(15);
 
-        return view(self::PAHT.'professoresShow', ['professores'=>$professor]);   
+        return view(self::PAHT . 'professoresShow', ['professores' => $professor]);
 
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Professores')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

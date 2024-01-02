@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 
@@ -18,8 +19,13 @@ class CursosController extends Controller
 
     public function index()
     {
-        $cursos = $this->cursos->orderBy('id', 'desc')->paginate();
-        return view(self::PATH.'cursosShow', ['cursos'=>$cursos]);
+
+        if($this->verificarAcesso() == 1){
+            $cursos = $this->cursos->orderBy('id', 'desc')->paginate();
+            return view(self::PATH.'cursosShow', ['cursos'=>$cursos]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
@@ -30,7 +36,7 @@ class CursosController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $cursos = $this->cursos;
 
         $request->validate([
@@ -38,7 +44,7 @@ class CursosController extends Controller
         ]);
 
         try {
-        
+
             $cursos->curso = $request->input('curso');
             $cursos->desscricao = $request->input('descricao');
             $cursos->valor_avista = $request->input('valorAvista');
@@ -70,7 +76,7 @@ class CursosController extends Controller
 
     public function edit(string $id)
     {
-        
+
         $cursos = $this->cursos->find($id);
         return view(self::PATH.'cursosEdit', ['cursos'=>$cursos]);
 
@@ -79,7 +85,7 @@ class CursosController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
         $cursos = $this->cursos->find($id);
 
         $request->validate([
@@ -87,7 +93,7 @@ class CursosController extends Controller
         ]);
 
         try {
-        
+
             $cursos->curso = $request->input('curso');
             $cursos->desscricao = $request->input('descricao');
             $cursos->valor_avista = $request->input('valorAvista');
@@ -116,7 +122,7 @@ class CursosController extends Controller
 
     public function destroy(string $id)
     {
-        
+
         $cursos = $this->cursos->find($id);
 
         if($cursos->count() >= 1){
@@ -143,6 +149,23 @@ class CursosController extends Controller
 
         $cursos = Curso::where($field, 'LIKE', $value . '%')->paginate(15);
         return view(self::PATH.'cursosShow', ['cursos'=>$cursos]);
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Cursos')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

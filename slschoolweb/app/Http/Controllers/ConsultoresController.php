@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Consultor;
 
@@ -19,9 +20,13 @@ class ConsultoresController extends Controller
     public function index()
     {
 
-        $consultores = $this->consultores->paginate();
+        if($this->verificarAcesso() == 1){
+            $consultores = $this->consultores->paginate();
+            return view(self::PATH . 'consultoresShow', ['consultores' => $consultores]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
-        return view(self::PATH . 'consultoresShow', ['consultores' => $consultores]);
     }
 
     public function create()
@@ -110,7 +115,7 @@ class ConsultoresController extends Controller
                 'image',
                 'max:2048',
                 'mimes:jpeg,jpg,png,gif',
-            ],            
+            ],
         ]);
 
         try {
@@ -184,4 +189,23 @@ class ConsultoresController extends Controller
 
         return view(self::PATH . 'consultoresShow', ['consultores' => $consultores]);
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Consultores')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
 }

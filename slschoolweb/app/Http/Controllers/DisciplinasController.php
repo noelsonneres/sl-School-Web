@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disciplina;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 
 class DisciplinasController extends Controller
@@ -19,8 +20,13 @@ class DisciplinasController extends Controller
     public function index()
     {
 
-        $disciplinas = $this->disciplinas->paginate();
-        return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas]);
+        if($this->verificarAcesso() == 1){
+            $disciplinas = $this->disciplinas->paginate();
+            return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function create()
@@ -69,15 +75,15 @@ class DisciplinasController extends Controller
 
     public function edit(string $id)
     {
-        
+
         $disciplina = $this->disciplinas->find($id);
-        return view(self::PAHT.'disciplinasEdit', ['disciplina'=>$disciplina]);        
+        return view(self::PAHT.'disciplinasEdit', ['disciplina'=>$disciplina]);
 
     }
 
     public function update(Request $request, string $id)
     {
-        
+
         $disciplinas = $this->disciplinas->find($id);
 
         $request->validate([
@@ -106,28 +112,28 @@ class DisciplinasController extends Controller
             $disciplinas = $this->disciplinas->paginate();
             return back()->with('msg', 'ERRO! não foi posssível atualizar as informações');
 
-        }        
+        }
 
     }
 
     public function destroy(string $id)
     {
-    
+
         $disciplina = $this->disciplinas->find($id);
 
         if($disciplina->count() >= 1){
-            
+
             $disciplina->delete();
 
             $disciplinas = $this->disciplinas->paginate();
             return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas])
                 ->with('msg', 'Disciplina excluida com sucesso!!!');
-            
+
         }else{
 
             $disciplinas = $this->disciplinas->paginate();
             return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas])
-                ->with('msg', 'ERRO! Não foi possível excluir a disciplina!!!');            
+                ->with('msg', 'ERRO! Não foi possível excluir a disciplina!!!');
 
         }
 
@@ -136,9 +142,26 @@ class DisciplinasController extends Controller
     public function find(Request $request){
 
         $value = $request->find;
-        $disciplinas = Disciplina::where('disciplina', 'LIKE', $value . '%')->paginate();  
+        $disciplinas = Disciplina::where('disciplina', 'LIKE', $value . '%')->paginate();
         return view(self::PAHT . 'disciplinaShow', ['disciplinas' => $disciplinas]);
 
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Disciplinas')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

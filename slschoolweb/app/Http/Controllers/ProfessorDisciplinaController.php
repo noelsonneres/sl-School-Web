@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\ProfessorDisciplina;
 use App\Models\Professor;
@@ -31,7 +32,7 @@ class ProfessorDisciplinaController extends Controller
     public function store(Request $request)
     {
 
-        $discProf = $this->discplinaProfessor; 
+        $discProf = $this->discplinaProfessor;
 
         try {
 
@@ -57,34 +58,34 @@ class ProfessorDisciplinaController extends Controller
     public function show(string $id)
     {
 
-        $discplinaProfessor = $this->discplinaProfessor->where('professors_id', $id)->get();
+        if ($this->verificarAcesso() == 1){
 
-        $listaDisciplinas = Disciplina::all();
-        $professor = Professor::find($id);
+            $discplinaProfessor = $this->discplinaProfessor->where('professors_id', $id)->get();
 
-        if ($discplinaProfessor->count() >= 1) {
+            $listaDisciplinas = Disciplina::all();
+            $professor = Professor::find($id);
 
-            $discplinaProfessor = $this->discplinaProfessor->with('disciplinas')->where('professors_id', $id)->paginate();
-            return view(self::PATH . 'disciplinasProfessoresShow', ['discProf' => $discplinaProfessor])
-                ->with('professor', $professor);
-        } else {
+            if ($discplinaProfessor->count() >= 1) {
 
-            return view(self::PATH . 'disciplinasProfessorCreate', ['professor' => $professor])
-                ->with('disciplinas', $listaDisciplinas);
+                $discplinaProfessor = $this->discplinaProfessor->with('disciplinas')->where('professors_id', $id)->paginate();
+                return view(self::PATH . 'disciplinasProfessoresShow', ['discProf' => $discplinaProfessor])
+                    ->with('professor', $professor);
+            } else {
+
+                return view(self::PATH . 'disciplinasProfessorCreate', ['professor' => $professor])
+                    ->with('disciplinas', $listaDisciplinas);
+
+            }
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
@@ -92,7 +93,7 @@ class ProfessorDisciplinaController extends Controller
 
     public function destroy(string $id)
     {
-        
+
         $discplinaProfessor = $this->discplinaProfessor->find($id);
         $professorID= $discplinaProfessor->professors_id;
 
@@ -106,7 +107,7 @@ class ProfessorDisciplinaController extends Controller
 
             return view(self::PATH . 'disciplinasProfessoresShow', ['discProf' => $discProf])
                 ->with('professor', $professor)
-                ->with('msg', 'Disciplina excluida com sucesso!!!');            
+                ->with('msg', 'Disciplina excluida com sucesso!!!');
 
         }
 
@@ -121,4 +122,22 @@ class ProfessorDisciplinaController extends Controller
         return view(self::PATH . 'disciplinasProfessorCreate', ['professor' => $professor])
             ->with('disciplinas', $listaDisciplinas);
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Diciplinas professores')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

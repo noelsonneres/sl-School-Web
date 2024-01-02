@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Matricula;
 use App\Models\Aluno;
@@ -141,7 +142,6 @@ class MatriculasController extends Controller
     public function show(string $id)
     {
 
-        //Recebe o codigo de matrícula do aluno
         $matricula = $this->matricula->find($id);
 
         $alunoID = $matricula->alunos_id;
@@ -155,7 +155,7 @@ class MatriculasController extends Controller
                 ->with('aluno', $aluno)
                 ->with('responsavel', $responsavel);
         } else {
-            return back();
+            return redirect()->back();
         }
     }
 
@@ -163,25 +163,32 @@ class MatriculasController extends Controller
     public function edit(string $id)
     {
 
-        $matricula = $this->matricula->with('cursos')->find($id);
-        $listaCursos = Curso::all();
-        $listaConsultores = Consultor::all();
+        if ($this->verificarAcesso('Editar matricula')){
 
-        if ($matricula->count() >= 1) {
+            $matricula = $this->matricula->with('cursos')->find($id);
+            $listaCursos = Curso::all();
+            $listaConsultores = Consultor::all();
 
-            $aluno = $matricula->alunos()->first();
-            $alunoID = $aluno->id;
-            $consultorID = $matricula->consultors_id;
-            $nomeConsultor = Consultor::find($consultorID);
-            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+            if ($matricula->count() >= 1) {
 
-            return view(self::PATH . 'matriculaEdit', ['matricula' => $matricula])
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('cursos', $listaCursos)
-                ->with('consultores', $listaConsultores)
-                ->with('cons', $nomeConsultor);
+                $aluno = $matricula->alunos()->first();
+                $alunoID = $aluno->id;
+                $consultorID = $matricula->consultors_id;
+                $nomeConsultor = Consultor::find($consultorID);
+                $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+                return view(self::PATH . 'matriculaEdit', ['matricula' => $matricula])
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel)
+                    ->with('cursos', $listaCursos)
+                    ->with('consultores', $listaConsultores)
+                    ->with('cons', $nomeConsultor);
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function update(Request $request, string $id)
@@ -250,8 +257,6 @@ class MatriculasController extends Controller
                 $aluno = Aluno::find($alunoID);
                 $responsavel = Responsavel::where('alunos_id', $alunoID);
 
-                // $matricula = $this->matricula->where('alunos_id', $alunoID);
-
                 return view(self::PATH . 'matriculaHome')
                     ->with('aluno', $aluno)
                     ->with('responsavel', $responsavel)
@@ -268,58 +273,72 @@ class MatriculasController extends Controller
     public function destroy(string $id)
     {
 
-        $matricula = $this->matricula->find($id);
+        if ($this->verificarAcesso('Excluir matricula')){
 
-        $idAluno = $matricula->alunos_id;
+            $matricula = $this->matricula->find($id);
 
-        if ($matricula->count() >= 1) {
-            $matricula->delete();
+            $idAluno = $matricula->alunos_id;
 
-            $aluno = Aluno::find($idAluno);
-            $responsavel = Responsavel::where('alunos_id', $idAluno);
+            if ($matricula->count() >= 1) {
+                $matricula->delete();
 
-            $matricula = $this->matricula->with('cursos')->where('alunos_id', $idAluno)->paginate();
+                $aluno = Aluno::find($idAluno);
+                $responsavel = Responsavel::where('alunos_id', $idAluno);
 
-            return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula])
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel->first())
-                ->with('msg', 'Matrícula deletada com sucesso!!!');
-        } else {
-            return back()->with('msg', 'ERRO! Não foi possivel excluir a matrícula!');
+                $matricula = $this->matricula->with('cursos')->where('alunos_id', $idAluno)->paginate();
+
+                return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula])
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel->first())
+                    ->with('msg', 'Matrícula deletada com sucesso!!!');
+            } else {
+                return back()->with('msg', 'ERRO! Não foi possivel excluir a matrícula!');
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function homeMatricula(string $idAluno)
     {
 
-        $aluno = Aluno::find($idAluno);
-        $responsavel = Responsavel::where('alunos_id', $idAluno);
-        $matricula = $this->matricula->where('alunos_id', $idAluno);
+        if ($this->verificarAcesso('Matricula') == 1) {
 
-        if ($matricula->count() > 1) {
+            $aluno = Aluno::find($idAluno);
+            $responsavel = Responsavel::where('alunos_id', $idAluno);
+            $matricula = $this->matricula->where('alunos_id', $idAluno);
 
-            $matricula = $this->matricula->with('cursos')->where('alunos_id', $idAluno)->paginate();
+            if ($matricula->count() > 1) {
 
-            return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula])
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel->first());
-        } else if ($matricula->count() == 1) { //Redireciona para a Home Matrículas
+                $matricula = $this->matricula->with('cursos')->where('alunos_id', $idAluno)->paginate();
 
-            return view(self::PATH . 'matriculaHome')
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('matricula', $matricula->first());
-        } else {
+                return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula])
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel->first());
+            } else if ($matricula->count() == 1) { //Redireciona para a Home Matrículas
 
-            $listaCursos = Curso::all();
-            $listaConsultores = Consultor::all();
+                return view(self::PATH . 'matriculaHome')
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel)
+                    ->with('matricula', $matricula->first());
+            } else {
 
-            return view(self::PATH . 'matriculaCreate')
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel->first())
-                ->with('cursos', $listaCursos)
-                ->with('consultores', $listaConsultores);
+                $listaCursos = Curso::all();
+                $listaConsultores = Consultor::all();
+
+                return view(self::PATH . 'matriculaCreate')
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel->first())
+                    ->with('cursos', $listaCursos)
+                    ->with('consultores', $listaConsultores);
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function exibirInfoMatriculas(string $matricula)
@@ -341,28 +360,36 @@ class MatriculasController extends Controller
     public function adicionar(string $idAluno)
     {
 
-        $responsavel = Responsavel::where('alunos_id', $idAluno);
-        $aluno = Aluno::find($idAluno);
+        if ($this->verificarAcesso('Matricula') == 1) {
 
-        $listaCursos = Curso::all();
-        $listaConsultores = Consultor::all();
+            $responsavel = Responsavel::where('alunos_id', $idAluno);
+            $aluno = Aluno::find($idAluno);
 
-        return view(self::PATH . 'matriculaCreate')
-            ->with('aluno', $aluno)
-            ->with('responsavel', $responsavel->first())
-            ->with('cursos', $listaCursos)
-            ->with('consultores', $listaConsultores);
+            $listaCursos = Curso::all();
+            $listaConsultores = Consultor::all();
+
+            return view(self::PATH . 'matriculaCreate')
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel->first())
+                ->with('cursos', $listaCursos)
+                ->with('consultores', $listaConsultores);
+
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function gerarParcelas(
-        string $alunoID,
-        string $responsavelID,
-        string $matriculaID,
-        int $qtdeParcela,
-        float $valorParcela,
+        string   $alunoID,
+        string   $responsavelID,
+        string   $matriculaID,
+        int      $qtdeParcela,
+        float    $valorParcela,
         DateTime $vencimento,
-        string $obs = " "
-    ) {
+        string   $obs = " "
+    )
+    {
 
         for ($i = 0; $i < $qtdeParcela; $i++) {
 
@@ -410,4 +437,23 @@ class MatriculasController extends Controller
             }
         }
     }
+
+    private function verificarAcesso(string $recurso)
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', $recurso)
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
 }

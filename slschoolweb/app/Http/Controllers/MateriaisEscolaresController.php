@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MateriaisEscolar;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 
 class MateriaisEscolaresController extends Controller
@@ -19,8 +20,13 @@ class MateriaisEscolaresController extends Controller
     public function index()
     {
 
-        $materiais = $this->materiais->orderBy('id', 'desc')->paginate();
-        return view(self::PATH . 'materiasEscolaresShow', ['materiais' => $materiais]);
+        if($this->verificarAcesso() == 1){
+            $materiais = $this->materiais->orderBy('id', 'desc')->paginate();
+            return view(self::PATH . 'materiasEscolaresShow', ['materiais' => $materiais]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function create()
@@ -108,7 +114,7 @@ class MateriaisEscolaresController extends Controller
 
     public function destroy(string $id)
     {
-        
+
         if($id){
 
             $materiais = $this->materiais->find($id);
@@ -118,7 +124,7 @@ class MateriaisEscolaresController extends Controller
 
                 $materiais = $this->materiais->orderBy('id', 'desc')->paginate();
                 return view(self::PATH . 'materiasEscolaresShow', ['materiais' => $materiais])
-                    ->with('msg', 'Material escolar removido com sucesso!');              
+                    ->with('msg', 'Material escolar removido com sucesso!');
 
             }else{
 
@@ -145,9 +151,26 @@ class MateriaisEscolaresController extends Controller
 
         $materiais = MateriaisEscolar::where($field, 'LIKE', $value.'%')->orderBy('id', 'desc')->paginate(15);
 
-        return view(self::PATH . 'materiasEscolaresShow', ['materiais' => $materiais]);  
+        return view(self::PATH . 'materiasEscolaresShow', ['materiais' => $materiais]);
 
     }
 
-    }    
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Materiais escolares')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    }
 

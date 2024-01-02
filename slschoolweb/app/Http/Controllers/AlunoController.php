@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 
 class AlunoController extends Controller
@@ -24,7 +25,7 @@ class AlunoController extends Controller
     public function create()
     {
 
-        return view(self::PATH.'alunosCreate');
+        return view(self::PATH . 'alunosCreate');
 
     }
 
@@ -35,7 +36,7 @@ class AlunoController extends Controller
 
         $request->validate([
             'aluno' => 'required|min:3'
-        ],[
+        ], [
             'aluno.required' => 'O campo Aluno é obrigatório',
             'aluno.min' => 'O nome deve ter no mínimo três letras',
         ]);
@@ -59,7 +60,7 @@ class AlunoController extends Controller
             $alunos->numero = $request->input('numero');
             $alunos->complemento = $request->input('complemento');
             $alunos->cep = $request->input('cep');
-            $alunos-> cidade = $request->input('cidade');
+            $alunos->cidade = $request->input('cidade');
             $alunos->estado = $request->input('estado');
             $alunos->telefone = $request->input('telefone');
             $alunos->celular = $request->input('celular');
@@ -91,8 +92,8 @@ class AlunoController extends Controller
             return redirect()->route('home.alunos')->with('msg', 'Aluno incluído com sucesso!!!');
 
         } catch (\Throwable $th) {
-            return view(self::PATH.'alunosCreate')->with('msg', 'ERRO! Não foi possível salvar as informações do aluno. '
-                                                                    .$th->getMessage());
+            return view(self::PATH . 'alunosCreate')->with('msg', 'ERRO! Não foi possível salvar as informações do aluno. '
+                . $th->getMessage());
         }
 
 
@@ -109,10 +110,13 @@ class AlunoController extends Controller
     public function edit(string $id)
     {
 
-        $alunos = $this->alunos->find($id);
-
-        if($alunos->count() >= 1){
-            return view(self::PATH.'alunosEdit', ['alunos'=>$alunos]);
+        if ($this->verificarAcesso('Editar aluno') == 1) {
+            $alunos = $this->alunos->find($id);
+            if ($alunos->count() >= 1) {
+                return view(self::PATH . 'alunosEdit', ['alunos' => $alunos]);
+            }
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
 
     }
@@ -122,11 +126,11 @@ class AlunoController extends Controller
 
         $alunos = $this->alunos->find($id);
 
-        if($alunos->count() >= 1){
+        if ($alunos->count() >= 1) {
 
             $request->validate([
                 'aluno' => 'required|min:3'
-            ],[
+            ], [
                 'aluno.required' => 'Nome requirido',
                 'aluno.min' => 'O nome deve ter no mínimo três letras',
             ]);
@@ -150,7 +154,7 @@ class AlunoController extends Controller
                 $alunos->numero = $request->input('numero');
                 $alunos->complemento = $request->input('complemento');
                 $alunos->cep = $request->input('cep');
-                $alunos-> cidade = $request->input('cidade');
+                $alunos->cidade = $request->input('cidade');
                 $alunos->estado = $request->input('estado');
                 $alunos->telefone = $request->input('telefone');
                 $alunos->celular = $request->input('celular');
@@ -185,7 +189,7 @@ class AlunoController extends Controller
                 return back()->with('msg', 'Não foi possível atualizar as informações do aluno');
             }
 
-        }else{
+        } else {
             return redirect()->route('home.alunos')->with('msg', 'O aluno não foi encontrado na base de dados!');
         }
 
@@ -194,15 +198,36 @@ class AlunoController extends Controller
     public function destroy(string $id)
     {
 
-        $alunos = $this->alunos->find($id);
+        if ($this->verificarAcesso('Excluir aluno') == 1) {
+            $alunos = $this->alunos->find($id);
 
-        if($alunos->count() >= 1){
-            $alunos->delete();
-            return redirect()->route('home.alunos')->with('msg', 'Aluno exluido com sucesso!');
-        }else{
-            return redirect()->route('home.alunos')->with('msg', 'Não foi possível excluir as informações do aluno!');
+            if ($alunos->count() >= 1) {
+                $alunos->delete();
+                return redirect()->route('home.alunos')->with('msg', 'Aluno exluido com sucesso!');
+            } else {
+                return redirect()->route('home.alunos')->with('msg', 'Não foi possível excluir as informações do aluno!');
+            }
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
 
+    }
+
+    private function verificarAcesso(string $recurso)
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', $recurso)
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

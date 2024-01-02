@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Empresa;
 use App\Http\Controllers\Rule;
@@ -21,13 +22,19 @@ class EmpresaController extends Controller
     public function index()
     {
 
-        $empresa = $this->empresa->all();
+        if($this->verificarAcesso() == 1){
 
-        if ($empresa->count() >= 1) {
-            return view(self::PATH . 'empresaEdit', ['empresa' => $empresa->first()]);
-        } else {
-            return view(self::PATH . 'empresaCreate');
+            $empresa = $this->empresa->all();
+            if ($empresa->count() >= 1) {
+                return view(self::PATH . 'empresaEdit', ['empresa' => $empresa->first()]);
+            } else {
+                return view(self::PATH . 'empresaCreate');
+            }
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function create()
@@ -100,17 +107,11 @@ class EmpresaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
@@ -118,7 +119,7 @@ class EmpresaController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
+
         $empresa = $this->empresa->find($id);
 
         $request->validate([
@@ -177,11 +178,25 @@ class EmpresaController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Dados da empresa')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
