@@ -32,6 +32,7 @@ class ControleCaixaController extends Controller
             $caixa = $this->caixa->orderBy('id', 'desc')->paginate();
             return view(self::PATH . 'caixaShow', ['caixas' => $caixa]);
         }
+
     }
 
     public function create()
@@ -210,7 +211,7 @@ class ControleCaixaController extends Controller
     }
 
     public function novoCaixa(){
-        
+
         $caixa = $this->caixa->latest()->first();
 
         if($caixa->status == 'encerrado'){

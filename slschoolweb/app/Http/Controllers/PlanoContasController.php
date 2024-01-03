@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NivelAcesso;
 use App\Models\PlanoContas;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,16 @@ class PlanoContasController extends Controller
 
     public function index()
     {
-        $planoContas = $this->planoContas->paginate();
-        return view(self::PATH.'planoContasShow', ['planoContas'=>$planoContas]);
+
+        if ($this->verificarAcesso() == 1){
+
+            $planoContas = $this->planoContas->paginate();
+            return view(self::PATH.'planoContasShow', ['planoContas'=>$planoContas]);
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function create()
@@ -144,4 +153,22 @@ class PlanoContasController extends Controller
         return view(self::PATH . 'planoContasShow', ['planoContas' => $plano]);
 
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Plano de contas')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

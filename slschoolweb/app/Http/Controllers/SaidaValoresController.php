@@ -30,7 +30,7 @@ class SaidaValoresController extends Controller
         $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
 
         if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
-           
+
             $saidas = $this->saidas->paginate();
             return view(self::PATH . 'saidaValoresShow', ['saidaValores' => $saidas]);
 
@@ -47,7 +47,7 @@ class SaidaValoresController extends Controller
             $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
             return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
                 ->with('msg', $msg);
-        }          
+        }
 
     }
 
@@ -180,6 +180,23 @@ class SaidaValoresController extends Controller
     {
         return true;
 //        Veirificar se há saldo sufuciente no caixa para o lançamnto da saída
+    }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Cad.Salas')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

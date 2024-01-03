@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContasPagar;
+use App\Models\NivelAcesso;
 use App\Models\PlanoContas;
 use Illuminate\Http\Request;
 use App\Models\ControleCaixa;
@@ -22,40 +23,59 @@ class ContasPagarController extends Controller
     public function index()
     {
 
-        $caixa = ControleCaixa::latest()->first();
+        if ($this->verificarAcesso() == 1){
 
-        $dataAtual = Carbon::now();
-        $dataAtual = $dataAtual->format('d/m/Y');
+            $caixa = ControleCaixa::latest()->first();
 
-        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
-        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+            if($caixa != Null){
 
-        if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
+                $dataAtual = Carbon::now();
+                $dataAtual = $dataAtual->format('d/m/Y');
 
-            $contas = $this->contas->orderBy('id', 'desc')->paginate();
-            return view(self::PATH.'contasPagarShow', ['contas'=>$contas]);
+                $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+                $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
 
-        }else{
+                if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
 
-            $msg = '';
+                    $contas = $this->contas->orderBy('id', 'desc')->paginate();
+                    return view(self::PATH.'contasPagarShow', ['contas'=>$contas]);
 
-            if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+                }else{
+
+                    $msg = '';
+
+                    if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+                        $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+                    }elseif($caixa->status == 'encerrado'){
+                        $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+                    }
+
+                }
+
+            }else{
                 $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
-            }elseif($caixa->status == 'encerrado'){
-                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
             }
 
             $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
             return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
                 ->with('msg', $msg);
-        }          
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
 
     }
 
     public function create()
     {
-        $planoContas = PlanoContas::all();
-        return view(self::PATH.'contasCreate', ['planoContas'=>$planoContas]);
+
+        if ($this->verificarAcesso() == 1){
+            $planoContas = PlanoContas::all();
+            return view(self::PATH.'contasCreate', ['planoContas'=>$planoContas]);
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function store(Request $request)
@@ -88,8 +108,6 @@ class ContasPagarController extends Controller
         $pago = $request->input('pago');
 
         $msg = '';
-
-//        dd($request);
 
         try {
 
@@ -240,4 +258,22 @@ class ContasPagarController extends Controller
         return view(self::PATH.'contasPagarShow', ['contas'=>$conta]);
 
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Contas a pagar')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

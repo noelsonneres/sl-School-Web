@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Models\MatriculaReativar;
-use Illuminate\Http\Request;
-use App\Models\Aluno;
+use App\Models\NivelAcesso;
 use App\Models\Responsavel;
+use Illuminate\Http\Request;
 
 class MatriculaReativarController extends Controller
 {
@@ -81,13 +82,20 @@ class MatriculaReativarController extends Controller
     public function show(string $id)
     {
 
-        $matricula = Matricula::find($id);
+        if ($this->verificarAcesso() == 1) {
 
-        if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
-            return view(self::PATH . 'matriculaReativar', ['matricula' => $matricula]);
+            $matricula = Matricula::find($id);
+
+            if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
+                return view(self::PATH . 'matriculaReativar', ['matricula' => $matricula]);
+            } else {
+                return redirect()->back();
+            }
+
         } else {
-            return back();
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function edit(string $id)
@@ -118,4 +126,22 @@ class MatriculaReativarController extends Controller
             return 'ERRO! Não foi possível atualizar o status da matrícula: ' . $th->getMessage();
         }
     }
+
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Reativar matricula')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

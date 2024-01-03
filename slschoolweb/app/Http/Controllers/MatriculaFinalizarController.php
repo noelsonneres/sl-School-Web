@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Matricula;
 use App\Models\MatriculaFinalizar;
+use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Aluno;
 use App\Models\MatriculaTurma;
@@ -84,25 +85,32 @@ class MatriculaFinalizarController extends Controller
     public function show(string $id)
     {
 
-        $finalizar = $this->finalizar->where('matriculas_id', $id);
-        $matricula = Matricula::find($id);
+        if ($this->verificarAcesso() == 1) {
 
-        if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
+            $finalizar = $this->finalizar->where('matriculas_id', $id);
+            $matricula = Matricula::find($id);
 
-            $alunoID = $matricula->alunos_id;
+            if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
 
-            $aluno = Aluno::find($alunoID);
-            $responsavel = Responsavel::where('alunos_id', $alunoID);
+                $alunoID = $matricula->alunos_id;
 
-            return view('screens.alunos.matricula.matriculaHome')
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel)
-                ->with('matricula', $matricula)
-                ->with('msg', 'ATENÇÃO! A matrícula não esta ativa!');
+                $aluno = Aluno::find($alunoID);
+                $responsavel = Responsavel::where('alunos_id', $alunoID);
+
+                return view('screens.alunos.matricula.matriculaHome')
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel)
+                    ->with('matricula', $matricula)
+                    ->with('msg', 'ATENÇÃO! A matrícula não esta ativa!');
+            } else {
+
+                return view(self::PATH . 'finalizarMatricula', ['matricula' => $matricula]);
+            }
+
         } else {
-
-            return view(self::PATH . 'finalizarMatricula', ['matricula' => $matricula]);
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+
     }
 
     public function edit(string $id)
@@ -135,17 +143,34 @@ class MatriculaFinalizarController extends Controller
         }
     }
 
-    private function removerTurmas(string $matricula){
+    private function removerTurmas(string $matricula)
+    {
 
         $turmas = MatriculaTurma::where('matriculas_id', $matricula);
 
         try {
             $turmas->delete();
         } catch (\Throwable $th) {
-            return 'ERRO! Não foi possível excluir as turmas dos alunos: '.$th;
+            return 'ERRO! Não foi possível excluir as turmas dos alunos: ' . $th;
         }
 
+    }
 
+    private function verificarAcesso()
+    {
+
+        $usuario = auth()->user()->id;
+
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Finalizar matricula')
+            ->where('permitido', 'sim')
+            ->get();
+
+        if ($nivelAcesso->count() >= 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
