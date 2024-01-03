@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Saidavalor;
-use Illuminate\Http\Request;
 use App\Models\ControleCaixa;
+use App\Models\EntradaValor;
+use App\Models\Mensalidade;
+use App\Models\NivelAcesso;
+use App\Models\Saidavalor;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SaidaValoresController extends Controller
 {
@@ -21,35 +24,48 @@ class SaidaValoresController extends Controller
     public function index()
     {
 
-        $caixa = ControleCaixa::latest()->first();
+        if ($this->verificarAcesso() == 1){
 
-        $dataAtual = Carbon::now();
-        $dataAtual = $dataAtual->format('d/m/Y');
-
-        $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
-        $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
-
-        if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
-
-            $saidas = $this->saidas->paginate();
-            return view(self::PATH . 'saidaValoresShow', ['saidaValores' => $saidas]);
-
-        }else{
+            $caixa = ControleCaixa::latest()->first();
 
             $msg = '';
 
-            if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+            if ($caixa != null) {
+
+                $dataAtual = Carbon::now();
+                $dataAtual = $dataAtual->format('d/m/Y');
+
+                $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
+                $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
+
+                if ($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual) {
+
+                    $saidas = $this->saidas->paginate();
+                    return view(self::PATH . 'saidaValoresShow', ['saidaValores' => $saidas]);
+
+                } else {
+
+                    if ($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual) {
+                        $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
+                    } elseif ($caixa->status == 'encerrado') {
+                        $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
+                    }
+                }
+
+            }else{
                 $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
-            }elseif($caixa->status == 'encerrado'){
-                $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
             }
 
             $caixa = ControleCaixa::orderBy('id', 'desc')->paginate();
             return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
                 ->with('msg', $msg);
+
+        }else{
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
 
-    }
+        }
+
 
     public function create()
     {
@@ -86,7 +102,10 @@ class SaidaValoresController extends Controller
 
         try {
 
-            if ($this->verificarCaixa() === true) {
+            $valorCaixa = $this->verificarCaixa();
+            $valorSaida = $request->input('valor');
+
+            if ($valorSaida < $valorCaixa) {
                 $saida->motivo = $request->input('motivo');
                 $saida->data = $request->input('data');
                 $saida->hora = $request->input('hora');
@@ -109,33 +128,21 @@ class SaidaValoresController extends Controller
             ->with('msg', $msg);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
 
@@ -178,8 +185,28 @@ class SaidaValoresController extends Controller
 
     private function verificarCaixa()
     {
-        return true;
-//        Veirificar se há saldo sufuciente no caixa para o lançamnto da saída
+
+        $dataAtual = Carbon::now();
+        $data = $dataAtual->format('d/m/Y');
+
+        $dataCaixa = Carbon::now();
+        $dataCaixa = $dataCaixa->format('Y-m-d');
+
+        $totalMensalidades = Mensalidade::where('data_pagamento', $dataCaixa)->sum('valor_pago');
+        $totalEntrada = EntradaValor::where('data', $dataCaixa)->sum('valor');
+        $totalSaida = Saidavalor::where('data', $dataCaixa)->sum('valor');
+        $Caixa = ControleCaixa::where('data_abertura', $dataCaixa)->first();
+
+        if ($Caixa != null){
+            $tCaixa = $Caixa->saldo_informado;
+        }else{
+            $tCaixa = 0;
+        }
+
+        $total = ($totalMensalidades + $totalEntrada + $tCaixa) - $totalSaida;
+
+        return $total;
+
     }
 
     private function verificarAcesso()
