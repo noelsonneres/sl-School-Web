@@ -62,13 +62,13 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
 Route::get('home', [HomeController::class, 'index']);
 
-Route::resource('dias', CadastroDiasController::class)->middleware('can:view, App\Models\CadastroDia');
-Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find']);
+Route::resource('dias', CadastroDiasController::class)->middleware('can:view, App\Models\CadastroDia'); 
+Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find'])->middleware('can:view, App\Models\CadastroDia');
 
-Route::resource('horarios', CadastroHorariosController::class);
+Route::resource('horarios', CadastroHorariosController::class)->middleware('can:view, App\Models\CadastroHorario'); 
 
-Route::resource('salas', SalasController::class);
-Route::get('/sala_pesquisar', [SalasController::class, 'find']);
+Route::resource('salas', SalasController::class)->middleware('can:view, App\Models\Sala'); 
+Route::get('/sala_pesquisar', [SalasController::class, 'find'])->middleware('can:view, App\Models\Sala');
 
 Route::resource('meios_pagamentos', MeiosPagamentosController::class);
 
@@ -201,3 +201,5 @@ Route::get('/usuarios_localizar', [UserController::class, 'find']);
 
 Route::resource('nivel_acesso', NivelAcessoController::class);
 Route::post('/nivel_acesso_adicionar', [NivelAcessoController::class, 'adcionarRegra']);
+Route::get('/nivel_acesso_bloquear/{nivelID}', [NivelAcessoController::class, 'bloquearAcesso']);
+Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'liberarAcesso']);

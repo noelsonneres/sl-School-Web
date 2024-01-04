@@ -20,12 +20,8 @@ class CadastroHorariosController extends Controller
     public function index()
     {
 
-        if($this->verificarAcesso() == 1){
-            $horarios = $this->horarios->paginate();
-            return view(self::PATH . 'horariosShow', ['horarios' => $horarios]);
-        }else{
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
-        }
+        $horarios = $this->horarios->paginate();
+        return view(self::PATH . 'horariosShow', ['horarios' => $horarios]);
     }
 
     public function create()
@@ -125,22 +121,5 @@ class CadastroHorariosController extends Controller
         }
 
     }
-
-    private function verificarAcesso()
-    {
-
-        $usuario = auth()->user()->id;
-
-        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Cad.Horários')
-            ->where('permitido', 'sim')
-            ->get();
-
-        if ($nivelAcesso->count() >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }    
 
 }

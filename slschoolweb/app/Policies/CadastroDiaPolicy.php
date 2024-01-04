@@ -10,22 +10,15 @@ use Illuminate\Support\Facades\Redirect;
 
 class CadastroDiaPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(User $user): Response
     {
-
         $usuario = $user->id;
-
         $nivelAcesso = NivelAcesso::where('users_id', $usuario)
             ->where('recurso', 'Cad.Dias')
             ->where('permitido', 'sim')
@@ -37,49 +30,19 @@ class CadastroDiaPolicy
 
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function show(User $user): bool
     {
-        //
-    }
+        $usuario = $user->id; 
+        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
+            ->where('recurso', 'Cad.Dias')
+            ->where('permitido', 'sim')
+            ->get();
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, CadastroDia $cadastroDia): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, CadastroDia $cadastroDia): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, CadastroDia $cadastroDia): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, CadastroDia $cadastroDia): bool
-    {
-        //
-    }
-
-    private function redirecionar()
-    {
-        return view('screens/acessoNegado/acessoNegado');
-    }
+            if($nivelAcesso->count() >= 1){
+                return true;
+            }else{
+                return false;;
+            }
+    }    
 
 }

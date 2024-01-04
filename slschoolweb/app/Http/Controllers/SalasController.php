@@ -19,16 +19,8 @@ class SalasController extends Controller
 
     public function index()
     {
-
-        if($this->verificarAcesso() == 1){
-
-            $salas = $this->salas->paginate(1);
-            return view(self::PATH . 'salasShow', ['salas' => $salas]);
-
-        }else{
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
-        }
-
+        $salas = $this->salas->paginate();
+        return view(self::PATH . 'salasShow', ['salas' => $salas]);
     }
 
     public function create()
@@ -109,7 +101,7 @@ class SalasController extends Controller
 
     public function destroy(string $id)
     {
-
+        
         $salas = $this->salas->find($id);
 
         if($salas){
@@ -121,11 +113,11 @@ class SalasController extends Controller
             ->with('msg', 'Sala deletada com sucesso!!!');
 
         }else{
-
+ 
             $salas = $this->salas->paginate();
             return view(self::PATH . 'salasShow', ['salas' => $salas])
-            ->with('msg', 'Não foi localizar a sala!!');
-
+            ->with('msg', 'Não foi localizar a sala!!');            
+            
         }
 
     }
@@ -135,7 +127,7 @@ class SalasController extends Controller
         $field = $request->input('opt');
 
         $value = $request->input('find');
-        $field = $request->input('opt');
+        $field = $request->input('opt');        
 
         if(empty($field)){
             $field = 'id';
@@ -145,23 +137,6 @@ class SalasController extends Controller
 
         return view(self::PATH . 'salasShow', ['salas' => $salas]);
 
-    }
-
-    private function verificarAcesso()
-    {
-
-        $usuario = auth()->user()->id;
-
-        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Cad.Salas')
-            ->where('permitido', 'sim')
-            ->get();
-
-        if ($nivelAcesso->count() >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
+    }  
 
 }

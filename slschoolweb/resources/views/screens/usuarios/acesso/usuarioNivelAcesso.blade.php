@@ -19,121 +19,107 @@
 
             </div>
         @endif
-    
-    <hr>
-
-    <div class="row">
 
         <hr>
+
+        <div class="row">
+
+            <hr>
             <div class="ps-3 pt-2 pb-2">
-                <h4>Usuário: {{$usuario->user_name}}</h4>
-                <h4>Nome: {{$usuario->name}}</h4>
+                <h4>Usuário: {{ $usuario->user_name }}</h4>
+                <h4>Nome: {{ $usuario->name }}</h4>
             </div>
 
-        <hr>
+            <hr>
 
-        <div class="card p-2 mb-4">
+            <div class="card p-2 mb-4">
 
-            <form action="/nivel_acesso_adicionar" method="post">
+                <form action="/nivel_acesso_adicionar" method="post">
 
-                @csrf
+                    @csrf
 
-                <input type="hidden" name="userID" value="{{$usuario->id}}">
+                    <input type="hidden" name="userID" value="{{ $usuario->id }}">
 
-                <div class="mb-4">
-                    <label for="recurso" class="form-label lblCaption">Selecione o recurso que deseja adionar</label>
-                    <select class="form-control" name="recurso" id="recurso">
+                    <div class="mb-4">
+                        <label for="recurso" class="form-label lblCaption">Selecione o recurso que deseja adionar</label>
+                        <select class="form-control" name="recurso" id="recurso">
 
-                        <option value="">Selecione uma opção</option>
+                            <option value="">Selecione uma opção</option>
 
-                        @foreach ($recursos as $recurso)
-                            <option value="{{$recurso}}">{{$recurso}}</option>
-                        @endforeach
+                            @foreach ($recursos as $recurso)
+                                <option value="{{ $recurso }}">{{ $recurso }}</option>
+                            @endforeach
 
-                    </select>
-                </div>
+                        </select>
+                    </div>
 
-                <button type="submit" class="btn btn-success mb-4">
-                    <i class="bi bi-floppy2"></i>
-                    Adicionar regra</button>
+                    <button type="submit" class="btn btn-success mb-4">
+                        <i class="bi bi-floppy2"></i>
+                        Adicionar regra</button>
 
-            </form>
+                </form>
 
-        </div>
+            </div>
 
-        <div class="card pt-2 mt-4">
+            <div class="card pt-2 mt-4">
 
-            <table class="table p-1">
-                <thead>
-                    <tr>
-                        <th scope="col">Recurso</th>
-                        <th scope="col">Permitido</th>
-                        <th scope="col">Operações</th>
-                    </tr>
-                </thead>
-
-
-                <tbody>
-                    @foreach ($niveis as $nivel)
+                <table class="table p-1">
+                    <thead>
                         <tr>
+                            <th scope="col">Recurso</th>
+                            <th scope="col">Permitido</th>
+                            <th scope="col">Operações</th>
+                        </tr>
+                    </thead>
 
-                            <td>{{ $nivel->recurso }} </td>
-                            <td>{{ $nivel->permitido }} </td>
-                            
-                            <td>
 
-                                <div>
-                                    <div class="row">
+                    <tbody>
+                        @foreach ($niveis as $nivel)
+                            <tr>
 
-                                        <div class="col-2">
-                                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-warning btn-sm"
-                                                    title="Bloquear acesso a este recurso">
-                                                    <i class="bi bi-ban"></i>
-                                            </a>
-                                        </div>                                 
+                                <td>{{ $nivel->recurso }} </td>
+                                <td>{{ $nivel->permitido }} </td>
 
-                                        <div class="col-2">
+                                <td>
 
-                                            <form method="POST" class="delete-form"
-                                                action="{{ route('usuarios.destroy', $usuario->id) }}">
-                                                @csrf
-                                                {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-danger btn-sm" 
-                                                    title="Deletar usuãrio selecionado"
-                                                    onclick="confirmDelete(this)">
-                                                    <i class="bi bi-trash3-fill"></i>
-                                                </button>
-                                            </form>
+                                    <div>
+                                        <div class="row">
 
-                                            <script>
-                                                function confirmDelete(button) {
-                                                    if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                        var form = button.closest('form');
-                                                        form.submit();
-                                                    }
-                                                }
-                                            </script>
+                                            @if ($nivel->permitido == 'sim')
+                                                <div class="col-4">
+                                                    <a href="{{('/nivel_acesso_bloquear/'.$nivel->id) }}"
+                                                        class="btn btn-danger btn-sm" title="Bloquear acesso a este recurso">
+                                                        Bloquear
+                                                        <i class="bi bi-ban"></i>
+                                                    </a>
+                                                </div>                                                
+                                            @else
+                                                <div class="col-4">
+                                                    <a href="{{('/nivel_acesso_liberar/'.$nivel->id) }}"
+                                                        class="btn btn-warning btn-sm" title="Liberar acesso">
+                                                        Liberar
+                                                        <i class="bi bi-check-square-fill"></i>
+                                                    </a>
+                                                </div>                                            
+                                            @endif
 
                                         </div>
 
                                     </div>
 
-                                </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
 
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                </table>
 
-            </table>
- 
-            <div class="container-fluid pl-5 d-flex justify-content-center">
-            {{$niveis->links('pagination::pagination')}}
-            </div>            
+                <div class="container-fluid pl-5 d-flex justify-content-center">
+                    {{ $niveis->links('pagination::pagination') }}
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
-
-@endsection
+    @endsection

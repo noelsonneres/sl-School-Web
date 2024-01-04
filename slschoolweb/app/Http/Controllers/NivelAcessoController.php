@@ -36,7 +36,9 @@ class NivelAcessoController extends Controller
 
         $nivel = $this->nivel->where('users_id', $id)->paginate();
         $usuario = User::find($id);
-        return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 'usuario' => $usuario, 'recursos' => $this->listaRecursos()]);
+        return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
+            'usuario' => $usuario, 'recursos' => $this->listaRecursos()]);
+
     }
 
     public function edit(string $id)
@@ -53,6 +55,62 @@ class NivelAcessoController extends Controller
     {
         //
     }
+
+    public function bloquearAcesso(string $nivelID){
+
+        $nivel = $this->nivel->find($nivelID);
+
+        if($nivel != null){
+
+            $userID = $nivel->users_id;
+
+            try {
+                $nivel->permitido = 'não';
+                $nivel->save();
+
+                $nivel = $this->nivel->where('users_id', $userID)->paginate();
+                $usuario = User::find($userID);
+                return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
+                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()])
+                    ->with('msg', 'SUCESSO! Informações atualizadas com sucesso!');                
+                
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('msg', 'ERRO! Não foi possível atualizar os recursos!');
+            }
+
+        }else{
+            return redirect()->back()->with('msg', 'ATENÇÃO! Não foi possível localizar o recurso!');
+        }
+
+    }
+
+    public function liberarAcesso(string $nivelID){
+        
+        $nivel = $this->nivel->find($nivelID);
+
+        if($nivel != null){
+
+            $userID = $nivel->users_id;
+
+            try {
+                $nivel->permitido = 'sim';
+                $nivel->save();
+
+                $nivel = $this->nivel->where('users_id', $userID)->paginate();
+                $usuario = User::find($userID);
+                return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
+                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()])
+                    ->with('msg', 'SUCESSO! Informações atualizadas com sucesso!');                
+                
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('msg', 'ERRO! Não foi possível atualizar os recursos!');
+            }
+
+        }else{
+            return redirect()->back()->with('msg', 'ATENÇÃO! Não foi possível localizar o recurso!');
+        }        
+
+    }    
 
     private function listaRecursos()
     {
