@@ -6,8 +6,10 @@ namespace App\Providers;
 use App\Models\CadastroDia;
 use App\Models\CadastroHorario;
 use App\Models\Sala;
+use App\Models\MeiosPagamento;
 use App\Policies\CadastroDiaPolicy;
 use App\Policies\CadastroHorarioPolicy;
+use App\Policies\MeiosPagamentoPolicy;
 use App\Policies\SalaPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -22,6 +24,8 @@ class AuthServiceProvider extends ServiceProvider
         CadastroDia::class => CadastroDiaPolicy::class,
         CadastroHorario::class => CadastroHorarioPolicy::class,
         Sala::class => SalaPolicy::class,
+        MeiosPagamento::class => MeiosPagamentoPolicy::class,
+
     ];
     
     /**

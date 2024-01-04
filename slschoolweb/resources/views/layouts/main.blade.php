@@ -46,7 +46,8 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="/home">
-                            <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Home</span>
+                            <i class="bi bi-house align-middle" style="font-size: 18px"></i></i> <span
+                                class="align-middle">Home</span>
                         </a>
                     </li>
 
@@ -54,14 +55,14 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu3" data-bs-toggle="collapse">
-                            <i class="align-middle" data-feather="settings"></i> <span
+                            <i class="bi bi-folder-plus align-middle" style="font-size: 18px"></i></i> <span
                                 class="align-middle">Cadastros</span>
                         </a>
                     </li>
 
                     <div id="sub-menu3" class="collapse bg-white " style="margin-left: 15px;">
 
-                    @can('show', [App\Models\CadastroDia::class])
+                        @can('show', [App\Models\CadastroDia::class])
                             <a class="sidebar-link text-white" href="/dias">
                                 <i class="align-middle" data-feather="arrow-right"></i>
                                 <span class="align-middle">Dias</span>
@@ -75,14 +76,17 @@
                         @endcan
 
                         @can('show', [App\Models\Sala::class])
-                        <a class="sidebar-link text-white" href="/salas">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Salas </span></a>
+                            <a class="sidebar-link text-white" href="/salas">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Salas </span></a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="/meios_pagamentos">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Meios de pagamentos</span></a>
+                        @can('show', [App\Models\MeiosPagamento::class])
+                            <a class="sidebar-link text-white" href="/meios_pagamentos">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Meios de pagamentos</span>
+                            </a>
+                        @endcan
 
                         <a class="sidebar-link text-white" href="/config_mensalidades">
                             <i class="align-middle" data-feather="arrow-right"></i>
@@ -119,7 +123,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu1" data-bs-toggle="collapse">
-                            <i class="align-middle" data-feather="user"></i> <span
+                            <i class="bi bi-person-square align-middle" style="font-size: 18px"></i></i> <span
                                 class="align-middle">Matrículas</span>
                         </a>
                     </li>
@@ -140,7 +144,7 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu4" data-bs-toggle="collapse">
-                            <i class="align-middle" data-feather="user"></i> <span
+                            <i class="bi bi-currency-dollar align-middle" style="font-size: 20px"></i><span
                                 class="align-middle">Financeiro</span>
                         </a>
                     </li>
@@ -180,35 +184,11 @@
 
                     </div>
 
-                    {{-- Extras --}}
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link text-white" href="#sub-menu5" data-bs-toggle="collapse">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Extras</span>
-                        </a>
-                    </li>
-
-                    <div id="sub-menu5" class="collapse" style="margin-left: 15px;">
-
-                        <a class="sidebar-link text-white" href="/conf_carteira">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Conf. Imp. Cateira</span></a>
-
-                        <a class="sidebar-link text-white" href="/impressao_carteira">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Impressão carteira</span>
-                        </a>
-
-                        <a class="sidebar-link text-white" href="/visitas">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Visitas</span>
-                        </a>
-                    </div>
 
                     {{-- Adminstrativo --}}
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu6" data-bs-toggle="collapse">
-                            <i class="align-middle" data-feather="user"></i> <span
+                            <i class="bi bi-person-fill-gear align-middle" style="font-size: 20px"></i> <span
                                 class="align-middle">Adminstrativo</span>
                         </a>
                     </li>
@@ -234,9 +214,36 @@
                     </div>
 
 
+                    {{-- Extras --}}
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-white" href="#sub-menu5" data-bs-toggle="collapse">
+                            <i class="bi bi-star align-middle" style="font-size: 18px"></i> <span class="align-middle">Extras</span>
+                        </a>
+                    </li>
+
+                    <div id="sub-menu5" class="collapse" style="margin-left: 15px;">
+
+                        <a class="sidebar-link text-white" href="/conf_carteira">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Conf. Imp. Cateira</span></a>
+
+                        <a class="sidebar-link text-white" href="/impressao_carteira">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Impressão carteira</span>
+                        </a>
+
+                        <a class="sidebar-link text-white" href="/visitas">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Visitas</span>
+                        </a>
+                    </div>
+
+                    {{-- RELATÓRIOS --}}
+
 
                     <li class="sidebar-header">
-                        Tools & Components
+                        Relatórios
                     </li>
 
                     <li class="sidebar-item">
@@ -274,7 +281,7 @@
                     </li>
 
                     <li class="sidebar-header">
-                        Plugins & Addons
+                        Gráficos
                     </li>
 
                     <li class="sidebar-item">

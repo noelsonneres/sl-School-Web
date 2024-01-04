@@ -70,7 +70,7 @@ Route::resource('horarios', CadastroHorariosController::class)->middleware('can:
 Route::resource('salas', SalasController::class)->middleware('can:view, App\Models\Sala'); 
 Route::get('/sala_pesquisar', [SalasController::class, 'find'])->middleware('can:view, App\Models\Sala');
 
-Route::resource('meios_pagamentos', MeiosPagamentosController::class);
+Route::resource('meios_pagamentos', MeiosPagamentosController::class)->middleware('can:view, App\Models\MeiosPagamento');
 
 Route::resource('config_mensalidades', ConfigMensalidadesController::class);
 
