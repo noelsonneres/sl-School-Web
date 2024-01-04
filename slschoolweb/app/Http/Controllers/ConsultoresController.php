@@ -19,14 +19,8 @@ class ConsultoresController extends Controller
 
     public function index()
     {
-
-        if($this->verificarAcesso() == 1){
-            $consultores = $this->consultores->paginate();
-            return view(self::PATH . 'consultoresShow', ['consultores' => $consultores]);
-        }else{
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
-        }
-
+        $consultores = $this->consultores->paginate();
+        return view(self::PATH . 'consultoresShow', ['consultores' => $consultores]);
     }
 
     public function create()
@@ -189,23 +183,5 @@ class ConsultoresController extends Controller
 
         return view(self::PATH . 'consultoresShow', ['consultores' => $consultores]);
     }
-
-    private function verificarAcesso()
-    {
-
-        $usuario = auth()->user()->id;
-
-        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Consultores')
-            ->where('permitido', 'sim')
-            ->get();
-
-        if ($nivelAcesso->count() >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-
-    }
-
+    
 }

@@ -106,24 +106,30 @@
                                 <span class="align-middle">Disciplinas</span></a>
                         @endcan
 
+                        @can('show', [App\Models\Curso::class])
+                            <a class="sidebar-link text-white" href="/cursos">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Cursos</span>
+                            </a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/cursos">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Cursos</span>
-                        </a>
+                        @can('show', [App\Models\MateriaisEscolar::class])
+                            <a class="sidebar-link text-white" href="/materiais">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Materiais escolares</span></a>
+                        @endcan
 
+                        @can('show', [App\Models\Turma::class])
+                            <a class="sidebar-link text-white" href="/turma">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Turmas</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/materiais">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Materiais escolares</span></a>
-
-                        <a class="sidebar-link text-white" href="/turma">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Turmas</span></a>
-
-                        <a class="sidebar-link text-white" href="/motivos_cancelamento">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Motivo cancelamento</span></a>
+                        @can('show', [App\Models\MotivoCancelamento::class])
+                            <a class="sidebar-link text-white" href="/motivos_cancelamento">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Motivo cancelamento</span></a>
+                        @endcan
 
                     </div>
 
@@ -221,7 +227,6 @@
                                 <span class="align-middle">Consultores</span>
                             </a>
                         @endcan
-
 
                     </div>
 

@@ -8,21 +8,29 @@ namespace App\Providers;
 use App\Models\CadastroDia;
 use App\Models\CadastroHorario;
 use App\Models\Consultor;
+use App\Models\Curso;
 use App\Models\Disciplina;
 use App\Models\Sala;
 use App\Models\MeiosPagamento;
 use App\Models\Empresa;
+use App\Models\MateriaisEscolar;
+use App\Models\MotivoCancelamento;
 use App\Models\Professor;
 use App\Models\ProfessorDisciplina;
+use App\Models\Turma;
 use App\Policies\CadastroDiaPolicy;
 use App\Policies\CadastroHorarioPolicy;
 use App\Policies\ConsultorPolicy;
+use App\Policies\CursoPolicy;
 use App\Policies\DisciplinaPolicy;
 use App\Policies\EmpresaPolicy;
+use App\Policies\MateriaisEscolarPolicy;
 use App\Policies\MeiosPagamentoPolicy;
+use App\Policies\MotivoCancelamentoPolicy;
 use App\Policies\ProfessorDisciplinaPolicy;
 use App\Policies\ProfessorPolicy;
 use App\Policies\SalaPolicy;
+use App\Policies\TurmaPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -43,6 +51,10 @@ class AuthServiceProvider extends ServiceProvider
         Professor::class => ProfessorPolicy::class,
         ProfessorDisciplina::class => ProfessorDisciplinaPolicy::class,
         Consultor::class => ConsultorPolicy::class,
+        Curso::class => CursoPolicy::class,
+        MateriaisEscolar::class => MateriaisEscolarPolicy::class,
+        Turma::class => TurmaPolicy::class,
+        MotivoCancelamento::class => MotivoCancelamentoPolicy::class,
 
     ];
 

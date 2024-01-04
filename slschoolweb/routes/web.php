@@ -88,19 +88,19 @@ Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarD
 Route::resource('consultores', ConsultoresController::class)->middleware('can:view, App\Models\Consultor');    
 Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find'])->middleware('can:view, App\Models\Consultor'); 
 
-Route::resource('cursos', CursosController::class);
-Route::get('/cursos_pesquisar', [CursosController::class, 'find']);
+Route::resource('cursos', CursosController::class)->middleware('can:view, App\Models\Curso'); 
+Route::get('/cursos_pesquisar', [CursosController::class, 'find'])->middleware('can:view, App\Models\Curso');
 
-Route::get('/cursos_disciplinas/{id}/{nome}', [CursosDisciplinasController::class, 'listar']);
-Route::get('/ad_curso_disciplinas/{id}', [CursosDisciplinasController::class, 'adicionar']);
-Route::post('/salvar_curso_disciplinas', [CursosDisciplinasController::class, 'salvar']);
-Route::delete('/deletar_curso_disciplina/{id}', [CursosDisciplinasController::class, 'deletar']);
+Route::get('/cursos_disciplinas/{id}/{nome}', [CursosDisciplinasController::class, 'listar'])->middleware('can:view, App\Models\Curso');
+Route::get('/ad_curso_disciplinas/{id}', [CursosDisciplinasController::class, 'adicionar'])->middleware('can:view, App\Models\Curso');
+Route::post('/salvar_curso_disciplinas', [CursosDisciplinasController::class, 'salvar'])->middleware('can:view, App\Models\Curso');
+Route::delete('/deletar_curso_disciplina/{id}', [CursosDisciplinasController::class, 'deletar'])->middleware('can:view, App\Models\Curso');
 
-Route::resource('materiais', MateriaisEscolaresController::class);
-Route::get('/materiais_pesquisar', [MateriaisEscolaresController::class, 'find']);
+Route::resource('materiais', MateriaisEscolaresController::class)->middleware('can:view, App\Models\MateriaisEscolar');
+Route::get('/materiais_pesquisar', [MateriaisEscolaresController::class, 'find'])->middleware('can:view, App\Models\MateriaisEscolar');
 
-Route::resource('turma', TurmasController::class);
-Route::get('/turma_pesquisar', [TurmasController::class, 'find']);
+Route::resource('turma', TurmasController::class)->middleware('can:view, App\Models\Turma');
+Route::get('/turma_pesquisar', [TurmasController::class, 'find'])->middleware('can:view, App\Models\Turma');
 
 Route::get('/home_aluno', [HomeAlunosController::class, 'homeAlunos'])->name('home.alunos');
 Route::get('/alunos_pesquisar', [HomeAlunosController::class, 'find'])->name('home.pesqusar');
@@ -139,8 +139,8 @@ Route::post('/matricula_material_gerar_parcela', [MatriculaMateriaisController::
 Route::resource('matricula_disciplina', MatriculaDisciplinasController::class);
 Route::get('/matricula_disciplina_adicionar/{matricula}', [MatriculaDisciplinasController::class, 'adicionar']);
 
-Route::resource('motivos_cancelamento', MotivoCancelamentoController::class);
-Route::get('/motivos_cancelamento_find',  [MotivoCancelamentoController::class, 'find']);
+Route::resource('motivos_cancelamento', MotivoCancelamentoController::class)->middleware('can:view, App\Models\MotivoCancelamento');
+Route::get('/motivos_cancelamento_find',  [MotivoCancelamentoController::class, 'find'])->middleware('can:view, App\Models\MotivoCancelamento');
 
 Route::resource('matricula_cancelar', MatriculaCancelamentoController::class);
 Route::get('/cancelar_matricula/{id}', [MatriculaCancelamentoController::class, 'cancelarMatricula']);

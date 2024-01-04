@@ -23,14 +23,8 @@ class TurmasController extends Controller
 
     public function index()
     {
-
-        if ($this->verificarAcesso() == 1){
-            $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
-            return view(self::PATH.'turmasShow', ['turmas'=>$turmas]);
-        }else{
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
-        }
-
+        $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+        return view(self::PATH . 'turmasShow', ['turmas' => $turmas]);
     }
 
     public function create()
@@ -41,12 +35,11 @@ class TurmasController extends Controller
         $sala = Sala::all();
         $professor = Professor::all();
 
-        return view(self::PATH.'turmasCreate')
-                    ->with('dias', $dias)
-                    ->with('horarios', $horarios)
-                    ->with('salas', $sala)
-                    ->with('professores', $professor);
-
+        return view(self::PATH . 'turmasCreate')
+            ->with('dias', $dias)
+            ->with('horarios', $horarios)
+            ->with('salas', $sala)
+            ->with('professores', $professor);
     }
 
 
@@ -79,18 +72,14 @@ class TurmasController extends Controller
             $turmas->save();
 
             $turmas = $this->turmas->paginate();
-            return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                        ->with('msg', 'Turma cadastrada com sucesso!!!');
-
+            return view(self::PATH . 'turmasShow', ['turmas' => $turmas])
+                ->with('msg', 'Turma cadastrada com sucesso!!!');
         } catch (\Throwable $th) {
 
             $turmas = $this->turmas->paginate();
-            return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                        ->with('msg', 'ERRO! Não foi possível salvar as informações da turmas!');
-
+            return view(self::PATH . 'turmasShow', ['turmas' => $turmas])
+                ->with('msg', 'ERRO! Não foi possível salvar as informações da turmas!');
         }
-
-
     }
 
     public function show(string $id)
@@ -108,14 +97,13 @@ class TurmasController extends Controller
         $sala = Sala::all();
         $professor = Professor::all();
 
-        if($turmas->count() >= 1){
-            return view(self::PATH.'turmasEdit', ['turmas'=>$turmas])
-                                    ->with('dias', $dias)
-                                    ->with('horarios', $horarios)
-                                    ->with('salas', $sala)
-                                    ->with('professores', $professor);
+        if ($turmas->count() >= 1) {
+            return view(self::PATH . 'turmasEdit', ['turmas' => $turmas])
+                ->with('dias', $dias)
+                ->with('horarios', $horarios)
+                ->with('salas', $sala)
+                ->with('professores', $professor);
         }
-
     }
 
     public function update(Request $request, string $id)
@@ -123,41 +111,38 @@ class TurmasController extends Controller
 
         $turmas = $this->turmas->find($id);
 
-            $request->validate([
-                'turma' => 'required|min:3|max:100',
-                'dias' => 'required',
-                'horarios' => 'required',
-                'sala' => 'required',
-                'turno' => 'required',
-                'ativa' => 'required',
-            ]);
+        $request->validate([
+            'turma' => 'required|min:3|max:100',
+            'dias' => 'required',
+            'horarios' => 'required',
+            'sala' => 'required',
+            'turno' => 'required',
+            'ativa' => 'required',
+        ]);
 
-            try {
+        try {
 
-                $turmas->turma = $request->input('turma');
-                $turmas->descricao = $request->input('descricao');
-                $turmas->cadastro_dias_id = $request->input('dias');
-                $turmas->cadastro_horarios_id = $request->input('horarios');
-                $turmas->salas_id = $request->input('sala');
-                $turmas->professors_id = $request->input('professor');
-                $turmas->turno = $request->input('turno');
-                $turmas->ativa = $request->input('ativa');
-                $turmas->obs = $request->input('obs');
+            $turmas->turma = $request->input('turma');
+            $turmas->descricao = $request->input('descricao');
+            $turmas->cadastro_dias_id = $request->input('dias');
+            $turmas->cadastro_horarios_id = $request->input('horarios');
+            $turmas->salas_id = $request->input('sala');
+            $turmas->professors_id = $request->input('professor');
+            $turmas->turno = $request->input('turno');
+            $turmas->ativa = $request->input('ativa');
+            $turmas->obs = $request->input('obs');
 
-                $turmas->save();
+            $turmas->save();
 
-                $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
-                return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                            ->with('msg', 'Informações da turma atualizadas com sucesso!!!');
+            $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+            return view(self::PATH . 'turmasShow', ['turmas' => $turmas])
+                ->with('msg', 'Informações da turma atualizadas com sucesso!!!');
+        } catch (\Throwable $th) {
 
-            } catch (\Throwable $th) {
-
-                $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
-                return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                            ->with('msg', 'ERRO! Não foi possível atualizar as informações da turma!');
-
-            }
-
+            $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+            return view(self::PATH . 'turmasShow', ['turmas' => $turmas])
+                ->with('msg', 'ERRO! Não foi possível atualizar as informações da turma!');
+        }
     }
 
     public function destroy(string $id)
@@ -169,51 +154,31 @@ class TurmasController extends Controller
             $turmas->delete();
 
             $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
-            return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                        ->with('msg', 'Turma excluida com sucesso!');
-
+            return view(self::PATH . 'turmasShow', ['turmas' => $turmas])
+                ->with('msg', 'Turma excluida com sucesso!');
         } catch (\Throwable $th) {
 
             $turmas = $this->turmas->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
-            return view(self::PATH.'turmasShow', ['turmas'=>$turmas])
-                        ->with('msg', 'ERRO! Não foi possível excluir a turma! '.$th);
-
+            return view(self::PATH . 'turmasShow', ['turmas' => $turmas])
+                ->with('msg', 'ERRO! Não foi possível excluir a turma! ' . $th);
         }
-
     }
 
-    public function find(Request $request){
+    public function find(Request $request)
+    {
 
         $field = $request->input('opt');
 
         $value = $request->input('find');
         $field = $request->input('opt');
 
-        if(empty($field)){
+        if (empty($field)) {
             $field = 'id';
         }
 
-        $turmas = Turma::where($field, 'LIKE', $value.'%')->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
+        $turmas = Turma::where($field, 'LIKE', $value . '%')->with(['cadastroDias', 'cadastroHorarios'])->paginate(15);
 
-        return view(self::PATH.'turmasShow', ['turmas'=>$turmas]);
-
+        return view(self::PATH . 'turmasShow', ['turmas' => $turmas]);
     }
-
-    private function verificarAcesso()
-    {
-
-        $usuario = auth()->user()->id;
-
-        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Turmas')
-            ->where('permitido', 'sim')
-            ->get();
-
-        if ($nivelAcesso->count() >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
+    
 }
