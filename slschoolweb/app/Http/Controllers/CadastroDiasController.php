@@ -16,16 +16,13 @@ class CadastroDiasController extends Controller
     public function __construct()
     {
         $this->dias = new CadastroDia();
+        $this->authorizeResource(CadastroDia::class, 'dias');
     }
 
     public function index()
     {
-        if ($this->verificarAcesso() == 1) {
-            $dias = $this->dias->paginate();
-            return view(self::PATH . 'diasShow', ['dias' => $dias]);
-        } else {
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
-        }
+        $dias = $this->dias->paginate();
+        return view(self::PATH . 'diasShow', ['dias' => $dias]);
     }
 
     public function create()

@@ -62,7 +62,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
 Route::get('home', [HomeController::class, 'index']);
 
-Route::resource('dias', CadastroDiasController::class);
+Route::resource('dias', CadastroDiasController::class)->middleware('can:view, App\Models\CadastroDia');
 Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find']);
 
 Route::resource('horarios', CadastroHorariosController::class);

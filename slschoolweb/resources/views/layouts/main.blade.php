@@ -63,7 +63,8 @@
 
                     <a class="sidebar-link text-white" href="/dias">
                         <i class="align-middle" data-feather="arrow-right"></i>
-                        <span class="align-middle">Dias</span></a>
+                        <span class="align-middle">Dias</span>
+                    </a>
 
                     <a class="sidebar-link text-white" href="/horarios">
                         <i class="align-middle" data-feather="arrow-right"></i>
@@ -224,10 +225,10 @@
                         <span class="align-middle">Consultores</span>
                     </a>
 
-                    
-                </div>                
 
-              
+                </div>
+
+
 
                 <li class="sidebar-header">
                     Tools & Components
@@ -462,7 +463,7 @@
                             <img src="/img/user/{{auth()->user()->foto}}" class="avatar img-fluid rounded me-1"
                                  alt="Charles Hall"/> <span class="text-dark">{{auth()->user()->name}}</span>
                             </a>
-                           @endif 
+                           @endif
 
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="{{route('login.logout')}}">Log out</a>
@@ -472,7 +473,7 @@
             </div>
         </nav>
 
-        <main class="content">            
+        <main class="content">
 
             <div class="container-fluid p-0 ">
 

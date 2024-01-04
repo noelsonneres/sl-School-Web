@@ -6,6 +6,7 @@ use App\Models\CadastroDia;
 use App\Models\NivelAcesso;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Redirect;
 
 class CadastroDiaPolicy
 {
@@ -20,21 +21,19 @@ class CadastroDiaPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, CadastroDia $cadastroDia): bool
+    public function view(User $user): Response
     {
 
-        $usuario = auth()->user()->id;
+        $usuario = $user->id;
 
         $nivelAcesso = NivelAcesso::where('users_id', $usuario)
             ->where('recurso', 'Cad.Dias')
             ->where('permitido', 'sim')
             ->get();
 
-        if ($nivelAcesso->count() >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
+            return $nivelAcesso->count() >= 1
+                ? Response::allow()
+                : Response::deny('Você não possuir acesso a este recurso. Clique no botão voltar do seu navegador');
 
     }
 
@@ -77,4 +76,10 @@ class CadastroDiaPolicy
     {
         //
     }
+
+    private function redirecionar()
+    {
+        return view('screens/acessoNegado/acessoNegado');
+    }
+
 }
