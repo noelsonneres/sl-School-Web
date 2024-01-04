@@ -88,22 +88,30 @@
                             </a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="/config_mensalidades">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Conf. mensalidades</span></a>
+                        @can('show', [App\Models\ConfigMensalidade::class])
+                            <a class="sidebar-link text-white" href="/config_mensalidades">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Conf. mensalidades</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/empresa">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Dados da empresa</span></a>
+                        @can('show', [App\Models\Empresa::class])
+                            <a class="sidebar-link text-white" href="/empresa">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Dados da empresa</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/disciplinas">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Disciplinas</span></a>
+                        @can('show', [App\Models\Disciplina::class])
+                            <a class="sidebar-link text-white" href="/disciplinas">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Disciplinas</span></a>
+                        @endcan
+
 
                         <a class="sidebar-link text-white" href="/cursos">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Cursos</span>
                         </a>
+
 
                         <a class="sidebar-link text-white" href="/materiais">
                             <i class="align-middle" data-feather="arrow-right"></i>
@@ -200,15 +208,19 @@
                             <span class="align-middle">Usuários</span>
                         </a>
 
-                        <a class="sidebar-link text-white" href="/professores">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Professores</span>
-                        </a>
+                        @can('show', [App\Models\Professor::class])
+                            <a class="sidebar-link text-white" href="/professores">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Professores</span>
+                            </a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/consultores">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Consultores</span>
-                        </a>
+                        @can('show', [App\Models\Consultor::class])
+                            <a class="sidebar-link text-white" href="/consultores">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Consultores</span>
+                            </a>
+                        @endcan
 
 
                     </div>
@@ -218,7 +230,8 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu5" data-bs-toggle="collapse">
-                            <i class="bi bi-star align-middle" style="font-size: 18px"></i> <span class="align-middle">Extras</span>
+                            <i class="bi bi-star align-middle" style="font-size: 18px"></i> <span
+                                class="align-middle">Extras</span>
                         </a>
                     </li>
 

@@ -62,31 +62,31 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
 Route::get('home', [HomeController::class, 'index']);
 
-Route::resource('dias', CadastroDiasController::class)->middleware('can:view, App\Models\CadastroDia'); 
+Route::resource('dias', CadastroDiasController::class)->middleware('can:view, App\Models\CadastroDia');
 Route::get('/dia_pesquisar', [CadastroDiasController::class, 'find'])->middleware('can:view, App\Models\CadastroDia');
 
-Route::resource('horarios', CadastroHorariosController::class)->middleware('can:view, App\Models\CadastroHorario'); 
+Route::resource('horarios', CadastroHorariosController::class)->middleware('can:view, App\Models\CadastroHorario');
 
-Route::resource('salas', SalasController::class)->middleware('can:view, App\Models\Sala'); 
+Route::resource('salas', SalasController::class)->middleware('can:view, App\Models\Sala');
 Route::get('/sala_pesquisar', [SalasController::class, 'find'])->middleware('can:view, App\Models\Sala');
 
 Route::resource('meios_pagamentos', MeiosPagamentosController::class)->middleware('can:view, App\Models\MeiosPagamento');
 
-Route::resource('config_mensalidades', ConfigMensalidadesController::class);
+Route::resource('config_mensalidades', ConfigMensalidadesController::class)->middleware('can:view, App\Models\ConfigMensalidade');
 
-Route::resource('empresa', EmpresaController::class);
+Route::resource('empresa', EmpresaController::class)->middleware('can:view, App\Models\Empresa');
 
-Route::resource('disciplinas', DisciplinasController::class);
-Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find']);
+Route::resource('disciplinas', DisciplinasController::class)->middleware('can:view, App\Models\Disciplina');  
+Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find'])->middleware('can:view, App\Models\Disciplina');  
 
-Route::resource('professores', ProfessoresController::class);
-Route::get('/professores_pesquisar', [ProfessoresController::class, 'find']);
+Route::resource('professores', ProfessoresController::class)->middleware('can:view, App\Models\Professor');    
+Route::get('/professores_pesquisar', [ProfessoresController::class, 'find'])->middleware('can:view, App\Models\Professor');   
 
-Route::resource('professor_disciplina', ProfessorDisciplinaController::class);
-Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarDisciplina']);
+Route::resource('professor_disciplina', ProfessorDisciplinaController::class)->middleware('can:view, App\Models\ProfessorDisciplina');  
+Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarDisciplina'])->middleware('can:view, App\Models\ProfessorDisciplina'); 
 
-Route::resource('consultores', ConsultoresController::class);
-Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find']);
+Route::resource('consultores', ConsultoresController::class)->middleware('can:view, App\Models\Consultor');    
+Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find'])->middleware('can:view, App\Models\Consultor'); 
 
 Route::resource('cursos', CursosController::class);
 Route::get('/cursos_pesquisar', [CursosController::class, 'find']);
