@@ -24,9 +24,11 @@ class AlunoController extends Controller
 
     public function create()
     {
-
-        return view(self::PATH . 'alunosCreate');
-
+        if ($this->verificarAcesso('Cadastro de alunos') == 1) {
+            return view(self::PATH . 'alunosCreate');
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function store(Request $request)
@@ -90,21 +92,19 @@ class AlunoController extends Controller
             $alunos->save();
 
             return redirect()->route('home.alunos')->with('msg', 'Aluno incluído com sucesso!!!');
-
         } catch (\Throwable $th) {
             return view(self::PATH . 'alunosCreate')->with('msg', 'ERRO! Não foi possível salvar as informações do aluno. '
                 . $th->getMessage());
         }
-
-
     }
 
     public function show(string $id)
     {
-
-        $aluno = $this->alunos->find($id);
-
-
+        if ($this->verificarAcesso('Cadastro de alunos') == 1) {
+            $aluno = $this->alunos->find($id);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function edit(string $id)
@@ -118,7 +118,6 @@ class AlunoController extends Controller
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function update(Request $request, string $id)
@@ -184,15 +183,12 @@ class AlunoController extends Controller
                 $alunos->save();
 
                 return redirect()->route('home.alunos')->with('msg', 'As informações do aluno foram atualizadas com sucesso!');
-
             } catch (\Throwable $th) {
                 return back()->with('msg', 'Não foi possível atualizar as informações do aluno');
             }
-
         } else {
             return redirect()->route('home.alunos')->with('msg', 'O aluno não foi encontrado na base de dados!');
         }
-
     }
 
     public function destroy(string $id)
@@ -210,7 +206,6 @@ class AlunoController extends Controller
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     private function verificarAcesso(string $recurso)
@@ -229,5 +224,4 @@ class AlunoController extends Controller
             return 0;
         }
     }
-
 }

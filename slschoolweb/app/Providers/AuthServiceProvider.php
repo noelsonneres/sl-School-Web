@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
- use App\Models\ConfigMensalidade;
+use App\Models\Aluno;
+use App\Models\ConfigMensalidade;
  use App\Policies\ConfigMensalidadePolicy;
  use Illuminate\Support\Facades\Gate;
 use App\Models\CadastroDia;
@@ -18,6 +19,7 @@ use App\Models\MotivoCancelamento;
 use App\Models\Professor;
 use App\Models\ProfessorDisciplina;
 use App\Models\Turma;
+use App\Policies\AlunoPolicy;
 use App\Policies\CadastroDiaPolicy;
 use App\Policies\CadastroHorarioPolicy;
 use App\Policies\ConsultorPolicy;
@@ -55,6 +57,7 @@ class AuthServiceProvider extends ServiceProvider
         MateriaisEscolar::class => MateriaisEscolarPolicy::class,
         Turma::class => TurmaPolicy::class,
         MotivoCancelamento::class => MotivoCancelamentoPolicy::class,
+        Aluno::class => AlunoPolicy::class,
 
     ];
 

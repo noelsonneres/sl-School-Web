@@ -18,29 +18,33 @@ class HomeAlunosController extends Controller
         $this->alunos = new Aluno();
     }
 
-    public function homeAlunos(){
+    public function homeAlunos()
+    {
 
-        if($this->verificarAcesso() == 1){
+        if ($this->verificarAcesso() == 1) {
             $alunos = $this->alunos->orderBy('id', 'desc')->paginate();
-            return view(self::PATH.'homeShow', ['alunos'=>$alunos]);
-        }else{
+            return view(self::PATH . 'homeShow', ['alunos' => $alunos]);
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
-    public function find(Request $request){
+    public function find(Request $request)
+    {
 
-        $value = $request->input('find');
-        $field = $request->input('opt');
+        if ($this->verificarAcesso() == 1) {
+            $value = $request->input('find');
+            $field = $request->input('opt');
 
-        if(empty($field)){
-            $field = 'id';
+            if (empty($field)) {
+                $field = 'id';
+            }
+
+            $alunos = Aluno::where($field, 'LIKE', $value . '%')->paginate(15);
+            return view(self::PATH . 'homeShow', ['alunos' => $alunos]);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
-        $alunos = Aluno::where($field, 'LIKE', $value.'%')->paginate(15);
-        return view(self::PATH.'homeShow', ['alunos'=>$alunos]);
-
     }
 
     private function verificarAcesso()
@@ -59,5 +63,4 @@ class HomeAlunosController extends Controller
             return 0;
         }
     }
-
 }
