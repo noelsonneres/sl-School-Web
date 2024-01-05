@@ -46,10 +46,10 @@ class MensalidadesController extends Controller
             'qtdeParcelas' => 'required',
             'valor' => 'required',
             'vencimento' => 'required',
-        ],[
-            'qtdeParcelas.required'=>'Informe a quantidade de parcelas que deseja inserir',
-            'valor.required'=>'Informe um valor para o campos "Valor da parcela"',
-            'vencimento.required'=>'Você deve digitar uma data de vencimento valida',
+        ], [
+            'qtdeParcelas.required' => 'Informe a quantidade de parcelas que deseja inserir',
+            'valor.required' => 'Informe um valor para o campos "Valor da parcela"',
+            'vencimento.required' => 'Você deve digitar uma data de vencimento valida',
         ]);
 
         $qtdeParcelas = $request->old('qtdeParcelas');
@@ -81,31 +81,35 @@ class MensalidadesController extends Controller
 
                 $mensalidade->save();
             }
-
         } catch (\Throwable $th) {
             return $th;
         }
-
     }
 
     public function show(string $id)
     {
 
-        $matricula = Matricula::find($id);
-        $aluno = $matricula->alunos()->first();
+        if ($this->verificarAcesso('Quitar mensalidade') == 1) {
 
+            $matricula = Matricula::find($id);
+            $aluno = $matricula->alunos()->first();
 
-        $mensalidades = $this->mensalidade->where('matriculas_id', $id)->paginate(30);
+            $mensalidades = $this->mensalidade->where('matriculas_id', $id)->paginate(30);
 
-        return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidades])
-            ->with('matricula', $matricula)
-            ->with('aluno', $aluno);
+            return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidades])
+                ->with('matricula', $matricula)
+                ->with('aluno', $aluno);
+
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
+
     }
 
     public function edit(string $id)
     {
 
-        if($this->verificarAcesso('Editar mensalidade') == 1){
+        if ($this->verificarAcesso('Editar mensalidade') == 1) {
 
             $mensalidade = $this->mensalidade->find($id);
             $matriculaID = $mensalidade->matriculas_id;
@@ -113,19 +117,16 @@ class MensalidadesController extends Controller
             $matricula = Matricula::find($matriculaID);
             $aluno = $matricula->alunos()->first();
 
-            if($mensalidade->count() >= 1){
-                if($mensalidade->pago === 'nao'){
-                    return view(self::PATH.'mensalidadeEdit', ['mensalidade'=>$mensalidade, 'aluno'=>$aluno]);
-                }else{
+            if ($mensalidade->count() >= 1) {
+                if ($mensalidade->pago === 'nao') {
+                    return view(self::PATH . 'mensalidadeEdit', ['mensalidade' => $mensalidade, 'aluno' => $aluno]);
+                } else {
                     return back();
                 }
-
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function update(Request $request, string $id)
@@ -136,9 +137,9 @@ class MensalidadesController extends Controller
         $request->validate([
             'valor' => 'required',
             'dataVencimento' => 'required',
-        ],[
-            'valor.required'=>'Você deve digitar um valor',
-            'dataVencimento.required'=>'Você deve digitar uma data de vencimento valida',
+        ], [
+            'valor.required' => 'Você deve digitar um valor',
+            'dataVencimento.required' => 'Você deve digitar uma data de vencimento valida',
         ]);
 
         try {
@@ -157,47 +158,41 @@ class MensalidadesController extends Controller
             $aluno = $matricula->alunos()->first();
 
             return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidade])
-            ->with('matricula', $matricula)
-            ->with('aluno', $aluno)
-            ->with('msg', 'Informações atualizadas com sucesso!!!');
-
+                ->with('matricula', $matricula)
+                ->with('aluno', $aluno)
+                ->with('msg', 'Informações atualizadas com sucesso!!!');
         } catch (\Throwable $th) {
             //throw $th;
         }
-
     }
 
     public function destroy(string $id)
     {
 
-        if ($this->verificarAcesso('Excluir mensalidade') == 1){
+        if ($this->verificarAcesso('Excluir mensalidade') == 1) {
 
             $mensalidade = $this->mensalidade->find($id);
 
             $matriculaID = $mensalidade->matriculas_id;
             $alunoID = $mensalidade->alunos_id;
 
-            if($mensalidade->count() >= 1){
+            if ($mensalidade->count() >= 1) {
 
-                if($mensalidade->pago === 'nao'){
+                if ($mensalidade->pago === 'nao') {
 
                     try {
 
                         $mensalidade->delete();
                         $msg = "Mensalidade excluida com sucesso!!!";
-
                     } catch (\Throwable $th) {
                         $msg = "ERRO! Não foi possível excluir a mensalidade!";
                     }
-
-                }else{
+                } else {
                     $msg = 'ERRO! Não é possível exluir uma mensalidade que já esteja paga';
                 }
-
-        }else{
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
-        }
-
+            } else {
+                return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+            }
         }
 
         $mensalidade = $this->mensalidade->where('matriculas_id', $matriculaID)->paginate();
@@ -206,16 +201,15 @@ class MensalidadesController extends Controller
         $aluno = $matricula->alunos()->first();
 
         return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidade])
-        ->with('matricula', $matricula)
-        ->with('aluno', $aluno)
-        ->with('msg', $msg);
-
+            ->with('matricula', $matricula)
+            ->with('aluno', $aluno)
+            ->with('msg', $msg);
     }
 
     public function selecionarPagamento(string $mensalidade, string $matricula)
     {
 
-        if($this->verificarAcesso('Quitar mensalidade') == 1){
+        if ($this->verificarAcesso('Quitar mensalidade') == 1) {
 
             $caixa = ControleCaixa::latest()->first();
 
@@ -225,14 +219,14 @@ class MensalidadesController extends Controller
             $dataAberturaCaixa = Carbon::createFromFormat('Y-m-d', $caixa->data_abertura);
             $dataAberturaCaixa = $dataAberturaCaixa->format('d/m/Y');
 
-            if($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual){
+            if ($caixa->status == 'aberto' and $dataAberturaCaixa == $dataAtual) {
 
                 $mensalidade = $this->mensalidade->find($mensalidade);
                 $matricula = Matricula::find($matricula);
                 $aluno = $matricula->alunos()->first();
                 $responsavel = Responsavel::where('alunos_id', $aluno->id)->first();
 
-                if($mensalidade->pago === 'nao'){
+                if ($mensalidade->pago === 'nao') {
 
                     $formaPagamento = MeiosPagamento::all();
 
@@ -246,18 +240,16 @@ class MensalidadesController extends Controller
                         ->with('juros', $juros)
                         ->with('formas_pagamentos', $formaPagamento)
                         ->with('responsavel', $responsavel);
-
-                }else{
+                } else {
                     return back();
                 }
-
-            }else{
+            } else {
 
                 $msg = '';
 
-                if($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual){
+                if ($caixa->status == 'aberto' and $dataAberturaCaixa != $dataAtual) {
                     $msg = 'ATENÇÃO! O caixa anterior não foi encerrado. Por favor, finalize o caixa anterior antes de realizar qualquer operação financeira.';
-                }elseif($caixa->status == 'encerrado'){
+                } elseif ($caixa->status == 'encerrado') {
                     $msg = 'ATENÇÃO! O caixa está fechado. Para realizar qualquer operação financeira, é necessário criar um novo caixa.';
                 }
 
@@ -265,11 +257,9 @@ class MensalidadesController extends Controller
                 return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
                     ->with('msg', $msg);
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function quitar(Request $request)
@@ -312,7 +302,6 @@ class MensalidadesController extends Controller
                 ->with('empresa', $empresa)
                 ->with('mensalidade', $mensalidade)
                 ->with('aluno', $aluno);
-
         } catch (\Throwable $th) {
             return $th;
         }
@@ -334,32 +323,32 @@ class MensalidadesController extends Controller
         $empresa = Empresa::all()->first();
 
         return view(self::PATH . 'mensalidadesImpressao', ['mensalidades' => $mensalidades])
-                        ->with('empresa', $empresa)
-                        ->with('aluno', $aluno)
-                        ->with('config', $confMensalidades);
+            ->with('empresa', $empresa)
+            ->with('aluno', $aluno)
+            ->with('config', $confMensalidades);
     }
 
-    public function adicionar(string $matricula){
+    public function adicionar(string $matricula)
+    {
 
-        if($this->verificarAcesso('Adicionar mensalidade') == 1){
+        if ($this->verificarAcesso('Adicionar mensalidade') == 1) {
 
             $matricula = Matricula::find($matricula);
             $aluno = $matricula->alunos()->first();
 
-            if($matricula->count() >= 1){
-                return view(self::PATH.'mensalidadesCreate', ['matricula'=>$matricula, 'aluno'=>$aluno ]);
+            if ($matricula->count() >= 1) {
+                return view(self::PATH . 'mensalidadesCreate', ['matricula' => $matricula, 'aluno' => $aluno]);
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
-    public function capaCarne(){
+    public function capaCarne()
+    {
 
         $empresa = Empresa::all()->first();
-        return view(self::PATH.'mensalidadesCapa', ['empresa'=>$empresa]);
-
+        return view(self::PATH . 'mensalidadesCapa', ['empresa' => $empresa]);
     }
 
     private function calcularJuros(string $valor, DateTime $vencimento)
@@ -412,5 +401,4 @@ class MensalidadesController extends Controller
             return 0;
         }
     }
-
 }

@@ -142,20 +142,24 @@ class MatriculasController extends Controller
     public function show(string $id)
     {
 
-        $matricula = $this->matricula->find($id);
+        if ($this->verificarAcesso('Matricula') == 1) {
+            $matricula = $this->matricula->find($id);
 
-        $alunoID = $matricula->alunos_id;
+            $alunoID = $matricula->alunos_id;
 
-        $aluno = Aluno::find($alunoID);
-        $responsavel = Responsavel::where('alunos_id', $alunoID);
+            $aluno = Aluno::find($alunoID);
+            $responsavel = Responsavel::where('alunos_id', $alunoID);
 
-        if ($matricula->count() >= 1) {
+            if ($matricula->count() >= 1) {
 
-            return view(self::PATH . 'matriculaHome', ['matricula' => $matricula])
-                ->with('aluno', $aluno)
-                ->with('responsavel', $responsavel);
+                return view(self::PATH . 'matriculaHome', ['matricula' => $matricula])
+                    ->with('aluno', $aluno)
+                    ->with('responsavel', $responsavel);
+            } else {
+                return redirect()->back();
+            }
         } else {
-            return redirect()->back();
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
@@ -163,7 +167,7 @@ class MatriculasController extends Controller
     public function edit(string $id)
     {
 
-        if ($this->verificarAcesso('Editar matricula')){
+        if ($this->verificarAcesso('Editar matricula')) {
 
             $matricula = $this->matricula->with('cursos')->find($id);
             $listaCursos = Curso::all();
@@ -184,11 +188,9 @@ class MatriculasController extends Controller
                     ->with('consultores', $listaConsultores)
                     ->with('cons', $nomeConsultor);
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function update(Request $request, string $id)
@@ -273,7 +275,7 @@ class MatriculasController extends Controller
     public function destroy(string $id)
     {
 
-        if ($this->verificarAcesso('Excluir matricula')){
+        if ($this->verificarAcesso('Excluir matricula')) {
 
             $matricula = $this->matricula->find($id);
 
@@ -294,11 +296,9 @@ class MatriculasController extends Controller
             } else {
                 return back()->with('msg', 'ERRO! Não foi possivel excluir a matrícula!');
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function homeMatricula(string $idAluno)
@@ -334,27 +334,29 @@ class MatriculasController extends Controller
                     ->with('cursos', $listaCursos)
                     ->with('consultores', $listaConsultores);
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function exibirInfoMatriculas(string $matricula)
     {
 
-        $matricula = $this->matricula->find($matricula);
+        if ($this->verificarAcesso('Matricula') == 1) {
+            $matricula = $this->matricula->find($matricula);
 
-        $alunoID = $matricula->alunos_id;
+            $alunoID = $matricula->alunos_id;
 
-        $aluno = Aluno::find($alunoID);
-        $responsavel = Responsavel::where('alunos_id', $alunoID);
+            $aluno = Aluno::find($alunoID);
+            $responsavel = Responsavel::where('alunos_id', $alunoID);
 
-        return view(self::PATH . 'matriculaHome')
-            ->with('aluno', $aluno)
-            ->with('responsavel', $responsavel)
-            ->with('matricula', $matricula);
+            return view(self::PATH . 'matriculaHome')
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel)
+                ->with('matricula', $matricula);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function adicionar(string $idAluno)
@@ -373,11 +375,9 @@ class MatriculasController extends Controller
                 ->with('responsavel', $responsavel->first())
                 ->with('cursos', $listaCursos)
                 ->with('consultores', $listaConsultores);
-
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function gerarParcelas(
@@ -388,8 +388,7 @@ class MatriculasController extends Controller
         float    $valorParcela,
         DateTime $vencimento,
         string   $obs = " "
-    )
-    {
+    ) {
 
         for ($i = 0; $i < $qtdeParcela; $i++) {
 
@@ -415,26 +414,30 @@ class MatriculasController extends Controller
     private function adicionarDisciplinas(string $aluno, string $matricula, string $curso)
     {
 
-        $disciplinas = new CursosDisciplina();
+        if ($this->verificarAcesso('Matricula') == 1) {
+            $disciplinas = new CursosDisciplina();
 
-        $disciplinas = $disciplinas->with('disciplinas')->where('cursos_id', $curso)->get();
+            $disciplinas = $disciplinas->with('disciplinas')->where('cursos_id', $curso)->get();
 
-        foreach ($disciplinas as $disciplina) {
+            foreach ($disciplinas as $disciplina) {
 
-            $matDis = new MatriculaDisciplina();
+                $matDis = new MatriculaDisciplina();
 
-            try {
+                try {
 
-                $matDis->matriculas_id = $matricula;
-                $matDis->alunos_id = $aluno;
-                $matDis->cursos_id = $disciplina->cursos_id;
-                $matDis->disciplinas_id = $disciplina->disciplinas_id;
-                $matDis->concluido = 'Não iniciado';
+                    $matDis->matriculas_id = $matricula;
+                    $matDis->alunos_id = $aluno;
+                    $matDis->cursos_id = $disciplina->cursos_id;
+                    $matDis->disciplinas_id = $disciplina->disciplinas_id;
+                    $matDis->concluido = 'Não iniciado';
 
-                $matDis->save();
-            } catch (\Throwable $th) {
-                return 'Erro ao adicionar disciplinas: ' . $th->getMessage();
+                    $matDis->save();
+                } catch (\Throwable $th) {
+                    return 'Erro ao adicionar disciplinas: ' . $th->getMessage();
+                }
             }
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
@@ -454,6 +457,4 @@ class MatriculasController extends Controller
             return 0;
         }
     }
-
-
 }
