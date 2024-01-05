@@ -147,10 +147,12 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Alunos</span></a>
 
-                        <a class="sidebar-link text-white" href="/grade_horarios">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">
-                                Grade de horários </span></a>
+                        @can('show', [\App\Policies\GradeHorariosPolicy::class])
+                            <a class="sidebar-link text-white" href="/grade_horarios">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">
+                                    Grade de horários </span></a>
+                        @endcan
 
                     </div>
 
@@ -164,37 +166,48 @@
                     </li>
                     <div id="sub-menu4" class="collapse" style="margin-left: 15px;">
 
-                        <a class="sidebar-link text-white" href="/plano_contas">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Plano de contas</span></a>
+                        @can('show', [\App\Policies\PlanoContas::class])
+                            <a class="sidebar-link text-white" href="/plano_contas">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Plano de contas</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/contas_pagar">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Contas a pagar</span></a>
+                        @can('show', [\App\Policies\ContasPagar::class])
+                            <a class="sidebar-link text-white" href="/contas_pagar">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Contas a pagar</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/estornar_mensalidade">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">
-                                Estornar mensalidades </span>
-                        </a>
+                        @can('show', [\App\Policies\EstornarMensalidadePolicy::class])
+                            <a class="sidebar-link text-white" href="/estornar_mensalidade">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">
+                                    Estornar mensalidades </span>
+                            </a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/entrada_valores">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">
-                                Entrada de valores </span>
-                        </a>
+                        @can('show', [\App\Policies\EntradaValor::class])
+                            <a class="sidebar-link text-white" href="/entrada_valores">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">
+                                    Entrada de valores </span>
+                            </a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/saida_valores">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">
-                                Saida de valores </span>
-                        </a>
+                        @can('show', [\App\Policies\Saidavalor::class])
+                            <a class="sidebar-link text-white" href="/saida_valores">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">
+                                    Saida de valores </span>
+                            </a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/controle_caixa">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">
-                                Caixa </span>
-                        </a>
+                        @can('show', [\App\Policies\ControleCaixa::class])
+                            <a class="sidebar-link text-white" href="/controle_caixa">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">
+                                    Caixa </span></a>
+                        @endcan
 
                     </div>
 
@@ -209,10 +222,12 @@
 
                     <div id="sub-menu6" class="collapse" style="margin-left: 15px;">
 
-                        <a class="sidebar-link text-white" href="/usuarios">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Usuários</span>
-                        </a>
+                        @can('show', [App\Models\User::class])
+                            <a class="sidebar-link text-white" href="/usuarios">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Usuários</span>
+                            </a>
+                        @endcan
 
                         @can('show', [App\Models\Professor::class])
                             <a class="sidebar-link text-white" href="/professores">
@@ -242,19 +257,26 @@
 
                     <div id="sub-menu5" class="collapse" style="margin-left: 15px;">
 
-                        <a class="sidebar-link text-white" href="/conf_carteira">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Conf. Imp. Cateira</span></a>
+                        @can('show', [\App\Policies\ConfCarteira::class])
+                            <a class="sidebar-link text-white" href="/conf_carteira">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Conf. Imp. Cateira</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/impressao_carteira">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Impressão carteira</span>
-                        </a>
+                        @can('show', [\App\Policies\ImpressaoCarteira::class])
+                            <a class="sidebar-link text-white" href="/impressao_carteira">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Impressão carteira</span>
+                            </a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="/visitas">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Visitas</span>
-                        </a>
+                        @can('show', [\App\Policies\CadastroVisita::class])
+                            <a class="sidebar-link text-white" href="/visitas">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Visitas</span>
+                            </a>
+                        @endcan
+
                     </div>
 
                     {{-- RELATÓRIOS --}}

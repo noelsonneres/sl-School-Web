@@ -45,6 +45,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
+use App\Policies\GradeHorariosPolicy;
+use App\Policies\EstornarMensalidadePolicy;
 
 
 Route::get('/', function(){
@@ -152,7 +154,7 @@ Route::resource('matricula_finalizar', MatriculaFinalizarController::class)->mid
 
 Route::resource('matricula_reativar', MatriculaReativarController::class)->middleware('can:view, App\Models\MatriculaReativar');
 
-Route::get('/grade_horarios', [GradeHorariosController::class, 'grade']);
+Route::get('/grade_horarios', [GradeHorariosController::class, 'grade'])->middleware('can:view,' . GradeHorariosPolicy::class);
 Route::get('/grade_horarios_filtrar', [GradeHorariosController::class, 'filtrarGrade']);
 Route::get('/grade_horarios_alunos/{turma}', [GradeHorariosController::class, 'gradeAlunos']);
 
@@ -166,40 +168,40 @@ Route::get('/reposicao_selecionar/{matricula}/{turma}', [ReposicoesController::c
 Route::post('/resposicao_marcar', [ReposicoesController::class, 'marcarReposicao'])->middleware('can:view, App\Models\Reposicao');
 Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar'])->middleware('can:view, App\Models\Reposicao');
 
-Route::resource('plano_contas', PlanoContasController::class);
-Route::get('plano_contas_localizar', [PlanoContasController::class, 'find']);
+Route::resource('plano_contas', PlanoContasController::class)->middleware('can:view, App\Models\PlanoContas');
+Route::get('plano_contas_localizar', [PlanoContasController::class, 'find'])->middleware('can:view, App\Models\PlanoContas');
 
-Route::resource('contas_pagar', ContasPagarController::class);
-Route::get('/contas_localizar', [ContasPagarController::class, 'find']);
+Route::resource('contas_pagar', ContasPagarController::class)->middleware('can:view, App\Models\ContasPagar');
+Route::get('/contas_localizar', [ContasPagarController::class, 'find'])->middleware('can:view, App\Models\ContasPagar');
 
-Route::get('/estornar_mensalidade', [EstornarMensalidadeController::class, 'index']);
-Route::get('/estornar_mensalidade_localizar', [EstornarMensalidadeController::class, 'localizarMensalidade']);
-Route::get('/estornar_mensalidade_estornar/{mensalidade}', [EstornarMensalidadeController::class, 'estornar']);
+Route::get('/estornar_mensalidade', [EstornarMensalidadeController::class, 'index'])->middleware('can:view,' . EstornarMensalidadePolicy::class);
+Route::get('/estornar_mensalidade_localizar', [EstornarMensalidadeController::class, 'localizarMensalidade'])->middleware('can:view,' . EstornarMensalidadePolicy::class);
+Route::get('/estornar_mensalidade_estornar/{mensalidade}', [EstornarMensalidadeController::class, 'estornar'])->middleware('can:view,' . EstornarMensalidadePolicy::class);
 
-Route::resource('entrada_valores', EntradaValoresController::class);
-Route::get('entrada_valores_localizar', [EntradaValoresController::class, 'find']);
+Route::resource('entrada_valores', EntradaValoresController::class)->middleware('can:view, App\Models\EntradaValor');
+Route::get('entrada_valores_localizar', [EntradaValoresController::class, 'find'])->middleware('can:view, App\Models\EntradaValor');
 
-Route::resource('saida_valores', SaidaValoresController::class);
-Route::get('/saida_valores_localizar', [SaidaValoresController::class, 'find']);
+Route::resource('saida_valores', SaidaValoresController::class)->middleware('can:view, App\Models\Saidavalor');
+Route::get('/saida_valores_localizar', [SaidaValoresController::class, 'find'])->middleware('can:view, App\Models\Saidavalor');
 
-Route::resource('controle_caixa', ControleCaixaController::class);
-Route::post('/controle_caixa_iniciar', [ControleCaixaController::class, 'iniciarCaixa']);
-Route::get('/controle_caixa_novo_caixa', [ControleCaixaController::class, 'novoCaixa']);
+Route::resource('controle_caixa', ControleCaixaController::class)->middleware('can:view, App\Models\ControleCaixa');
+Route::post('/controle_caixa_iniciar', [ControleCaixaController::class, 'iniciarCaixa'])->middleware('can:view, App\Models\ControleCaixa');
+Route::get('/controle_caixa_novo_caixa', [ControleCaixaController::class, 'novoCaixa'])->middleware('can:view, App\Models\ControleCaixa');
 
-Route::resource('conf_carteira', ConfCarteiraController::class);
+Route::resource('conf_carteira', ConfCarteiraController::class)->middleware('can:view, App\Models\ConfCarteira');
 
-Route::resource('impressao_carteira', ImpressaoCarteiraController::class);
-Route::get('/impressao_carteira_confirmar/{matricula}', [ImpressaoCarteiraController::class, 'confirmarDados']);
-Route::get('/impressao_carteira_loc_alunos', [ImpressaoCarteiraController::class, 'find']);
-Route::get('/impressao_carteira_impressao/{carteira}', [ImpressaoCarteiraController::class, 'impressao']);
+Route::resource('impressao_carteira', ImpressaoCarteiraController::class)->middleware('can:view, App\Models\ImpressaoCarteira');
+Route::get('/impressao_carteira_confirmar/{matricula}', [ImpressaoCarteiraController::class, 'confirmarDados'])->middleware('can:view, App\Models\ImpressaoCarteira');
+Route::get('/impressao_carteira_loc_alunos', [ImpressaoCarteiraController::class, 'find'])->middleware('can:view, App\Models\ImpressaoCarteira');
+Route::get('/impressao_carteira_impressao/{carteira}', [ImpressaoCarteiraController::class, 'impressao'])->middleware('can:view, App\Models\ImpressaoCarteira');
 
-Route::resource('visitas', CadastroVisitaController::class);
-Route::get('/visitas_localizar', [CadastroVisitaController::class, 'find']);
+Route::resource('visitas', CadastroVisitaController::class)->middleware('can:view, App\Models\CadastroVisita');
+Route::get('/visitas_localizar', [CadastroVisitaController::class, 'find'])->middleware('can:view, App\Models\CadastroVisita');
 
-Route::resource('usuarios', UserController::class);
-Route::get('/usuarios_localizar', [UserController::class, 'find']);
+Route::resource('usuarios', UserController::class)->middleware('can:view, App\Models\User');
+Route::get('/usuarios_localizar', [UserController::class, 'find'])->middleware('can:view, App\Models\User');
 
-Route::resource('nivel_acesso', NivelAcessoController::class);
-Route::post('/nivel_acesso_adicionar', [NivelAcessoController::class, 'adcionarRegra']);
-Route::get('/nivel_acesso_bloquear/{nivelID}', [NivelAcessoController::class, 'bloquearAcesso']);
-Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'liberarAcesso']);
+Route::resource('nivel_acesso', NivelAcessoController::class)->middleware('can:view, App\Models\NivelAcesso');
+Route::post('/nivel_acesso_adicionar', [NivelAcessoController::class, 'adcionarRegra'])->middleware('can:view, App\Models\NivelAcesso');
+Route::get('/nivel_acesso_bloquear/{nivelID}', [NivelAcessoController::class, 'bloquearAcesso'])->middleware('can:view, App\Models\NivelAcesso');
+Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'liberarAcesso'])->middleware('can:view, App\Models\NivelAcesso');
