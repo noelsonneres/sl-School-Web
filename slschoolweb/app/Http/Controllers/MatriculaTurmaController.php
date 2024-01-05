@@ -86,7 +86,6 @@ class MatriculaTurmaController extends Controller
                     $turma->save();
 
                     $msg = 'Turma adicionada na matrícula com sucesso!!!';
-
                 } catch (\Throwable $th) {
 
                     $msg = 'ERRO! Não foi possível salvar as informações no banco de dados: ' . $th->getMessage();
@@ -94,7 +93,6 @@ class MatriculaTurmaController extends Controller
             } else {
                 $msg = 'ATENÇÃO! Não há vagas disponíveis. Tente outra turma';
             }
-
         } else {
             $msg = 'ERRO! A turma ja está adicionada para a matrícula!';
         }
@@ -113,8 +111,13 @@ class MatriculaTurmaController extends Controller
 
     public function show(string $id)
     {
-        $turma = MatriculaTurma::with('turmas')->where('matriculas_id', $id);
-        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma]);
+
+        if ($this->verificarAcesso() == 1) {
+            $turma = MatriculaTurma::with('turmas')->where('matriculas_id', $id);
+            return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma]);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function edit(string $id)
@@ -147,50 +150,55 @@ class MatriculaTurmaController extends Controller
                 ->with('aluno', $aluno)
                 ->with('responsavel', $responsavel)
                 ->with('matricula', $matriculaID);
-
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function inserir(Request $request, string $matriculaID)
     {
 
-        $listaTurmas = Turma::paginate();
+        if ($this->verificarAcesso() == 1) {
+            $listaTurmas = Turma::paginate();
 
-        $matricula = Matricula::find($matriculaID);
+            $matricula = Matricula::find($matriculaID);
 
-        return view(self::PATH . 'matriculaTurmasCreate', ['matricula' => $matricula])
-            ->with('listaTurmas', $listaTurmas);
-
+            return view(self::PATH . 'matriculaTurmasCreate', ['matricula' => $matricula])
+                ->with('listaTurmas', $listaTurmas);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function remover(string $matriculaID, string $matriculaTurmaID)
     {
-        $turma = MatriculaTurma::find($matriculaTurmaID);
-        $msg = "";
+        if ($this->verificarAcesso() == 1) {
+            $turma = MatriculaTurma::find($matriculaTurmaID);
+            $msg = "";
 
-        if ($turma->count() >= 1) {
-            $turma->delete();
-            $msg = "Turma removida com sucesso da matrícula!!!";
+            if ($turma->count() >= 1) {
+                $turma->delete();
+                $msg = "Turma removida com sucesso da matrícula!!!";
+            } else {
+                $msg = "ERRO! Não foi possível remover a turma da matrícula";
+            }
+
+            $alunoID = Matricula::find($matriculaID)->alunos_id;
+
+            $aluno = Aluno::find($alunoID)->first();
+            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+
+            $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
+                ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+
+            return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
+                ->with('aluno', $aluno)
+                ->with('responsavel', $responsavel)
+                ->with('matricula', $matriculaID)
+                ->with('msg', $msg);
         } else {
-            $msg = "ERRO! Não foi possível remover a turma da matrícula";
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
-        $alunoID = Matricula::find($matriculaID)->alunos_id;
-
-        $aluno = Aluno::find($alunoID)->first();
-        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
-
-        $turma = MatriculaTurma::with('turmas.dias', 'turmas.horarios')
-            ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
-
-        return view(self::PATH . 'matriculaTurmaShow', ['turmas' => $turma])
-            ->with('aluno', $aluno)
-            ->with('responsavel', $responsavel)
-            ->with('matricula', $matriculaID)
-            ->with('msg', $msg);
     }
 
     private function verificarDisponibilidade(string $turma)
@@ -205,7 +213,6 @@ class MatriculaTurmaController extends Controller
         $vagasSala = $salaTurmas->sala->vagas;
 
         return ($total < $vagasSala) ? true : false;
-
     }
 
     private function verificarAcesso()
@@ -224,5 +231,4 @@ class MatriculaTurmaController extends Controller
             return 0;
         }
     }
-
 }

@@ -99,11 +99,9 @@ class MatriculaMateriaisController extends Controller
                 'materiais' => $materiais,
                 'matricula' => $matricula, 'aluno' => $aluno
             ]);
-
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function edit(string $id)
@@ -124,117 +122,134 @@ class MatriculaMateriaisController extends Controller
     public function adicionar(string $matricula)
     {
 
-        $matricula = Matricula::find($matricula);
-        $aluno = $matricula->alunos()->first();
+        if ($this->verificarAcesso() == 1) {
+            $matricula = Matricula::find($matricula);
+            $aluno = $matricula->alunos()->first();
 
-        $listaMateriais = MateriaisEscolar::all();
+            $listaMateriais = MateriaisEscolar::all();
 
-        if ($matricula->count() >= 1) {
-            return view(self::PATH . 'matriculaMateriaisCreate', [
-                'matricula' => $matricula,
-                'aluno' => $aluno, 'listaMaterias' => $listaMateriais
-            ]);
+            if ($matricula->count() >= 1) {
+                return view(self::PATH . 'matriculaMateriaisCreate', [
+                    'matricula' => $matricula,
+                    'aluno' => $aluno, 'listaMaterias' => $listaMateriais
+                ]);
+            } else {
+                return back();
+            }
         } else {
-            return back();
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
     public function adicionarParcela(string $matricula, string $material)
     {
 
-        $materiais = $this->material->with('alunos')
-            ->where('matriculas_id', $matricula)
-            ->where('id', $material)->first();
+        if ($this->verificarAcesso() == 1) {
+            $materiais = $this->material->with('alunos')
+                ->where('matriculas_id', $matricula)
+                ->where('id', $material)->first();
 
-        $alunoID = $materiais->alunos_id;
+            $alunoID = $materiais->alunos_id;
 
-        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
 
-        return view(self::PATH . 'matriculaMaterialParcela', ['material' => $materiais])
-            ->with('responsavelID', $responsavel->id);
+            return view(self::PATH . 'matriculaMaterialParcela', ['material' => $materiais])
+                ->with('responsavelID', $responsavel->id);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function adicionarParcelas(string $matricula)
     {
 
-        $total = 0;
-        $alunoID = 0;
-        $matriculaID = 0;
+        if ($this->verificarAcesso() == 1) {
 
-        $materiais = $this->material->with('alunos')
-            ->where('matriculas_id', $matricula)->get();
+            $total = 0;
+            $alunoID = 0;
+            $matriculaID = 0;
 
-        foreach ($materiais as $material) {
-            $total = $total + $material->valor_total;
-            $alunoID = $material->alunos_id;
-            $matriculaID = $material->matriculas_id;
+            $materiais = $this->material->with('alunos')
+                ->where('matriculas_id', $matricula)->get();
+
+            foreach ($materiais as $material) {
+                $total = $total + $material->valor_total;
+                $alunoID = $material->alunos_id;
+                $matriculaID = $material->matriculas_id;
+            }
+
+            $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
+            $alunoNome = Aluno::find($alunoID)->first()->nome;
+
+            $dadosAluno = [
+                'matriculaID' => $matriculaID, 'alunoID' => $alunoID,
+                'alunoNome' => $alunoNome,
+                'responsavelID' => $responsavel->id
+            ];
+
+            return view(self::PATH . 'matriculaMaterialParcelas', ['material' => $materiais])
+                ->with('dadosAluno', $dadosAluno)
+                ->with('totalMateriais', $total);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
-        $responsavel = Responsavel::where('alunos_id', $alunoID)->first();
-        $alunoNome = Aluno::find($alunoID)->first()->nome;
-
-        $dadosAluno = ['matriculaID' => $matriculaID, 'alunoID' => $alunoID,
-            'alunoNome' => $alunoNome,
-            'responsavelID' => $responsavel->id];
-
-        return view(self::PATH . 'matriculaMaterialParcelas', ['material' => $materiais])
-            ->with('dadosAluno', $dadosAluno)
-            ->with('totalMateriais', $total);
-
     }
 
 
     public function parcela(Request $request)
     {
 
-        $alunoID = $request->input('aluno');
-        $responsavelID = $request->input('responsavel');
-        $matriculaID = $request->input('matricula');
-        $qtdeParcela = $request->input('qtde');
-        $valorParcela = $request->input('valorParcela');
-        $vencimento = new DateTime($request->input('vencimento'));
-        $obs = $request->input('obs');
+        if ($this->verificarAcesso() == 1) {
 
-        try {
+            $alunoID = $request->input('aluno');
+            $responsavelID = $request->input('responsavel');
+            $matriculaID = $request->input('matricula');
+            $qtdeParcela = $request->input('qtde');
+            $valorParcela = $request->input('valorParcela');
+            $vencimento = new DateTime($request->input('vencimento'));
+            $obs = $request->input('obs');
 
-            for ($i = 0; $i < $qtdeParcela; $i++) {
+            try {
 
-                $mensalidade = new Mensalidade();
+                for ($i = 0; $i < $qtdeParcela; $i++) {
 
-                $mensalidade->responsavels_id = $responsavelID;
-                $mensalidade->alunos_id = $alunoID;
-                $mensalidade->matriculas_id = $matriculaID;
-                $mensalidade->qtde_mensalidades = $qtdeParcela;
-                $mensalidade->valor_parcela = $valorParcela;
+                    $mensalidade = new Mensalidade();
 
-                $dataVencimento = clone $vencimento;
-                $dataVencimento->modify('+' . $i . ' months');
-                $mensalidade->vencimento = $dataVencimento;
+                    $mensalidade->responsavels_id = $responsavelID;
+                    $mensalidade->alunos_id = $alunoID;
+                    $mensalidade->matriculas_id = $matriculaID;
+                    $mensalidade->qtde_mensalidades = $qtdeParcela;
+                    $mensalidade->valor_parcela = $valorParcela;
 
-                $mensalidade->pago = 'nao';
-                $mensalidade->observacao = $obs;
+                    $dataVencimento = clone $vencimento;
+                    $dataVencimento->modify('+' . $i . ' months');
+                    $mensalidade->vencimento = $dataVencimento;
 
-                $mensalidade->save();
+                    $mensalidade->pago = 'nao';
+                    $mensalidade->observacao = $obs;
 
-                $msg = 'A(s) parcela(s) foram incluidas na mensalidade com sucesso!!!';
+                    $mensalidade->save();
 
+                    $msg = 'A(s) parcela(s) foram incluidas na mensalidade com sucesso!!!';
+                }
+            } catch (\Throwable $th) {
+                $msg = 'ERRO! Não foi possível gerar as parcelas!';
             }
 
-        } catch (\Throwable $th) {
-            $msg = 'ERRO! Não foi possível gerar as parcelas!';
+            $matricula = Matricula::find($matriculaID);
+            $aluno = $matricula->alunos()->first();
+
+            $materiais = $this->material->with('material')->where('matriculas_id', $matriculaID)
+                ->orderBy('id', 'desc')->paginate();
+
+            return view(self::PATH . 'matriculaMateriais', [
+                'materiais' => $materiais,
+                'matricula' => $matricula, 'aluno' => $aluno
+            ])
+                ->with('msg', $msg);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
-        $matricula = Matricula::find($matriculaID);
-        $aluno = $matricula->alunos()->first();
-
-        $materiais = $this->material->with('material')->where('matriculas_id', $matriculaID)
-            ->orderBy('id', 'desc')->paginate();
-
-        return view(self::PATH . 'matriculaMateriais', [
-            'materiais' => $materiais,
-            'matricula' => $matricula, 'aluno' => $aluno
-        ])
-            ->with('msg', $msg);
     }
 
     public function gerarParcelas(
@@ -245,8 +260,7 @@ class MatriculaMateriaisController extends Controller
         float    $valorParcela,
         DateTime $vencimento,
         string   $obs = " "
-    )
-    {
+    ) {
 
         for ($i = 0; $i < $qtdeParcela; $i++) {
 
@@ -285,5 +299,4 @@ class MatriculaMateriaisController extends Controller
             return 0;
         }
     }
-
 }

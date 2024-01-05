@@ -86,7 +86,7 @@
                         <div class="col-md-2">
                             <label for="saldoEncerramento" class="form-label lblCaption">Saldo de encerramento</label>
                             <input type="number" class="form-control" name="saldoEncerramento" id="saldoEncerramento"
-                                   value="{{$total}}" required>
+                                   value="{{$total}}" required autofocus>
                         </div>
 
                         <div class="col-md-2">

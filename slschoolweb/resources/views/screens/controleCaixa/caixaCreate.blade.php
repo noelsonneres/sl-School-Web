@@ -47,7 +47,8 @@
 
                     <div class="col-md-6">
                         <label for="valorInformado" class="form-label lblCaption">Valor informado (R$)</label>
-                        <input type="number" class="form-control" name="valorInformado" id="valorInformado" required value="0">
+                        <input type="number" class="form-control" name="valorInformado" id="valorInformado"
+                             required value="0" autofocus>
                     </div>
 
                 </div>

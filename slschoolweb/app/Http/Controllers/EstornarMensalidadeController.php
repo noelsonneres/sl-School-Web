@@ -22,7 +22,7 @@ class EstornarMensalidadeController extends Controller
     public  function index()
     {
 
-        if ($this->verificarAcesso() == 1){
+        if ($this->verificarAcesso() == 1) {
 
             $caixa = ControleCaixa::latest()->first();
 
@@ -36,7 +36,6 @@ class EstornarMensalidadeController extends Controller
 
                 $mensalidade = Mensalidade::where('id', '0')->paginate();
                 return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
-
             } else {
 
                 $msg = '';
@@ -51,34 +50,36 @@ class EstornarMensalidadeController extends Controller
                 return view('screens.controleCaixa.caixaShow', ['caixas' => $caixa])
                     ->with('msg', $msg);
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function localizarMensalidade(Request $request)
     {
 
-        $campo = $request->input('opt');
-        $valor = $request->input('find');
+        if ($this->verificarAcesso() == 1) {
+            $campo = $request->input('opt');
+            $valor = $request->input('find');
 
-        if (empty($campo)) {
-            $mensalidade = Mensalidade::where('id', '0')->paginate();
-            return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade])
-                ->with('msg', 'ATENÇÃO! Selecione o criterio de pesquisa!');
+            if (empty($campo)) {
+                $mensalidade = Mensalidade::where('id', '0')->paginate();
+                return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade])
+                    ->with('msg', 'ATENÇÃO! Selecione o criterio de pesquisa!');
+            }
+
+            if (empty($valor)) {
+                $valor = 0;
+            }
+
+            $mensalidade = Mensalidade::where($campo, 'LIKE', $valor . '%')
+                ->where('pago', 'sim')
+                ->paginate(15);
+
+            return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
-        if (empty($valor)) {
-            $valor = 0;
-        }
-
-        $mensalidade = Mensalidade::where($campo, 'LIKE', $valor . '%')
-            ->where('pago', 'sim')
-            ->paginate(15);
-
-        return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade]);
     }
 
     public function estornar(string $mensalidade)
@@ -105,12 +106,12 @@ class EstornarMensalidadeController extends Controller
             $msg = 'ERRO! Não foi possível estornar a mensalidade!';
         }
 
-        $mensalidade = Mensalidade::where('matriculas_id', $matriculaID)
-            ->where('pago', 'sim')
-            ->paginate(15);
+        // $mensalidade = Mensalidade::where('matriculas_id', $matriculaID)
+        //     ->where('pago', 'sim')
+        //     ->paginate(15);
 
-        return view(self::PATH . 'estornarShow', ['mensalidades' => $mensalidade])
-            ->with('msg', $msg);
+        return redirect()->back()->with('msg', $msg);
+        
     }
 
     private function verificarAcesso()
@@ -129,5 +130,4 @@ class EstornarMensalidadeController extends Controller
             return 0;
         }
     }
-
 }

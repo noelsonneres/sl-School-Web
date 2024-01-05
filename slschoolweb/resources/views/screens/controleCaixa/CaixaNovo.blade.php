@@ -131,7 +131,7 @@
                         <div class="col-md-2">
                             <label for="valorInformadoAtual" class="form-label lblCaption">Valor informado</label>
                             <input type="number" class="form-control" name="valorInformadoAtual" id="valorInformadoAtual"
-                            id="valor" step="0.01" min="0.01" required>
+                            id="valor" step="0.01" min="0.01" required autofocus>
                         </div>
 
                     </div>  

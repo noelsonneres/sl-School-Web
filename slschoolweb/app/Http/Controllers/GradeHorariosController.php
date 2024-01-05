@@ -23,6 +23,7 @@ class GradeHorariosController extends Controller
         $listaSala = Sala::all();
 
         return view(self::PATH . 'gradeHorarioshow', ['turmas' => $turmas, 'dias' => $listaDias, 'salas' => $listaSala]);
+        
     }
 
     public function filtrarGrade(Request $request)

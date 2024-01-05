@@ -161,6 +161,7 @@ class NivelAcessoController extends Controller
             'Conf. Impressao carteira',
             'Impressão carteira',
             'Cadastro de visitas',
+            'Grade de horários',
             'Cadastro de usuários',
             'Nível de acesso',
             'PERMITIR ACESSO A TODOS OS RECURSOS',

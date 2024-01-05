@@ -94,22 +94,25 @@ class MatriculaDisciplinasController extends Controller
             $matricula = Matricula::with('alunos')->find($id);
 
             return view(self::PATH . 'disciplinasShow', ['disciplinas' => $matDisc, 'matricula' => $matricula]);
-
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function edit(string $id)
     {
 
-        $disciplina = $this->disciplina->find($id);
-        $matriculaID = $disciplina->matriculas_id;
+        if ($this->verificarAcesso() == 1) {
 
-        $matricula = Matricula::with('alunos')->find($matriculaID);
+            $disciplina = $this->disciplina->find($id);
+            $matriculaID = $disciplina->matriculas_id;
 
-        return view(self::PATH . 'disciplinasEdit', ['disciplina' => $disciplina, 'matricula' => $matricula]);
+            $matricula = Matricula::with('alunos')->find($matriculaID);
+
+            return view(self::PATH . 'disciplinasEdit', ['disciplina' => $disciplina, 'matricula' => $matricula]);
+        } else {
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+        }
     }
 
     public function update(Request $request, string $id)
@@ -165,48 +168,59 @@ class MatriculaDisciplinasController extends Controller
     public function destroy(string $id)
     {
 
-        $disciplina = $this->disciplina->find($id);
+        if ($this->verificarAcesso() == 1) {
 
-        // dd($disciplina);
+            $disciplina = $this->disciplina->find($id);
 
-        if ($disciplina->count() >= 1) {
+            // dd($disciplina);
 
-            $matriculaID = $disciplina->matriculas_id;
+            if ($disciplina->count() >= 1) {
 
-            try {
+                $matriculaID = $disciplina->matriculas_id;
 
-                $disciplina->delete();
+                try {
 
-                $matDisc = $this->disciplina
-                    ->with('disciplinas')
-                    ->with('cursos')
-                    ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+                    $disciplina->delete();
 
-                $matricula = Matricula::with('alunos')->find($matriculaID);
+                    $matDisc = $this->disciplina
+                        ->with('disciplinas')
+                        ->with('cursos')
+                        ->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
 
-                return view(self::PATH . 'disciplinasShow', ['disciplinas' => $matDisc, 'matricula' => $matricula])
-                    ->with('msg', 'Informações sobre a disciplinas foram atualizadas com sucesso!!!');
-            } catch (\Throwable $th) {
-                return 'ERRO! Não foi possível atualizar as informações do aluno! : ' . $th->getMessage();
+                    $matricula = Matricula::with('alunos')->find($matriculaID);
+
+                    return view(self::PATH . 'disciplinasShow', ['disciplinas' => $matDisc, 'matricula' => $matricula])
+                        ->with('msg', 'Informações sobre a disciplinas foram atualizadas com sucesso!!!');
+                } catch (\Throwable $th) {
+                    return 'ERRO! Não foi possível atualizar as informações do aluno! : ' . $th->getMessage();
+                }
+            } else {
+                return redirect()->back();
             }
         } else {
-            return back();
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
     }
 
     public function adicionar(string $matriculaID)
     {
 
-        if (isset($matriculaID)) {
+        if ($this->verificarAcesso() == 1) {
 
-            $listaDisciplinas = Disciplina::all();
+            if (isset($matriculaID)) {
 
-            $matricula = Matricula::with('alunos')->find($matriculaID);
+                $listaDisciplinas = Disciplina::all();
 
-            return view(self::PATH . 'disciplinasCreate', ['matricula' => $matricula, 'listaDisciplinas' => $listaDisciplinas]);
+                $matricula = Matricula::with('alunos')->find($matriculaID);
+
+                return view(self::PATH . 'disciplinasCreate', ['matricula' => $matricula, 'listaDisciplinas' => $listaDisciplinas]);
+            } else {
+                return redirect()->back();
+            }
         } else {
-            return back();
+            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
+        
     }
 
     private function verificarAcesso()
@@ -225,5 +239,4 @@ class MatriculaDisciplinasController extends Controller
             return 0;
         }
     }
-
 }

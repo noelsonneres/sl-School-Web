@@ -142,29 +142,29 @@ Route::get('/matricula_disciplina_adicionar/{matricula}', [MatriculaDisciplinasC
 Route::resource('motivos_cancelamento', MotivoCancelamentoController::class)->middleware('can:view, App\Models\MotivoCancelamento');
 Route::get('/motivos_cancelamento_find',  [MotivoCancelamentoController::class, 'find'])->middleware('can:view, App\Models\MotivoCancelamento');
 
-Route::resource('matricula_cancelar', MatriculaCancelamentoController::class);
-Route::get('/cancelar_matricula/{id}', [MatriculaCancelamentoController::class, 'cancelarMatricula']);
+Route::resource('matricula_cancelar', MatriculaCancelamentoController::class)->middleware('can:view, App\Models\MatriculaCancelamento');
+Route::get('/cancelar_matricula/{id}', [MatriculaCancelamentoController::class, 'cancelarMatricula'])->middleware('can:view, App\Models\MatriculaCancelamento');
 // Route::get('/remover_turma_matricula/{id}', [MatriculaCancelamentoController::class, 'removerTurmas']);
 
-Route::resource('trancar_matricula', MatriculaTrancamentoController::class);
+Route::resource('trancar_matricula', MatriculaTrancamentoController::class)->middleware('can:view, App\Models\MatriculaTrancamento');
 
-Route::resource('matricula_finalizar', MatriculaFinalizarController::class);
+Route::resource('matricula_finalizar', MatriculaFinalizarController::class)->middleware('can:view, App\Models\MatriculaFinalizar');
 
-Route::resource('matricula_reativar', MatriculaReativarController::class);
+Route::resource('matricula_reativar', MatriculaReativarController::class)->middleware('can:view, App\Models\MatriculaReativar');
 
 Route::get('/grade_horarios', [GradeHorariosController::class, 'grade']);
 Route::get('/grade_horarios_filtrar', [GradeHorariosController::class, 'filtrarGrade']);
 Route::get('/grade_horarios_alunos/{turma}', [GradeHorariosController::class, 'gradeAlunos']);
 
-Route::resource('frequencia', FrequenciaController::class);
-Route::get('frequencia_adicionar/{id}', [FrequenciaController::class, 'adicionar']);
-Route::get('frequencia_localizar', [FrequenciaController::class, 'localizarFrequencias']);
+Route::resource('frequencia', FrequenciaController::class)->middleware('can:view, App\Models\Frequencia');
+Route::get('frequencia_adicionar/{id}', [FrequenciaController::class, 'adicionar'])->middleware('can:view, App\Models\Frequencia');
+Route::get('frequencia_localizar', [FrequenciaController::class, 'localizarFrequencias'])->middleware('can:view, App\Models\Frequencia');
 
-Route::resource('reposicoes',ReposicoesController::class);
-Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 'reposicao_adicionar']);
-Route::get('/reposicao_selecionar/{matricula}/{turma}', [ReposicoesController::class, 'selecionarTurma']);
-Route::post('/resposicao_marcar', [ReposicoesController::class, 'marcarReposicao']);
-Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar']);
+Route::resource('reposicoes',ReposicoesController::class)->middleware('can:view, App\Models\Reposicao');
+Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 'reposicao_adicionar'])->middleware('can:view, App\Models\Reposicao');
+Route::get('/reposicao_selecionar/{matricula}/{turma}', [ReposicoesController::class, 'selecionarTurma'])->middleware('can:view, App\Models\Reposicao');
+Route::post('/resposicao_marcar', [ReposicoesController::class, 'marcarReposicao'])->middleware('can:view, App\Models\Reposicao');
+Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar'])->middleware('can:view, App\Models\Reposicao');
 
 Route::resource('plano_contas', PlanoContasController::class);
 Route::get('plano_contas_localizar', [PlanoContasController::class, 'find']);
