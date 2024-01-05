@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\NivelAcesso;
@@ -11,10 +12,61 @@ class NivelAcessoController extends Controller
     const PATH = 'screens.usuarios.acesso.';
     private $nivel;
 
+    const listaDeRecursos = [
+        'Cad.Dias',
+        'Cad.Horários',
+        'Cad.Salas',
+        'Meios de pagamento',
+        'Conf.Mensalidades',
+        'Dados da empresa',
+        'Disciplinas',
+        'Cursos',
+        'Professores',
+        'Diciplinas professores',
+        'Consultores',
+        'Materiais escolares',
+        'Turmas',
+        'Motivos de cancelamento',
+        'Cadastro de alunos',
+        'Editar aluno',
+        'Excluir aluno',
+        'Matricula',
+        'Editar matricula',
+        'Excluir matricula',
+        'Cadastrar responsavel',
+        'Editar responsavel',
+        'Excluir responsavel',
+        'Quitar mensalidade',
+        'Adicionar mensalidade',
+        'Editar mensalidade',
+        'Excluir mensalidade',
+        'Estornar mensalidade',
+        'Adicionar turmas', //Adicionar turma à matrícula do aluno
+        'Adicionar materiais',
+        'Adicionar disciplinas',
+        'Gerar contrato',
+        'Frequencia do aluno',
+        'Reposição do aluno',
+        'Cancelar matricula',
+        'Trancar matricula',
+        'Finalizar matricula',
+        'Reativar matricula',
+        'Plano de contas',
+        'Contas a pagar',
+        'Entrada de valores',
+        'Saida de valores',
+        'Caixa',
+        'Conf. Impressao carteira',
+        'Impressão carteira',
+        'Cadastro de visitas',
+        'Grade de horários',
+        'Cadastro de usuários',
+        'Nível de acesso'
+    ];
+
     public function __construct()
     {
         $this->nivel = new NivelAcesso();
-
     }
 
     public function index()
@@ -36,9 +88,10 @@ class NivelAcessoController extends Controller
 
         $nivel = $this->nivel->where('users_id', $id)->paginate();
         $usuario = User::find($id);
-        return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
-            'usuario' => $usuario, 'recursos' => $this->listaRecursos()]);
-
+        return view(self::PATH . 'usuarioNivelAcesso', [
+            'niveis' => $nivel,
+            'usuario' => $usuario, 'recursos' => $this->listaRecursos()
+        ]);
     }
 
     public function edit(string $id)
@@ -56,11 +109,12 @@ class NivelAcessoController extends Controller
         //
     }
 
-    public function bloquearAcesso(string $nivelID){
+    public function bloquearAcesso(string $nivelID)
+    {
 
         $nivel = $this->nivel->find($nivelID);
 
-        if($nivel != null){
+        if ($nivel != null) {
 
             $userID = $nivel->users_id;
 
@@ -70,25 +124,25 @@ class NivelAcessoController extends Controller
 
                 $nivel = $this->nivel->where('users_id', $userID)->paginate();
                 $usuario = User::find($userID);
-                return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
-                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()])
-                    ->with('msg', 'SUCESSO! Informações atualizadas com sucesso!');                
-                
+                return view(self::PATH . 'usuarioNivelAcesso', [
+                    'niveis' => $nivel,
+                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()
+                ])
+                    ->with('msg', 'SUCESSO! Informações atualizadas com sucesso!');
             } catch (\Throwable $th) {
                 return redirect()->back()->with('msg', 'ERRO! Não foi possível atualizar os recursos!');
             }
-
-        }else{
+        } else {
             return redirect()->back()->with('msg', 'ATENÇÃO! Não foi possível localizar o recurso!');
         }
-
     }
 
-    public function liberarAcesso(string $nivelID){
-        
+    public function liberarAcesso(string $nivelID)
+    {
+
         $nivel = $this->nivel->find($nivelID);
 
-        if($nivel != null){
+        if ($nivel != null) {
 
             $userID = $nivel->users_id;
 
@@ -98,19 +152,18 @@ class NivelAcessoController extends Controller
 
                 $nivel = $this->nivel->where('users_id', $userID)->paginate();
                 $usuario = User::find($userID);
-                return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel, 
-                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()])
-                    ->with('msg', 'SUCESSO! Informações atualizadas com sucesso!');                
-                
+                return view(self::PATH . 'usuarioNivelAcesso', [
+                    'niveis' => $nivel,
+                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()
+                ])
+                    ->with('msg', 'SUCESSO! Informações atualizadas com sucesso!');
             } catch (\Throwable $th) {
                 return redirect()->back()->with('msg', 'ERRO! Não foi possível atualizar os recursos!');
             }
-
-        }else{
+        } else {
             return redirect()->back()->with('msg', 'ATENÇÃO! Não foi possível localizar o recurso!');
-        }        
-
-    }    
+        }
+    }
 
     private function listaRecursos()
     {
@@ -166,8 +219,6 @@ class NivelAcessoController extends Controller
             'Nível de acesso',
             'PERMITIR ACESSO A TODOS OS RECURSOS',
             'NEGAR ACESSO A TODOS OS RECURSOS'
-
-
         ];
 
         return $list;
@@ -186,44 +237,82 @@ class NivelAcessoController extends Controller
 
         $msg = '';
 
-        if($this->verificar($request->input('userID'), $request->input('recurso')) == 0){
+        if ($this->verificar($request->input('userID'), $request->input('recurso')) == 0) {
 
             try {
 
-                $nivel->users_id = $request->input('userID');
-                $nivel->recurso = $request->input('recurso');
-                $nivel->permitido = 'sim';
-                $nivel->save();
+                if ($request->input('recurso') == 'PERMITIR ACESSO A TODOS OS RECURSOS') {
+                    $this->permitirAcesso($request->input('userID'));
+                } elseif ($request->input('recurso') == 'NEGAR ACESSO A TODOS OS RECURSOS') {
+                    $this->negarAcesso($request->input('userID'));
+                } else {
+
+                    $nivel->users_id = $request->input('userID');
+                    $nivel->recurso = $request->input('recurso');
+                    $nivel->permitido = 'sim';
+                    $nivel->save();
+                }
 
                 $msg = 'SUCESSO! Acesso concedido ao usuário!';
-
             } catch (\Throwable $th) {
-                $msg = 'ERRO! Não foi possível conceder acesso a este recurso para o usuário: '.$th->getMessage();
+                $msg = 'ERRO! Não foi possível conceder acesso a este recurso para o usuário: ' . $th->getMessage();
             }
-
-        }else{
+        } else {
             $msg = 'ATENÇÃO! Este recurso já esta adiconado para este usuário';
         }
 
         $nivel = $this->nivel->where('users_id', $request->input('userID'))->paginate();
         $usuario = User::find($request->input('userID'));
-        return view(self::PATH . 'usuarioNivelAcesso', ['niveis' => $nivel,
-                                    'usuario' => $usuario, 'recursos' => $this->listaRecursos()])
-                                    ->with('msg', $msg);
-
+        return view(self::PATH . 'usuarioNivelAcesso', [
+            'niveis' => $nivel,
+            'usuario' => $usuario, 'recursos' => $this->listaRecursos()
+        ])
+            ->with('msg', $msg);
     }
 
-    public function verificar(string $userID, string $recurso){
+    public function verificar(string $userID, string $recurso)
+    {
 
         $acesso = $this->nivel->where('users_id', $userID)->where('recurso', $recurso)->get();
 
-        if($acesso->count() >= 1){
+        if ($acesso->count() >= 1) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
-
     }
 
+    private function permitirAcesso(string $userID)
+    {
 
+        $nivel = $this->nivel->where('users_id', $userID)->delete();
+
+        foreach (self::listaDeRecursos as $lista) {
+
+            $nivel = new NivelAcesso();
+
+            $nivel->users_id = $userID;
+            $nivel->recurso = $lista;
+            $nivel->permitido = 'sim';
+
+            $nivel->save();
+        }
+    }
+
+    private function negarAcesso(string $userID)
+    {
+
+        $nivel = $this->nivel->where('users_id', $userID)->delete();
+
+        foreach (self::listaDeRecursos as $lista) {
+
+            $nivel = new NivelAcesso();
+
+            $nivel->users_id = $userID;
+            $nivel->recurso = $lista;
+            $nivel->permitido = 'não';
+
+            $nivel->save();
+        }
+    }
 }
