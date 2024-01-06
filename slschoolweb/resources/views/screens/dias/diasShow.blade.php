@@ -25,7 +25,7 @@
 
         <div class="col-4">
 
-            <a href="{{route('dias.create')}}" class="btn btn-primary">
+            <a href="{{route('dias.create')}}" class="btn btn-primary" title="Novo registro">
                 <i class="bi bi-plus-circle-fill"></i>
                 Novo</a>
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -73,7 +73,8 @@
                             <div class="row">
 
                                 <div class="col-2">
-                                    <a href="{{ route('dias.edit', $dia->id) }}" class="btn btn-success btn-sm">
+                                    <a href="{{ route('dias.edit', $dia->id) }}" class="btn btn-success btn-sm"
+                                        title="Atualizar informações do dia selecionado" >
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                 </div>
@@ -84,7 +85,8 @@
                                         @csrf
                                         {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)"
+                                            title="Registro deletado com sucesso!" >
                                             <i class="bi bi-trash3-fill"></i>
                                         </button>
                                     </form>
@@ -97,8 +99,6 @@
                                             }
                                         }
                                     </script>
-
-
                                 </div>
 
                             </div>

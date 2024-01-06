@@ -25,7 +25,8 @@
 
             <div class="col-4">
 
-                <a href="{{ route('turma.create') }}" class="btn btn-primary">
+                <a href="{{ route('turma.create') }}" class="btn btn-primary"
+                    title="Criar nova turma">
                     <i class="bi bi-plus-circle-fill"></i>
                     Novo</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -95,7 +96,9 @@
                                 <div class="row">
 
                                     <div class="col-3">
-                                        <a href="{{ route('turma.edit', $turma->id) }}" class="btn btn-success btn-sm">
+                                        <a href="{{ route('turma.edit', $turma->id) }}" 
+                                            class="btn btn-success btn-sm"
+                                                title="Atualizar informções da turma selecionada">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                     </div>
@@ -108,6 +111,7 @@
                                             {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                             @method('DELETE')
                                             <button type="button" class="btn btn-danger btn-sm"
+                                                title="Deletar turma selecionada"
                                                 onclick="confirmDelete(this)">
                                                 <i class="bi bi-trash3-fill"></i>
                                             </button>

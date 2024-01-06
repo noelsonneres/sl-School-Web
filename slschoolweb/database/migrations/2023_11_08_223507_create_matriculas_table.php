@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unsignedBigInteger('alunos_id');
-            $table->unsignedBigInteger('responsavels_id');
+            $table->unsignedBigInteger('responsavels_id')->nullable();
             $table->unsignedBigInteger('cursos_id');
             $table->integer('qtde_parcela')->default(1);
             $table->float('valor_a_vista');

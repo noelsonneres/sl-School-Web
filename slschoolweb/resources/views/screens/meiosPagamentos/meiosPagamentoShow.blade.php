@@ -25,7 +25,8 @@
 
             <div class="col-4">
 
-                <a href="{{ route('meios_pagamentos.create') }}" class="btn btn-primary">
+                <a href="{{ route('meios_pagamentos.create') }}" class="btn btn-primary"
+                    title="Incluir novo meio de pagamento">
                     <i class="bi bi-plus-circle-fill"></i>
                     Novo</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -60,7 +61,8 @@
 
                                         <div class="col-2">
                                             <a href="{{ route('meios_pagamentos.edit', $pgto->id) }}"
-                                                class="btn btn-success btn-sm">
+                                                class="btn btn-success btn-sm"
+                                                    title="Atualizar informacões sobre o meio de pagamento">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
@@ -73,7 +75,8 @@
                                                 {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete(this)">
+                                                    onclick="confirmDelete(this)"
+                                                        title="Deletar o meio de pagamento selecionado">
                                                     <i class="bi bi-trash3-fill"></i>
                                                 </button>
                                             </form>

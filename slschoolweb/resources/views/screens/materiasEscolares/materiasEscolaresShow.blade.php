@@ -24,7 +24,8 @@
 
             <div class="col-4">
 
-                <a href="{{ route('materiais.create') }}" class="btn btn-primary">
+                <a href="{{ route('materiais.create') }}" class="btn btn-primary"
+                    title="Cadatrar novo material">
                     <i class="bi bi-plus-circle-fill"></i>
                     Novo</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -65,7 +66,6 @@
         <hr>
 
         <div class="card pt-2 mt-4">
-
 
             <table class="table p-1">
                 <thead>
@@ -122,7 +122,7 @@
                                                     }
                                                 }
                                             </script>
-
+                                            
                                         </div>
 
                                     </div>

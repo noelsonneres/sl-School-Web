@@ -16,7 +16,6 @@ class CadastroDiasController extends Controller
     public function __construct()
     {
         $this->dias = new CadastroDia();
-        $this->authorizeResource(CadastroDia::class, 'dias');
     }
 
     public function index()
@@ -123,20 +122,4 @@ class CadastroDiasController extends Controller
         return view(self::PATH . 'diasShow', ['dias' => $dias]);
     }
 
-    private function verificarAcesso()
-    {
-
-        $usuario = auth()->user()->id;
-
-        $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Cad.Dias')
-            ->where('permitido', 'sim')
-            ->get();
-
-        if ($nivelAcesso->count() >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 }

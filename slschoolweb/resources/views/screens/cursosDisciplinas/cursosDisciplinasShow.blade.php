@@ -28,9 +28,16 @@
 
         <div class="col-4">
 
-            <a href="{{'/ad_curso_disciplinas/'.$cursoId}}" class="btn btn-primary">
+            <a href="{{'/ad_curso_disciplinas/'.$cursoId}}" class="btn btn-primary"
+                title="Incluir uma nova disciplina">
                 <i class="bi bi-plus-circle-fill"></i>
                 Nova disciplina</a>
+
+                <a href="/cursos" class="btn btn-danger"
+                title="Incluir uma nova disciplina">
+                <i class="bi bi-arrow-left-circle-fill"></i>
+                Voltar</a>                
+
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
         </div>
@@ -72,7 +79,9 @@
                                         @csrf
                                         {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">
+                                        <button type="button" class="btn btn-danger btn-sm" 
+                                            onclick="confirmDelete(this)"
+                                                title="Deletar disciplina selecionada">
                                             <i class="bi bi-trash3-fill"></i>
                                         </button>
                                     </form>

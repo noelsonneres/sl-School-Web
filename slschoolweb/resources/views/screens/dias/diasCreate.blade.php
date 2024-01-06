@@ -31,7 +31,7 @@
                     <i class="bi bi-floppy2"></i>
                     Salvar</button>
 
-                <a href="/dias" class="btn btn-danger">
+                <a href="javascript:history.back()" class="btn btn-danger">
                     <i class="bi bi-x-circle-fill"></i>
                     Cancelar</a>
             </div>

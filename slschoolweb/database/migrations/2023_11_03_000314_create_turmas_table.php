@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cadastro_dias_id');
             $table->unsignedBigInteger('cadastro_horarios_id');
             $table->unsignedBigInteger('salas_id');
-            $table->unsignedBigInteger('professors_id');
+            $table->unsignedBigInteger('professors_id')->nullable();
             $table->string('turno');
             $table->string('ativa')->default('sim');
             $table->string('obs')->nullable();     

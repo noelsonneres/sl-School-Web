@@ -348,7 +348,7 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown"
                                 data-bs-toggle="dropdown">
                                 <div class="position-relative">
@@ -419,16 +419,16 @@
                                     <a href="#" class="text-muted">Show all notifications</a>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
 
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown"
                                 data-bs-toggle="dropdown">
                                 <div class="position-relative">
                                     <i class="align-middle" data-feather="message-square"></i>
                                 </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+                            </a> --}}
+                            {{-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
                                 aria-labelledby="messagesDropdown">
                                 <div class="dropdown-menu-header">
                                     <div class="position-relative">
@@ -500,7 +500,7 @@
                                 <div class="dropdown-menu-footer">
                                     <a href="#" class="text-muted">Show all messages</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
@@ -513,13 +513,15 @@
 
                                 @if (auth()->check())
                                     <img src="/img/user/{{ auth()->user()->foto }}"
-                                        class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span
+                                        class="avatar img-fluid rounded-circle me-1" alt="" /> <span
                                         class="text-dark">{{ auth()->user()->name }}</span>
                             </a>
                             @endif
 
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="{{ route('login.logout') }}">Log out</a>
+                                <a class="dropdown-item" href="{{ route('login.logout') }}">
+                                    <i class="bi bi-x-circle-fill" style="color: red"></i>
+                                    Sair</a>
                             </div>
                         </li>
                     </ul>
@@ -549,7 +551,7 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row text-muted">
-                        <div class="col-6 text-start">
+                        {{-- <div class="col-6 text-start">
                             <p class="mb-0">
                                 <a class="text-muted" href="https://adminkit.io/"
                                     target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted"
@@ -557,20 +559,20 @@
                                         Admin
                                         Template</strong></a> &copy;
                             </p>
-                        </div>
+                        </div> --}}
                         <div class="col-6 text-end">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                                    <a class="text-muted" href="#" target="_blank">Suporte</a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                                    <a class="text-muted" href="#" target="_blank">Treinamento</a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                                    <a class="text-muted" href="#" target="_blank">Privacidade</a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                                    <a class="text-muted" href="#" target="_blank">Termos de uso</a>
                                 </li>
                             </ul>
                         </div>

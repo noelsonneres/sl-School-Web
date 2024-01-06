@@ -24,7 +24,8 @@
 
         <div class="col-4">
 
-            <a href="{{route('cursos.create')}}" class="btn btn-primary">
+            <a href="{{route('cursos.create')}}" class="btn btn-primary"
+                title="Criar novo curso">
                 <i class="bi bi-plus-circle-fill"></i>
                 Novo</a>
             <button onclick="(print())" class="btn $teal-300">Imprimir</button>
@@ -57,8 +58,7 @@
                 </div>
 
             </form>
-        </div>        
-
+        </div>    
 
     </div>
 

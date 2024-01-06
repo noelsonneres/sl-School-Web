@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class NivelAcesso extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'users_id',
+        'recurso',
+        'permitido',
+    ];
 }
