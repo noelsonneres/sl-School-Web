@@ -102,7 +102,7 @@ class EmpresaController extends Controller
         } catch (\Throwable $th) {
             $empresa = $this->empresa->all();
             return view(self::PATH . 'empresaCreate', ['empresa' => $empresa->first()])
-                ->with('msg', 'ERRO! Não foi posssível salvar as informações da empresa!!!');
+                ->with('msg', 'ERRO! Não foi posssível salvar as informações da empresa: '.$th->getMessage());
         }
 
     }
