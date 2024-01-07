@@ -129,14 +129,14 @@
                             <div>
                                 <div class="row">
 
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <a href="{{ route('contas_pagar.edit', $conta->id) }}"
                                            class="btn btn-success btn-sm">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                     </div>
 
-                                    <div class="col-2">
+                                    <div class="col-3">
 
                                         <form method="POST" class="delete-form"
                                               action="{{ route('contas_pagar.destroy', $conta->id) }}">

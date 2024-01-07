@@ -106,10 +106,6 @@ class EstornarMensalidadeController extends Controller
             $msg = 'ERRO! Não foi possível estornar a mensalidade!';
         }
 
-        // $mensalidade = Mensalidade::where('matriculas_id', $matriculaID)
-        //     ->where('pago', 'sim')
-        //     ->paginate(15);
-
         return redirect()->back()->with('msg', $msg);
         
     }

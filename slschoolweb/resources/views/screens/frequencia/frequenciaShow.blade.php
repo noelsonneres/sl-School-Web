@@ -50,6 +50,7 @@
                     <i class="bi bi-arrow-left-circle-fill"></i>
                     Voltar
                 </a>
+                
             </div>
 
             <div class="col-6">

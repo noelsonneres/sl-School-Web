@@ -22,7 +22,7 @@
 
         <h4>Aluno(a): {{$aluno->nome}}</h4>
         <h4>Matrícula: {{$matricula}}</h4>
-        <h5>Responsável: {{$responsavel->nome}}</h5>
+        <h5>Responsável: {{isset($responsavel->nome)}}</h5>
 
     <hr>
 

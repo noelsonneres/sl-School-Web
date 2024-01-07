@@ -57,22 +57,21 @@
 
                 @csrf
 
-                <input type="hidden" name="aluno" value="{{$matricula->alunos->id}}">
-                <input type="hidden" name="matricula" value="{{$matricula->id}}">
+                <input type="hidden" name="aluno" value="{{ $matricula->alunos->id }}">
+                <input type="hidden" name="matricula" value="{{ $matricula->id }}">
 
                 <div class="row">
 
                     <div class="col-md-6 mb-3">
                         @error('disciplina')
-                        <span class="text text-danger">*</span>
+                            <span class="text text-danger">*</span>
                         @enderror
                         <label for="disciplina" class="form-label lblCaption">Disciplina</label>
                         <select class="form-control" name="disciplina" id="disciplina" required>
                             <option value="">Selecione a disciplina</option>
 
                             @foreach ($listaDisciplinas as $lista)
-                                <option
-                                    value="{{ $lista->disciplinas->id }}">{{ $lista->disciplinas->disciplina }}</option>
+                                <option value="{{ $lista->disciplinas->id }}">{{ $lista->disciplinas->disciplina }}</option>
                             @endforeach
 
                         </select>
@@ -80,18 +79,20 @@
 
                     <div class="col-md-3 mb-3">
                         @error('dataLancamento')
-                        <span class="text text-danger">*</span>
+                            <span class="text text-danger">*</span>
                         @enderror
                         <label for="dataLancamento" class="form-label lblCaption">Data de lançamento</label>
-                        <input type="date" class="form-control" name="dataLancamento" id="dataLancamento" required>
+                        <input type="date" class="form-control" name="dataLancamento" id="dataLancamento"
+                            value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required>
                     </div>
 
                     <div class="col-md-3 mb-3">
                         @error('horaLancamento')
-                        <span class="text text-danger">*</span>
+                            <span class="text text-danger">*</span>
                         @enderror
                         <label for="horaLancamento" class="form-label lblCaption">Hora lançamento</label>
-                        <input type="time" class="form-control" name="horaLancamento" id="horaLancamento" required>
+                        <input type="time" class="form-control" name="horaLancamento" id="horaLancamento"
+                            value="{{ \Carbon\Carbon::now()->format('H:i:s') }}" required>
                     </div>
 
                 </div>
@@ -100,7 +101,7 @@
 
                     <div class="col-md-4 mb-3">
                         @error('situacao')
-                        <span class="text text-danger">*</span>
+                            <span class="text text-danger">*</span>
                         @enderror
                         <label for="situacao" class="form-label lblCaption">Situação</label>
                         <select class="form-control" name="situacao" id="situacao" required>
@@ -128,18 +129,20 @@
 
                     <div class="col-md-2 mb-4">
                         @error('dataPresenca')
-                        <span class="text text-danger">*</span>
+                            <span class="text text-danger">*</span>
                         @enderror
                         <label for="dataPresenca" class="form-label lblCaption">Data de presença</label>
-                        <input type="date" class="form-control" name="dataPresenca" id="dataPresenca" required>
+                        <input type="date" class="form-control" name="dataPresenca" id="dataPresenca"
+                            value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required>
                     </div>
 
                     <div class="col-md-2 mb-4">
                         @error('horaPresenca')
-                        <span class="text text-danger">*</span>
+                            <span class="text text-danger">*</span>
                         @enderror
                         <label for="horaPresenca" class="form-label lblCaption"> Horário da presença</label>
-                        <input type="time" class="form-control" name="horaPresenca" id="horaPresenca" required>
+                        <input type="time" class="form-control" name="horaPresenca" id="horaPresenca"
+                            value="{{ \Carbon\Carbon::now()->format('H:i:s') }}" required>
                     </div>
 
                     <div class="col-md-8 mb-4">

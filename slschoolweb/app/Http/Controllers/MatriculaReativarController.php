@@ -89,7 +89,7 @@ class MatriculaReativarController extends Controller
             if (in_array($matricula->status, ['trancada', 'cancelada', 'finalizada'])) {
                 return view(self::PATH . 'matriculaReativar', ['matricula' => $matricula]);
             } else {
-                return redirect()->back();
+                return redirect()->back()->with('msg', 'Esta matrícula não esta mais ativa!');
             }
 
         } else {
