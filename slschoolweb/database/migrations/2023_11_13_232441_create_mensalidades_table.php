@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->unsignedBigInteger('responsavels_id');
+            $table->unsignedBigInteger('responsavels_id')->nullable();
             $table->unsignedBigInteger('alunos_id');
             $table->unsignedBigInteger('matriculas_id');
             $table->integer('qtde_mensalidades');

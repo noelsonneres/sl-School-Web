@@ -38,7 +38,7 @@
                         <i class="bi bi-floppy2"></i>
                         Salvar</button>
 
-                    <a href="/meios_pagamentos" class="btn btn-danger">
+                    <a href="/motivos_cancelamento" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar</a>
                 </div>

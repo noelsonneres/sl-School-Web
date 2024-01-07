@@ -32,7 +32,7 @@ return new class extends Migration
             $table->date('data_termino');
             $table->integer('qtde_dias');
             $table->integer('horas_semana');
-            $table->integer('consultors_id');
+            $table->integer('consultors_id')->nullable();
             $table->string('status')->default('ativa');
             $table->integer('funcionario')->nullable();
             $table->string('obs')->nullable();

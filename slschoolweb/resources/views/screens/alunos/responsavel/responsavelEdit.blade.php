@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <a href="#" title="Visualizar ou criar uma matrícula" class="btn btn-info d-block mb-2">                
+                        <a href="/home_aluno" title="Visualizar ou criar uma matrícula" class="btn btn-info d-block mb-2">                
                             <i class="bi bi-folder-plus"></i>
                             Matrículas
                         </a>

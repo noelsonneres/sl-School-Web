@@ -178,7 +178,7 @@
                         <i class="bi bi-floppy2"></i>
                         Salvar</button>
 
-                    <a href="/disciplinas" class="btn btn-danger">
+                    <a href="/home_aluno" class="btn btn-danger">
                         <i class="bi bi-x-circle-fill"></i>
                         Cancelar</a>
                 </div>

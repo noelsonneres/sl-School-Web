@@ -11,7 +11,7 @@
         @if (isset($msg))
             <div class="alert alert-warning alert-dismissible fade show msg d-flex
 							justify-content-between align-items-end mb-3"
-                 role="alert" style="text-align: center;">
+                role="alert" style="text-align: center;">
                 <h5>{{ $msg }} </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -25,7 +25,7 @@
             <div class="col-md-6 ms-3">
                 <h4>Aluno(a): {{ $aluno->nome }}</h4>
                 <h4>Matrícula: {{ $matricula->id }}</h4>
-                <h5>Curso: {{$matricula->cursos->curso}}</h5>
+                <h5>Curso: {{ $matricula->cursos->curso }}</h5>
 
                 @if ($matricula->status == 'sim' or $matricula->status == 'ativa')
                     <h5 style="color: green; font-weight: 700">Situação: {{ $matricula->status }}</h5>
@@ -84,7 +84,7 @@
 
                 <div class="col-sm-2">
                     <a href="{{ '/turmas_matricula_lista/' . $matricula->alunos_id . '/' . $matricula->id }}"
-                       class="link-card">
+                        class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Turmas</h2>
@@ -145,19 +145,21 @@
 
             <div class="row">
 
-                <div class="col-sm-2">
-                    <a href="{{route('responsavel.edit', $matricula->responsavels_id)}}" class="link-card">
-                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
-                            <div class="card-body text-center">
-                                <h2 class="text-primary" style="font-weight: 500;">Responsável</h2>
-                                <i class="bi bi-person-gear text-primary" style="font-size: 70px;"></i>
+                @if (isset($matricula->responsavels_id))
+                    <div class="col-sm-2">
+                        <a href="{{ route('responsavel.edit', $matricula->responsavels_id) }}" class="link-card">
+                            <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                                <div class="card-body text-center">
+                                    <h2 class="text-primary" style="font-weight: 500;">Responsável</h2>
+                                    <i class="bi bi-person-gear text-primary" style="font-size: 70px;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endif
 
                 <div class="col-sm-3">
-                    <a href="{{route('alunos.edit', $matricula->alunos_id)}}" class="link-card">
+                    <a href="{{ route('alunos.edit', $matricula->alunos_id) }}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="font-weight: 500; color: rgb(8, 51, 4)">Dados do aluno</h2>
@@ -174,7 +176,7 @@
             <div class="row">
 
                 <div class="col-sm-2">
-                    <a href="{{route('frequencia.show', $matricula->id)}}" class="link-card">
+                    <a href="{{ route('frequencia.show', $matricula->id) }}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 156, 14); font-weight: 500;">Frequência</h2>
@@ -186,7 +188,7 @@
 
 
                 <div class="col-sm-2">
-                    <a href="{{route('reposicoes.show', $matricula->id)}}" class="link-card">
+                    <a href="{{ route('reposicoes.show', $matricula->id) }}" class="link-card">
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(14, 59, 156); font-weight: 500;">Resposição</h2>
@@ -220,7 +222,7 @@
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(235, 65, 23); font-weight: 500;">Trancar</h2>
                                 <i class="i bi-person-fill-exclamation"
-                                   style="font-size: 70px; color:  rgb(235, 65, 23); "></i>
+                                    style="font-size: 70px; color:  rgb(235, 65, 23); "></i>
                             </div>
                         </div>
                     </a>
@@ -231,8 +233,7 @@
                         <div class="card" style="display: flex; justify-content: center; align-items: center;">
                             <div class="card-body text-center">
                                 <h2 style="color: rgb(40, 39, 34); font-weight: 500;">Finalizar</h2>
-                                <i class="bi bi-person-check-fill"
-                                   style="font-size: 70px; color:  rgb(40, 39, 34); "></i>
+                                <i class="bi bi-person-check-fill" style="font-size: 70px; color:  rgb(40, 39, 34); "></i>
                             </div>
                         </div>
                     </a>
