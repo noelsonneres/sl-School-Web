@@ -138,7 +138,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link text-white" href="#sub-menu1" data-bs-toggle="collapse">
                             <i class="bi bi-person-square align-middle" style="font-size: 18px"></i></i> <span
-                                class="align-middle">Matrículas</span>
+                                class="align-middle">Movimentação</span>
                         </a>
                     </li>
                     <div id="sub-menu1" class="collapse" style="margin-left: 15px;">
@@ -147,12 +147,44 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Alunos</span></a>
 
+                        <a class="sidebar-link text-white" href="{{route('matricula.index')}}">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Matrículas</span></a>
+
                         @can('show', [\App\Policies\GradeHorariosPolicy::class])
                             <a class="sidebar-link text-white" href="/grade_horarios">
                                 <i class="align-middle" data-feather="arrow-right"></i>
                                 <span class="align-middle">
                                     Grade de horários </span></a>
                         @endcan
+
+                        <a class="sidebar-link text-white" href="#">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Grade de alunos</span></a>
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Frequência</span></a>
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Reposição</span></a>
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Cancelar</span></a>
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Trancar</span></a>
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Finalizar</span></a>
+
+                        <a class="sidebar-link text-white" href="/home_aluno">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Reativar</span></a>
 
                     </div>
 
@@ -428,7 +460,7 @@
                                     <i class="align-middle" data-feather="message-square"></i>
                                 </div>
                             </a> --}}
-                            {{-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+                        {{-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
                                 aria-labelledby="messagesDropdown">
                                 <div class="dropdown-menu-header">
                                     <div class="position-relative">

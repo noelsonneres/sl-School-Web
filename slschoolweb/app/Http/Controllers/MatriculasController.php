@@ -29,7 +29,10 @@ class MatriculasController extends Controller
 
     public function index()
     {
-        //
+        
+        $matriculas = $this->matricula->orderBy('id', 'desc')->paginate();
+        return view(self::PATH.'matriculaSelect', ['matriculas'=>$matriculas]);
+
     }
 
     public function create()
