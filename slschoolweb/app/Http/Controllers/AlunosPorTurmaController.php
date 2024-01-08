@@ -27,6 +27,8 @@ class AlunosPorTurmaController extends Controller
 
         $turmaMatriculas = MatriculaTurma::where('turmas_id', $turmaID)->get();
 
+        $turma = Turma::find($turmaID);
+
         $listaTurmas = Turma::all();
         return view(self::PATH.'alunoTurmaShow', 
                 ['listaTurmas'=>$listaTurmas, 'turmaMatriculas'=>$turmaMatriculas]);

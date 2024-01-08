@@ -87,14 +87,14 @@
                         <div class="col-md-3 mb-3">
                             <label for="juros" class="form-label lblCaption">Juros ({{ $juros['taxaJuros'] }}%)</label>
                             <input type="text" class="form-control" id="juros" name="juros" readonly
-                                value="R$ {{ number_format($juros['valorJuros'], '2', ',', '.') }}"
+                                value="{{$juros['valorJuros']}}"
                                 style="color: red">
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <label for="multa" class="form-label lblCaption">Multa</label>
                             <input type="text" class="form-control" id="multa" name="multa" readonly
-                                value="R$ {{ number_format($juros['multa'], '2', ',', '.') }}"
+                                value="R$ {{$juros['multa']}}"
                                 style="color: red">
                         </div>
 

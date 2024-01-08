@@ -99,11 +99,9 @@ class MensalidadesController extends Controller
             return view(self::PATH . 'mensalidadesShow', ['mensalidades' => $mensalidades])
                 ->with('matricula', $matricula)
                 ->with('aluno', $aluno);
-
         } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     public function edit(string $id)
@@ -280,10 +278,17 @@ class MensalidadesController extends Controller
             'meioPagamento' => 'required',
         ]);
 
+        $valorJuros = str_replace(['R$', ','], '', $request->input('juros')); // Remove 'R$' e substitui ',' por ''
+        // $valorJuros = str_replace(',', '.', $valorJuros); 
+        $jurosDecimal = floatval($valorJuros); // Converte para decimal
+
+        $valorMulta = str_replace(['R$', ','], '', $request->input('multa')); // Remove 'R$' e substitui ',' por ''
+        $multaDecimal = floatval($valorMulta); // Converte para decimal        
+
         try {;
 
-            $mensalidade->juros = str_replace(['R$', ','], '', $request->input('juros'));
-            $mensalidade->multa = str_replace(['R$', ','], '', $request->input('multa'));
+            $mensalidade->juros = $jurosDecimal;
+            $mensalidade->multa = $multaDecimal;
             $mensalidade->desconto = $request->input('desconto');
             $mensalidade->acrescimo = $request->input('acrescimo');
             $mensalidade->valor_pago = $request->input('valorPago');

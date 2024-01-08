@@ -29,14 +29,18 @@
                     <div class="col-md-9 d-flex align-items-center">
                         <select class="form-control" name="selecionar" id="selecionar">
                             @foreach ($listaTurmas as $lista)
-                                <option value="{{ $lista->id }}">{{ $lista->turma }} - 
-                                        ({{$lista->cadastroDias->dia1}} {{$lista->cadastroDias->dia2}}) -
-                                        ({{$lista->cadastroHorarios->entrada}} {{$lista->cadastroHorarios->saida}})
+                                <option value="{{ $lista->id }}"
+                                    data-turma-info="{{ $lista->turma }} - ({{ $lista->cadastroDias->dia1 }}
+                                                             {{ $lista->cadastroDias->dia2 }}) - ({{ $lista->cadastroHorarios->entrada }} {{ $lista->cadastroHorarios->saida }})"
+                                    @if (request('selecionar') == $lista->id) selected @endif>
+                                    {{ $lista->turma }} - ({{ $lista->cadastroDias->dia1 }}
+                                    {{ $lista->cadastroDias->dia2 }}) - ({{ $lista->cadastroHorarios->entrada }}
+                                    {{ $lista->cadastroHorarios->saida }})
                                 </option>
                             @endforeach
                         </select>
                     </div>
-        
+
                     <div class="col-md-3">
                         <button type="submit" class="btn btn-success btn-lg">Pesquisar</button>
                     </div>
@@ -46,17 +50,45 @@
 
         <hr>
 
-        <div class="card pt-2 mt-4">
+        <div class="card pt-3 pb-3 ps-3 mt-4 border">
 
+            <div class="row ps-3">
 
-            @foreach($turmaMatriculas as $matricula)
-                <p>{{$matricula->matriculas_id}} {{$matricula->alunos->nome}}</p>
-            @endforeach
+                @foreach ($turmaMatriculas as $matricula)
+                    <div class="col-md-3 card rounded-4 p-0 me-2 shadow" style="width: 12rem; background: #f2f2f3">
+
+                        <a href="{{ route('matricula.show', $matricula->matriculas_id ) }}" class="link-card">
+
+                            <div class="d-flex align-items-center justify-content-center pt-3">
+                                <img src="/img/aluno/{{ $matricula->alunos->foto }}"
+                                    class="card-img-top img-fluid rounded float-start" style="width: 100px" alt="...">
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-text">Aluno(a):{{ $matricula->alunos->nome }}</h5>
+                                <h5 class="card-text">Matrícula:{{ $matricula->matriculas_id }}</h5>
+                            </div>
+                            
+                        </a>
+
+                    </div>
+                @endforeach
+
+            </div>
 
         </div>
 
-
-
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var selecionarElement = document.getElementById('selecionar');
+            var selectedOption = selecionarElement.options[selecionarElement.selectedIndex];
+            var turmaInfo = selectedOption.getAttribute('data-turma-info');
+
+            // Faça algo com a variável 'turmaInfo', como exibi-la em algum lugar na página
+            // console.log(turmaInfo);
+        });
+    </script>
 
 @endsection

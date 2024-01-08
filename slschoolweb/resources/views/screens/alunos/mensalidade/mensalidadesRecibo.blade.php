@@ -71,7 +71,7 @@
                         {{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</span>
                 </p>
                 <p class="border p-1 m-0" style="font-size: 12px">Juros:
-                    {{ number_format($mensalidade->juros, '2', ',', '.') }} |
+                    {{ $mensalidade->juros }} |
                     Multa: {{ number_format($mensalidade->multa, '2', ',', '.') }} |
                     Desconto: {{ number_format($mensalidade->desconto, '2', ',', '.') }} |
                     Acrésimo: {{ number_format($mensalidade->juros, '2', ',', '.') }} |
