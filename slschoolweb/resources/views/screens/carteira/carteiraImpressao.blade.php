@@ -140,8 +140,6 @@
 
                     var info = 'Nome: '+'{{$carteiras->alunos->nome}}\n' +
                                 'Matricula: '+'{{$carteiras->matriculas_id}}\n'+
-                                'Curso: '+'{{$carteiras->matriculas->cursos->curso}}\n'+
-                                'Escola: '+'{{$empresa->nome}}  - {{$empresa->cnpj}}\n'+
                                 'Validade. Doc: '+ '{{date('d/m/Y', strtotime($carteiras->Validade))}}';
 
                     var qrcode = new QRCode("test", {

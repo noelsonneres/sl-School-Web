@@ -22,6 +22,7 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\AlunosPorTurmaController;
 use App\Http\Controllers\FrequenciaController;
 use App\Http\Controllers\GradeHorariosController;
 use App\Http\Controllers\MatriculaCancelamentoController;
@@ -116,6 +117,7 @@ Route::resource('matricula', MatriculasController::class);
 Route::get('/matricula_home/{id}', [MatriculasController::class, 'homeMatricula']);
 Route::get('/matricula_adicionar/{id}', [MatriculasController::class, 'adicionar']);
 Route::get('/exibirInfoMatricula/{matricula}', [MatriculasController::class, 'exibirInfoMatriculas']);
+Route::get('/matricula_localizar', [MatriculasController::class, 'find']);
 
 Route::resource('matricula_turmas', MatriculaTurmaController::class);
 Route::get('/turmas_matricula_lista/{aluno}/{matricula}', [MatriculaTurmaController::class, 'listaTurmas']);
@@ -205,3 +207,6 @@ Route::resource('nivel_acesso', NivelAcessoController::class)->middleware('can:v
 Route::post('/nivel_acesso_adicionar', [NivelAcessoController::class, 'adcionarRegra'])->middleware('can:view, App\Models\NivelAcesso');
 Route::get('/nivel_acesso_bloquear/{nivelID}', [NivelAcessoController::class, 'bloquearAcesso'])->middleware('can:view, App\Models\NivelAcesso');
 Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'liberarAcesso'])->middleware('can:view, App\Models\NivelAcesso');
+
+Route::get('/alunos_por_turma', [AlunosPorTurmaController::class, 'index']);
+Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'selecionarAlunos']);

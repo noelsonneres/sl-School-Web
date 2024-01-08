@@ -383,6 +383,22 @@ class MatriculasController extends Controller
         }
     }
 
+    public function find(Request $request)
+    {
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'id';
+        }
+
+        $matriculas = Matricula::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate(15);
+
+        return view(self::PATH.'matriculaSelect', ['matriculas'=>$matriculas]);
+
+    }
+
     public function gerarParcelas(
         string   $alunoID,
         string   $responsavelID,

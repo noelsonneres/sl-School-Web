@@ -25,16 +25,13 @@
 
             <div class="col-4">
 
-                <a href="{{ route('salas.create') }}" class="btn btn-primary" title="Criar nova sala">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Novo</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
             </div>
 
             <div class="col-8">
 
-                <form action="/sala_pesquisar" method="get">
+                <form action="/matricula_localizar" method="get">
                     @csrf
 
                     <div class="row">
@@ -67,88 +64,90 @@
 
         <div class="card pt-2 mt-4">
 
-            <div class="table-responsive">            
-            <table class="table p-1">
-                <thead>
-                    <tr>
-                        <th scope="col">Matrícula</th>
-                        <th scope="col">Curso</th>
-                        <th scope="col">Data início</th>
-                        <th scope="col">Previsão de término</th>
-                        <th scope="col">Ativa</th>
-                        <th scope="col">Operações</th>
-                    </tr>
-                </thead>
-                <tbody>
-    
-                    @foreach ($matriculas as $matricula)
-    
-                    <tr>
-                        <td>{{$matricula->id}} </td>
-                        <td>{{ Str::substr($matricula->cursos->curso, 0, 30)}} </td>
-                        <td>{{date('d/m/Y', strtotime($matricula->data_inicio))}} </td>
-                        <td>{{date('d/m/Y', strtotime($matricula->data_termino))}} </td>
-                        <td>{{$matricula->status}} </td>
-    
-                        <td>
-    
-                                <div class="row">                          
-    
-                                    <div class="col-2">
-                                        <a href="{{ route('matricula.show', $matricula->id) }}" 
-                                               title="Visualizar informações do matricula" class="btn btn-primary btn-sm">
-                                               <i class="bi bi-card-list"></i>
-                                        </a>
-                                    </div>
+            <div class="table-responsive">
+                <table class="table p-1">
+                    <thead>
+                        <tr>
+                            <th scope="col">Matrícula</th>
+                            <th scope="col">Aluno</th>
+                            <th scope="col">Cód. Aluno</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Data início</th>
+                            <th scope="col">Previsão de término</th>
+                            <th scope="col">Ativa</th>
+                            <th scope="col">Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                                    <div class="col-2">
-                                        <a href="{{ route('matricula.show', $matricula->id) }}" 
-                                               title="Visualizar informações do aluno" class="btn btn-success btn-sm">
-                                               <i class="bi bi-eye"></i>
-                                        </a>
-                                    </div>
+                        @foreach ($matriculas as $matricula)
+                            <tr>
+                                <td>{{ $matricula->id }} </td>
+                                <td>{{ $matricula->alunos->nome }} </td>
+                                <td>{{ $matricula->alunos->id }} </td>
+                                <td>{{ Str::substr($matricula->cursos->curso, 0, 30) }} </td>
+                                <td>{{ date('d/m/Y', strtotime($matricula->data_inicio)) }} </td>
+                                <td>{{ date('d/m/Y', strtotime($matricula->data_termino)) }} </td>
+                                <td>{{ $matricula->status }} </td>
 
-                                    <div class="col-2">
-                                        <a href="{{ route('matricula.show', $matricula->id) }}" 
-                                               title="Visualizar informações do responsável" class="btn btn-info btn-sm">
-                                               <i class="bi bi-person-rolodex"></i>
-                                        </a>
-                                    </div>
-    
-                                    <div class="col-3">
-    
-                                        <form method="POST" class="delete-form"
-                                            action="{{ route('matricula.destroy', $matricula->id) }}">
-                                            @csrf
-                                            {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm"
-                                                onclick="confirmDelete(this)">
-                                                <i class="bi bi-trash3-fill"></i>
-                                            </button>
-                                        </form>
-    
-                                        <script>
-                                            function confirmDelete(button) {
-                                                if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                    var form = button.closest('form');
-                                                    form.submit();
+                                <td>
+
+                                    <div class="row">
+
+                                        <div class="col-2">
+                                            <a href="{{ route('matricula.show', $matricula->id) }}"
+                                                title="Visualizar informações do matricula" class="btn btn-primary btn-sm">
+                                                <i class="bi bi-card-list"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <a href="{{ route('alunos.edit', $matricula->alunos_id) }}"
+                                                title="Visualizar informações do aluno" class="btn btn-success btn-sm">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <a href="{{ '/responsavel_adicionar/' . $matricula->alunos->id . '/' . $matricula->alunos->nome }}"
+                                                title="Visualizar informações do responsável" class="btn btn-info btn-sm">
+                                                <i class="bi bi-person-rolodex"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-3">
+
+                                            <form method="POST" class="delete-form"
+                                                action="{{ route('matricula.destroy', $matricula->id) }}">
+                                                @csrf
+                                                {{-- o método HTTP para exclusão deve ser o DELETE --}}
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                    onclick="confirmDelete(this)">
+                                                    <i class="bi bi-trash3-fill"></i>
+                                                </button>
+                                            </form>
+
+                                            <script>
+                                                function confirmDelete(button) {
+                                                    if (confirm('Tem certeza de que deseja excluir este item?')) {
+                                                        var form = button.closest('form');
+                                                        form.submit();
+                                                    }
                                                 }
-                                            }
-                                        </script>
-    
-    
+                                            </script>
+
+
+                                        </div>
+
                                     </div>
-    
-                                </div>
-    
-                        </td>
-                    </tr>
-    
-                    @endforeach                
-                   
-                </tbody>
-            </table>
+
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
 
             </div>
 

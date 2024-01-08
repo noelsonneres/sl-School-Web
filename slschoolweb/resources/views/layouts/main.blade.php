@@ -158,9 +158,9 @@
                                     Grade de horários </span></a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="#">
+                        <a class="sidebar-link text-white" href="/alunos_por_turma">
                             <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Grade de alunos</span></a>
+                            <span class="align-middle">Alunos por turma</span></a>
 
                         <a class="sidebar-link text-white" href="/home_aluno">
                             <i class="align-middle" data-feather="arrow-right"></i>
