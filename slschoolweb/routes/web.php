@@ -79,19 +79,19 @@ Route::resource('config_mensalidades', ConfigMensalidadesController::class)->mid
 
 Route::resource('empresa', EmpresaController::class)->middleware('can:view, App\Models\Empresa');
 
-Route::resource('disciplinas', DisciplinasController::class)->middleware('can:view, App\Models\Disciplina');  
-Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find'])->middleware('can:view, App\Models\Disciplina');  
+Route::resource('disciplinas', DisciplinasController::class)->middleware('can:view, App\Models\Disciplina');
+Route::get('/disciplinas_pesquisar', [DisciplinasController::class, 'find'])->middleware('can:view, App\Models\Disciplina');
 
-Route::resource('professores', ProfessoresController::class)->middleware('can:view, App\Models\Professor');    
-Route::get('/professores_pesquisar', [ProfessoresController::class, 'find'])->middleware('can:view, App\Models\Professor');   
+Route::resource('professores', ProfessoresController::class)->middleware('can:view, App\Models\Professor');
+Route::get('/professores_pesquisar', [ProfessoresController::class, 'find'])->middleware('can:view, App\Models\Professor');
 
-Route::resource('professor_disciplina', ProfessorDisciplinaController::class)->middleware('can:view, App\Models\ProfessorDisciplina');  
-Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarDisciplina'])->middleware('can:view, App\Models\ProfessorDisciplina'); 
+Route::resource('professor_disciplina', ProfessorDisciplinaController::class)->middleware('can:view, App\Models\ProfessorDisciplina');
+Route::get('/adicionar/{id}', [ProfessorDisciplinaController::class, 'adicionarDisciplina'])->middleware('can:view, App\Models\ProfessorDisciplina');
 
-Route::resource('consultores', ConsultoresController::class)->middleware('can:view, App\Models\Consultor');    
-Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find'])->middleware('can:view, App\Models\Consultor'); 
+Route::resource('consultores', ConsultoresController::class)->middleware('can:view, App\Models\Consultor');
+Route::get('/consultor_pesquisar', [ConsultoresController::class, 'find'])->middleware('can:view, App\Models\Consultor');
 
-Route::resource('cursos', CursosController::class)->middleware('can:view, App\Models\Curso'); 
+Route::resource('cursos', CursosController::class)->middleware('can:view, App\Models\Curso');
 Route::get('/cursos_pesquisar', [CursosController::class, 'find'])->middleware('can:view, App\Models\Curso');
 
 Route::get('/cursos_disciplinas/{id}/{nome}', [CursosDisciplinasController::class, 'listar'])->middleware('can:view, App\Models\Curso');
@@ -163,6 +163,7 @@ Route::get('/grade_horarios_alunos/{turma}', [GradeHorariosController::class, 'g
 Route::resource('frequencia', FrequenciaController::class)->middleware('can:view, App\Models\Frequencia');
 Route::get('frequencia_adicionar/{id}', [FrequenciaController::class, 'adicionar'])->middleware('can:view, App\Models\Frequencia');
 Route::get('frequencia_localizar', [FrequenciaController::class, 'localizarFrequencias'])->middleware('can:view, App\Models\Frequencia');
+Route::get('frequencia_localiza_matricula', [FrequenciaController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\Frequencia');
 
 Route::resource('reposicoes',ReposicoesController::class)->middleware('can:view, App\Models\Reposicao');
 Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 'reposicao_adicionar'])->middleware('can:view, App\Models\Reposicao');

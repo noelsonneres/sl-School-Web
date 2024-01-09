@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Localizar matrícula')
+@section('title', 'Frequência - Localizar matrícula')
 @section('content')
 
 <div class="container">
 
     <div style="background-color: #1976D2;">
-        <h3 class="text-center text-white p-3">Localizar matrícula</h3>
+        <h3 class="text-center text-white p-3">Lançamento de frequência - Localizar matrícula</h3>
     </div>
 
     @if(isset($msg))
@@ -19,17 +19,35 @@
 
     <hr>
 
-    <div class="row">
+    <div class="row ps-5">
 
         <div class="col-8">
 
-            <form action="/dia_pesquisar" method="get">
+            <form action="/frequencia_localiza_matricula" method="get">
                 @csrf
-                <input type="text" name="find" id="find" placeholder="Digite o que deseja buscar">
-                <button type="submit" class="btn btn-success btn-sm">Pesquisar
-                    <i class="bi bi-search"></i>
-                </button>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <select class="form-control" name="opt" id="opt">
+                        <option value="id">Matrícula</option>
+                        <option value="alunos_id">Código do aluno</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="find" id="find"
+                           placeholder="Digite o que deseja buscar">
+                </div>
+
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
+                </div>
+
+            </div>
+
             </form>
+
         </div>
 
     </div>
@@ -64,7 +82,7 @@
                             <div class="row">
 
                                 <div class="col-2">
-                                    <a href="{{ route('dias.edit', $matricula->id) }}" class="btn btn-info btn-sm"
+                                    <a href="{{ route('frequencia.show', $matricula->id) }}" class="btn btn-info btn-sm"
                                         title="Atualizar informações do dia selecionado" >
                                         <i class="bi bi-check-circle-fill"></i>
                                     </a>

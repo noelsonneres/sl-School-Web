@@ -50,7 +50,7 @@
                     <i class="bi bi-arrow-left-circle-fill"></i>
                     Voltar
                 </a>
-                
+
             </div>
 
             <div class="col-6">
@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="col-md-2 mt-2">
-                            <button type="submit" class="btn btn-success">Pesquisar</button>
+                            <button type="submit" class="btn btn-sm btn-success">Pesquisar</button>
                         </div>
 
                     </div>
