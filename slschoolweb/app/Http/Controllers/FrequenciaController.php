@@ -24,7 +24,10 @@ class FrequenciaController extends Controller
 
     public function index()
     {
-        //
+        
+        $matriculas = Matricula::orderBy('id', 'desc')->where('status', 'ativa')->paginate();
+        return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
+
     }
 
     public function create()

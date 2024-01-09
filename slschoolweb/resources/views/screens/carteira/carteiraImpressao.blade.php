@@ -19,6 +19,7 @@
 
     .texto{
         margin-bottom: 2px;
+        margin-top: 0px;
         font-size: 16px;
     }
 
@@ -154,14 +155,12 @@
 
             </div>
 
-
-
         </div>
         <div class="col-md-9">
           <!-- Coluna das Informações do Estudante -->
-          <h5>{{$carteiras->alunos->nome}}</h5>
+          <h6>{{$carteiras->alunos->nome}}</h6>
           <p class="texto">Matrícula: {{$carteiras->matriculas_id}}</p>
-          <p style="font-size: 14px; margin-bottom: 2px">Curso: {{$carteiras->matriculas->cursos->curso}}</p>
+          <p style="font-size: 14px; margin-bottom: 1px">Curso: {{$carteiras->matriculas->cursos->curso}}</p>
 
           <!-- Informações da Escola -->
 

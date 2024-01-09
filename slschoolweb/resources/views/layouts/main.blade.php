@@ -162,7 +162,7 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Alunos por turma</span></a>
 
-                        <a class="sidebar-link text-white" href="/home_aluno">
+                        <a class="sidebar-link text-white" href="{{route('frequencia.index')}}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Frequência</span></a>
 
