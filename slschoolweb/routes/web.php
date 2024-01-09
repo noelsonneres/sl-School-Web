@@ -148,6 +148,7 @@ Route::get('/motivos_cancelamento_find',  [MotivoCancelamentoController::class, 
 
 Route::resource('matricula_cancelar', MatriculaCancelamentoController::class)->middleware('can:view, App\Models\MatriculaCancelamento');
 Route::get('/cancelar_matricula/{id}', [MatriculaCancelamentoController::class, 'cancelarMatricula'])->middleware('can:view, App\Models\MatriculaCancelamento');
+Route::get('/cancelar_matricula_localizar', [MatriculaCancelamentoController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\MatriculaCancelamento');
 // Route::get('/remover_turma_matricula/{id}', [MatriculaCancelamentoController::class, 'removerTurmas']);
 
 Route::resource('trancar_matricula', MatriculaTrancamentoController::class)->middleware('can:view, App\Models\MatriculaTrancamento');

@@ -24,7 +24,8 @@ class MatriculaTrancamentoController extends Controller
 
     public function index()
     {
-        //
+        $matriculas = Matricula::orderBy('id', 'desc')->where('status', 'ativa')->paginate();
+        return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
     }
 
     public function create()
@@ -155,6 +156,20 @@ class MatriculaTrancamentoController extends Controller
         } catch (\Throwable $th) {
             return 'ERRO! Não foi possível excluir as turmas dos alunos: ' . $th;
         }
+    }
+
+    public function selecionarMatricula(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'id';
+        }
+
+        $matriculas = Matricula::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate(15);
+        return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
+
     }
 
     private function verificarAcesso()

@@ -174,7 +174,7 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Cancelar</span></a>
 
-                        <a class="sidebar-link text-white" href="/home_aluno">
+                        <a class="sidebar-link text-white" href="{{route('trancar_matricula.index')}}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Trancar</span></a>
 

@@ -23,7 +23,7 @@
 
             <div class="col-8">
 
-                <form action="/frequencia_localiza_matricula" method="get">
+                <form action="/cancelar_matricula_localizar" method="get">
                     @csrf
 
                     <div class="row">
