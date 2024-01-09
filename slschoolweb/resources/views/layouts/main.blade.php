@@ -166,11 +166,11 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Frequência</span></a>
 
-                        <a class="sidebar-link text-white" href="/home_aluno">
+                        <a class="sidebar-link text-white" href="{{route('reposicoes.index')}}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Reposição</span></a>
 
-                        <a class="sidebar-link text-white" href="/home_aluno">
+                        <a class="sidebar-link text-white" href="{{route('matricula_cancelar.index')}}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Cancelar</span></a>
 

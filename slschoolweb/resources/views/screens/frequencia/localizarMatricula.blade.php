@@ -83,31 +83,9 @@
 
                                 <div class="col-2">
                                     <a href="{{ route('frequencia.show', $matricula->id) }}" class="btn btn-info btn-sm"
-                                        title="Atualizar informações do dia selecionado" >
+                                        title="Lançar frequência do aluno" >
                                         <i class="bi bi-check-circle-fill"></i>
                                     </a>
-                                </div>
-
-                                <div class="col-2">
-
-                                    <form method="POST" class="delete-form" action="{{ route('dias.destroy', $matricula->id) }}">
-                                        @csrf
-                                        {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)"
-                                            title="Registro deletado com sucesso!" >
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                    </form>
-
-                                    <script>
-                                        function confirmDelete(button) {
-                                            if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                var form = button.closest('form');
-                                                form.submit();
-                                            }
-                                        }
-                                    </script>
                                 </div>
 
                             </div>

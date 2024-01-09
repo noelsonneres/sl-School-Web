@@ -170,6 +170,7 @@ Route::get('/reposicao_adicionar/{matricula}', [ReposicoesController::class, 're
 Route::get('/reposicao_selecionar/{matricula}/{turma}', [ReposicoesController::class, 'selecionarTurma'])->middleware('can:view, App\Models\Reposicao');
 Route::post('/resposicao_marcar', [ReposicoesController::class, 'marcarReposicao'])->middleware('can:view, App\Models\Reposicao');
 Route::get('/resposicao_localizar', [ReposicoesController::class, 'localizar'])->middleware('can:view, App\Models\Reposicao');
+Route::get('/resposicao_localizar_matricula', [ReposicoesController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\Reposicao');
 
 Route::resource('plano_contas', PlanoContasController::class)->middleware('can:view, App\Models\PlanoContas');
 Route::get('plano_contas_localizar', [PlanoContasController::class, 'find'])->middleware('can:view, App\Models\PlanoContas');

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Models\MatriculaCancelamento;
+use App\Models\MatriculaTurma;
 use App\Models\MotivoCancelamento;
 use App\Models\NivelAcesso;
-use Illuminate\Http\Request;
-use App\Models\Aluno;
-use App\Models\MatriculaTurma;
 use App\Models\Responsavel;
+use Illuminate\Http\Request;
 
 class MatriculaCancelamentoController extends Controller
 {
@@ -24,7 +24,8 @@ class MatriculaCancelamentoController extends Controller
 
     public function index()
     {
-        //
+        $matriculas = Matricula::orderBy('id', 'desc')->where('status', 'ativa')->paginate();
+        return view(self::PATH . 'localizarMatricula', ['matriculas' => $matriculas]);
     }
 
     public function create()
