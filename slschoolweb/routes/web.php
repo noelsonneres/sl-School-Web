@@ -155,6 +155,7 @@ Route::resource('trancar_matricula', MatriculaTrancamentoController::class)->mid
 Route::get('/trancar_matricula_localizar', [MatriculaTrancamentoController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\MatriculaTrancamento');
 
 Route::resource('matricula_finalizar', MatriculaFinalizarController::class)->middleware('can:view, App\Models\MatriculaFinalizar');
+Route::get('matricula_finalizar_localizar', [MatriculaFinalizarController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\MatriculaFinalizar');
 
 Route::resource('matricula_reativar', MatriculaReativarController::class)->middleware('can:view, App\Models\MatriculaReativar');
 
