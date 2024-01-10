@@ -167,7 +167,7 @@ class MatriculaTrancamentoController extends Controller
             $field = 'id';
         }
 
-        $matriculas = Matricula::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate(15);
+        $matriculas = Matricula::where($field, 'LIKE', $value . '%')->where('status', 'ativa')->orderBy('id', 'desc')->paginate(15);
         return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
 
     }
@@ -188,4 +188,5 @@ class MatriculaTrancamentoController extends Controller
             return 0;
         }
     }
+
 }
