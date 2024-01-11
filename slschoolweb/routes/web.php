@@ -158,6 +158,7 @@ Route::resource('matricula_finalizar', MatriculaFinalizarController::class)->mid
 Route::get('matricula_finalizar_localizar', [MatriculaFinalizarController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\MatriculaFinalizar');
 
 Route::resource('matricula_reativar', MatriculaReativarController::class)->middleware('can:view, App\Models\MatriculaReativar');
+Route::get('matricula_reativar_localizar', [MatriculaReativarController::class, 'selecionarMatricula'])->middleware('can:view, App\Models\MatriculaReativar');
 
 Route::get('/grade_horarios', [GradeHorariosController::class, 'grade'])->middleware('can:view,' . GradeHorariosPolicy::class);
 Route::get('/grade_horarios_filtrar', [GradeHorariosController::class, 'filtrarGrade']);

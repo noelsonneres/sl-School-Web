@@ -11,7 +11,7 @@
         <hr>
         <h4 class="p-1">Aluno(a): {{ $matricula->alunos->nome }}</h4>
         <h4 class="p-1">Matrícula: {{ $matricula->id }}</h4>
-        <h4 class="p-1" style="font-weight: 800">Status: {{$matricula->status}}</h4>
+        <h4 class="p-1" style="font-weight: 800">Status: {{ $matricula->status }}</h4>
         <hr>
 
         <div class="card p-5">
@@ -59,6 +59,6 @@
         </form>
 
     </div>
-    </div>
+  
 
 @endsection

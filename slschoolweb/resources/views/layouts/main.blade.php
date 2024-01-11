@@ -182,7 +182,7 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Finalizar</span></a>
 
-                        <a class="sidebar-link text-white" href="/home_aluno">
+                        <a class="sidebar-link text-white" href="{{route('matricula_reativar.index')}}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Reativar</span></a>
 

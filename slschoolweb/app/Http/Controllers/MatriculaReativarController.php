@@ -22,7 +22,8 @@ class MatriculaReativarController extends Controller
 
     public function index()
     {
-        //
+        $matriculas = Matricula::orderBy('id', 'desc')->where('status', '!=', 'ativa')->paginate();
+        return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
     }
 
 
@@ -125,6 +126,25 @@ class MatriculaReativarController extends Controller
         } catch (\Throwable $th) {
             return 'ERRO! Não foi possível atualizar o status da matrícula: ' . $th->getMessage();
         }
+    }
+
+    public function selecionarMatricula(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'id';
+        }
+
+        // $matriculas = Matricula::where($field, 'LIKE', $value . '%', 'status', '!=', 'ativa')->orderBy('id', 'desc')->paginate(15);
+        $matriculas = Matricula::where($field, 'LIKE', $value . '%')
+        ->where('status', '!=', 'ativa')
+        ->orderBy('id', 'desc')
+        ->paginate(15);
+    
+        return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
+
     }
 
     private function verificarAcesso()

@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Finalizar matricula - Localizar matrícula')
+@section('title', 'Reativar matricula - Localizar matrícula')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Finalizar matrícula - Localizar matrícula</h3>
+            <h3 class="text-center text-white p-3">Reativar matrícula - Localizar matrícula</h3>
         </div>
 
         @if(isset($msg))
@@ -23,7 +23,7 @@
 
             <div class="col-8">
 
-                <form action="/matricula_finalizar_localizar" method="get">
+                <form action="/matricula_reativar_localizar" method="get">
                     @csrf
 
                     <div class="row">
@@ -82,7 +82,7 @@
                                 <div class="row">
 
                                     <div class="col-2">
-                                        <a href="{{ route('matricula_finalizar.show', $matricula->id) }}" class="btn btn-success btn-sm"
+                                        <a href="{{ route('matricula_reativar.show', $matricula->id) }}" class="btn btn-success btn-sm"
                                            title="
                                             Finalizar matrícula selecionada" >
                                             <i class="bi bi-clipboard-check-fill"></i>
