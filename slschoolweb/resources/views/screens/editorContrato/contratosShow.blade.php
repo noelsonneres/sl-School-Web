@@ -26,38 +26,8 @@
 
                 <a href="{{ route('contrato.create') }}" class="btn btn-primary" title="Criar novo curso">
                     <i class="bi bi-plus-circle-fill"></i>
-                    Novo</a>
-                <button onclick="(print())" class="btn $teal-300">Imprimir</button>
+                    Novo Contrato</a>
 
-            </div>
-
-            <div class="col-8">
-
-                <form action="/cursos_pesquisar" method="get">
-                    @csrf
-
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <select class="form-control" name="opt" id="opt">
-                                <option value="id">Código</option>
-                                <option value="curso">Curso</option>
-                                <option value="desscricao">Descricao</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="find" id="find"
-                                placeholder="Digite o que deseja buscar">
-                        </div>
-
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
-                        </div>
-
-                    </div>
-
-                </form>
             </div>
 
         </div>
@@ -87,7 +57,7 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('cursos.edit', $contrato->id) }}"
+                                            <a href="{{ route('contrato.edit', $contrato->id) }}"
                                                 title="Editar informações do professor" class="btn btn-success btn-sm">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
@@ -96,7 +66,7 @@
                                         <div class="col-2">
 
                                             <form method="POST" class="delete-form"
-                                                action="{{ route('cursos.destroy', $contrato->id) }}">
+                                                action="{{ route('contrato.destroy', $contrato->id) }}">
                                                 @csrf
                                                 {{-- o método HTTP para exclusão deve ser o DELETE --}}
                                                 @method('DELETE')

@@ -24,10 +24,9 @@
         </div>
 
         <hr>
-
         @if (isset($msg))
             <div class="alert alert-warning alert-dismissible fade show msg d-flex 
-							justify-content-between align-items-end mb-3"
+                                justify-content-between align-items-end mb-3"
                 role="alert" style="text-align: center;">
                 <h5>{{ $msg }} </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -35,16 +34,20 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('contrato.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('contrato.update', $contrato->id) }}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
+
+            <input type="hidden" name="contratoID" value="{{ $contrato->id }}">
 
             <div class="mb-4 mt-3">
                 <label for="descricao" class="form-label">Descrição</label>
-                <input type="text" class="form-control" name="descricao" id="descricao" maxlength="100" required>
+                <input type="text" class="form-control" name="descricao" id="descricao" maxlength="100"
+                    value="{{ $contrato->descricao }}">
             </div>
 
             <textarea id="contrato" name="contrato" style="height: 800px">
-
+        {{ $contrato->contrato }}
     </textarea>
 
             <div>
