@@ -147,7 +147,7 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Alunos</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('matricula.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('matricula.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Matrículas</span></a>
 
@@ -162,27 +162,27 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Alunos por turma</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('frequencia.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('frequencia.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Frequência</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('reposicoes.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('reposicoes.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Reposição</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('matricula_cancelar.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('matricula_cancelar.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Cancelar</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('trancar_matricula.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('trancar_matricula.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Trancar</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('matricula_finalizar.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('matricula_finalizar.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Finalizar</span></a>
 
-                        <a class="sidebar-link text-white" href="{{route('matricula_reativar.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('matricula_reativar.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Reativar</span></a>
 
@@ -274,6 +274,11 @@
                                 <span class="align-middle">Consultores</span>
                             </a>
                         @endcan
+
+                        <a class="sidebar-link text-white" href="{{route('contrato.index')}}">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Modelo do contrato</span>
+                        </a>
 
                     </div>
 

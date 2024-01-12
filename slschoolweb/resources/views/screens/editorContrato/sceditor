@@ -1,0 +1,146 @@
+{{-- Dias de aulas disponiveis no sistema --}}
+
+@extends('layouts.main')
+@section('title', 'Modelo do contrato')
+
+<head>
+    <title>SCEditor Demo</title>
+
+    <script src="/sceditor/minified/sceditor.min.js"></script>
+    <script src="/sceditorminified/icons/monocons.js"></script>
+    <script src="/sceditor/minified/formats/bbcode.js"></script>
+
+    <link rel="stylesheet" href="/sceditor/minified/themes/default.min.css" id="theme-style" />
+
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+        form div {
+            padding: .5em;
+        }
+
+        code:before {
+            position: absolute;
+            content: 'Code:';
+            top: -1.35em;
+            left: 0;
+        }
+
+        code {
+            margin-top: 2.5em;
+            position: relative;
+            background: #eee;
+            border: 1px solid #aaa;
+            white-space: pre;
+            padding: .25em;
+            min-height: 1.25em;
+        }
+
+        code:before,
+        code {
+            display: block;
+            text-align: left;
+        }
+    </style>
+</head>
+
+
+@section('content')
+
+    <div class="container">
+
+        <div style="background-color: #1976D2;">
+            <h3 class="text-center text-white p-3">Modelo do contrato</h3>
+        </div>
+
+        @if (isset($msg))
+            <div class="alert alert-warning alert-dismissible fade show msg d-flex
+							justify-content-between align-items-end mb-3"
+                role="alert" style="text-align: center;">
+                <h5>{{ $msg }} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            </div>
+        @endif
+        <hr>
+
+            <div class="row ps-4">
+                <div class="col-md-3">
+                    <a href="" class="btn btn-primary">Carregar contrato</a>
+                </div>
+            </div>
+
+        <hr>
+
+        <div class="container p-2">
+
+            <form action="" method="post">
+                @csrf
+                <div>
+                    <textarea id="example" style="height:800px;width:800px;">
+                    Insira o seu documento aqui
+                </textarea>
+                </div>
+
+                <div>
+                    <label for="theme">Theme:</label>
+                    <select id="theme">
+                        <option value="default">Default</option>
+                        <option value="defaultdark">Default dark</option>
+                        <option value="modern">Modern</option>
+                        <option value="office-toolbar">Office Toolbar</option>
+                        <option value="office">Office</option>
+                        <option value="square">Square</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-floppy2"></i>
+                        Salvar</button>
+
+                    <a href="javascript:history.back()" class="btn btn-danger">
+                        <i class="bi bi-x-circle-fill"></i>
+                        Cancelar</a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <script src="/sceditor/minified/jquery.sceditor.min.js"></script>
+        <script src="/sceditor/languages/pt-BR.js"></script>
+
+        <script>
+            var textarea = document.getElementById('example');
+            sceditor.create(textarea, {
+                plugins: 'undo',
+                format: 'bbcode',
+                locale: 'no-NB',
+                icons: 'monocons',
+                style: '/sceditor/minified/themes/content/default.min.css'
+            });
+
+            var themeInput = document.getElementById('theme');
+            themeInput.onchange = function() {
+                var theme = '/sceditor/minified/themes/' + themeInput.value + '.min.css';
+                document.getElementById('theme-style').href = theme;
+            };
+        </script>
+
+        <p>SCEditor is licensed under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a></p>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+
+
+    </div>
+
+@endsection

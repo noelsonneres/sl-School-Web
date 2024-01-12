@@ -42,6 +42,7 @@ use App\Http\Controllers\ControleCaixaController;
 use App\Http\Controllers\ConfCarteiraController;
 use App\Http\Controllers\ImpressaoCarteiraController;
 use App\Http\Controllers\CadastroVisitaController;
+use App\Http\Controllers\ContratosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -214,5 +215,9 @@ Route::post('/nivel_acesso_adicionar', [NivelAcessoController::class, 'adcionarR
 Route::get('/nivel_acesso_bloquear/{nivelID}', [NivelAcessoController::class, 'bloquearAcesso'])->middleware('can:view, App\Models\NivelAcesso');
 Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'liberarAcesso'])->middleware('can:view, App\Models\NivelAcesso');
 
+
+// FASE 2
 Route::get('/alunos_por_turma', [AlunosPorTurmaController::class, 'index']);
 Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'selecionarAlunos']);
+
+Route::resource('contrato', ContratosController::class);
