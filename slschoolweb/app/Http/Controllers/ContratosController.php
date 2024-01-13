@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contrato;
+use App\Models\Matricula;
+use App\Models\MatriculaTurma;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -137,16 +139,41 @@ class ContratosController extends Controller
             ->with('msg', $msg);
     }
 
-    private function recuperarDadosAluno(string $alunoID){
+    public function iniciarContrato(string $matriculaID){
+
+        $matriculaInfo = $this->recuperarDadosMatrícula($matriculaID);
+        $matriculaTurmaInfo = $this->recuperarDadosTurmas($matriculaID);
+
+        return view(self::PATH.'iniciarContrato', ['matricula'=>$matriculaInfo, 'turma'=>$matriculaTurmaInfo]);
 
     }
 
-    private function recuperarDadosResponsavel(string $alunoID){
-
+    private function recuperarDadosMatrícula(string $matriculaID)
+    {
+        $matriculaInfo = Matricula::find($matriculaID);
+        return $matriculaInfo;
     }
 
-    private function recuperarDadosMatrícula(string $matriculaID){
-        
+    private function recuperarDadosTurmas(string $matriculaID)
+    {
+        $matriculaTurmaInfo = MatriculaTurma::where('matriculas_id', $matriculaID)->get();
+        return $matriculaTurmaInfo;
+    }
+
+    private function retornarContrato(){
+        $contrato = $this->contrato->first();
+        return $contrato;
+    }
+
+    // Lista de tags que devem ser usados no processo de geração do contrato do aluno
+    private function listaDeTags(){
+        $lista = [
+            '<aluno>',
+            '<matricula>'
+        ];
+
+        return $lista;
+
     }
 
 }
