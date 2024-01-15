@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('estado_civil')->nullable();
             $table->string('profissao')->nullable();
+            $table->string('nacionalidade')->nullable();
             $table->string('nome_mae')->nullable();
             $table->string('rg_mae')->nullable();
             $table->string('cpf_mae')->nullable();

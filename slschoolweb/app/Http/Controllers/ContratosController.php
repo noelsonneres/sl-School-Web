@@ -146,9 +146,9 @@ class ContratosController extends Controller
         $matriculaInfo = $this->recuperarDadosMatrícula($matriculaID);
         $matriculaTurmaInfo = $this->recuperarDadosTurmas($matriculaID);
 
-        $lista = $this->listaDeTags($matriculaInfo);
+        $contrato = $this->listaDeTags($matriculaInfo);
 
-        return view(self::PATH . 'iniciarContrato', ['listaTags' => $lista]);
+        return view(self::PATH . 'iniciarContrato', ['contrato' => $contrato]);
     }
 
     private function recuperarDadosMatrícula(string $matriculaID)
@@ -169,14 +169,27 @@ class ContratosController extends Controller
         return $contrato;
     }
 
-    // Lista de tags que devem ser usados no processo de geração do contrato do aluno
+    // Procedimento para a geração do Contrato
     private function listaDeTags(Matricula $matricula)
     {
-        $lista = [
-            '<aluno>' => $matricula->alunos->nome,
-            '<matricula>' => $matricula->id,
-        ];
 
-        return $lista;
+        $contrato = $this->contrato->first();
+
+        if (!$contrato) {
+            return 'Contrato não encontrado';
+        }
+
+        $modeloContrato = $contrato->contrato;
+        $contratoAluno = str_replace(
+            ['%nome_aluno%', '%apelido%'],
+
+            [
+                $matricula->alunos->nome,
+                $matricula->alunos->apelido
+            ],
+            $modeloContrato
+        );
+
+        return $contratoAluno;
     }
 }
