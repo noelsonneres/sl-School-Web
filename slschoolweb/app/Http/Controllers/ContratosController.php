@@ -180,16 +180,51 @@ class ContratosController extends Controller
         }
 
         $modeloContrato = $contrato->contrato;
-        $contratoAluno = str_replace(
-            ['%nome_aluno%', '%nacionalidade_aluno%'],
 
-            [
-                $matricula->alunos->nome,
-                $matricula->alunos->nacionalidade,
-            ],
-            $modeloContrato
-        );
+        // Define um array associativo com as variáveis e seus valores
+        $variaveis = [
+            '%nome_aluno%' => $matricula->alunos->nome,
+            '%apelido_aluno%'=>$matricula->alunos->apelido,            
+            '%codigo_aluno%' => $matricula->alunos->id,
+            '%nacionalidade_aluno%'=> $matricula->alunos->nacionalidade,
+            '%rg_aluno%' => $matricula->alunos->rg,
+            '%cpf_aluno%'=>$matricula->alunos->cpf,
+            '%data_nascimento_aluno%'=>$matricula->alunos->ata_nascimento,
+            '%data_cadastro_aluno%'=>$matricula->alunos->data_cadastro,
+            '%fobias_aluno%'=>$matricula->alunos->fobias,
+            '%alergias_aluno%'=>$matricula->alunos->alergias,
+            '%deficiencias_aluno%'=>$matricula->alunos->deficiencias,
+            '%outros_aspectos_aluno%'=>$matricula->alunos->outros_aspectos,
+            '%endereco_aluno%'=>$matricula->alunos->endereco,
+            '%bairro_aluno%'=>$matricula->alunos->bairro,
+            '%numero_aluno%'=>$matricula->alunos->numero,
+            '%complemento_aluno%'=>$matricula->alunos->complemento,
+            '%cep_aluno%'=>$matricula->alunos->cep,
+            '%cidade_aluno%'=>$matricula->alunos->cidade,
+            '%estado_aluno%'=>$matricula->alunos->estado,
+            '%telefone_aluno%'=>$matricula->alunos->telefone,
+            '%celular_aluno%'=>$matricula->alunos->celular,
+            '%email_aluno%'=>$matricula->alunos->email,
+            '%estado_civil_aluno%'=>$matricula->alunos->estado_civil,
+            '%profissao_aluno%'=>$matricula->alunos->profissao,
+            '%nome_mae_aluno%'=>$matricula->alunos->nome_mae,
+            '%rg_mae_aluno%'=>$matricula->alunos->rg_mae,
+            '%cpf_mae_aluno%'=>$matricula->alunos->cpf_mae,
+            '%nome_pai_aluno%'=>$matricula->alunos->nome_pai,
+            '%rg_pai_aluno%'=>$matricula->alunos->rg_pai,
+            '%cpf_pai_aluno%'=>$matricula->alunos->cpf_pai,
+
+
+
+
+
+            // ... Adicione outras variáveis aqui
+        ];
+
+        // Substitui as variáveis no modelo de contrato
+        $contratoAluno = str_replace(array_keys($variaveis), array_values($variaveis), $modeloContrato);
 
         return $contratoAluno;
+
     }
 }
