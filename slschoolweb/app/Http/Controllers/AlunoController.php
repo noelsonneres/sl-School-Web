@@ -69,6 +69,7 @@ class AlunoController extends Controller
             $alunos->email = $request->input('email');
             $alunos->estado_civil = $request->input('estadoCivil');
             $alunos->profissao = $request->input('profissao');
+            $alunos->nacionalidade = $request->input('nacionalidade');
             $alunos->nome_mae = $request->input('nomeMae');
             $alunos->rg_mae = $request->input('rgMae');
             $alunos->cpf_mae = $request->input('cpfMae');
@@ -125,6 +126,8 @@ class AlunoController extends Controller
 
         $alunos = $this->alunos->find($id);
 
+        // dd($request->input('nacionalidade'));
+
         if ($alunos->count() >= 1) {
 
             $request->validate([
@@ -160,6 +163,7 @@ class AlunoController extends Controller
                 $alunos->email = $request->input('email');
                 $alunos->estado_civil = $request->input('estadoCivil');
                 $alunos->profissao = $request->input('profissao');
+                $alunos->nacionalidade = $request->input('nacionalidade');
                 $alunos->nome_mae = $request->input('nomeMae');
                 $alunos->rg_mae = $request->input('rgMae');
                 $alunos->cpf_mae = $request->input('cpfMae');

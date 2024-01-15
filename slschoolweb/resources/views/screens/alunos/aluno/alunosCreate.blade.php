@@ -141,14 +141,19 @@
 
                 <div class="row">
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="estadoCivil" class="form-label lblCaption">Estado civil</label>
                         <input type="text" class="form-control" id="estadoCivil" name="estadoCivil" maxlength="50">
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="profissao" class="form-label lblCaption">Profissão</label>
                         <input type="text" class="form-control" id="profissao" name="profissao" maxlength="50">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="nacionalidade" class="form-label lblCaption">Nacionalidade</label>
+                        <input type="text" class="form-control" id="nacionalidade" name="nacionalidade" maxlength="50">
                     </div>
 
                     <div class="card mt-3">

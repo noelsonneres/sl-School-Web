@@ -106,13 +106,16 @@ class MatriculasController extends Controller
             $vencimento = new DateTime($request->input('vencimento'));
             $vencimentoMatricula = new DateTime($request->input('vencimentoMatricula'));
 
+            $responsavelID = $responsavel->id ?? 0;
+
             if (
                 !empty($request->input('vencimentoMatricula'))
                 && !empty($request->input('valorMatricula'))
             ) {
                 $this->gerarParcelas(
                     $aluno->id,
-                    $responsavel->id,
+                    // $responsavel->id,
+                    $responsavelID,
                     $matricula->id,
                     1,
                     $request->input('valorMatricula'),
@@ -123,7 +126,8 @@ class MatriculasController extends Controller
 
             $this->gerarParcelas(
                 $aluno->id,
-                $responsavel->id,
+                // $responsavel->id,
+                $responsavelID,
                 $matricula->id,
                 $request->input('qtdeParcelas'),
                 $request->input('valorPorParcela'),
@@ -413,7 +417,10 @@ class MatriculasController extends Controller
 
             $mensalidade = new Mensalidade();
 
-            $mensalidade->responsavels_id = $responsavelID;
+            if($responsavelID != 0){
+                $mensalidade->responsavels_id = $responsavelID;
+            }           
+
             $mensalidade->alunos_id = $alunoID;
             $mensalidade->matriculas_id = $matriculaID;
             $mensalidade->qtde_mensalidades = $qtdeParcela;

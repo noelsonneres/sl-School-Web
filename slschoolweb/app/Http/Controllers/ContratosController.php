@@ -181,11 +181,11 @@ class ContratosController extends Controller
 
         $modeloContrato = $contrato->contrato;
         $contratoAluno = str_replace(
-            ['%nome_aluno%', '%apelido%'],
+            ['%nome_aluno%', '%nacionalidade_aluno%'],
 
             [
                 $matricula->alunos->nome,
-                $matricula->alunos->apelido
+                $matricula->alunos->nacionalidade,
             ],
             $modeloContrato
         );
