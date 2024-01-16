@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aluno;
 use App\Models\Contrato;
+use App\Models\CursosDisciplina;
 use App\Models\Matricula;
 use App\Models\MatriculaTurma;
 use Illuminate\Http\Request;
@@ -175,6 +176,21 @@ class ContratosController extends Controller
 
         $contrato = $this->contrato->first();
 
+        $listadisciplinas = CursosDisciplina::with('disciplinas')->where('cursos_id', $matricula->cursos_id)->get();
+
+        $disciplinasDoCurso = '';
+
+        foreach ($listadisciplinas as $lista) {
+            if($disciplinasDoCurso === ''){
+                $disciplinasDoCurso .= $lista->disciplinas->disciplina;
+            }else{
+                $disciplinasDoCurso .= ', ' . $lista->disciplinas->disciplina;
+            }
+            
+        }
+
+        // dd($disciplinasDoCurso);
+
         if (!$contrato) {
             return 'Contrato não encontrado';
         }
@@ -183,36 +199,36 @@ class ContratosController extends Controller
 
         // Define um array associativo com as variáveis e seus valores
         $variaveis = [
-            '%nome_aluno%' => $matricula->alunos->nome,
-            '%apelido_aluno%' => $matricula->alunos->apelido,
-            '%codigo_aluno%' => $matricula->alunos->id,
-            '%nacionalidade_aluno%' => $matricula->alunos->nacionalidade,
-            '%rg_aluno%' => $matricula->alunos->rg,
-            '%cpf_aluno%' => $matricula->alunos->cpf,
-            '%data_nascimento_aluno%' => $matricula->alunos->ata_nascimento,
-            '%data_cadastro_aluno%' => $matricula->alunos->data_cadastro,
-            '%fobias_aluno%' => $matricula->alunos->fobias,
-            '%alergias_aluno%' => $matricula->alunos->alergias,
-            '%deficiencias_aluno%' => $matricula->alunos->deficiencias,
-            '%outros_aspectos_aluno%' => $matricula->alunos->outros_aspectos,
-            '%endereco_aluno%' => $matricula->alunos->endereco,
-            '%bairro_aluno%' => $matricula->alunos->bairro,
-            '%numero_aluno%' => $matricula->alunos->numero,
-            '%complemento_aluno%' => $matricula->alunos->complemento,
-            '%cep_aluno%' => $matricula->alunos->cep,
-            '%cidade_aluno%' => $matricula->alunos->cidade,
-            '%estado_aluno%' => $matricula->alunos->estado,
-            '%telefone_aluno%' => $matricula->alunos->telefone,
-            '%celular_aluno%' => $matricula->alunos->celular,
-            '%email_aluno%' => $matricula->alunos->email,
-            '%estado_civil_aluno%' => $matricula->alunos->estado_civil,
-            '%profissao_aluno%' => $matricula->alunos->profissao,
-            '%nome_mae_aluno%' => $matricula->alunos->nome_mae,
-            '%rg_mae_aluno%' => $matricula->alunos->rg_mae,
-            '%cpf_mae_aluno%' => $matricula->alunos->cpf_mae,
-            '%nome_pai_aluno%' => $matricula->alunos->nome_pai,
-            '%rg_pai_aluno%' => $matricula->alunos->rg_pai,
-            '%cpf_pai_aluno%' => $matricula->alunos->cpf_pai,
+            '%nome_aluno%' => $matricula->alunos->nome ?? ' ',
+            '%apelido_aluno%' => $matricula->alunos->apelido ?? ' ',
+            '%codigo_aluno%' => $matricula->alunos->id ?? ' ',
+            '%nacionalidade_aluno%' => $matricula->alunos->nacionalidade ?? ' ',
+            '%rg_aluno%' => $matricula->alunos->rg ?? ' ',
+            '%cpf_aluno%' => $matricula->alunos->cpf ?? ' ',
+            '%data_nascimento_aluno%' => $matricula->alunos->ata_nascimento ?? ' ',
+            '%data_cadastro_aluno%' => $matricula->alunos->data_cadastro ?? ' ',
+            '%fobias_aluno%' => $matricula->alunos->fobias ?? ' ',
+            '%alergias_aluno%' => $matricula->alunos->alergias ?? ' ',
+            '%deficiencias_aluno%' => $matricula->alunos->deficiencias ?? ' ',
+            '%outros_aspectos_aluno%' => $matricula->alunos->outros_aspectos ?? ' ',
+            '%endereco_aluno%' => $matricula->alunos->endereco ?? ' ',
+            '%bairro_aluno%' => $matricula->alunos->bairro ?? ' ',
+            '%numero_aluno%' => $matricula->alunos->numero ?? ' ',
+            '%complemento_aluno%' => $matricula->alunos->complemento ?? ' ',
+            '%cep_aluno%' => $matricula->alunos->cep ?? ' ',
+            '%cidade_aluno%' => $matricula->alunos->cidade ?? ' ',
+            '%estado_aluno%' => $matricula->alunos->estado ?? ' ',
+            '%telefone_aluno%' => $matricula->alunos->telefone ?? ' ',
+            '%celular_aluno%' => $matricula->alunos->celular ?? ' ',
+            '%email_aluno%' => $matricula->alunos->email ?? ' ',
+            '%estado_civil_aluno%' => $matricula->alunos->estado_civil ?? ' ',
+            '%profissao_aluno%' => $matricula->alunos->profissao ?? ' ',
+            '%nome_mae_aluno%' => $matricula->alunos->nome_mae ?? ' ',
+            '%rg_mae_aluno%' => $matricula->alunos->rg_mae ?? ' ',
+            '%cpf_mae_aluno%' => $matricula->alunos->cpf_mae ?? ' ',
+            '%nome_pai_aluno%' => $matricula->alunos->nome_pai ?? ' ',
+            '%rg_pai_aluno%' => $matricula->alunos->rg_pai ?? ' ',
+            '%cpf_pai_aluno%' => $matricula->alunos->cpf_pai ?? ' ',
 
             '%nome_responsavel%' => $matricula->responsaveis->nome ?? ' ',
             '%codigo_responsavel%' => $matricula->responsaveis->id ?? ' ',
@@ -232,9 +248,26 @@ class ContratosController extends Controller
             '%celular_responsavel%' => $matricula->responsaveis->celular ?? ' ',
             '%email_responsavel%' => $matricula->responsaveis->email ?? ' ',
             '%estado_civil_responsavel%' => $matricula->responsaveis->estado_civil ?? ' ',
-            '%profissao_responsavel%' => $matricula->responsaveis->profissao ?? ' '
+            '%profissao_responsavel%' => $matricula->responsaveis->profissao ?? ' ',
 
-
+            '%matricula%' => $matricula->id ?? ' ',
+            '%curso_matricula%' => $matricula->cursos->curso ?? ' ',
+            '%curso_codigo%'=>$matricula->cursos->id ?? ' ',
+            '%curso_duracao_matricula%' => $matricula->cursos->duracao_meses ?? ' ',
+            '%curso_carga_horaria_matricula%' => $matricula->cursos->carga_horaria ?? ' ',
+            '%curso_disciplinas_matricula%'=>$disciplinasDoCurso ?? ' ',
+            '%qtde_parcelas_matricula%'=>$matricula->qtde_parcela ?? ' ',
+            '%valor_a_vista_matricula%'=>'R$ '.number_format($matricula->valor_a_vista, 2, ',', '.') ?? ' ',
+            '%valor_com_desconto_matricula%'=>'R$ '.number_format($matricula->valor_com_desconto, 2, ',', '.') ?? ' ',
+            '%valor_parcelado_matricula%'=>'R$ '.number_format($matricula->valor_parcelado, 2, ',', '.') ?? ' ',
+            '%valor_por_parcela_matricula%'=>'R$ '.number_format($matricula->valor_por_parcela, 2, ',', '.') ?? ' ',
+            '%vencimento_matricula%'=>$matricula->vencimento ?? ' ',
+            '%valor_matricula_matricula%'=>'R$ '.number_format($matricula->valor_matricula, 2, ',', '.') ?? ' ',
+            '%vencimento_matricula_matricula%'=>$matricula->vencimento_matricula ?? ' ',
+            '%data_inicio_matricula%'=>$matricula->data_inicio ?? ' ',
+            '%data_termino_matricula%'=>$matricula->data_termino ?? ' ',
+            '%horas_semana_matricula%'=>$matricula->horas_semana ?? ' ',
+            '%status_matricula%'=>$matricula->status ?? ' ',
 
 
 
