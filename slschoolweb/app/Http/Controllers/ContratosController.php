@@ -177,6 +177,17 @@ class ContratosController extends Controller
         $contrato = $this->contrato->first();
 
         $listadisciplinas = CursosDisciplina::with('disciplinas')->where('cursos_id', $matricula->cursos_id)->get();
+        $listaTurmas = MatriculaTurma::where('matriculas_id', $matricula->id)->get();
+
+        $informacoesTurmas = '';
+
+        foreach($listaTurmas as $lista){
+            $informacoesTurmas .= ' Turma: '.$lista->turmas->turma.', ';
+            $informacoesTurmas .= 'Dias de aulas: '.$lista->turmas->cadastroDias->dia1 . ' '.$lista->turmas->cadastroDias->dia2.', ';
+            $informacoesTurmas .= 'Horários: '.$lista->turmas->cadastroHorarios->entrada.' '.$lista->turmas->cadastroHorarios->saida.', ';
+            $informacoesTurmas .= 'Sala: '.$lista->salas->sala.', ';
+            $informacoesTurmas .= 'Turno: '.$lista->turmas->turno.'; \n ';
+        }
 
         $disciplinasDoCurso = '';
 
@@ -189,15 +200,12 @@ class ContratosController extends Controller
             
         }
 
-        // dd($disciplinasDoCurso);
-
         if (!$contrato) {
             return 'Contrato não encontrado';
         }
 
         $modeloContrato = $contrato->contrato;
 
-        // Define um array associativo com as variáveis e seus valores
         $variaveis = [
             '%nome_aluno%' => $matricula->alunos->nome ?? ' ',
             '%apelido_aluno%' => $matricula->alunos->apelido ?? ' ',
@@ -269,12 +277,10 @@ class ContratosController extends Controller
             '%horas_semana_matricula%'=>$matricula->horas_semana ?? ' ',
             '%status_matricula%'=>$matricula->status ?? ' ',
 
+            '%informacoes_turna%'=>$informacoesTurmas,
 
-
-            // ... Adicione outras variáveis aqui
         ];
 
-        // Substitui as variáveis no modelo de contrato
         $contratoAluno = str_replace(array_keys($variaveis), array_values($variaveis), $modeloContrato);
 
         return $contratoAluno;
