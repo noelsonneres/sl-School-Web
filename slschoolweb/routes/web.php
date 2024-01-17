@@ -221,4 +221,5 @@ Route::get('/alunos_por_turma', [AlunosPorTurmaController::class, 'index']);
 Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'selecionarAlunos']);
 
 Route::resource('contrato', ContratosController::class);
-Route::get('/contrato_iniciar/{matricula}', [ContratosController::class, 'iniciarContrato']);
+Route::get('/contrato_iniciar/{matricula}/{contrato}', [ContratosController::class, 'iniciarContrato']);
+Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController::class, 'listagemContratosImpressao']);

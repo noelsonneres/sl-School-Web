@@ -9,6 +9,7 @@ use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Aluno;
 use App\Models\MatriculaTurma;
+use App\Models\Mensalidade;
 use App\Models\Responsavel;
 
 class MatriculaTrancamentoController extends Controller
@@ -67,6 +68,7 @@ class MatriculaTrancamentoController extends Controller
 
             $this->atualizarMatricula($matriculaID);
             $this->removerTurmas($matriculaID);
+            $this->cancelarMensalidades($matriculaID);
 
             $matricula = Matricula::find($matriculaID);
 
@@ -188,5 +190,22 @@ class MatriculaTrancamentoController extends Controller
             return 0;
         }
     }
+
+    private function cancelarMensalidades(string $matriculaID)
+    {
+
+        $mensalidades = Mensalidade::where('matriculas_id', $matriculaID)->get();
+
+        if ($mensalidades != null) {
+
+            foreach ($mensalidades as $mensalidade) {
+
+                if ($mensalidade->pago == 'nao') {
+                    $mensalidade->pago = 'cancelado';
+                    $mensalidade->save();
+                }
+            }
+        };
+    }    
 
 }

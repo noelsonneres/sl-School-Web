@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <a href="{{'/contrato_iniciar/'.$matricula->id}}" class="link-card">
+                    <a href="{{'/listarModeloContratosImpressao/'.$matricula->id}}" class="link-card">
                     <div class="card" style="display: flex; justify-content: center; align-items: center;">
                         <div class="card-body text-center">
                             <h2 class="text-primary" style="font-weight: 500;">Contrato</h2>

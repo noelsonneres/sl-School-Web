@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Models\MatriculaReativar;
+use App\Models\Mensalidade;
 use App\Models\NivelAcesso;
 use App\Models\Responsavel;
 use Illuminate\Http\Request;
@@ -69,6 +70,8 @@ class MatriculaReativarController extends Controller
 
             $aluno = Aluno::find($alunoID);
             $responsavel = Responsavel::where('alunos_id', $alunoID);
+
+            $this->reativarMensalidades($matriculaID);
 
             return view('screens.alunos.matricula.matriculaHome')
                 ->with('aluno', $aluno)
@@ -163,5 +166,22 @@ class MatriculaReativarController extends Controller
             return 0;
         }
     }
+
+    private function reativarMensalidades(string $matriculaID)
+    {
+
+        $mensalidades = Mensalidade::where('matriculas_id', $matriculaID)->get();
+
+        if ($mensalidades != null) {
+
+            foreach ($mensalidades as $mensalidade) {
+
+                if ($mensalidade->pago == 'cancelado') {
+                    $mensalidade->pago = 'nao';
+                    $mensalidade->save();
+                }
+            }
+        };
+    }      
 
 }

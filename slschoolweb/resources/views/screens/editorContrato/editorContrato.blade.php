@@ -20,7 +20,7 @@
     <body>
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-2">Incluir novos dias de aulas</h3>
+            <h3 class="text-center text-white p-2">Adicionar modelo de contrato</h3>
         </div>
 
         <hr>
@@ -47,7 +47,7 @@
 
     </textarea>
 
-            <div>
+            <div class="mt-4">
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-floppy2"></i>
                     Salvar</button>

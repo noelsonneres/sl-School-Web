@@ -6,6 +6,7 @@ use App\Models\Aluno;
 use App\Models\Matricula;
 use App\Models\MatriculaCancelamento;
 use App\Models\MatriculaTurma;
+use App\Models\Mensalidade;
 use App\Models\MotivoCancelamento;
 use App\Models\NivelAcesso;
 use App\Models\Responsavel;
@@ -67,6 +68,7 @@ class MatriculaCancelamentoController extends Controller
 
             $this->atualizarMatricula($matriculaID);
             $this->removerTurmas($matriculaID);
+            $this->cancelarMensalidades($matriculaID);
 
             $matricula = Matricula::find($matriculaID);
 
@@ -106,7 +108,7 @@ class MatriculaCancelamentoController extends Controller
     public function cancelarMatricula(string $matricula)
     {
 
-        if($this->verificarAcesso() == 1){
+        if ($this->verificarAcesso() == 1) {
 
             $cancelar = $this->cancelar->where('matriculas_id', $matricula);
             $matricula = Matricula::find($matricula);
@@ -128,11 +130,9 @@ class MatriculaCancelamentoController extends Controller
                 $listaMotivos = MotivoCancelamento::all();
                 return view(self::PATH . 'cancelarMatricula', ['matricula' => $matricula, 'listaMotivos' => $listaMotivos]);
             }
-
-        }else{
+        } else {
             return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
         }
-
     }
 
     private function atualizarMatricula(string $mat)
@@ -149,19 +149,20 @@ class MatriculaCancelamentoController extends Controller
         }
     }
 
-    private function removerTurmas(string $matricula){
+    private function removerTurmas(string $matricula)
+    {
 
         $turmas = MatriculaTurma::where('matriculas_id', $matricula);
 
         try {
             $turmas->delete();
         } catch (\Throwable $th) {
-            return 'ERRO! Não foi possível excluir as turmas dos alunos: '.$th;
+            return 'ERRO! Não foi possível excluir as turmas dos alunos: ' . $th;
         }
-
     }
 
-    public function selecionarMatricula(Request $request){
+    public function selecionarMatricula(Request $request)
+    {
 
         $value = $request->input('find');
         $field = $request->input('opt');
@@ -171,9 +172,26 @@ class MatriculaCancelamentoController extends Controller
         }
 
         $matriculas = Matricula::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate(15);
-        return view(self::PATH.'localizarMatricula', ['matriculas'=>$matriculas]);
-
+        return view(self::PATH . 'localizarMatricula', ['matriculas' => $matriculas]);
     }
+
+    private function cancelarMensalidades(string $matriculaID)
+    {
+
+        $mensalidades = Mensalidade::where('matriculas_id', $matriculaID)->get();
+
+        if ($mensalidades != null) {
+
+            foreach ($mensalidades as $mensalidade) {
+
+                if ($mensalidade->pago == 'nao') {
+                    $mensalidade->pago = 'cancelado';
+                    $mensalidade->save();
+                }
+            }
+        };
+    }
+
     private function verificarAcesso()
     {
 
@@ -190,5 +208,4 @@ class MatriculaCancelamentoController extends Controller
             return 0;
         }
     }
-
 }

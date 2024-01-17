@@ -20,7 +20,7 @@
     <body>
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-2">Incluir novos dias de aulas</h3>
+            <h3 class="text-center text-white p-2">Contrato do aluno</h3>
         </div>
 
         <hr>
@@ -38,27 +38,9 @@
             @csrf
             @method('PUT')
 
-            {{-- <input type="hidden" name="contratoID" value="{{ $contrato->id }}"> --}}
-
-            {{-- <div class="mb-4 mt-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <input type="text" class="form-control" name="descricao" id="descricao" maxlength="100"
-                    value="{{ $contrato->descricao }}">
-            </div> --}}
-
             <textarea id="contrato" name="contrato" style="height: 800px">
         {{ $contrato}}
     </textarea>
-
-            <div>
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-floppy2"></i>
-                    Salvar</button>
-
-                <a href="javascript:history.back()" class="btn btn-danger">
-                    <i class="bi bi-x-circle-fill"></i>
-                    Cancelar</a>
-            </div>
 
         </form>
     </body>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Contrato;
 use App\Models\CursosDisciplina;
+use App\Models\Empresa;
 use App\Models\Matricula;
 use App\Models\MatriculaTurma;
 use Illuminate\Http\Request;
@@ -141,13 +142,13 @@ class ContratosController extends Controller
             ->with('msg', $msg);
     }
 
-    public function iniciarContrato(string $matriculaID)
+    public function iniciarContrato(string $matriculaID, string $contratoID)
     {
 
         $matriculaInfo = $this->recuperarDadosMatrícula($matriculaID);
         $matriculaTurmaInfo = $this->recuperarDadosTurmas($matriculaID);
 
-        $contrato = $this->listaDeTags($matriculaInfo);
+        $contrato = $this->listaDeTags($matriculaInfo, $contratoID);
 
         return view(self::PATH . 'iniciarContrato', ['contrato' => $contrato]);
     }
@@ -170,14 +171,24 @@ class ContratosController extends Controller
         return $contrato;
     }
 
+    public function listagemContratosImpressao(string $matriculaID){
+
+    $contrato = $this->contrato->paginate();        
+
+    return view(self::PATH.'listarModeloContratosImpressao', ['contratos'=>$contrato, 'matricula'=>$matriculaID]);
+
+    }
+
+
     // Procedimento para a geração do Contrato
-    private function listaDeTags(Matricula $matricula)
+    private function listaDeTags(Matricula $matricula, string $contratoID)
     {
 
-        $contrato = $this->contrato->first();
+        $contrato = $this->contrato->find($contratoID);
 
         $listadisciplinas = CursosDisciplina::with('disciplinas')->where('cursos_id', $matricula->cursos_id)->get();
         $listaTurmas = MatriculaTurma::where('matriculas_id', $matricula->id)->get();
+        $dadosEmpresa = Empresa::all()->first();
 
         $informacoesTurmas = '';
 
@@ -279,10 +290,25 @@ class ContratosController extends Controller
 
             '%informacoes_turna%'=>$informacoesTurmas,
 
+            '%nome_empresa%'=> $dadosEmpresa->nome,
+            '%razao_social%'=> $dadosEmpresa->razao_social,
+            '%cnpj%'=> $dadosEmpresa->cnpj,
+            '%telefone_empresa%'=> $dadosEmpresa->telefone,
+            '%celular_empresa%'=> $dadosEmpresa->celular,
+            '%email_empresa%'=> $dadosEmpresa->email,
+            '%endereco_empresa%'=> $dadosEmpresa->endereco,
+            '%bairro_empresa%'=> $dadosEmpresa->bairro,
+            '%numero_empresa%'=> $dadosEmpresa->numero,
+            '%complemento_empresa%'=> $dadosEmpresa->complemento,
+            '%cep_empersa%'=> $dadosEmpresa->cep,
+            '%cidade_empresa%'=> $dadosEmpresa->cidade,
+            '%estado_empresa%'=> $dadosEmpresa->estado,        
+
         ];
 
         $contratoAluno = str_replace(array_keys($variaveis), array_values($variaveis), $modeloContrato);
 
         return $contratoAluno;
     }
+
 }
