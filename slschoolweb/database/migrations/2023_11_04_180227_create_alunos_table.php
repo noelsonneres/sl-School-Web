@@ -45,6 +45,7 @@ return new class extends Migration
             $table->string('rg_pai')->nullable();
             $table->string('cpf_pai')->nullable();
             $table->string('foto')->nullable();
+            $table->string('ativo')->default('sim');
             $table->string('observacao')->nullable();
             $table->string('deletado')->nullable();            
 

@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-12-20T00:09:51.631Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.11 Chrome/114.0.5735.289 Electron/25.9.8 Safari/537.36" etag="azy30lzVQmStiB2XJXCn" version="22.1.11" type="device">
+<mxfile host="Electron" modified="2024-01-17T23:51:33.857Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.18 Chrome/120.0.6099.199 Electron/28.1.2 Safari/537.36" etag="n4lkeqvTuoe11ckURqll" version="22.1.18" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
-    <mxGraphModel dx="819" dy="498" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1276" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -97,7 +97,7 @@
         <mxCell id="nvbjZyCiDaDG4opXZh0n-36" value="Alunos" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="110" y="1470" width="160" height="530" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-37" value="id&#xa;nome&#xa;apelido&#xa;data_nascimento&#xa;data_cadastro&#xa;rg&#xa;cpf&#xa;fobias&#xa;alergias&#xa;deficiencias&#xa;outros_aspectos&#xa;endereco&#xa;bairro&#xa;numero&#xa;complemento&#xa;cep&#xa;cidade&#xa;estado&#xa;telefone&#xa;celular&#xa;email&#xa;estado_civil&#xa;profissao&#xa;nome_mae&#xa;rg_mae&#xa;cep_mae&#xa;nome_pai&#xa;rg_pai&#xa;cpf_pai&#xa;foto&#xa;observacao&#xa;deletado&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-36" vertex="1">
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-37" value="id&#xa;nome&#xa;apelido&#xa;data_nascimento&#xa;data_cadastro&#xa;rg&#xa;cpf&#xa;fobias&#xa;alergias&#xa;deficiencias&#xa;outros_aspectos&#xa;endereco&#xa;bairro&#xa;numero&#xa;complemento&#xa;cep&#xa;cidade&#xa;estado&#xa;telefone&#xa;celular&#xa;email&#xa;estado_civil&#xa;profissao&#xa;nome_mae&#xa;rg_mae&#xa;cep_mae&#xa;nome_pai&#xa;rg_pai&#xa;cpf_pai&#xa;foto&#xa;ativo&#xa;observacao&#xa;deletado&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-36" vertex="1">
           <mxGeometry y="30" width="160" height="500" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-38" value="Responsavel" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
@@ -323,6 +323,15 @@
         </mxCell>
         <mxCell id="8dTsE_Xs4x78rTclIPeo-9" value="id&lt;br&gt;alunos_id&lt;br&gt;matricula_id&lt;br&gt;turmas_id&lt;br&gt;data_marcacao&lt;br&gt;hora_marcacao&lt;br&gt;data_reposicao&lt;br&gt;hora_reposicao&lt;br&gt;status&lt;br&gt;funcionario&lt;br&gt;obsrvacao" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="8dTsE_Xs4x78rTclIPeo-8" vertex="1">
           <mxGeometry y="50" width="170" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="JxkjOZOnEsqgY5vBsxDk-1" value="alunos_bloqueados" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="1940" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JxkjOZOnEsqgY5vBsxDk-2" value="id&lt;br&gt;alunos_id&lt;br&gt;data&lt;br&gt;hora&lt;br&gt;motivo&lt;br&gt;obs&lt;br&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="JxkjOZOnEsqgY5vBsxDk-1">
+          <mxGeometry y="50" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="JxkjOZOnEsqgY5vBsxDk-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="nvbjZyCiDaDG4opXZh0n-37" target="JxkjOZOnEsqgY5vBsxDk-2">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
