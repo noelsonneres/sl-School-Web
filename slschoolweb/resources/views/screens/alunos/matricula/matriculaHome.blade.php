@@ -204,7 +204,7 @@
 
             <hr>
 
-            {{-- Cancelar, trancar, finalizar, reativar --}}
+            {{-- Cancelar, trancar, finalizar, reativar, bloquear --}}
             <div class="row">
 
                 <div class="col-sm-2">
@@ -251,6 +251,17 @@
                         </div>
                     </a>
                 </div>
+
+                <div class="col-sm-2">
+                    <a href="{{ route('bloqueados.show', $matricula->id) }}" class="link-card">
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 style="color: rgb(244, 31, 16); font-weight: 500;">Bloquear</h2>
+                                <i class="bi bi-ban" style="font-size: 70px; color:  rgb(244, 31, 16); "></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>                
 
             </div>
 

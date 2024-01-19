@@ -2,61 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlunoBloqueado;
+use App\Models\Matricula;
 use Illuminate\Http\Request;
 
 class AlunosBloqueadosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    const PATH = 'screens.alunos.bloqueados.';
+    private $bloqueados;
+
+    public function __construct()
     {
-        //
+        $this->bloqueados = new AlunoBloqueado();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index()
+    {
+
+        $bloqueados = $this->bloqueados->paginate();
+        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $bloqueados = $this->bloqueados;
+
+        $request->validate(
+            [
+                'data' => 'required',
+                'hora' => 'required',
+                'motivo' => 'required|min:3|max:50',
+            ],
+            [
+                'data.required'=>'Informe uma data valida',
+                'hora.required'=>'Informe um horário valido',
+                'motivo.required'=>'informe o motivo do bloqueio',
+                'motivo.min'=>'O motivo do bloqueio deve ter no minímo três caracteres',
+                'motivo.max'=>'O motivo do bloqueio deve ter no máximo 50 caracteres',
+            ]
+        );
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+
+        $matriculaInfo = Matricula::find($id);
+
+        if ($matriculaInfo->status == 'ativa') {
+            return view(self::PATH . 'bloquearAluno', ['matricula' => $matriculaInfo]);
+        } else if (($matriculaInfo->status == 'bloqueado')) {
+            // alunoBloqueadoInfo
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

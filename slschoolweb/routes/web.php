@@ -22,6 +22,7 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\HomeAlunosController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\AlunosBloqueadosController;
 use App\Http\Controllers\AlunosPorTurmaController;
 use App\Http\Controllers\FrequenciaController;
 use App\Http\Controllers\GradeHorariosController;
@@ -223,3 +224,5 @@ Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'seleci
 Route::resource('contrato', ContratosController::class);
 Route::get('/contrato_iniciar/{matricula}/{contrato}', [ContratosController::class, 'iniciarContrato']);
 Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController::class, 'listagemContratosImpressao']);
+
+Route::resource('bloqueados', AlunosBloqueadosController::class);
