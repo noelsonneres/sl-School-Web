@@ -33,6 +33,8 @@
                     <h5 style="color: red; font-weight: 700">Situação: {{ $matricula->status }}</h5>
                 @elseif($matricula->status == 'finalizada')
                     <h5 style="color: blue; font-weight: 700">Situação: {{ $matricula->status }}</h5>
+                @elseif($matricula->status == 'bloqueado')
+                <h5 style="color: rgb(143, 7, 7); font-weight: 700">Situação: {{ $matricula->status }}</h5>
                 @endif
 
             </div>

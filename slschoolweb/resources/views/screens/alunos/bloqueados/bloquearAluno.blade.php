@@ -39,6 +39,7 @@
                 @csrf
 
                 <input type="hidden" name="matricula" value="{{ $matricula->id }}">
+                <input type="hidden" name="codigoAluno" value="{{$matricula->alunos->id}}">
 
                 <div class="row mb-4">
 

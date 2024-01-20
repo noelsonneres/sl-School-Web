@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('data');
             $table->time('hora');
             $table->string('motivo');
-            $table->string('status');
-            $table->date('data_desbloqueio');
+            $table->string('status')->default('bloqueado');
+            $table->date('data_desbloqueio')->nullable();
             $table->string('obs')->nullable();            
 
         });
