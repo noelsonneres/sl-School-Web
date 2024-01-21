@@ -191,13 +191,27 @@ class ContratosController extends Controller
         $dadosEmpresa = Empresa::all()->first();
 
         $informacoesTurmas = '';
+        $turmas = '';
+        $dias = '';
+        $horarios = '';
+        $salas = '';
+        $turnos = '';
+        $professores = '';
 
         foreach($listaTurmas as $lista){
+
+            $turmas .= $lista->turmas->turma.', ';
+            $dias .= $lista->turmas->cadastroDias->dia1 . ' '.$lista->turmas->cadastroDias->dia2.', '; 
+            $horarios .= $lista->turmas->cadastroHorarios->entrada.' '.$lista->turmas->cadastroHorarios->saida.', ';
+            $salas .= $lista->salas->sala.', ';
+            $turnos .= $lista->turmas->turno;
+            $professores .= $lista->turmas->professor->nome??'';            
+
             $informacoesTurmas .= ' Turma: '.$lista->turmas->turma.', ';
             $informacoesTurmas .= 'Dias de aulas: '.$lista->turmas->cadastroDias->dia1 . ' '.$lista->turmas->cadastroDias->dia2.', ';
             $informacoesTurmas .= 'Horários: '.$lista->turmas->cadastroHorarios->entrada.' '.$lista->turmas->cadastroHorarios->saida.', ';
             $informacoesTurmas .= 'Sala: '.$lista->salas->sala.', ';
-            $informacoesTurmas .= 'Turno: '.$lista->turmas->turno.'; \n ';
+            $informacoesTurmas .= 'Turno: '.$lista->turmas->turno.';';
         }
 
         $disciplinasDoCurso = '';
@@ -289,6 +303,12 @@ class ContratosController extends Controller
             '%status_matricula%'=>$matricula->status ?? ' ',
 
             '%informacoes_turna%'=>$informacoesTurmas,
+            '%turma_matricula%'=>$turmas,
+            '%turma_dias_matricula%'=>$dias,
+            '%Turma_horarios_matricula%'=>$horarios,
+            '%Turma_sala_matricula%'=>$salas,
+            '%turma_turno_matricula%'=>$turnos,
+            '%turma_professor_matricula%'=>$professores,
 
             '%nome_empresa%'=> $dadosEmpresa->nome,
             '%razao_social%'=> $dadosEmpresa->razao_social,
