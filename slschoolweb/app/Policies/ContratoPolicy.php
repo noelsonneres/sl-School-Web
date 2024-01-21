@@ -6,15 +6,14 @@ use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use App\Models\NivelAcesso;
 
-class FrequenciaPolicy
+class ContratoPolicy
 {
-
     public function view(User $user): Response
     {
 
         $usuario = $user->id;
         $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Frequencia do aluno')
+            ->where('recurso', 'Contrato')
             ->where('permitido', 'sim')
             ->get();
 
@@ -27,7 +26,7 @@ class FrequenciaPolicy
     {
         $usuario = $user->id;
         $nivelAcesso = NivelAcesso::where('users_id', $usuario)
-            ->where('recurso', 'Frequencia do aluno')
+            ->where('recurso', 'Contrato')
             ->where('permitido', 'sim')
             ->get();
 
@@ -37,5 +36,4 @@ class FrequenciaPolicy
             return false;;
         }
     }    
-
 }

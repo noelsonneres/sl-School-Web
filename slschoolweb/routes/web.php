@@ -222,9 +222,9 @@ Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'li
 Route::get('/alunos_por_turma', [AlunosPorTurmaController::class, 'index'])->middleware('can:view,'.AlunosPorTurmaPolicy::class);
 Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'selecionarAlunos'])->middleware('can:view,'.AlunosPorTurmaPolicy::class);
 
-Route::resource('contrato', ContratosController::class);
+Route::resource('contrato', ContratosController::class)->middleware('can:view, App\Models\Contrato');
 Route::get('/contrato_iniciar/{matricula}/{contrato}', [ContratosController::class, 'iniciarContrato']);
 Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController::class, 'listagemContratosImpressao']);
 
-Route::resource('bloqueados', AlunosBloqueadosController::class);
-Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio']);
+Route::resource('bloqueados', AlunosBloqueadosController::class)->middleware('can:view, App\Models\AlunoBloqueado');
+Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio'])->middleware('can:view, App\Models\AlunoBloqueado');;

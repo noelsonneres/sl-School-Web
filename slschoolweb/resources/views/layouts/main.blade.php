@@ -164,33 +164,48 @@
                                 <span class="align-middle">Alunos por turma</span></a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('frequencia.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Frequência</span></a>
 
-                        <a class="sidebar-link text-white" href="{{ route('reposicoes.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Reposição</span></a>
+                        @can('show', [\App\Models\Frequencia::class])
+                            <a class="sidebar-link text-white" href="{{ route('frequencia.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Frequência</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('matricula_cancelar.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Cancelar</span></a>
+                        @can('show', [\App\Models\Reposicao::class])
+                            <a class="sidebar-link text-white" href="{{ route('reposicoes.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Reposição</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('trancar_matricula.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Trancar</span></a>
+                        @can('show', [\App\Models\MatriculaCancelamento::class])
+                            <a class="sidebar-link text-white" href="{{ route('matricula_cancelar.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Cancelar</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('matricula_finalizar.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Finalizar</span></a>
+                        @can('show', [\App\Models\MatriculaTrancamento::class])
+                            <a class="sidebar-link text-white" href="{{ route('trancar_matricula.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Trancar</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('bloqueados.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Alunos bloqueados</span></a>
+                        @can('show', [\App\Models\MatriculaFinalizar::class])
+                            <a class="sidebar-link text-white" href="{{ route('matricula_finalizar.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Finalizar</span></a>
+                        @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('matricula_reativar.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Reativar</span></a>
+                        @can('show', [\App\Models\AlunoBloqueado::class])
+                            <a class="sidebar-link text-white" href="{{ route('bloqueados.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Alunos bloqueados</span></a>
+                        @endcan
+
+                        @can('show', [\App\Models\MatriculaReativar::class])
+                            <a class="sidebar-link text-white" href="{{ route('matricula_reativar.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Reativar</span></a>
+                        @endcan
 
                     </div>
 
@@ -281,10 +296,12 @@
                             </a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="{{ route('contrato.index') }}">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Modelo do contrato</span>
-                        </a>
+                        @can('show', [\App\Models\Contrato::class])
+                            <a class="sidebar-link text-white" href="{{ route('contrato.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Modelo do contrato</span>
+                            </a>
+                        @endcan
 
                     </div>
 

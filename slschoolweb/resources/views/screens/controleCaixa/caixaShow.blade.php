@@ -69,11 +69,12 @@
                     <tbody>
                         @foreach ($caixas as $caixa)
                             <tr>
+                                <p>{{$caixa->informado}}</p>
                                 <td>{{ $caixa->id }} </td>
                                 <td>{{ date('d/m/Y', strtotime($caixa->data_abertura)) }} </td>
                                 <td>{{ $caixa->hora_abertura }} </td>
                                 <td>R$ {{ number_format($caixa->saldo_anterior, 2, ',', '.') }} </td>
-                                <td>R$ {{ number_format($caixa->informado, 2, ',', '.') }} </td>
+                                <td>R$ {{ number_format($caixa->saldo_informado, 2, ',', '.') }} </td>
 
                                 @if ($caixa->data_encerramento != null)
                                     <td>{{ date('d/m/Y', strtotime($caixa->data_encerramento)) }} </td>

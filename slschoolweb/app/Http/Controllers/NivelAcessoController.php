@@ -61,6 +61,8 @@ class NivelAcessoController extends Controller
         'Cadastro de visitas',
         'Grade de horários',
         'Alunos por turmas',
+        'Bloquear Alunos',
+        'Contrato',
         'Cadastro de usuários',
         'Nível de acesso'
     ];
@@ -218,6 +220,8 @@ class NivelAcessoController extends Controller
             'Grade de horários',
             'Alunos por turmas',
             'Cadastro de usuários',
+            'Bloquear Alunos',
+            'Contrato',
             'Nível de acesso',
             'PERMITIR ACESSO A TODOS OS RECURSOS',
             'NEGAR ACESSO A TODOS OS RECURSOS'
