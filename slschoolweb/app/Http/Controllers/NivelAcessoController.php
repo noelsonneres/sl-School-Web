@@ -60,6 +60,7 @@ class NivelAcessoController extends Controller
         'Impressão carteira',
         'Cadastro de visitas',
         'Grade de horários',
+        'Alunos por turmas',
         'Cadastro de usuários',
         'Nível de acesso'
     ];
@@ -215,6 +216,7 @@ class NivelAcessoController extends Controller
             'Impressão carteira',
             'Cadastro de visitas',
             'Grade de horários',
+            'Alunos por turmas',
             'Cadastro de usuários',
             'Nível de acesso',
             'PERMITIR ACESSO A TODOS OS RECURSOS',

@@ -158,9 +158,11 @@
                                     Grade de horários </span></a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="/alunos_por_turma">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Alunos por turma</span></a>
+                        @can('show', [\App\Policies\AlunosPorTurmaPolicy::class])
+                            <a class="sidebar-link text-white" href="/alunos_por_turma">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Alunos por turma</span></a>
+                        @endcan
 
                         <a class="sidebar-link text-white" href="{{ route('frequencia.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
@@ -181,6 +183,10 @@
                         <a class="sidebar-link text-white" href="{{ route('matricula_finalizar.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Finalizar</span></a>
+
+                        <a class="sidebar-link text-white" href="{{ route('bloqueados.index') }}">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Alunos bloqueados</span></a>
 
                         <a class="sidebar-link text-white" href="{{ route('matricula_reativar.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
@@ -275,7 +281,7 @@
                             </a>
                         @endcan
 
-                        <a class="sidebar-link text-white" href="{{route('contrato.index')}}">
+                        <a class="sidebar-link text-white" href="{{ route('contrato.index') }}">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Modelo do contrato</span>
                         </a>

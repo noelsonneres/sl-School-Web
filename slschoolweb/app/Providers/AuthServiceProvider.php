@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\AlunosPorTurmaController;
 use App\Models\Aluno;
 use App\Models\ConfigMensalidade;
  use App\Policies\ConfigMensalidadePolicy;
@@ -107,6 +108,7 @@ class AuthServiceProvider extends ServiceProvider
         ConfCarteira::class => ConfCarteiraPolicy::class,
         ImpressaoCarteira::class => ImpressaoCarteiraPolicy::class,
         CadastroVisita::class => CadastroVisitaPolicy::class,
+        \App\Policies\AlunosPorTurmaPolicy::class => \App\Policies\AlunosPorTurmaPolicy::class,
         User::class => UserPolicy::class,
         NivelAcesso::class => NivelAcessoPolicy::class,
     ];

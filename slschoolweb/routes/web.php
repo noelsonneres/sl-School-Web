@@ -48,6 +48,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
+use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
 use App\Policies\EstornarMensalidadePolicy;
 
@@ -218,11 +219,12 @@ Route::get('/nivel_acesso_liberar/{nivelID}', [NivelAcessoController::class, 'li
 
 
 // FASE 2
-Route::get('/alunos_por_turma', [AlunosPorTurmaController::class, 'index']);
-Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'selecionarAlunos']);
+Route::get('/alunos_por_turma', [AlunosPorTurmaController::class, 'index'])->middleware('can:view,'.AlunosPorTurmaPolicy::class);
+Route::get('/alunos_por_turma_listar', [AlunosPorTurmaController::class, 'selecionarAlunos'])->middleware('can:view,'.AlunosPorTurmaPolicy::class);
 
 Route::resource('contrato', ContratosController::class);
 Route::get('/contrato_iniciar/{matricula}/{contrato}', [ContratosController::class, 'iniciarContrato']);
 Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController::class, 'listagemContratosImpressao']);
 
 Route::resource('bloqueados', AlunosBloqueadosController::class);
+Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio']);

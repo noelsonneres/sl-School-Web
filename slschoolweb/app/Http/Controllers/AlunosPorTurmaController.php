@@ -25,7 +25,8 @@ class AlunosPorTurmaController extends Controller
 
         $turmaID = $request->input('selecionar');
 
-        $turmaMatriculas = MatriculaTurma::where('turmas_id', $turmaID)->get();
+        $turmaMatriculas = MatriculaTurma::where('turmas_id', $turmaID)
+                                            ->get();
 
         $turma = Turma::find($turmaID);
 

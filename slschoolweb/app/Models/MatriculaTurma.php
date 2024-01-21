@@ -35,4 +35,8 @@ class MatriculaTurma extends Model
         return $this->belongsTo(Aluno::class, 'alunos_id');
     }
 
+    public function matriculas(){
+        return $this->belongsTo(Matricula::class, 'matriculas_id');
+    }
+
 }

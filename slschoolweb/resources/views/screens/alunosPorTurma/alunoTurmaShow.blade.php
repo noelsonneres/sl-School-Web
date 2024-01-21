@@ -55,23 +55,28 @@
             <div class="row ps-3">
 
                 @foreach ($turmaMatriculas as $matricula)
-                    <div class="col-md-3 card rounded-4 p-0 me-2 shadow" style="width: 12rem; background: #f2f2f3">
+                    @if($matricula->matriculas->status == 'ativa')
 
-                        <a href="{{ route('matricula.show', $matricula->matriculas_id ) }}" class="link-card">
+                        <div class="col-md-3 card rounded-4 p-0 me-2 shadow" style="width: 12rem; background: #f2f2f3">
 
-                            <div class="d-flex align-items-center justify-content-center pt-3">
-                                <img src="/img/aluno/{{ $matricula->alunos->foto }}"
-                                    class="card-img-top img-fluid rounded float-start" style="width: 100px" alt="...">
-                            </div>
+                            <a href="{{ route('matricula.show', $matricula->matriculas_id ) }}" class="link-card">
+    
+                                <div class="d-flex align-items-center justify-content-center pt-3">
+                                    <img src="/img/aluno/{{ $matricula->alunos->foto }}"
+                                        class="card-img-top img-fluid rounded float-start" style="width: 100px" alt="...">
+                                </div>
+    
+                                <div class="card-body">
+                                    <h5 class="card-text">Aluno(a):{{ $matricula->alunos->nome }}</h5>
+                                    <h5 class="card-text">Matrícula:{{ $matricula->matriculas_id }}</h5>
+                                </div>
+                                
+                            </a>
+    
+                        </div>                        
 
-                            <div class="card-body">
-                                <h5 class="card-text">Aluno(a):{{ $matricula->alunos->nome }}</h5>
-                                <h5 class="card-text">Matrícula:{{ $matricula->matriculas_id }}</h5>
-                            </div>
-                            
-                        </a>
-
-                    </div>
+                    @endif
+                    
                 @endforeach
 
             </div>

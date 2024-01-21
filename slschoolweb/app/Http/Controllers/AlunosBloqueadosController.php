@@ -22,7 +22,7 @@ class AlunosBloqueadosController extends Controller
     public function index()
     {
 
-        $bloqueados = $this->bloqueados->paginate();
+        $bloqueados = $this->bloqueados->orderBy('id', 'desc')->paginate();
         return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);
     }
 
@@ -115,6 +115,16 @@ class AlunosBloqueadosController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function visualizarInfoBloqueio(string $id){
+
+        $alunoBloqueado = $this->bloqueados->find($id); 
+        // dd($alunoBloqueado);
+        if($alunoBloqueado != null){
+            return view(self::PATH . 'alunosBloqueadosView', ['aluno' => $alunoBloqueado]);
+        }
+
     }
 
     private function atualizarStatusMatricula(string $matriculaID)

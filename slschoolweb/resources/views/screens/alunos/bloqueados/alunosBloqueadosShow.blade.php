@@ -25,15 +25,11 @@
 
             <div class="col-4">
 
-                <a href="{{ route('salas.create') }}" class="btn btn-primary"
-                    title="Criar nova sala">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Novo</a>
                 <button onclick="(print())" class="btn $teal-300">Imprimir</button>
 
             </div>
 
-            <div class="col-8">
+            {{-- <div class="col-8">
 
                 <form action="/sala_pesquisar" method="get">
                     @csrf
@@ -42,9 +38,8 @@
 
                         <div class="col-md-3">
                             <select class="form-control" name="opt" id="opt">
-                                <option value="id">Código</option>
-                                <option value="sala">Sala</option>
-                                <option value="descricao">Descrição</option>
+                                <option value="alunos_id">Código do aluno</option>
+                                <option value="sala">Nome</option>
                             </select>
                         </div>
 
@@ -61,7 +56,7 @@
 
                 </form>
 
-            </div>
+            </div> --}}
 
         </div>
 
@@ -72,20 +67,24 @@
             <table class="table p-1">
                 <thead>
                     <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Sala</th>
-                        <th scope="col">Vagas</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Cód. Aluno</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Situação</th>
                         <th scope="col">Operações</th>
                     </tr>
                 </thead>
 
 
                 <tbody>
-                    @foreach ($salas as $sala)
+                    @foreach ($bloqueados as $bloqueado)
                         <tr>
-                            <td>{{ $sala->id }} </td>
-                            <td>{{ $sala->sala }} </td>
-                            <td>{{ $sala->vagas }} </td>
+                            <td>{{ $bloqueado->id }} </td>
+                            <td>{{ $bloqueado->alunos_id }} </td>
+                            <td>{{ $bloqueado->alunos->nome }} </td>
+                            <td>{{date('d/m/Y', strtotime( $bloqueado->data ))}} </td>
+                            <td>{{ $bloqueado->status }} </td>
 
                             <td>
 
@@ -93,38 +92,12 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('salas.edit', $sala->id) }}" 
-                                                    class="btn btn-success btn-sm"
-                                                    title="Atualizar informações sobre a sala">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <a href="{{ ('/bloqueados_visualizar/'.$bloqueado->id) }}" 
+                                                    class="btn btn-info btn-sm"
+                                                    title="Visaulizar informações do bloqueio">
+                                                    <i class="bi bi-file-earmark-medical-fill"></i>
                                             </a>
-                                        </div>
-
-                                        <div class="col-2">
-
-                                            <form method="POST" class="delete-form"
-                                                action="{{ route('salas.destroy', $sala->id) }}">
-                                                @csrf
-                                                {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete(this)"
-                                                    title="Deletar a sala selecionada">
-                                                    <i class="bi bi-trash3-fill"></i>
-                                                </button>
-                                            </form>
-
-                                            <script>
-                                                function confirmDelete(button) {
-                                                    if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                        var form = button.closest('form');
-                                                        form.submit();
-                                                    }
-                                                }
-                                            </script>
-
-
-                                        </div>
+                                        </div>                                    
 
                                     </div>
 
@@ -140,7 +113,7 @@
             </table>
  
             <div class="container-fluid pl-5 d-flex justify-content-center">
-            {{$salas->links('pagination::pagination')}}
+            {{$bloqueados->links('pagination::pagination')}}
             </div>
 
         </div>
