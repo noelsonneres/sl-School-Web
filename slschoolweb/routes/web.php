@@ -49,6 +49,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
 use App\Http\Controllers\QuitarMensalidadeController;
+use App\Http\Controllers\RelatorioAlunosController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
 use App\Policies\EstornarMensalidadePolicy;
@@ -232,3 +233,5 @@ Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'v
 
 Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index']);
 Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar']);
+
+Route::get('/rel_Aluno_Index', [RelatorioAlunosController::class, 'index']);

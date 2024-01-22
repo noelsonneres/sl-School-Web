@@ -243,7 +243,7 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">
                                 Quitar mensalidades </span>
-                        </a>                        
+                        </a>
 
                         @can('show', [\App\Policies\EntradaValor::class])
                             <a class="sidebar-link text-white" href="/entrada_valores">
@@ -353,38 +353,21 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-buttons.html">
-                            <i class="align-middle" data-feather="square"></i> <span
-                                class="align-middle">Buttons</span>
+                        <a class="sidebar-link text-white" href="#sub-menu8" data-bs-toggle="collapse">
+                            <i class="bi bi-person-fill-gear align-middle" style="font-size: 20px"></i> <span
+                                class="align-middle">Alunos</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-forms.html">
-                            <i class="align-middle" data-feather="check-square"></i> <span
-                                class="align-middle">Forms</span>
-                        </a>
-                    </li>
+                    <div id="sub-menu8" class="collapse" style="margin-left: 15px;">
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-cards.html">
-                            <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                        <a class="sidebar-link text-white" href="/rel_Aluno_Index">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Alunos</span>
                         </a>
-                    </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ui-typography.html">
-                            <i class="align-middle" data-feather="align-left"></i> <span
-                                class="align-middle">Typography</span>
-                        </a>
-                    </li>
+                    </div>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="icons-feather.html">
-                            <i class="align-middle" data-feather="coffee"></i> <span
-                                class="align-middle">Icons</span>
-                        </a>
-                    </li>
 
                     <li class="sidebar-header">
                         Gráficos
