@@ -235,3 +235,4 @@ Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'in
 Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar']);
 
 Route::get('/rel_Aluno_Index', [RelatorioAlunosController::class, 'index']);
+Route::get('/rel_Aluno_loc_data', [RelatorioAlunosController::class, 'localizarEntreDatas']);

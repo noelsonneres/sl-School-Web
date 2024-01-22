@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-5 border p-2 me-3">
-                <form action="" method="get">
+                <form action="/rel_Aluno_loc_data" method="get">
                     @csrf
 
                     <div class="row">
@@ -146,7 +146,7 @@
                             <td>{{ $aluno->nome }} </td>
                             <td>{{ $aluno->apelido }} </td>
                             <td>{{ $aluno->cpf }} </td>
-                            <td>{{ $aluno->data_cadatro }} </td>
+                            <td>{{ date('d/m/Y', strtotime($aluno->data_cadastro)) }} </td>
 
                             <td>
 
@@ -154,11 +154,26 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-success btn-sm"
-                                                title="Atualizar informações sobre a sala">
+                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-primary btn-sm"
+                                                title="Visualizar informações do aluno">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                         </div>
+
+                                        <div class="col-2">
+                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-info btn-sm"
+                                                title="Visualizar informações do responável">
+                                                <i class="bi bi-person-rolodex"></i>
+                                            </a>
+                                        </div>    
+                                        
+                                        <div class="col-2">
+                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-sm"
+                                                style="background: #1adb8e; color: white"
+                                                title="Visualizar matrículas">
+                                                <i class="bi bi-person-rolodex"></i>
+                                            </a>
+                                        </div>                                             
 
                                     </div>
 
