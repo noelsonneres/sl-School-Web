@@ -239,6 +239,12 @@
                             </a>
                         @endcan
 
+                        <a class="sidebar-link text-white" href="/quitar_mensalidade_index">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">
+                                Quitar mensalidades </span>
+                        </a>                        
+
                         @can('show', [\App\Policies\EntradaValor::class])
                             <a class="sidebar-link text-white" href="/entrada_valores">
                                 <i class="align-middle" data-feather="arrow-right"></i>

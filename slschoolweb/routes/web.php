@@ -48,6 +48,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
+use App\Http\Controllers\QuitarMensalidadeController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
 use App\Policies\EstornarMensalidadePolicy;
@@ -227,4 +228,7 @@ Route::get('/contrato_iniciar/{matricula}/{contrato}', [ContratosController::cla
 Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController::class, 'listagemContratosImpressao']);
 
 Route::resource('bloqueados', AlunosBloqueadosController::class)->middleware('can:view, App\Models\AlunoBloqueado');
-Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio'])->middleware('can:view, App\Models\AlunoBloqueado');;
+Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio'])->middleware('can:view, App\Models\AlunoBloqueado');
+
+Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index']);
+Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar']);
