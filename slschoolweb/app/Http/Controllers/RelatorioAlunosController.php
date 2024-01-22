@@ -42,9 +42,29 @@ class RelatorioAlunosController extends Controller
 
     public function localizar(Request $request){
 
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'id';
+        }
+
+        $alunos = $this->aluno::where($field, 'LIKE', $value . '%')->paginate(15);
+
+        return view(self::PATH.'relAlunosShow', ['alunos'=>$alunos]);
+
     }
 
     public function localizarStatus(Request $request){
+
+        $request->validate([
+            'ativo'=>'required',
+        ],[
+            'ativo.required'=>'Informe se você deseja buscar os alunos ativos ou bloqueados',
+        ]);
+
+        $alunos = $this->aluno->where('ativo', $request->input('ativo'))->paginate();
+        return view(self::PATH.'relAlunosShow', ['alunos'=>$alunos]);
 
     }
 

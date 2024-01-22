@@ -53,7 +53,7 @@ use App\Http\Controllers\RelatorioAlunosController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
 use App\Policies\EstornarMensalidadePolicy;
-
+use App\Policies\QuitarMensalidadePolicy;
 
 Route::get('/', function(){
     return view('screens.login.login');
@@ -231,8 +231,11 @@ Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController:
 Route::resource('bloqueados', AlunosBloqueadosController::class)->middleware('can:view, App\Models\AlunoBloqueado');
 Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio'])->middleware('can:view, App\Models\AlunoBloqueado');
 
-Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index']);
-Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar']);
+Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
+Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
 
+// RELATÓRIOS
 Route::get('/rel_Aluno_Index', [RelatorioAlunosController::class, 'index']);
 Route::get('/rel_Aluno_loc_data', [RelatorioAlunosController::class, 'localizarEntreDatas']);
+Route::get('/rel_Aluno_localizar', [RelatorioAlunosController::class, 'localizar']);
+Route::get('/rel_Aluno_loc_status', [RelatorioAlunosController::class, 'localizarStatus']);

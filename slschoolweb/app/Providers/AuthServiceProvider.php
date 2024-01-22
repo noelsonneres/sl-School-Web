@@ -111,6 +111,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Policies\AlunosPorTurmaPolicy::class => \App\Policies\AlunosPorTurmaPolicy::class,
         User::class => UserPolicy::class,
         NivelAcesso::class => NivelAcessoPolicy::class,
+        \App\Policies\QuitarMensalidadePolicy::class => \App\Policies\QuitarMensalidadePolicy::class,
     ];
 
     /**

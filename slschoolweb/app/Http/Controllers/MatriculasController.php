@@ -6,6 +6,7 @@ use App\Models\NivelAcesso;
 use Illuminate\Http\Request;
 use App\Models\Matricula;
 use App\Models\Aluno;
+use App\Models\AlunoBloqueado;
 use App\Models\Consultor;
 use App\Models\Curso;
 use App\Models\CursosDisciplina;
@@ -369,7 +370,9 @@ class MatriculasController extends Controller
     public function adicionar(string $idAluno)
     {
 
-        if ($this->verificarAcesso('Matricula') == 1) {
+        $aluno = Aluno::find($idAluno);
+
+        if ($aluno->ativo === 'sim') {
 
             $responsavel = Responsavel::where('alunos_id', $idAluno);
             $aluno = Aluno::find($idAluno);
@@ -383,7 +386,10 @@ class MatriculasController extends Controller
                 ->with('cursos', $listaCursos)
                 ->with('consultores', $listaConsultores);
         } else {
-            return view('screens/acessoNegado/acessoNegado')->with('msgERRO', 'Recurso bloqueado!');
+            $alunoBloqueado = AlunoBloqueado::where('alunos_id', $idAluno)->first();
+            if($alunoBloqueado != null){
+                return view('screens.alunos.bloqueados.alunosBloqueadosView', ['aluno' => $alunoBloqueado]);
+            }
         }
     }
 

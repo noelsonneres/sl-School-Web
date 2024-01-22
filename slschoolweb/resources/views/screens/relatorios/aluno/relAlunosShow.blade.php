@@ -51,11 +51,10 @@
 
                 </form>
 
-
             </div>
 
             <div class="col-6 border p-2">
-                <form action="/sala_pesquisar" method="get">
+                <form action="/rel_Aluno_localizar" method="get">
                     @csrf
 
                     <div class="row">
@@ -64,8 +63,11 @@
                             <label for="opt" class="form-label">Critério de pesquisa</label>
                             <select class="form-control" name="opt" id="opt" aria-label="Critério de pesquisa">
                                 <option value="id">Código</option>
-                                <option value="sala">Sala</option>
-                                <option value="descricao">Descrição</option>
+                                <option value="Nome">Nome</option>
+                                <option value="apelido">Apelido</option>
+                                <option value="cpf">CPF</option>
+                                <option value="nome_mae">Nome da mãe</option>
+                                <option value="nome_pai">Nome da pai</option>
                             </select>
                         </div>
 
@@ -88,14 +90,13 @@
                 </form>
             </div>
 
-
         </div>
 
         <hr>
 
         <div class="row border p-2">
 
-            <form action="" method="get">
+            <form action="/rel_Aluno_loc_status" method="get">
                 @csrf
 
                 <div class="row">

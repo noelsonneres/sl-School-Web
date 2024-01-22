@@ -76,6 +76,7 @@
                     <th scope="col">Apelido</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Celular</th>
+                    <th scope="col">Ativo?</th>
                     <th scope="col">Operações</th>
                 </tr>
             </thead>
@@ -89,6 +90,7 @@
                     <td>{{$aluno->apelido}} </td>
                     <td>{{$aluno->telefone}} </td>
                     <td>{{$aluno->celular}} </td>
+                    <td>{{$aluno->ativo}} </td>
 
                     <td>
 
