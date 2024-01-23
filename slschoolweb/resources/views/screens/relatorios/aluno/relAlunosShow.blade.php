@@ -155,7 +155,7 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-primary btn-sm"
+                                            <a href="{{ ('/rel_Aluno_impressao/'.$aluno->id) }}" class="btn btn-success btn-sm"
                                                 title="Visualizar informações do aluno">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
@@ -169,10 +169,9 @@
                                         </div>    
                                         
                                         <div class="col-2">
-                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-sm"
-                                                style="background: #1adb8e; color: white"
+                                            <a href="{{'/matricula_home/'.$aluno->id}}" class="btn btn-primary btn-sm"
                                                 title="Visualizar matrículas">
-                                                <i class="bi bi-person-rolodex"></i>
+                                                <i class="bi bi-folder-plus"></i>
                                             </a>
                                         </div>                                             
 

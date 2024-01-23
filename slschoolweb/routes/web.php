@@ -239,3 +239,4 @@ Route::get('/rel_Aluno_Index', [RelatorioAlunosController::class, 'index']);
 Route::get('/rel_Aluno_loc_data', [RelatorioAlunosController::class, 'localizarEntreDatas']);
 Route::get('/rel_Aluno_localizar', [RelatorioAlunosController::class, 'localizar']);
 Route::get('/rel_Aluno_loc_status', [RelatorioAlunosController::class, 'localizarStatus']);
+Route::get('/rel_Aluno_impressao/{aluno}', [RelatorioAlunosController::class, 'impressao']);

@@ -68,4 +68,11 @@ class RelatorioAlunosController extends Controller
 
     }
 
+    function impressao(string $alunoID){
+
+        $aluno = $this->aluno->find($alunoID);
+        return view(self::PATH.'relAlunosImpressao', ['aluno'=>$aluno]);
+
+    }
+
 }

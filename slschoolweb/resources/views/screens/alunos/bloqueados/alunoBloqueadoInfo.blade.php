@@ -5,7 +5,7 @@
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h3 class="text-center text-white p-3">Informações do bloqueio</h3>
+            <h3 class="text-center text-white p-3">Aluno bloqueado - Informações do bloqueio</h3>
         </div>
 
         <div class=" row ps-2">
