@@ -22,7 +22,14 @@
         }
 
         .logo {
-            width: 50px;
+            width: 100px;
+            /* Ajuste a largura conforme necessário */
+            height: auto;
+        }
+
+        .dados {
+            padding-left: 20px;
+            /* Ajuste o espaçamento conforme necessário */
         }
 
         .bto {
@@ -59,6 +66,23 @@
         .bto .btn {
             color: #555;
             background: transparent;
+        }
+
+        .col-md-2 {
+            flex: 0 0 auto;
+            /* Tamanho automático com base no conteúdo */
+        }
+
+        .col-md-10 {
+            flex: 1;
+            /* Expande para ocupar o restante da largura disponível */
+        }
+
+        .cabecalho {
+            width: 400px;
+            /* Largura da carteirinha */
+            height: 190px;
+            /* Altura da carteirinha */
         }
 
         /* Estilo de Impressão */
@@ -103,14 +127,52 @@
 
     <div class="container mt-5">
 
-        <header>
+        <header class="mb-4">
             <h1>Relatório do Aluno</h1>
         </header>
 
 
-        {{-- Modelo de relatórios --}}
+        {{-- Informações da empresa --}}
 
-        <footer>
+        <table class="table border">
+            <tr>
+                <td>
+                    <div class="col-md-2">
+                        <img src="/img/logo/{{ $empresa->foto }}" alt="" class="logo">
+                    </div>                    
+                </td>
+                <td>
+                    <div class="col-md-10 text-end">
+                        <h4>{{ $empresa->nome }}</h4>
+                        <h6>{{ $empresa->cnpj }}</h6>
+                        <h6>Tel: {{ $empresa->telefone }}- Cel/WhatsApp: {{ $empresa->celular }}</h6>
+                        {{-- <h6>Endereço: {{ $empresa->endereco }} {{ $empresa->bairro }},
+                            {{ $empresa->numero }} {{ $empresa->cep }} {{ $empresa->cidade }} - {{ $empresa->estado }}</h6> --}}
+                    </div>                    
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <div class="mb-3 mt-4 float-end pe-5">
+            <img src="/img/aluno/{{$aluno->foto}}" alt="" class="foto rounded-circle">
+        </div>
+
+        <table class="table table-bordered table-responsive">
+            
+            <tr>
+                <td style="width: 150px;"> <p> Código: {{$aluno->id}} </p></td>
+                <td><p> Nome: {{$aluno->nome}} <p></td>
+                <td>Apelido: {{$aluno->apelido}}</td>
+            </tr>
+
+            <tr>
+
+            </tr>
+        </table>
+
+        <footer class="mb-5">
             <p>Este é um relatório gerado em HTML.</p>
         </footer>
 

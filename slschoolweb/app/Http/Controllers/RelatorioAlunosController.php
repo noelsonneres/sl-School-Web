@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aluno;
+use App\Models\Empresa;
 use Illuminate\Http\Request;
 
 class RelatorioAlunosController extends Controller
@@ -70,8 +71,10 @@ class RelatorioAlunosController extends Controller
 
     function impressao(string $alunoID){
 
+        $empresa = Empresa::first();
+
         $aluno = $this->aluno->find($alunoID);
-        return view(self::PATH.'relAlunosImpressao', ['aluno'=>$aluno]);
+        return view(self::PATH.'relAlunosImpressao', ['aluno'=>$aluno, 'empresa'=>$empresa]);
 
     }
 

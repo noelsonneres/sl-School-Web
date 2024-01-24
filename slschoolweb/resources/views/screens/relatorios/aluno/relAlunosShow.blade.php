@@ -157,7 +157,7 @@
                                         <div class="col-2">
                                             <a href="{{ ('/rel_Aluno_impressao/'.$aluno->id) }}" class="btn btn-success btn-sm"
                                                 title="Visualizar informações do aluno">
-                                                <i class="bi bi-pencil-square"></i>
+                                                <i class="bi bi-printer-fill"></i>
                                             </a>
                                         </div>
 
