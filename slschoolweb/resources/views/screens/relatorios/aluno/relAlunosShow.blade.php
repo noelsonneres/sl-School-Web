@@ -162,7 +162,7 @@
                                         </div>
 
                                         <div class="col-2">
-                                            <a href="{{ route('salas.edit', $aluno->id) }}" class="btn btn-info btn-sm"
+                                            <a href="{{('/rel_responsavel_loc_por_aluno/'.$aluno->id) }}" class="btn btn-info btn-sm"
                                                 title="Visualizar informações do responável">
                                                 <i class="bi bi-person-rolodex"></i>
                                             </a>
