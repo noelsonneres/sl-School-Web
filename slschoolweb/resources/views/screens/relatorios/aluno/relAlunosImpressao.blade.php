@@ -139,7 +139,7 @@
                 <td>
                     <div class="col-md-2">
                         <img src="/img/logo/{{ $empresa->foto }}" alt="" class="logo">
-                    </div>                    
+                    </div>
                 </td>
                 <td>
                     <div class="col-md-10 text-end">
@@ -148,32 +148,95 @@
                         <h6>Tel: {{ $empresa->telefone }}- Cel/WhatsApp: {{ $empresa->celular }}</h6>
                         {{-- <h6>Endereço: {{ $empresa->endereco }} {{ $empresa->bairro }},
                             {{ $empresa->numero }} {{ $empresa->cep }} {{ $empresa->cidade }} - {{ $empresa->estado }}</h6> --}}
-                    </div>                    
+                    </div>
                 </td>
             </tr>
         </table>
 
         <hr>
 
-        <div class="mb-3 mt-4 float-end pe-5">
-            <img src="/img/aluno/{{$aluno->foto}}" alt="" class="foto rounded-circle">
+        <div class="mb-2 mt-2 float-end pe-5">
+            <img src="/img/aluno/{{ $aluno->foto }}" alt="" class="foto rounded-circle">
         </div>
 
+        {{-- Informações do aluno --}}
+
         <table class="table table-bordered table-responsive">
+
+            <tr>
+                <td colspan="1">Código: {{ $aluno->id }}</td>
+                <td colspan="2">Nome: {{ $aluno->nome }} </td>
+                <td colspan="1">Apelido: {{ $aluno->apelido }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="1">Dt nascimento: {{ date('d/m/Y', strtotime($aluno->data_nascimento)) }}</td>
+                <td>Dt cadastro: {{ date('d/m/Y', strtotime($aluno->data_cadastro)) }}</td>
+                <td>CPF: {{ $aluno->cpf }}</td>
+                <td>RG: {{ $aluno->rg }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Fobias: {{ $aluno->fobias }}</td>
+                <td colspan="2">Alergias: {{ $aluno->alergias }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Deficiencias: {{ $aluno->deficiencias }}</td>
+                <td colspan="2">outros_aspectos: {{ $aluno->deficiencias }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Endereço: {{ $aluno->endereco }}</td>
+                <td colspan="2">Bairro: {{ $aluno->bairro }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Complemento: {{$aluno->complemento}}</td>
+                <td>Número: {{$aluno->numero}}</td>
+                <td>CEP: {{$aluno->cep}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="3">Cidade: {{$aluno->cidade}}</td>
+                <td>Estado: {{$aluno->estado}}</td>
+            </tr>
+
+            <tr>
+                <td>Telefone: {{$aluno->telefone}}</td>
+                <td>Celular: {{$aluno->celular}}</td>
+                <td colspan="2">E-Mail: {{$aluno->email}}</td>
+            </tr>
+
+            <tr>
+                <td>Estado civil: {{$aluno->estado_civil}}</td>
+                <td colspan="2">Profissão: {{$aluno->profissao}}</td>
+                <td>Nacionalidade: {{$aluno->nacionalidade}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Nome da mãe: {{$aluno->nome_mae}}</td>
+                <td>RG mãe: {{$aluno->rg_mae}}</td>
+                <td>CPF mãe: {{$aluno->cpf_mae}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Nome do pai: {{$aluno->nome_pai}}</td>
+                <td>RG mãe: {{$aluno->rg_pai}}</td>
+                <td>CPF mãe: {{$aluno->cpf_pai}}</td>
+            </tr>  
             
             <tr>
-                <td style="width: 150px;"> <p> Código: {{$aluno->id}} </p></td>
-                <td><p> Nome: {{$aluno->nome}} <p></td>
-                <td>Apelido: {{$aluno->apelido}}</td>
+                <td>Ativo: {{$aluno->ativo}}</td>
+                <td colspan="3">Observação: {{$aluno->observacao}}</td>
             </tr>
 
-            <tr>
-
-            </tr>
         </table>
 
+      </div>
+
         <footer class="mb-5">
-            <p>Este é um relatório gerado em HTML.</p>
+            {{-- <p>Este é um relatório gerado em HTML.</p> --}}
         </footer>
 
         <!-- Adicione os scripts do Bootstrap 5 -->
