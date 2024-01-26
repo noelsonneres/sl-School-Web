@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Lista de alunos cadastrados')
+@section('title', 'Lista de matrículas')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h4 class="text-center text-white p-3">Lista de alunos cadastrados</h4>
+            <h4 class="text-center text-white p-3">Lista de matriculas</h4>
         </div>
 
 
@@ -23,17 +23,27 @@
 
         <div class="row">
 
-            <div class="col-5 border p-2 me-3">
+            <div class="col-6 border p-2 me-3">
                 <form action="/rel_Aluno_loc_data" method="get">
                     @csrf
 
                     <div class="row">
-                        <div class="col-md-5">
+
+                        <div class="col-md-3">
+                            <label for="dtTipo" class="form-label">Tipo</label>
+                            <select class="form-control" name="dtTipo" id="dtTipo">
+                                <option value="incio">Data de início</option>
+                                <option value="termino">Data de término</option>
+                                <option value="dataMatricula">Data de matrícula</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
                             <label for="dt1" class="form-label">Primeira data</label>
                             <input type="date" class="form-control" name="dt1" id="dt1">
                         </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <label for="dt2" class="form-label">Segunda data</label>
                             <input type="date" class="form-control" name="dt2" id="dt2">
                         </div>
@@ -53,7 +63,7 @@
 
             </div>
 
-            <div class="col-6 border p-2">
+            <div class="col-5 border p-2">
                 <form action="/rel_Aluno_localizar" method="get">
                     @csrf
 
@@ -102,10 +112,13 @@
                 <div class="row">
 
                     <div class="col-md-6">
-                        <label for="ativo" class="form-label">Somente alunos ativos</label>
+                        <label for="ativo" class="form-label">Selecionar pelo status da matrícula</label>
                         <select class="form-control" name="ativo" id="ativo">
-                            <option value="sim">Sim</option>
+                            <option value="ativa">Ativa</option>
                             <option value="bloqueado">Bloqueado</option>
+                            <option value="trancada">Trancada</option>
+                            <option value="cancelada">Cancelada</option>
+                            <option value="finalizada">Finalizada</option>
                         </select>
                     </div>
 
@@ -131,23 +144,26 @@
             <table class="table p-1">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Matrícula</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Apelido</th>
-                        <th scope="col">CPF</th>
-                        <th scope="col">Data de cadastro</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Data de inicio</th>
+                        <th scope="col">Data de término</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Operações</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($alunos as $aluno)
+                    @foreach ($matriculas as $matricula)
                         <tr>
-                            <td>{{ $aluno->id }} </td>
-                            <td>{{ $aluno->nome }} </td>
-                            <td>{{ $aluno->apelido }} </td>
-                            <td>{{ $aluno->cpf }} </td>
-                            <td>{{ date('d/m/Y', strtotime($aluno->data_cadastro)) }} </td>
+
+                            <td>{{ $matricula->id }} </td>
+                            <td>{{ $matricula->alunos->nome }} </td>
+                            <td>{{ $matricula->cursos->curso }} </td>
+                            <td>{{ date('d/m/Y', strtotime($matricula->data_inicio)) }} </td>
+                            <td>{{ date('d/m/Y', strtotime($matricula->data_termino)) }} </td>
+                            <td>{{ $matricula->status }} </td>
 
                             <td>
 
@@ -155,25 +171,11 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ ('/rel_Aluno_impressao/'.$aluno->id) }}" class="btn btn-success btn-sm"
+                                            <a href="{{ ('/rel_Aluno_impressao/'.$matricula->id) }}" class="btn btn-success btn-sm"
                                                 title="Visualizar informações do aluno">
                                                 <i class="bi bi-printer-fill"></i>
                                             </a>
-                                        </div>
-
-                                        <div class="col-2">
-                                            <a href="{{('/rel_responsavel_loc_por_aluno/'.$aluno->id) }}" class="btn btn-info btn-sm"
-                                                title="Visualizar informações do responável">
-                                                <i class="bi bi-person-rolodex"></i>
-                                            </a>
-                                        </div>    
-                                        
-                                        <div class="col-2">
-                                            <a href="{{'/rel_matricula_localiza_aluno/'.$aluno->id}}" class="btn btn-primary btn-sm"
-                                                title="Visualizar matrículas">
-                                                <i class="bi bi-folder-plus"></i>
-                                            </a>
-                                        </div>                                             
+                                        </div>                                       
 
                                     </div>
 
@@ -189,7 +191,7 @@
             </table>
 
             <div class="container-fluid pl-5 d-flex justify-content-center">
-                {{ $alunos->links('pagination::pagination') }}
+                {{ $matriculas->links('pagination::pagination') }}
             </div>
 
         </div>

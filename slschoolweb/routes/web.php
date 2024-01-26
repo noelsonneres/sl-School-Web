@@ -50,6 +50,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
 use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
+use App\Http\Controllers\relatorioMatriculaController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
@@ -246,3 +247,6 @@ Route::get('/rel_responsavel_index', [RelatorioResponsaveisController::class, 'i
 Route::get('/rel_responsavel_loc_por_aluno/{aluno}', [RelatorioResponsaveisController::class, 'localizarPorAluno']);
 Route::get('/rel_responsavel_impressao/{responsavel}', [RelatorioResponsaveisController::class, 'impressao']);
 Route::get('/rel_responsavel_localizar', [RelatorioResponsaveisController::class, 'localizar']);
+
+Route::get('/rel_matricula_index', [relatorioMatriculaController::class, 'indexx']);
+Route::get('/rel_matricula_localiza_aluno/{aluno}', [relatorioMatriculaController::class, 'localizarMatriculaAlunos']);
