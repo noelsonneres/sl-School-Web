@@ -368,6 +368,11 @@
                             <span class="align-middle">Alunos</span>
                         </a>
 
+                        <a class="sidebar-link text-white" href="/rel_responsavel_index">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Responsáveis</span>
+                        </a>                        
+
                     </div>
 
 

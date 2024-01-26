@@ -18,7 +18,7 @@ class RelatorioAlunosController extends Controller
     }
 
     public function index(){
-        $alunos = $this->aluno->where('id', 0)->paginate();
+        $alunos = $this->aluno->where('id', 0)->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'relAlunosShow', ['alunos'=>$alunos]);
     }
 
@@ -35,7 +35,7 @@ class RelatorioAlunosController extends Controller
         $dt1 = $request->input('dt1');
         $dt2 = $request->input('dt2');
 
-        $alunos = $this->aluno->whereBetween('data_cadastro',[$dt1, $dt2])->paginate();
+        $alunos = $this->aluno->whereBetween('data_cadastro',[$dt1, $dt2])->orderBy('id', 'desc')->paginate();
 
         return view(self::PATH.'relAlunosShow', ['alunos'=>$alunos]);
 
@@ -50,7 +50,7 @@ class RelatorioAlunosController extends Controller
             $field = 'id';
         }
 
-        $alunos = $this->aluno::where($field, 'LIKE', $value . '%')->paginate(15);
+        $alunos = $this->aluno::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate(15);
 
         return view(self::PATH.'relAlunosShow', ['alunos'=>$alunos]);
 
@@ -64,7 +64,7 @@ class RelatorioAlunosController extends Controller
             'ativo.required'=>'Informe se você deseja buscar os alunos ativos ou bloqueados',
         ]);
 
-        $alunos = $this->aluno->where('ativo', $request->input('ativo'))->paginate();
+        $alunos = $this->aluno->where('ativo', $request->input('ativo'))->orderBy('id', 'desc')->paginate();
         return view(self::PATH.'relAlunosShow', ['alunos'=>$alunos]);
 
     }

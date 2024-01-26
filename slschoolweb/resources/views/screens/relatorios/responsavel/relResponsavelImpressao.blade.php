@@ -123,7 +123,7 @@
     <div class="container mt-5">
 
         <header class="mb-4">
-            <h1>Relatório do Aluno</h1>
+            <h1>Relatório do Responsável</h1>
         </header>
 
 
@@ -158,17 +158,65 @@
 
         <table class="table table-bordered table-responsive">
 
+            <tr>
+                <td>Código: {{ $responsavel->id }}</td>
+                <td colspan="2">Reponsavel: {{ $responsavel->nome }}</td>
+                <td>Apelido: {{ $responsavel->apelido }}</td>
+            </tr>
+
+            <tr>
+                <td>Código do aluno: {{ $responsavel->alunos->id }} </td>
+                <td colspan="3">Aluno:{{ $responsavel->alunos->nome }}</td>
+            </tr>
+
+            <tr>
+                <td>Data de cadatro: {{date('d/m/Y', strtotime($responsavel->data_nascimento))}}</td>
+                <td>Data cadastro: {{date('d/m/Y', strtotime($responsavel->data_cadastro))}}</td>               
+                <td>RG: {{$responsavel->rg}}</td>
+                 <td>CPF: {{$responsavel->cpf}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Endereco: {{$responsavel->endereco}}</td>
+                <td colspan="2">Bairro: {{$responsavel->bairro}}</td>              
+            </tr>
+
+            <tr>
+               <td colspan="2">Complemento: {{$responsavel->complemento}}</td> 
+               <td>Número: {{$responsavel->numero}}</td>
+               <td>CEP: {{$responsavel->cep}}</td>
+            </tr>
+
+            <tr>
+               <td colspan="3">Cidade: {{$responsavel->cidade}}</td> 
+               <td>Estado: {{$responsavel->estado}}</td>
+            </tr>
+
+            <tr>
+                <td>Telefone: {{$responsavel->telefone}}</td>
+                <td>Celular: {{$responsavel->celular}}</td>
+                <td colspan="2">E-mail: {{$responsavel->email}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Estado civil: {{$responsavel->estado_civil}}</td>
+                <td colspan="2">Profissão: {{$responsavel->profissao}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="4">Observação:{{$responsavel->observacao}}</td>
+            </tr>
 
         </table>
 
-      </div>
+    </div>
 
-        <footer class="mb-5">
-            {{-- <p>Este é um relatório gerado em HTML.</p> --}}
-        </footer>
+    <footer class="mb-5">
+        {{-- <p>Este é um relatório gerado em HTML.</p> --}}
+    </footer>
 
-        <!-- Adicione os scripts do Bootstrap 5 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Adicione os scripts do Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

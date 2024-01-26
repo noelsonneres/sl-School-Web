@@ -244,3 +244,5 @@ Route::get('/rel_Aluno_impressao/{aluno}', [RelatorioAlunosController::class, 'i
 
 Route::get('/rel_responsavel_index', [RelatorioResponsaveisController::class, 'index']);
 Route::get('/rel_responsavel_loc_por_aluno/{aluno}', [RelatorioResponsaveisController::class, 'localizarPorAluno']);
+Route::get('/rel_responsavel_impressao/{responsavel}', [RelatorioResponsaveisController::class, 'impressao']);
+Route::get('/rel_responsavel_localizar', [RelatorioResponsaveisController::class, 'localizar']);
