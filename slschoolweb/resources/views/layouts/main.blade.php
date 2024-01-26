@@ -371,7 +371,12 @@
                         <a class="sidebar-link text-white" href="/rel_responsavel_index">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Responsáveis</span>
-                        </a>                        
+                        </a>     
+                        
+                        <a class="sidebar-link text-white" href="/rel_matricula_index">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Matrículas</span>
+                        </a>                          
 
                     </div>
 

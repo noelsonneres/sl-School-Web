@@ -248,5 +248,7 @@ Route::get('/rel_responsavel_loc_por_aluno/{aluno}', [RelatorioResponsaveisContr
 Route::get('/rel_responsavel_impressao/{responsavel}', [RelatorioResponsaveisController::class, 'impressao']);
 Route::get('/rel_responsavel_localizar', [RelatorioResponsaveisController::class, 'localizar']);
 
-Route::get('/rel_matricula_index', [relatorioMatriculaController::class, 'indexx']);
+Route::get('/rel_matricula_index', [relatorioMatriculaController::class, 'index']);
 Route::get('/rel_matricula_localiza_aluno/{aluno}', [relatorioMatriculaController::class, 'localizarMatriculaAlunos']);
+Route::get('/rel_matricula_impressao/{matricula}', [relatorioMatriculaController::class, 'impressao']);
+Route::get('/rel_matricula_loc_data', [relatorioMatriculaController::class, 'localizarEntreDatas']);
