@@ -252,3 +252,5 @@ Route::get('/rel_matricula_index', [relatorioMatriculaController::class, 'index'
 Route::get('/rel_matricula_localiza_aluno/{aluno}', [relatorioMatriculaController::class, 'localizarMatriculaAlunos']);
 Route::get('/rel_matricula_impressao/{matricula}', [relatorioMatriculaController::class, 'impressao']);
 Route::get('/rel_matricula_loc_data', [relatorioMatriculaController::class, 'localizarEntreDatas']);
+Route::get('/rel_matricula_localizar', [relatorioMatriculaController::class, 'localizar']);
+Route::get('/rel_matricula_loc_status', [relatorioMatriculaController::class, 'localizarPorStatus']);

@@ -62,7 +62,7 @@
             </div>
         
             <div class="col-5 border p-2">
-                <form action="/rel_Aluno_localizar" method="get">
+                <form action="/rel_matricula_localizar" method="get">
                     @csrf
         
                     <div class="row">
@@ -70,12 +70,8 @@
                         <div class="col-md-4 mb-3">
                             <label for="opt" class="form-label">Critério de pesquisa</label>
                             <select class="form-control" name="opt" id="opt" aria-label="Critério de pesquisa">
-                                <option value="id">Código</option>
-                                <option value="Nome">Nome</option>
-                                <option value="apelido">Apelido</option>
-                                <option value="cpf">CPF</option>
-                                <option value="nome_mae">Nome da mãe</option>
-                                <option value="nome_pai">Nome do pai</option>
+                                <option value="id">Matrícula</option>
+                                <option value="alunos_id">Cód. Aluno</option>
                             </select>
                         </div>
         
@@ -104,7 +100,7 @@
 
         <div class="row border p-2">
 
-            <form action="/rel_Aluno_loc_status" method="get">
+            <form action="/rel_matricula_loc_status" method="get">
                 @csrf
 
                 <div class="row">
