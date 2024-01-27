@@ -50,6 +50,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
 use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
+use App\Http\Controllers\RelatorioMatriculaCancelamentoController;
 use App\Http\Controllers\relatorioMatriculaController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Policies\AlunosPorTurmaPolicy;
@@ -254,3 +255,5 @@ Route::get('/rel_matricula_impressao/{matricula}', [relatorioMatriculaController
 Route::get('/rel_matricula_loc_data', [relatorioMatriculaController::class, 'localizarEntreDatas']);
 Route::get('/rel_matricula_localizar', [relatorioMatriculaController::class, 'localizar']);
 Route::get('/rel_matricula_loc_status', [relatorioMatriculaController::class, 'localizarPorStatus']);
+
+Route::get('/rel_cancelados', [RelatorioMatriculaCancelamentoController::class, 'index']);

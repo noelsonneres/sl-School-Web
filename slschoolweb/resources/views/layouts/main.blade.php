@@ -376,7 +376,12 @@
                         <a class="sidebar-link text-white" href="/rel_matricula_index">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Matrículas</span>
-                        </a>                          
+                        </a>     
+                        
+                        <a class="sidebar-link text-white" href="/rel_cancelados">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Cancelados</span>
+                        </a>                           
 
                     </div>
 
