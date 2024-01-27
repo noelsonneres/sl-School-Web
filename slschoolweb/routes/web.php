@@ -257,3 +257,6 @@ Route::get('/rel_matricula_localizar', [relatorioMatriculaController::class, 'lo
 Route::get('/rel_matricula_loc_status', [relatorioMatriculaController::class, 'localizarPorStatus']);
 
 Route::get('/rel_cancelados', [RelatorioMatriculaCancelamentoController::class, 'index']);
+Route::get('/rel_cancelados_impressao/{id}', [RelatorioMatriculaCancelamentoController::class, 'impressao']);
+Route::get('/rel_cancelados_loc_data', [RelatorioMatriculaCancelamentoController::class, 'localizarData']);
+Route::get('/rel_cancelados_localizar', [RelatorioMatriculaCancelamentoController::class, 'localizar']);
