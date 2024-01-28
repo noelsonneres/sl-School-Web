@@ -52,6 +52,7 @@ use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
 use App\Http\Controllers\RelatorioMatriculaCancelamentoController;
 use App\Http\Controllers\relatorioMatriculaController;
+use App\Http\Controllers\RelatorioMatriculaTrancadaController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
@@ -260,3 +261,5 @@ Route::get('/rel_cancelados', [RelatorioMatriculaCancelamentoController::class, 
 Route::get('/rel_cancelados_impressao/{id}', [RelatorioMatriculaCancelamentoController::class, 'impressao']);
 Route::get('/rel_cancelados_loc_data', [RelatorioMatriculaCancelamentoController::class, 'localizarData']);
 Route::get('/rel_cancelados_localizar', [RelatorioMatriculaCancelamentoController::class, 'localizar']);
+
+Route::get('/rel_trancados', [RelatorioMatriculaTrancadaController::class, 'index']);
