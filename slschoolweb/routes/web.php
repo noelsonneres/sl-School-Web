@@ -272,3 +272,5 @@ Route::get('/rel_trancados_localizar', [RelatorioMatriculaTrancadaController::cl
 
 Route::get('/rel_finalizados', [RelatorioMatriculasFinalizadasController::class, 'index']);
 Route::get('/rel_finalizados_impressao/{id}', [RelatorioMatriculasFinalizadasController::class, 'impressao']);
+Route::get('/rel_finalizados_loc_data', [RelatorioMatriculasFinalizadasController::class, 'localizarEntreDatas']);
+Route::get('/rel_finalizados_localizar', [RelatorioMatriculasFinalizadasController::class, 'localizar']);

@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-5 border p-2 me-3">
-                <form action="/rel_cancelados_loc_data" method="get">
+                <form action="/rel_finalizados_loc_data" method="get">
                     @csrf
         
                     <div class="row pe-3">
@@ -54,7 +54,7 @@
             </div>
         
             <div class="col border p-2">
-                <form action="/rel_cancelados_localizar" method="get">
+                <form action="/rel_finalizados_localizar" method="get">
                     @csrf
         
                     <div class="row">

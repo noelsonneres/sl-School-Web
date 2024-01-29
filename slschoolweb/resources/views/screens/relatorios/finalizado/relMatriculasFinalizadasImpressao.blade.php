@@ -143,6 +143,7 @@
                     </div>
                 </td>
             </tr>
+
         </table>
 
         <hr>
@@ -152,16 +153,24 @@
         <table class="table table-bordered table-responsive">
 
             <tr>
-                <td>Cód. aluno: {{$finalizado->alunos_id}}</td>
-                <td>Matrícula: {{$finalizado->matriculas_id}}</td>
-                <td colspan="2">Aluno: {{$finalizado->alunos->nome}}</td>
+                <td>Cód. aluno: {{ $finalizado->alunos_id }}</td>
+                <td>Matrícula: {{ $finalizado->matriculas_id }}</td>
+                <td colspan="2">Aluno: {{ $finalizado->alunos->nome }}</td>
             </tr>
 
             <tr>
-                <td colspan="4">Curso: {{$finalizado->matriculas->cursos->curso}}</td>
-            </tr>     
-            
-            {{-- CONTINUAR DESTA PARTE --}}
+                <td colspan="4">Curso: {{ $finalizado->matriculas->cursos->curso }}</td>
+            </tr>
+
+            <tr>
+                <td>Data: {{date('d/m/Y', strtotime($finalizado->data))}}</td>
+                <td>Hora: {{$finalizado->hora}}</td>
+                <td></td>                
+            </tr>
+
+            <tr>
+                <td colspan="3">Observação: {{$finalizado->observacao}}</td>
+            </tr>
 
         </table>
 
