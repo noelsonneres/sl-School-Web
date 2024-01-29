@@ -52,6 +52,7 @@ use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
 use App\Http\Controllers\RelatorioMatriculaCancelamentoController;
 use App\Http\Controllers\relatorioMatriculaController;
+use App\Http\Controllers\RelatorioMatriculaReativadasController;
 use App\Http\Controllers\RelatorioMatriculasFinalizadasController;
 use App\Http\Controllers\RelatorioMatriculaTrancadaController;
 use App\Http\Controllers\RelatorioResponsaveisController;
@@ -274,3 +275,8 @@ Route::get('/rel_finalizados', [RelatorioMatriculasFinalizadasController::class,
 Route::get('/rel_finalizados_impressao/{id}', [RelatorioMatriculasFinalizadasController::class, 'impressao']);
 Route::get('/rel_finalizados_loc_data', [RelatorioMatriculasFinalizadasController::class, 'localizarEntreDatas']);
 Route::get('/rel_finalizados_localizar', [RelatorioMatriculasFinalizadasController::class, 'localizar']);
+
+Route::get('/rel_reativadas', [RelatorioMatriculaReativadasController::class, 'index']);
+Route::get('/rel_reativadas_impressao/{id}', [RelatorioMatriculaReativadasController::class, 'impressao']);
+Route::get('/rel_reativadas_loc_datas', [RelatorioMatriculaReativadasController::class, 'localizarEntreDatas']);
+Route::get('/rel_reativadas_localizar', [RelatorioMatriculaReativadasController::class, 'localizar']);

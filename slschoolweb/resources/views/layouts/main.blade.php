@@ -410,7 +410,12 @@
                         <a class="sidebar-link text-white" href="/rel_finalizados">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Finalizados</span>
-                        </a>                        
+                        </a>    
+                        
+                        <a class="sidebar-link text-white" href="/rel_reativadas">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Reativadas</span>
+                        </a>                           
 
                     </div>
 

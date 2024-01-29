@@ -99,7 +99,7 @@
                         <th scope="col">Matrícula</th>
                         <th scope="col">Cód. Aluno</th>
                         <th scope="col">Aluno</th>
-                        <th scope="col">Data de cancelamento</th>
+                        <th scope="col">Data de trancamento</th>
                         <th scope="col">Motivo</th>
                         <th scope="col">Status</th>
                         <th scope="col">Operações</th>

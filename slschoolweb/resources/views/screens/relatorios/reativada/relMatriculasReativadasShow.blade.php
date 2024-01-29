@@ -1,11 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Matrículas Finalizadas')
+@section('title', 'Histórico de Matrículas Reativadas')
 @section('content')
 
     <div class="container">
 
         <div style="background-color: #1976D2;">
-            <h4 class="text-center text-white p-3">Matrículas Finalizadas</h4>
+            <h4 class="text-center text-white p-3">Histórico de Matrículas Reativadas</h4>
         </div>
 
 
@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-5 border p-2 me-3">
-                <form action="/rel_finalizados_loc_data" method="get">
+                <form action="/rel_reativadas_loc_datas" method="get">
                     @csrf
         
                     <div class="row pe-3">
@@ -54,7 +54,7 @@
             </div>
         
             <div class="col border p-2">
-                <form action="/rel_finalizados_localizar" method="get">
+                <form action="/rel_reativadas_localizar" method="get">
                     @csrf
         
                     <div class="row">
@@ -99,21 +99,21 @@
                         <th scope="col">Matrícula</th>
                         <th scope="col">Cód. Aluno</th>
                         <th scope="col">Aluno</th>
-                        <th scope="col">Data de finalização</th>
+                        <th scope="col">Data de reativação</th>
                         <th scope="col">Status</th>
                         <th scope="col">Operações</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($finalizados as $finalizado)
+                    @foreach ($reativadas as $reativada)
                         <tr>
 
-                            <td>{{ $finalizado->matriculas_id }} </td>
-                            <td>{{ $finalizado->alunos_id }} </td>
-                            <td>{{ $finalizado->alunos->nome }} </td>
-                            <td>{{ date('d/m/Y', strtotime($finalizado->data)) }} </td>
-                            <td>{{ $finalizado->matriculas->status }} </td>
+                            <td>{{ $reativada->matriculas_id }} </td>
+                            <td>{{ $reativada->alunos_id }} </td>
+                            <td>{{ $reativada->alunos->nome }} </td>
+                            <td>{{ date('d/m/Y', strtotime($reativada->data)) }} </td>
+                            <td>{{ $reativada->matriculas->status }} </td>
 
                             <td>
 
@@ -121,7 +121,7 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ ('/rel_finalizados_impressao/'.$finalizado->id) }}" class="btn btn-success btn-sm"
+                                            <a href="{{ ('/rel_reativadas_impressao/'.$reativada->id) }}" class="btn btn-success btn-sm"
                                                 title="Visualizar informações do aluno">
                                                 <i class="bi bi-printer-fill"></i>
                                             </a>
@@ -136,10 +136,12 @@
                     @endforeach
                 </tbody>
 
+
+
             </table>
 
             <div class="container-fluid pl-5 d-flex justify-content-center">
-                {{ $finalizados->links('pagination::pagination') }}
+                {{ $reativadas->links('pagination::pagination') }}
             </div>
 
         </div>
