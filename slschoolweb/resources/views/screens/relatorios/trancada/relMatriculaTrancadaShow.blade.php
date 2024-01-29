@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-5 border p-2 me-3">
-                <form action="/rel_cancelados_loc_data" method="get">
+                <form action="/rel_trancados_loc_data" method="get">
                     @csrf
         
                     <div class="row pe-3">
@@ -54,7 +54,7 @@
             </div>
         
             <div class="col border p-2">
-                <form action="/rel_cancelados_localizar" method="get">
+                <form action="/rel_trancados_localizar" method="get">
                     @csrf
         
                     <div class="row">
@@ -123,7 +123,7 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <a href="{{ ('/rel_cancelados_impressao/'.$trancado->id) }}" class="btn btn-success btn-sm"
+                                            <a href="{{ ('/rel_trancados_impressao/'.$trancado->id) }}" class="btn btn-success btn-sm"
                                                 title="Visualizar informações do aluno">
                                                 <i class="bi bi-printer-fill"></i>
                                             </a>

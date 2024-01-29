@@ -263,3 +263,6 @@ Route::get('/rel_cancelados_loc_data', [RelatorioMatriculaCancelamentoController
 Route::get('/rel_cancelados_localizar', [RelatorioMatriculaCancelamentoController::class, 'localizar']);
 
 Route::get('/rel_trancados', [RelatorioMatriculaTrancadaController::class, 'index']);
+Route::get('/rel_trancados_impressao/{id}', [RelatorioMatriculaTrancadaController::class, 'impressao']);
+Route::get('/rel_trancados_loc_data', [RelatorioMatriculaTrancadaController::class, 'localizarEntreDatas']);
+Route::get('/rel_trancados_localizar', [RelatorioMatriculaTrancadaController::class, 'localizar']);
