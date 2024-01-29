@@ -120,10 +120,41 @@ class AlunosBloqueadosController extends Controller
     public function visualizarInfoBloqueio(string $id){
 
         $alunoBloqueado = $this->bloqueados->find($id); 
-        // dd($alunoBloqueado);
         if($alunoBloqueado != null){
             return view(self::PATH . 'alunosBloqueadosView', ['aluno' => $alunoBloqueado]);
         }
+
+    }
+
+    public function localizarEntreDatas(Request $request){
+
+        $request->validate([
+            'dt1' => 'required',
+            'dt2' => 'required',
+        ], [
+            'dt1.required' => 'Infome uma data valida para o campo "Primeira data',
+            'dt2.requied' => 'Infomre uma data valida pra o campo "Segunda data" ',
+        ]);
+
+        $dt1 = $request->input('dt1');
+        $dt2 = $request->input('dt2');
+
+        $bloqueados = $this->bloqueados->whereBetween('data', [$dt1, $dt2])->orderBy('id', 'desc')->paginate();
+        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);        
+
+    }
+
+    public function localizar(Request $request){
+
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'matriculas_id';
+        }
+
+        $bloqueados = $this->bloqueados::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate();
+        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);            
 
     }
 

@@ -52,6 +52,7 @@ use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
 use App\Http\Controllers\RelatorioMatriculaCancelamentoController;
 use App\Http\Controllers\relatorioMatriculaController;
+use App\Http\Controllers\RelatorioMatriculasFinalizadasController;
 use App\Http\Controllers\RelatorioMatriculaTrancadaController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Policies\AlunosPorTurmaPolicy;
@@ -234,6 +235,8 @@ Route::get(' /listarModeloContratosImpressao/{matricula}', [ContratosController:
 
 Route::resource('bloqueados', AlunosBloqueadosController::class)->middleware('can:view, App\Models\AlunoBloqueado');
 Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio'])->middleware('can:view, App\Models\AlunoBloqueado');
+Route::get('/bloqueados_loc_datas', [AlunosBloqueadosController::class, 'localizarEntreDatas'])->middleware('can:view, App\Models\AlunoBloqueado');
+Route::get('/bloqueados_localizar', [AlunosBloqueadosController::class, 'localizar'])->middleware('can:view, App\Models\AlunoBloqueado');
 
 Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
 Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
@@ -266,3 +269,6 @@ Route::get('/rel_trancados', [RelatorioMatriculaTrancadaController::class, 'inde
 Route::get('/rel_trancados_impressao/{id}', [RelatorioMatriculaTrancadaController::class, 'impressao']);
 Route::get('/rel_trancados_loc_data', [RelatorioMatriculaTrancadaController::class, 'localizarEntreDatas']);
 Route::get('/rel_trancados_localizar', [RelatorioMatriculaTrancadaController::class, 'localizar']);
+
+Route::get('/rel_finalizados', [RelatorioMatriculasFinalizadasController::class, 'index']);
+Route::get('/rel_finalizados_impressao/{id}', [RelatorioMatriculasFinalizadasController::class, 'impressao']);

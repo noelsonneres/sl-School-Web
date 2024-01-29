@@ -209,11 +209,11 @@
                                 <span class="align-middle">Finalizar</span></a>
                         @endcan
 
-                        @can('show', [\App\Models\AlunoBloqueado::class])
+                        {{-- @can('show', [\App\Models\AlunoBloqueado::class])
                             <a class="sidebar-link text-white" href="{{ route('bloqueados.index') }}">
                                 <i class="align-middle" data-feather="arrow-right"></i>
                                 <span class="align-middle">Alunos bloqueados</span></a>
-                        @endcan
+                        @endcan --}}
 
                         @can('show', [\App\Models\MatriculaReativar::class])
                             <a class="sidebar-link text-white" href="{{ route('matricula_reativar.index') }}">
@@ -363,7 +363,6 @@
 
                     {{-- RELATÓRIOS --}}
 
-
                     <li class="sidebar-header">
                         Relatórios
                     </li>
@@ -401,6 +400,17 @@
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Trancados</span>
                         </a>
+
+                        @can('show', [\App\Models\AlunoBloqueado::class])
+                            <a class="sidebar-link text-white" href="{{ route('bloqueados.index') }}">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Alunos bloqueados</span></a>
+                        @endcan
+
+                        <a class="sidebar-link text-white" href="/rel_finalizados">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Finalizados</span>
+                        </a>                        
 
                     </div>
 

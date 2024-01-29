@@ -42,6 +42,20 @@
                     <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
                 </div>
 
+                <div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-floppy2"></i>
+                        Salvar</button>
+
+                    <a href="javascript:history.back()" class="btn btn-danger">
+                        <i class="bi bi-x-circle-fill"></i>
+                        Cancelar
+                    </a>
+
+                </div>
+
+            </form>
+            
         </div>
 
 
