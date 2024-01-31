@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\Empresa;
 use App\Models\Mensalidade;
 use Illuminate\Http\Request;
@@ -27,6 +28,23 @@ class RelatorioMensalidadesController extends Controller
     public function localizar(Request $request)
     {
         
+        $value = $request->input('find');
+        $field = $request->input('opt');
+
+        if (empty($field)) {
+            $field = 'id';
+        }
+
+        if($field == 'aluno'){
+            $aluno = Aluno::where('nome', 'LIKE', $value . '%')->first();
+            // dd($aluno);
+            $value = $aluno->id;
+            $field = 'alunos_id';
+        }
+
+        $mensalidades = $this->mensalidade::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate();
+        return view(self::PATH.'relMensalidades', ['mensalidades'=>$mensalidades]);
+
     }
 
     //    localizar as mensalidades entre datas de vencimento ou pagamento
@@ -54,6 +72,18 @@ class RelatorioMensalidadesController extends Controller
 
     public function localizarMensalidadesStatus(Request $request)
     {
+
+        $request->validate([
+            'status'=>'required',
+        ],[
+            'status.required'=>'Selecione o status de matrícula',
+        ]);
+
+        $valorPesquisa = $request->input('status');
+
+        $mensalidades = $this->mensalidade->where('pago', $valorPesquisa)->paginate();
+        return view(self::PATH.'relMensalidades', ['mensalidades'=>$mensalidades]);      
+
     }
 
     public function localizarMensalidadesAvencer(Request $request)

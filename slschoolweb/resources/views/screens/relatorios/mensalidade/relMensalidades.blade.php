@@ -62,7 +62,7 @@
             </div>
         
             <div class="col-5 border p-2">
-                <form action="/rel_matricula_localizar" method="get">
+                <form action="/rel_mensalidades_localizar" method="get">
                     @csrf
         
                     <div class="row">
@@ -70,8 +70,10 @@
                         <div class="col-md-4 mb-3">
                             <label for="opt" class="form-label">Critério de pesquisa</label>
                             <select class="form-control" name="opt" id="opt" aria-label="Critério de pesquisa">
-                                <option value="id">Matrícula</option>
+                                <option value="id">Mensalidade</option>
                                 <option value="alunos_id">Cód. Aluno</option>
+                                <option value="matriculas_id">Matrícula</option>
+                                <option value="aluno">Aluno</option>
                             </select>
                         </div>
         
@@ -94,25 +96,22 @@
             </div>
         
         </div>
-        
 
         <hr>
 
         <div class="row border p-2">
 
-            <form action="/rel_matricula_loc_status" method="get">
+            <form action="/rel_mensalidades_loc_status" method="get">
                 @csrf
 
                 <div class="row">
 
                     <div class="col-md-6">
-                        <label for="ativo" class="form-label">Selecionar pelo status da matrícula</label>
-                        <select class="form-control" name="ativo" id="ativo">
-                            <option value="ativa">Ativa</option>
-                            <option value="bloqueado">Bloqueado</option>
-                            <option value="trancada">Trancada</option>
-                            <option value="cancelada">Cancelada</option>
-                            <option value="finalizada">Finalizada</option>
+                        <label for="status" class="form-label">Selecione o status da mensalidade</label>
+                        <select class="form-control" name="status" id="status">
+                            <option value="sim">Pagas</option>
+                            <option value="nao">Não pagas</option>
+                            <option value="cancelado">Canceladas</option>
                         </select>
                     </div>
 
@@ -148,8 +147,6 @@
                         <th scope="col">Operações</th>
                     </tr>
                 </thead>
-
-                {{-- date('d/m/Y', strtotime($mensalidade->data_inicio))  --}}
 
                 <tbody>
                     @foreach ($mensalidades as $mensalidade)
