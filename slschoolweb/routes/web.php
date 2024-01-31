@@ -55,6 +55,7 @@ use App\Http\Controllers\relatorioMatriculaController;
 use App\Http\Controllers\RelatorioMatriculaReativadasController;
 use App\Http\Controllers\RelatorioMatriculasFinalizadasController;
 use App\Http\Controllers\RelatorioMatriculaTrancadaController;
+use App\Http\Controllers\RelatorioMensalidadesController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
@@ -280,3 +281,10 @@ Route::get('/rel_reativadas', [RelatorioMatriculaReativadasController::class, 'i
 Route::get('/rel_reativadas_impressao/{id}', [RelatorioMatriculaReativadasController::class, 'impressao']);
 Route::get('/rel_reativadas_loc_datas', [RelatorioMatriculaReativadasController::class, 'localizarEntreDatas']);
 Route::get('/rel_reativadas_localizar', [RelatorioMatriculaReativadasController::class, 'localizar']);
+
+Route::get('/rel_mensalidades', [RelatorioMensalidadesController::class, 'indexMensalidades']);
+Route::get('/rel_mensalidades_loc_data', [RelatorioMensalidadesController::class, 'localizarEntreData']);
+Route::get('/rel_mensalidades_localizar', [RelatorioMensalidadesController::class, 'localizar']);
+Route::get('/rel_mensalidades_loc_status', [RelatorioMensalidadesController::class, 'localizarMensalidadesStatus']);
+Route::get('/rel_mensalidades_impressao/{id}', [RelatorioMensalidadesController::class, 'impressao']);
+
