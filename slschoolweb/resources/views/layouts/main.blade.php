@@ -420,7 +420,12 @@
                         <a class="sidebar-link text-white" href="/rel_mensalidades">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Mensalidades</span>
-                        </a>                              
+                        </a>      
+                        
+                        <a class="sidebar-link text-white" href="/rel_atrasadas">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Mensalidade atrasadas</span>
+                        </a>                          
 
                     </div>
 
