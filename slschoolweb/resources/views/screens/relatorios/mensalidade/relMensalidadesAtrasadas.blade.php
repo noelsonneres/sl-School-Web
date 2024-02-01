@@ -51,6 +51,54 @@
                 </form>
             </div>
 
+            <div class="col-md-5 border p-2 ms-2">
+                <form action="#" method="get">
+
+                    <div class="mt-4 ps-3">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label h4" for="flexCheckChecked">
+                            Todas as mensalidades atrasadas
+                        </label>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <form action="#" method="get">
+
+                <div class="row border mt-2">
+                    <div class="col-md-3 mb-2 mt-2">
+                        <label for="dt1" class="form-label">Início</label>
+                        <input type="date" class="form-control" name="dt1" id="dt1">
+                    </div>
+
+                    <div class="col-md-3 mb-2 mt-2">
+                        <label for="dt2" class="form-label">Término</label>
+                        <input type="date" class="form-control" name="dt2" id="dt2">
+                    </div>
+
+                    <div class="col-md-4 mb-2 mt-2">
+                        <label for="matricula" class="form-label">Matrícula</label>
+                        <input type="text" class="form-control" name="matricula" id="matricula">
+                    </div>
+
+                    <div class="col-md-2 mt-2 p-2">
+                        <label for=""></label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>            
+            
         </div>
 
         <hr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mensalidade;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class RelatorioMensalidadesAtrasadasController extends Controller
 {
@@ -18,7 +19,8 @@ class RelatorioMensalidadesAtrasadasController extends Controller
 
     public function index()
     {
-        $mensalidades = $this->mensalidade->where('matriculas_id', 0)->paginate();
+        $currentDate = Carbon::now()->format('Y-m-d');
+        $mensalidades = $this->mensalidade->where('vencimento', '<=', $currentDate)->paginate();
         return view(self::PATH . 'relMensalidadesAtrasadas', ['mensalidades' => $mensalidades]);
     }
 
