@@ -26,6 +26,21 @@ class RelatorioMensalidadesAtrasadasController extends Controller
 
     public function localizarEntreData(Request $request)
     {
+
+        $request->validate([
+            'dt1'=>'required',
+            'dt2'=>'required',
+        ],[
+            'dt1.required'=>'Informe a primeira data de vencimento para localizar as mensalidades',
+            'dt2.required'=>'Informe a segunda data de vencimento para localizar as mensalidades',
+        ]);
+
+        $dt1 = $request->input('dt1');
+        $dt2 = $request->input('dt2');
+
+        $mensalidades = $this->mensalidade->whereBetween('vencimento', [$dt1, $dt2])->paginate();
+        return view(self::PATH . 'relMensalidadesAtrasadas', ['mensalidades' => $mensalidades]);
+
     }
 
     public function localizarApenasAtrasadas(Request $request)

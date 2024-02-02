@@ -290,4 +290,5 @@ Route::get('/rel_mensalidades_loc_status', [RelatorioMensalidadesController::cla
 Route::get('/rel_mensalidades_impressao/{id}', [RelatorioMensalidadesController::class, 'impressao']);
 
 Route::get('/rel_atrasadas', [RelatorioMensalidadesAtrasadasController::class, 'index']);
+Route::get('/rel_atrasadas_loc_data', [RelatorioMensalidadesAtrasadasController::class, 'localizarEntreData']);
 

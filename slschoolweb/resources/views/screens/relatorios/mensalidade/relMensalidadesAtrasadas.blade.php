@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-6 border">
-                <form action="#" method="get">
+                <form action="/rel_atrasadas_loc_data" method="get">
 
                     <div class="row">
                         <div class="col-md-5 mb-2 mt-2">
@@ -55,7 +55,7 @@
                 <form action="#" method="get">
 
                     <div class="mt-4 ps-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                         <label class="form-check-label h4" for="flexCheckChecked">
                             Todas as mensalidades atrasadas
                         </label>
