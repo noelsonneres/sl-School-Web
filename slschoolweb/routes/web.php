@@ -292,4 +292,5 @@ Route::get('/rel_mensalidades_impressao/{id}', [RelatorioMensalidadesController:
 Route::get('/rel_atrasadas', [RelatorioMensalidadesAtrasadasController::class, 'index']);
 Route::get('/rel_atrasadas_loc_data', [RelatorioMensalidadesAtrasadasController::class, 'localizarEntreData']);
 Route::get('/rel_atrasadas_loc_atrasadas', [RelatorioMensalidadesAtrasadasController::class, 'localizarApenasAtrasadas']);
+Route::get('/rel_atrasadas_loc_matricula', [RelatorioMensalidadesAtrasadasController::class, 'localizarPorMatrícula']);
 

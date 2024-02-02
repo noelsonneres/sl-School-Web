@@ -415,8 +415,18 @@
                         <a class="sidebar-link text-white" href="/rel_reativadas">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Reativadas</span>
-                        </a>        
-                        
+                        </a>                              
+
+                    </div>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-white" href="#sub-menu9" data-bs-toggle="collapse">
+                            <i class="bi bi-person-fill-gear align-middle" style="font-size: 20px"></i> <span
+                                class="align-middle">Mensalidades</span>
+                        </a>
+                    </li>
+
+                    <div id="sub-menu9" class="collapse" style="margin-left: 15px;">
                         <a class="sidebar-link text-white" href="/rel_mensalidades">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Mensalidades</span>
@@ -425,7 +435,12 @@
                         <a class="sidebar-link text-white" href="/rel_atrasadas">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Mensalidade atrasadas</span>
-                        </a>                          
+                        </a>  
+
+                        <a class="sidebar-link text-white" href="/rel_atrasadas">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Período</span>
+                        </a>                         
 
                     </div>
 

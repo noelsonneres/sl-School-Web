@@ -80,7 +80,7 @@
 
         <div class="row">
 
-            <form action="#" method="get">
+            <form action="/rel_atrasadas_loc_matricula" method="get">
 
                 <div class="row border mt-2">
                     <div class="col-md-3 mb-2 mt-2">
@@ -165,12 +165,19 @@
                                 <div>
                                     <div class="row">
 
-                                        <div class="col-2">
+                                        <div class="col-3">
                                             <a href="{{ '/rel_mensalidades_impressao/' . $mensalidade->id }}"
-                                                class="btn btn-success btn-sm" title="Visualizar informações do aluno">
+                                                class="btn btn-primary btn-sm" title="Visualizar informações do aluno">
                                                 <i class="bi bi-printer-fill"></i>
                                             </a>
                                         </div>
+
+                                        <div class="col-2">
+                                            <a href="{{  '/selecionar_pagameto/' . $mensalidade->id . '/' . $mensalidade->matriculas_id }}"
+                                                class="btn btn-success btn-sm" title="Quitar mensalidade">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </a>
+                                        </div>                                        
 
                                     </div>
 

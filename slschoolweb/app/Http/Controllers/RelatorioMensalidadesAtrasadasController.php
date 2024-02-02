@@ -31,8 +31,8 @@ class RelatorioMensalidadesAtrasadasController extends Controller
     {
 
         $request->validate([
-            'dt1' => 'required',
-            'dt2' => 'required',
+            'dt1' => 'required|date',
+            'dt2' => 'required|date',
         ], [
             'dt1.required' => 'Informe a primeira data de vencimento para localizar as mensalidades',
             'dt2.required' => 'Informe a segunda data de vencimento para localizar as mensalidades',
@@ -58,12 +58,25 @@ class RelatorioMensalidadesAtrasadasController extends Controller
     {
 
         $request->validate([
-            'dt1'=>'required',
-            'dt2'=>'required',
-            'matricula'=>'required',
-        ],[
-            'dt1.required'=>'Digite a primeira data para pesquisar'
+            'dt1' => 'required|date',
+            'dt2' => 'required|date',
+            'matricula' => 'required',
+        ], [
+            'dt1.required' => 'Digite a primeira data para pesquisar',
+            'dt2.required' => 'Digite a segunda data para pesquisar',
+            'matricula.required' => 'Informe uma matrícula valida',
         ]);
 
+        $dt1 = $request->input('dt1');
+        $dt2 = $request->input('dt2');
+        $matricula = $request->input('matricula');
+
+        $mensalidades = $this->mensalidade
+            ->whereBetween('vencimento', [$dt1, $dt2])
+            ->where('matriculas_id', $matricula)
+            ->where('pago', '=', 'nao')
+            ->paginate();
+
+        return view(self::PATH . 'relMensalidadesAtrasadas', ['mensalidades' => $mensalidades]);
     }
 }
