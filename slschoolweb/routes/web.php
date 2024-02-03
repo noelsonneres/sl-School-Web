@@ -57,6 +57,7 @@ use App\Http\Controllers\RelatorioMatriculasFinalizadasController;
 use App\Http\Controllers\RelatorioMatriculaTrancadaController;
 use App\Http\Controllers\RelatorioMensalidadesAtrasadasController;
 use App\Http\Controllers\RelatorioMensalidadesController;
+use App\Http\Controllers\RelatorioMensalidadesPeriodoController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
@@ -293,4 +294,7 @@ Route::get('/rel_atrasadas', [RelatorioMensalidadesAtrasadasController::class, '
 Route::get('/rel_atrasadas_loc_data', [RelatorioMensalidadesAtrasadasController::class, 'localizarEntreData']);
 Route::get('/rel_atrasadas_loc_atrasadas', [RelatorioMensalidadesAtrasadasController::class, 'localizarApenasAtrasadas']);
 Route::get('/rel_atrasadas_loc_matricula', [RelatorioMensalidadesAtrasadasController::class, 'localizarPorMatrícula']);
+
+Route::get('/rel_mensalidades_periodo', [RelatorioMensalidadesPeriodoController::class, 'index']);
+Route::get('/rel_mensalidades_periodo_localizar', [RelatorioMensalidadesPeriodoController::class, 'localizar']);
 

@@ -16,7 +16,7 @@
 
             <form action="{{('/mensalidades_quitar') }}" method="post" enctype="multipart/form-data">
 
-                <input type="hidden" name="responsavel" id="responsavel" value="{{$responsavel->id}}">
+                <input type="hidden" name="responsavel" id="responsavel" value="{{$responsavel->id ?? 0}}">
 
                 @csrf
                 @method('PUT')

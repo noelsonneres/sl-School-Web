@@ -437,7 +437,7 @@
                             <span class="align-middle">Mensalidade atrasadas</span>
                         </a>  
 
-                        <a class="sidebar-link text-white" href="/rel_atrasadas">
+                        <a class="sidebar-link text-white" href="/rel_mensalidades_periodo">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Período</span>
                         </a>                         
@@ -445,7 +445,7 @@
                     </div>
 
 
-                    <li class="sidebar-header">
+                    {{-- <li class="sidebar-header">
                         Gráficos
                     </li>
 
@@ -460,7 +460,7 @@
                         <a class="sidebar-link" href="maps-google.html">
                             <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
 
         </nav>
