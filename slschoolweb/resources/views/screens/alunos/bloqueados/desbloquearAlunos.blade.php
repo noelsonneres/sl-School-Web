@@ -21,52 +21,6 @@
 
         <hr>
 
-        <div class="row">
-
-            <div class="col-4">
-
-                <a href="{{ route('salas.create') }}" class="btn btn-primary"
-                    title="Criar nova sala">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Novo</a>
-                <button onclick="(print())" class="btn $teal-300">Imprimir</button>
-
-            </div>
-
-            <div class="col-8">
-
-                <form action="/sala_pesquisar" method="get">
-                    @csrf
-
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <select class="form-control" name="opt" id="opt">
-                                <option value="id">Código</option>
-                                <option value="sala">Sala</option>
-                                <option value="descricao">Descrição</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="find" id="find"
-                                placeholder="Digite o que deseja buscar">
-                        </div>
-
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-success btn-sm">Pesquisar</button>
-                        </div>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-
-        <hr>
-
         <div class="card pt-2 mt-4">
 
             <table class="table p-1">
@@ -80,35 +34,39 @@
                     </tr>
                 </thead>
 
-
                 <tbody>
                     @foreach ($listas as $lista)
                         <tr>
                             <td>{{ $lista->alunos->id }} </td>
                             <td>{{ $lista->alunos->nome }} </td>
                             <td>{{ date('d/m/Y', strtotime($lista->data)) }} </td>
-                            <td>{{ $lista->status }} </td>
+
+                            @if ($lista->status == 'bloqueado')
+                                <td style="color: red; font-weight: 800">{{ $lista->status }} </td>
+                            @else
+                                <td style="color: green; font-weight: 800">{{ $lista->status }} </td>
+                            @endif
 
                             <td>
 
                                 <div>
                                     <div class="row">
 
-                                        <div class="col-2">
-                                            <a href="#" 
-                                                    class="btn btn-success btn-sm"
-                                                    title="Desbloquear aluno">
+                                        @if ($lista->status == 'bloqueado')
+                                            <div class="col-2">
+                                                <a href="{{ '/desbloquear_alunos_desbloquear/' . $lista->id }}"
+                                                    class="btn btn-success btn-sm" title="Desbloquear aluno">
                                                     <i class="bi bi-clipboard-check-fill"></i>
-                                            </a>
-                                        </div>
+                                                </a>
+                                            </div>
+                                        @endif
 
                                         <div class="col-2">
-                                            <a href="#" 
-                                                    class="btn btn-info btn-sm"
-                                                    title="Ver informações do bloqueio">
-                                                    <i class="bi bi-file-earmark-richtext"></i>
+                                            <a href="{{ '/desbloquear_alunos_detalhes/' . $lista->id }}"
+                                                class="btn btn-info btn-sm" title="Ver informações do bloqueio">
+                                                <i class="bi bi-file-earmark-richtext"></i>
                                             </a>
-                                        </div>                                        
+                                        </div>
 
                                     </div>
 
@@ -120,9 +78,9 @@
                 </tbody>
 
             </table>
- 
+
             <div class="container-fluid pl-5 d-flex justify-content-center">
-            {{$listas->links('pagination::pagination')}}
+                {{ $listas->links('pagination::pagination') }}
             </div>
 
         </div>

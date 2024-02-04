@@ -243,6 +243,8 @@ Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'v
 Route::get('/bloqueados_loc_datas', [AlunosBloqueadosController::class, 'localizarEntreDatas'])->middleware('can:view, App\Models\AlunoBloqueado');
 Route::get('/bloqueados_localizar', [AlunosBloqueadosController::class, 'localizar'])->middleware('can:view, App\Models\AlunoBloqueado');
 Route::get('/desbloquear_alunos_lista/{aluno}', [DesbloquearAlunoController::class, 'visualizarInfo'])->middleware('can:view, App\Models\AlunoBloqueado');
+Route::get('/desbloquear_alunos_desbloquear/{id}', [DesbloquearAlunoController::class, 'desbloquearAluno'])->middleware('can:view, App\Models\AlunoBloqueado');
+Route::get('/desbloquear_alunos_detalhes/{id}', [DesbloquearAlunoController::class, 'visualizarDetalhes'])->middleware('can:view, App\Models\AlunoBloqueado');
 
 Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
 Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar'])->middleware('can:view,'.QuitarMensalidadePolicy::class);

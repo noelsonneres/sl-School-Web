@@ -65,13 +65,12 @@ class AlunosBloqueadosController extends Controller
             $bloqueados->status = 'bloqueado';
             $bloqueados->obs = $request->input('obs');
 
-            $bloqueados->save();            
+            $bloqueados->save();
 
-            $this->atualizarStatusMatricula($request->input('matricula'));
+            $this->atualizarStatusMatricula($request->input('codigoAluno'));
             $this->atualizarStatusAluno($request->input('codigoAluno'));
 
             $msg = 'SUCESSO! Aluno bloqueado com sucesso!';
-
         } catch (\Throwable $th) {
             $msg = 'ERRO! Não foi possível atualizar as informações do aluno: ' . $th->getMessage();
         }
@@ -86,7 +85,6 @@ class AlunosBloqueadosController extends Controller
             ->with('responsavel', $responsavel)
             ->with('matricula', $matricula)
             ->with('msg', $msg);
-
     }
 
     public function show(string $id)
@@ -98,7 +96,7 @@ class AlunosBloqueadosController extends Controller
             return view(self::PATH . 'bloquearAluno', ['matricula' => $matriculaInfo]);
         } else if (($matriculaInfo->status == 'bloqueado')) {
             $bloqueado = $this->bloqueados->where('alunos_id', $matriculaInfo->alunos->id)->first();
-            return view(self::PATH . 'alunoBloqueadoInfo', ['matricula' => $matriculaInfo, 'bloqueado'=>$bloqueado]);
+            return view(self::PATH . 'alunoBloqueadoInfo', ['matricula' => $matriculaInfo, 'bloqueado' => $bloqueado]);
         }
     }
 
@@ -117,16 +115,17 @@ class AlunosBloqueadosController extends Controller
         //
     }
 
-    public function visualizarInfoBloqueio(string $id){
+    public function visualizarInfoBloqueio(string $id)
+    {
 
-        $alunoBloqueado = $this->bloqueados->find($id); 
-        if($alunoBloqueado != null){
+        $alunoBloqueado = $this->bloqueados->find($id);
+        if ($alunoBloqueado != null) {
             return view(self::PATH . 'alunosBloqueadosView', ['aluno' => $alunoBloqueado]);
         }
-
     }
 
-    public function localizarEntreDatas(Request $request){
+    public function localizarEntreDatas(Request $request)
+    {
 
         $request->validate([
             'dt1' => 'required',
@@ -140,11 +139,11 @@ class AlunosBloqueadosController extends Controller
         $dt2 = $request->input('dt2');
 
         $bloqueados = $this->bloqueados->whereBetween('data', [$dt1, $dt2])->orderBy('id', 'desc')->paginate();
-        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);        
-
+        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);
     }
 
-    public function localizar(Request $request){
+    public function localizar(Request $request)
+    {
 
         $value = $request->input('find');
         $field = $request->input('opt');
@@ -154,31 +153,30 @@ class AlunosBloqueadosController extends Controller
         }
 
         $bloqueados = $this->bloqueados::where($field, 'LIKE', $value . '%')->orderBy('id', 'desc')->paginate();
-        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);            
-
+        return view(self::PATH . 'alunosBloqueadosShow', ['bloqueados' => $bloqueados]);
     }
 
-    private function atualizarStatusMatricula(string $matriculaID)
+    private function atualizarStatusMatricula(string $alunoID)
     {
-        
-        $matricula = Matricula::find($matriculaID);
 
-        if($matricula != null){
-            $matricula->status = 'bloqueado';
-            $matricula->save();
+        $matriculas = Matricula::where('alunos_id', $alunoID)->get();
+
+        foreach ($matriculas as $matricula) {
+            if ($matricula->status == 'ativa') {
+                $matricula->status = 'bloqueado';
+                $matricula->save();
+            }
         }
-
     }
 
     private function atualizarStatusAluno(string $alunoID)
     {
 
         $aluno = Aluno::find($alunoID);
-        
-        if($aluno != null){
+
+        if ($aluno != null) {
             $aluno->ativo = 'bloqueado';
             $aluno->save();
         }
-
     }
 }
