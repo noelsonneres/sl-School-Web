@@ -51,6 +51,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NivelAcessoController;
 use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
+use App\Http\Controllers\RelatorioContasPagarController;
 use App\Http\Controllers\RelatorioMatriculaCancelamentoController;
 use App\Http\Controllers\relatorioMatriculaController;
 use App\Http\Controllers\RelatorioMatriculaReativadasController;
@@ -301,4 +302,8 @@ Route::get('/rel_atrasadas_loc_matricula', [RelatorioMensalidadesAtrasadasContro
 
 Route::get('/rel_mensalidades_periodo', [RelatorioMensalidadesPeriodoController::class, 'index']);
 Route::get('/rel_mensalidades_periodo_localizar', [RelatorioMensalidadesPeriodoController::class, 'localizar']);
+
+Route::get('/rel_contas_pagar', [RelatorioContasPagarController::class, 'index']);
+Route::get('/rel_contas_pagar_localizar', [RelatorioContasPagarController::class, 'localizar']);
+Route::get('/rel_contas_pagar_loc_simples', [RelatorioContasPagarController::class, 'localizarSimples']);
 

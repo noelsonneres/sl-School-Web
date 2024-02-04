@@ -444,6 +444,21 @@
 
                     </div>
 
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-white" href="#sub-menu10" data-bs-toggle="collapse">
+                            <i class="bi bi-person-fill-gear align-middle" style="font-size: 20px"></i> <span
+                                class="align-middle">Financeiro</span>
+                        </a>
+                    </li>
+
+                    <div id="sub-menu10" class="collapse" style="margin-left: 15px;">
+                        <a class="sidebar-link text-white" href="/rel_contas_pagar">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Contas a pagar</span>
+                        </a>                             
+
+                    </div>                    
+
 
                     {{-- <li class="sidebar-header">
                         Gráficos
