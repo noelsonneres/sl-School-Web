@@ -34,7 +34,7 @@
                 @elseif($matricula->status == 'finalizada')
                     <h5 style="color: blue; font-weight: 700">Situação: {{ $matricula->status }}</h5>
                 @elseif($matricula->status == 'bloqueado')
-                <h5 style="color: rgb(143, 7, 7); font-weight: 700">Situação: {{ $matricula->status }}</h5>
+                    <h5 style="color: rgb(143, 7, 7); font-weight: 700">Situação: {{ $matricula->status }}</h5>
                 @endif
 
             </div>
@@ -133,13 +133,13 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <a href="{{'/listarModeloContratosImpressao/'.$matricula->id}}" class="link-card">
-                    <div class="card" style="display: flex; justify-content: center; align-items: center;">
-                        <div class="card-body text-center">
-                            <h2 class="text-primary" style="font-weight: 500;">Contrato</h2>
-                            <i class="bi bi-file-text text-primary" style="font-size: 70px;"></i>
+                    <a href="{{ '/listarModeloContratosImpressao/' . $matricula->id }}" class="link-card">
+                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-body text-center">
+                                <h2 class="text-primary" style="font-weight: 500;">Contrato</h2>
+                                <i class="bi bi-file-text text-primary" style="font-size: 70px;"></i>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
 
@@ -254,16 +254,29 @@
                     </a>
                 </div>
 
-                <div class="col-sm-2">
-                    <a href="{{ route('bloqueados.show', $matricula->id) }}" class="link-card">
-                        <div class="card" style="display: flex; justify-content: center; align-items: center;">
-                            <div class="card-body text-center">
-                                <h2 style="color: rgb(244, 31, 16); font-weight: 500;">Bloquear</h2>
-                                <i class="bi bi-ban" style="font-size: 70px; color:  rgb(244, 31, 16); "></i>
+                @if ($matricula->alunos->ativo == 'sim')
+                    <div class="col-sm-2">
+                        <a href="{{ route('bloqueados.show', $matricula->id) }}" class="link-card">
+                            <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                                <div class="card-body text-center">
+                                    <h2 style="color: rgb(244, 31, 16); font-weight: 500;">Bloquear</h2>
+                                    <i class="bi bi-ban" style="font-size: 70px; color:  rgb(244, 31, 16); "></i>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>                
+                        </a>
+                    </div>
+                @elseif($matricula->alunos->ativo == 'bloqueado')
+                    <div class="col-sm-2">
+                        <a href="{{('/desbloquear_alunos_lista/'.$matricula->alunos->id) }}" class="link-card">
+                            <div class="card" style="display: flex; justify-content: center; align-items: center;">
+                                <div class="card-body text-center">
+                                    <h2 style="color: rgb(244, 31, 16); font-weight: 500;">Desbloquear</h2>
+                                    <i class="bi bi-ban" style="font-size: 70px; color:  rgb(244, 31, 16); "></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endif
 
             </div>
 

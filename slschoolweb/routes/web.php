@@ -44,6 +44,7 @@ use App\Http\Controllers\ConfCarteiraController;
 use App\Http\Controllers\ImpressaoCarteiraController;
 use App\Http\Controllers\CadastroVisitaController;
 use App\Http\Controllers\ContratosController;
+use App\Http\Controllers\DesbloquearAlunoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -241,6 +242,7 @@ Route::resource('bloqueados', AlunosBloqueadosController::class)->middleware('ca
 Route::get('/bloqueados_visualizar/{id}', [AlunosBloqueadosController::class, 'visualizarInfoBloqueio'])->middleware('can:view, App\Models\AlunoBloqueado');
 Route::get('/bloqueados_loc_datas', [AlunosBloqueadosController::class, 'localizarEntreDatas'])->middleware('can:view, App\Models\AlunoBloqueado');
 Route::get('/bloqueados_localizar', [AlunosBloqueadosController::class, 'localizar'])->middleware('can:view, App\Models\AlunoBloqueado');
+Route::get('/desbloquear_alunos_lista/{aluno}', [DesbloquearAlunoController::class, 'visualizarInfo'])->middleware('can:view, App\Models\AlunoBloqueado');
 
 Route::get('/quitar_mensalidade_index', [QuitarMensalidadeController::class, 'index'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
 Route::get('/quitar_mensalidade_localizar', [QuitarMensalidadeController::class, 'localizar'])->middleware('can:view,'.QuitarMensalidadePolicy::class);
