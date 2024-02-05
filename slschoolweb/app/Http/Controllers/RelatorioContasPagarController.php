@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RelatorioContasPagarController extends Controller
 {
 
-    const PATH = 'screens\relatorios\financeiro.';
+    const PATH = 'screens.relatorios.financeiro.';
     private $contasPagar;
 
     public function __construct()
