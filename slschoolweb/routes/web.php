@@ -52,6 +52,7 @@ use App\Http\Controllers\NivelAcessoController;
 use App\Http\Controllers\QuitarMensalidadeController;
 use App\Http\Controllers\RelatorioAlunosController;
 use App\Http\Controllers\RelatorioContasPagarController;
+use App\Http\Controllers\RelatorioEntradaValoresController;
 use App\Http\Controllers\RelatorioMatriculaCancelamentoController;
 use App\Http\Controllers\relatorioMatriculaController;
 use App\Http\Controllers\RelatorioMatriculaReativadasController;
@@ -306,4 +307,7 @@ Route::get('/rel_mensalidades_periodo_localizar', [RelatorioMensalidadesPeriodoC
 Route::get('/rel_contas_pagar', [RelatorioContasPagarController::class, 'index']);
 Route::get('/rel_contas_pagar_localizar', [RelatorioContasPagarController::class, 'localizar']);
 Route::get('/rel_contas_pagar_loc_simples', [RelatorioContasPagarController::class, 'localizarSimples']);
+Route::get('/rel_contas_pagar_impressao/{id}', [RelatorioContasPagarController::class, 'impressao']);
+
+Route::get('/rel_entrada_valores', [RelatorioEntradaValoresController::class, 'index']);
 

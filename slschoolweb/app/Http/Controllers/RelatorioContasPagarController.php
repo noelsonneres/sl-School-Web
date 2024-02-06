@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContasPagar;
+use App\Models\Empresa;
 use App\Models\PlanoContas;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\String_;
 
 class RelatorioContasPagarController extends Controller
 {
 
-    const PATH = 'screens.relatorios.financeiro.';
+    const PATH = 'screens.relatorios.financeiro.contas.';
     private $contasPagar;
 
     public function __construct()
@@ -58,11 +60,43 @@ class RelatorioContasPagarController extends Controller
 
         $planoContas = PlanoContas::all();
         return view(self::PATH . 'relContasPagar', ['contas' => $contas, 'planoContas' => $planoContas]);
-
     }
 
-    public function localizarSimples(Request $request){
+    public function localizarSimples(Request $request)
+    {
 
+        $request->validate([
+            'criterio' => 'required',
+            'dt1' => 'required|date',
+            'dt2' => 'required|date',
+            'pago' => 'required',
+        ], [
+            'criterio.required' => 'Selecione o critério de pesquisa',
+            'dt1.required' => 'Informe a data de início da pesquisa',
+            'dt1.date' => 'Digite uma data valida no campo início',
+            'dt2.required' => 'Informe a data de término da pesquisa',
+            'dt2.date' => 'Digite uma data valida no campo término',
+        ]);
+
+        $criterio = $request->input('criterio');
+        $dt1 = $request->input('dt1');
+        $dt2 = $request->input('dt2');
+        $pago = $request->input('pago');
+
+        $contas = $this->contasPagar
+            ->whereBetween($criterio, [$dt1, $dt2])
+            ->where('pago', $pago)
+            ->paginate();
+
+        $planoContas = PlanoContas::all();
+        return view(self::PATH . 'relContasPagar', ['contas' => $contas, 'planoContas' => $planoContas]);
+    }
+
+    public function impressao(String $id)
+    {
+        $conta = $this->contasPagar->find($id);
+        $empresa = Empresa::first();
+        return view(self::PATH.'relContasPagarImpressao', ['conta'=>$conta, 'empresa'=>$empresa]);
     }
 
 

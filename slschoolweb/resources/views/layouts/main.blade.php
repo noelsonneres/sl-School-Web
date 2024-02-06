@@ -452,12 +452,20 @@
                     </li>
 
                     <div id="sub-menu10" class="collapse" style="margin-left: 15px;">
-                        <a class="sidebar-link text-white" href="/rel_contas_pagar">
-                            <i class="align-middle" data-feather="arrow-right"></i>
-                            <span class="align-middle">Contas a pagar</span>
-                        </a>                             
 
-                    </div>                    
+                            <a class="sidebar-link text-white" href="/rel_contas_pagar">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Contas a pagar</span>
+                            </a>  
+                        
+                            <a class="sidebar-link text-white" href="/rel_entrada_valores">
+                                 <i class="align-middle" data-feather="arrow-right"></i>
+                                <span class="align-middle">Entrada de valores</span>
+                            </a>      
+            
+
+                    </div>     
+                    
 
 
                     {{-- <li class="sidebar-header">

@@ -194,36 +194,26 @@
                                     <div class="row">
 
                                         <div class="col-3">
-                                            <a href="{{ route('contas_pagar.edit', $conta->id) }}"
-                                                class="btn btn-success btn-sm">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <a href="{{('/rel_contas_pagar_impressao/'.$conta->id)}}"
+                                                class="btn btn-primary btn-sm"
+                                                title="Visualizar informações"
+                                                >
+                                                <i class="bi bi-printer-fill"></i>
                                             </a>
                                         </div>
 
-                                        <div class="col-3">
+                                        @if ($conta->pago == 'nao')
 
-                                            <form method="POST" class="delete-form"
-                                                action="{{ route('contas_pagar.destroy', $conta->id) }}">
-                                                @csrf
-                                                {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete(this)">
-                                                    <i class="bi bi-trash3-fill"></i>
-                                                </button>
-                                            </form>
-
-                                            <script>
-                                                function confirmDelete(button) {
-                                                    if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                        var form = button.closest('form');
-                                                        form.submit();
-                                                    }
-                                                }
-                                            </script>
-
-
-                                        </div>
+                                            <div class="col-3">
+                                                <a href="{{ route('contas_pagar.edit', $conta->id) }}""
+                                                    class="btn btn-success btn-sm"
+                                                    title="Alterar situação da conta"
+                                                    >
+                                                    <i class="bi bi-currency-dollar"></i>
+                                                </a>
+                                            </div>                                        
+                                        
+                                        @endif
 
                                     </div>
 
