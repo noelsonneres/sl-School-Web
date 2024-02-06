@@ -20,9 +20,62 @@
 
         <hr>
 
-        <div class="row justify-content-between">
+        <div class="container border">
+
+            <form action="#" method="get">
+
+                <div class="row mb-3 mt-2">
+
+                    <div class="col-md-3">
+                        <label for="dt1" class="form-label">Início</label>
+                        <input type="date" class="form-control" name="dt1" id="dt1" required>
+                    </div>
+        
+                    <div class="col-md-3">
+                        <label for="dt2" class="form-label">Término</label>
+                        <input type="date" class="form-control" name="dt2" id="dt2" required>
+                    </div>  
+                              
+                    <div class="col-md-2 mt-2">
+                        <label for=""></label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        
+                    </div>   
+
+                </div>             
+
+            </form>
 
         </div>
+
+        <div class="container mt-4 border mb-4">
+
+                <form action="" method="get">
+
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-8">
+                            <label for="motivo" class="form-label">Motivo</label>
+                            <input type="text" class="form-control" name="motivo" id="motivo">
+                         </div>
+
+                        <div class="col-md-2 mt-2">
+                            <label for=""></label>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>   
+                        </div>                 
+
+                    </div>
+
+                </form>
+        </div>
+
 
         <hr>
 

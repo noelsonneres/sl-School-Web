@@ -19,7 +19,20 @@ class RelatorioEntradaValoresController extends Controller
     public function index()
     {
         $entrada = $this->entrada->orderBy('id', 'desc')->paginate();
-        return view(self::PATH.'relEntradaValores', ['entradas'=>$entrada]);
+        return view(self::PATH . 'relEntradaValores', ['entradas' => $entrada]);
+    }
+
+    public function localizarEntreDatas(Request $request)
+    {
+
+        // $request->validate([
+        //     ''
+        // ])
+
+    }
+
+    public function localizar(Request $request)
+    {
     }
 
     // relEntradaValores
