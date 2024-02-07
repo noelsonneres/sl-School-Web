@@ -4,7 +4,7 @@
 
     <div class="container">
 
-        <div style="background-color: #1976D2;">
+        <div style="background-color: #1976D2;" class="rounded">
             <h4 class="text-center text-white p-3">Relatótio Entrada de valores</h4>
         </div>
 
