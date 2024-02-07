@@ -312,4 +312,5 @@ Route::get('/rel_contas_pagar_impressao/{id}', [RelatorioContasPagarController::
 Route::get('/rel_entrada_valores', [RelatorioEntradaValoresController::class, 'index']);
 Route::get('/rel_entrada_loc_datas', [RelatorioEntradaValoresController::class, 'localizarEntreDatas']);
 Route::get('/rel_entrada_localizar', [RelatorioEntradaValoresController::class, 'localizar']);
+Route::get('/rel_entrada_impressao/{id}', [RelatorioEntradaValoresController::class, 'impressao']);
 

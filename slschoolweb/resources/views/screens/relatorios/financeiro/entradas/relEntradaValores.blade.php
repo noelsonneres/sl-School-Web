@@ -22,7 +22,7 @@
 
         <div class="container border">
 
-            <form action="#" method="get">
+            <form action="/rel_entrada_loc_datas" method="get" id="searchForm">
 
                 <div class="row mb-3 mt-2">
 
@@ -54,7 +54,7 @@
 
         <div class="container mt-4 border mb-4">
 
-                <form action="" method="get">
+                <form action="rel_entrada_localizar" method="get">
 
                     <div class="row mb-3 mt-2">
                         <div class="col-md-8">
@@ -75,7 +75,6 @@
 
                 </form>
         </div>
-
 
         <hr>
 
@@ -101,7 +100,7 @@
                         <td>{{date('d/m/Y', strtotime($entrada->data))}} </td>
                         <td>{{ $entrada->hora}} </td>
                         <td>{{ $entrada->motivo }} </td>
-                        <td>{{ $entrada->valor }} </td>
+                        <td>R$ {{number_format( $entrada->valor, 2, ',', '.') }} </td>
 
                         <td>
 
@@ -109,35 +108,11 @@
                                 <div class="row">
 
                                     <div class="col-2">
-                                        <a href="{{ route('reposicoes.edit', $reposicao->id) }}"
-                                           class="btn btn-success btn-sm"
-                                           title="Editar informações da frequência">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a href="{{('/rel_entrada_impressao/'.$entrada->id)}}"
+                                           class="btn btn-primary btn-sm"
+                                           title="Exibir informações da entrada">
+                                           <i class="bi bi-printer-fill"></i>
                                         </a>
-                                    </div>
-
-                                    <div class="col-2">
-
-                                        <form method="POST" class="delete-form"
-                                              action="{{ route('reposicoes.destroy', $reposicao->id) }}">
-                                            @csrf
-                                            {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete(this)">
-                                                <i class="bi bi-trash3-fill"></i>
-                                            </button>
-                                        </form>
-
-                                        <script>
-                                            function confirmDelete(button) {
-                                                if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                    var form = button.closest('form');
-                                                    form.submit();
-                                                }
-                                            }
-                                        </script>
-
                                     </div>
 
                                 </div>
@@ -159,5 +134,33 @@
 
 
     </div>
+
+    <script>
+        // Restaurar valores dos campos ao carregar a página
+        window.onload = function() {
+            restoreFormValues();
+        };
+
+        // Armazenar valores dos campos no armazenamento local ao enviar o formulário
+        document.getElementById('searchForm').addEventListener('submit', function() {
+            storeFormValues();
+        });
+
+        // Função para armazenar valores dos campos no armazenamento local
+        function storeFormValues() {
+            document.querySelectorAll('input, select').forEach(function(element) {
+                localStorage.setItem(element.name, element.value);
+            });
+        }
+
+        // Função para restaurar valores dos campos do armazenamento local
+        function restoreFormValues() {
+            document.querySelectorAll('input, select').forEach(function(element) {
+                if (localStorage.getItem(element.name)) {
+                    element.value = localStorage.getItem(element.name);
+                }
+            });
+        }
+    </script>    
 
 @endsection
