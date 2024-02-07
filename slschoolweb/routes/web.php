@@ -62,6 +62,7 @@ use App\Http\Controllers\RelatorioMensalidadesAtrasadasController;
 use App\Http\Controllers\RelatorioMensalidadesController;
 use App\Http\Controllers\RelatorioMensalidadesPeriodoController;
 use App\Http\Controllers\RelatorioResponsaveisController;
+use App\Http\Controllers\RelatorioSaidaValoresController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
 use App\Policies\EstornarMensalidadePolicy;
@@ -313,4 +314,11 @@ Route::get('/rel_entrada_valores', [RelatorioEntradaValoresController::class, 'i
 Route::get('/rel_entrada_loc_datas', [RelatorioEntradaValoresController::class, 'localizarEntreDatas']);
 Route::get('/rel_entrada_localizar', [RelatorioEntradaValoresController::class, 'localizar']);
 Route::get('/rel_entrada_impressao/{id}', [RelatorioEntradaValoresController::class, 'impressao']);
+
+Route::get('/rel_saidas_valores', [RelatorioSaidaValoresController::class, 'index']);
+Route::get('/rel_saidas_valores_loc_datas', [RelatorioSaidaValoresController::class, 'localizarEntreDatas']);
+Route::get('/rel_saidas_valores_localizar', [RelatorioSaidaValoresController::class, 'localizar']);
+Route::get('/rel_saidas_valores_impressao/{id}', [RelatorioSaidaValoresController::class, 'impressao']);
+
+
 

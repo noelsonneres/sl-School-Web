@@ -285,7 +285,9 @@ class MensalidadesController extends Controller
         $valorMulta = str_replace(['R$', ','], '', $request->input('multa')); // Remove 'R$' e substitui ',' por ''
         $multaDecimal = floatval($valorMulta); // Converte para decimal        
 
-        try {;
+        try {
+
+            // dd($request);
 
             $mensalidade->juros = $jurosDecimal;
             $mensalidade->multa = $multaDecimal;
@@ -295,7 +297,7 @@ class MensalidadesController extends Controller
             $mensalidade->data_pagamento = $request->input('dataPagamento');
             $mensalidade->pago = 'sim';
             $mensalidade->responsavel_pagamento = $request->input('responsavelPgto');
-            $mensalidade->forma_pagamento = $request->input('forma_pagamento');
+            $mensalidade->forma_pagamento = $request->input('meioPagamento');
             $mensalidade->observacao = $request->input('obs');
 
             $mensalidade->save();

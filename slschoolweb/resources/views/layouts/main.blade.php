@@ -284,8 +284,7 @@
                                     Caixa </span></a>
                         @endcan
 
-                    </div>
-
+                    </div>{{--  --}}
 
                     {{-- Adminstrativo --}}
                     <li class="sidebar-item">
@@ -440,6 +439,11 @@
                         <a class="sidebar-link text-white" href="/rel_mensalidades_periodo">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Período</span>
+                        </a>    
+                        
+                        <a class="sidebar-link text-white" href="#">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                            <span class="align-middle">Por meio de pagamento</span>
                         </a>                         
 
                     </div>
@@ -462,6 +466,16 @@
                                  <i class="align-middle" data-feather="arrow-right"></i>
                                 <span class="align-middle">Entrada de valores</span>
                             </a>      
+
+                            <a class="sidebar-link text-white" href="/rel_saidas_valores">
+                                <i class="align-middle" data-feather="arrow-right"></i>
+                               <span class="align-middle">Saída de valores</span>
+                           </a>          
+                           
+                           <a class="sidebar-link text-white" href="#">
+                            <i class="align-middle" data-feather="arrow-right"></i>
+                           <span class="align-middle">Fluxo de caixa</span>
+                       </a>                              
             
 
                     </div>     
