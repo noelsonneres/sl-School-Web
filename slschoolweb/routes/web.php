@@ -63,6 +63,7 @@ use App\Http\Controllers\RelatorioMensalidadesController;
 use App\Http\Controllers\RelatorioMensalidadesPeriodoController;
 use App\Http\Controllers\RelatorioResponsaveisController;
 use App\Http\Controllers\RelatorioSaidaValoresController;
+use App\Http\Controllers\RelMensalidadesMeiosPgtoController;
 use App\Policies\AlunosPorTurmaPolicy;
 use App\Policies\GradeHorariosPolicy;
 use App\Policies\EstornarMensalidadePolicy;
@@ -319,6 +320,14 @@ Route::get('/rel_saidas_valores', [RelatorioSaidaValoresController::class, 'inde
 Route::get('/rel_saidas_valores_loc_datas', [RelatorioSaidaValoresController::class, 'localizarEntreDatas']);
 Route::get('/rel_saidas_valores_localizar', [RelatorioSaidaValoresController::class, 'localizar']);
 Route::get('/rel_saidas_valores_impressao/{id}', [RelatorioSaidaValoresController::class, 'impressao']);
+
+Route::get('/rel_mensalidades_pgto', [RelMensalidadesMeiosPgtoController::class, 'index']);
+Route::get('/rel_mensalidades_pgto_loc_datas', [RelMensalidadesMeiosPgtoController::class, 'localizarEntreDatas']);
+Route::get('/rel_mensalidades_pgto_localizar', [RelMensalidadesMeiosPgtoController::class, 'localizarPorMeios']);
+
+
+
+
 
 
 

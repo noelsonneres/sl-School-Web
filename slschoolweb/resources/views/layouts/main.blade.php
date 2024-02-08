@@ -441,7 +441,7 @@
                             <span class="align-middle">Período</span>
                         </a>    
                         
-                        <a class="sidebar-link text-white" href="#">
+                        <a class="sidebar-link text-white" href="/rel_mensalidades_pgto">
                             <i class="align-middle" data-feather="arrow-right"></i>
                             <span class="align-middle">Por meio de pagamento</span>
                         </a>                         
@@ -478,7 +478,7 @@
                        </a>                              
             
 
-                    </div>     
+                    </div>  
                     
 
 
