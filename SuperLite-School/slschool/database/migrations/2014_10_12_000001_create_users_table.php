@@ -16,10 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('empresas_id');
             $table->string('empresas_cnpj');
             $table->string('name');
+            $table->string('user_name')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('ativo')->default('nao');
+            $table->string('root')->default('nao');
             $table->date('data_adminssao')->nullable();
             $table->date('data_desligamento')->nullable();
             $table->string('telefone')->nullable();
