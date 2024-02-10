@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-02-10T18:48:39.244Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="d-h_zvrnae6O_3d4myrq" version="23.0.2" type="device">
+<mxfile host="Electron" modified="2024-02-10T19:00:30.428Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="ogLeGt5cgExsxElJ_KIv" version="23.0.2" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
     <mxGraphModel dx="1078" dy="1601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -335,7 +335,7 @@
         <mxCell id="FhHaFUJdGs-tFWOwASl--6" value="Funcionarios" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
           <mxGeometry x="350" y="-485" width="160" height="365" as="geometry" />
         </mxCell>
-        <mxCell id="FhHaFUJdGs-tFWOwASl--7" value="id&#xa;empresas_id&#xa;empresa_cnpj&#xa;nome&#xa;usuario&#xa;senha&#xa;ativo&#xa;data_admissao&#xa;data_desligamento&#xa;telefone&#xa;celular&#xa;email&#xa;endereco&#xa;bairro&#xa;complemento&#xa;numero&#xa;cep&#xa;cidade&#xa;uf&#xa;observacao&#xa;deletado&#xa;auditoria" style="align=left;strokeColor=#6F0000;fillColor=#a20025;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontColor=#ffffff;" vertex="1" parent="FhHaFUJdGs-tFWOwASl--6">
+        <mxCell id="FhHaFUJdGs-tFWOwASl--7" value="id&#xa;empresas_id&#xa;empresa_cnpj&#xa;nome&#xa;usuario&#xa;senha&#xa;ativo&#xa;data_admissao&#xa;data_desligamento&#xa;telefone&#xa;celular&#xa;email&#xa;endereco&#xa;bairro&#xa;complemento&#xa;numero&#xa;cep&#xa;cidade&#xa;uf&#xa;foto&#xa;observacao&#xa;deletado&#xa;auditoria" style="align=left;strokeColor=#6F0000;fillColor=#a20025;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;fontColor=#ffffff;" vertex="1" parent="FhHaFUJdGs-tFWOwASl--6">
           <mxGeometry y="30" width="160" height="335" as="geometry" />
         </mxCell>
         <mxCell id="FhHaFUJdGs-tFWOwASl--8" value="NIvel_acesso" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
