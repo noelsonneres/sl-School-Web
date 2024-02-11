@@ -39,8 +39,7 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
-                                    <h4 class="text-dark-50 text-center pb-0 fw-bold">Login</h4>
-                                    <h5 class="text-end">Sl-School</h5>
+                                    <h4 class="text-dark-50 text-center pb-0 fw-bold">Login - Sl-School</h4>
                                     <p class="text-muted mb-4">Entre com o seu nome de usuário e senha</p>
                                 </div>
 

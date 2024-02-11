@@ -9,16 +9,16 @@
         <meta content="Coderthemes" name="author" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
         <!-- Theme Config Js -->
-        <script src="assets/js/hyper-config.js"></script>
+        <script src="/assets/js/hyper-config.js"></script>
 
         <!-- App css -->
-        <link href="assets/css/app-saas.min.css" rel="stylesheet" type="text/css" id="app-style" />
+        <link href="/assets/css/app-saas.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
         <!-- Icons css -->
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -36,20 +36,20 @@
                             <!-- Logo light -->
                             <a href="index.html" class="logo-light">
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo.png" alt="logo">
+                                    <img src="/assets/images/logo.png" alt="logo">
                                 </span>
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="small logo">
+                                    <img src="/assets/images/logo-sm.png" alt="small logo">
                                 </span>
                             </a>
 
                             <!-- Logo Dark -->
                             <a href="index.html" class="logo-dark">
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-dark.png" alt="dark logo">
+                                    <img src="/assets/images/logo-dark.png" alt="dark logo">
                                 </span>
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-dark-sm.png" alt="small logo">
+                                    <img src="/assets/images/logo-dark-sm.png" alt="small logo">
                                 </span>
                             </a>
                         </div>
@@ -70,9 +70,11 @@
 
                         <!-- Topbar Search Form -->
                         <div class="app-search dropdown d-none d-lg-block">
-
-                            <h4 class="text-primary">Sl-School</h4>
-
+                            <h5 class="text-primary">Sl-School</h5>
+                            @if (auth()->check())
+                                <h6>{{auth()->user()->empresas->nome}}</h6>
+                                <h6>{{auth()->user()->empresas->cnpj}}</h6>
+                            @endif
                         </div>
                     </div>
 
@@ -108,15 +110,17 @@
                         </li>
 
                         <li class="dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <span class="account-user-avatar">
-                                    <img src="assets/images/users/avatar-1.jpg" alt="user-image" width="32" class="rounded-circle">
-                                </span>
-                                <span class="d-lg-flex flex-column gap-1 d-none">
-                                    <h5 class="my-0">Dominic Keller</h5>
-                                    <h6 class="my-0 fw-normal">Founder</h6>
-                                </span>
-                            </a>
+                            @if (auth()->check())
+                                <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <span class="account-user-avatar">
+                                        <img src="/assets/images/users/avatar-1.jpg" alt="user-image" width="32" class="rounded-circle">
+                                    </span>
+                                    <span class="d-lg-flex flex-column gap-1 d-none">
+                                        <h5 class="my-0">{{auth()->user()->name}}</h5>
+                                        {{-- <h6 class="my-0 fw-normal">Founder</h6> --}}
+                                    </span>
+                                </a>
+                            @endif
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
                                 <!-- item-->
                                 <div class=" dropdown-header noti-title">
@@ -165,21 +169,21 @@
                 <!-- Brand Logo Light -->
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-lg">
-                        <img src="assets/images/logo.png" alt="logo">
+                        <img src="/assets/images/logo.png" alt="logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="small logo">
+                        <img src="/assets/images/logo-sm.png" alt="small logo">
                     </span>
                 </a>
 
                 <!-- Brand Logo Dark -->
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="dark logo">
+                        <img src="/assets/images/logo-dark.png" alt="dark logo">
                         <h5 class="text-white">Sl-School</h5>
                     </span>
                     <span class="logo-sm">
-                        <img src="assets/images/logo-dark-sm.png" alt="small logo">
+                        <img src="/assets/images/logo-dark-sm.png" alt="small logo">
                         <h5 class="text-white">Sl-School</h5>
                     </span>
                 </a>
@@ -199,7 +203,7 @@
                     <!-- Leftbar User -->
                     <div class="leftbar-user">
                         <a href="pages-profile.html">
-                            <img src="assets/images/users/avatar-1.jpg" alt="user-image" height="42" class="rounded-circle shadow-sm">
+                            <img src="/assets/images/users/avatar-1.jpg" alt="user-image" height="42" class="rounded-circle shadow-sm">
                             <span class="leftbar-user-name mt-2">Dominic Keller</span>
                         </a>
                     </div>
@@ -318,7 +322,7 @@
                             <div class="collapse" id="adminstrativo">
                                 <ul class="side-nav-second-level">
                                     <li>
-                                        <a href="layouts-horizontal.html" target="_blank">Horizontal</a>
+                                        <a href="/users">Usuários</a>
                                     </li>
                                     <li>
                                         <a href="layouts-detached.html" target="_blank">Detached</a>
@@ -1146,10 +1150,10 @@
         </div>        
         
         <!-- Vendor js -->
-        <script src="assets/js/vendor.min.js"></script>
+        <script src="/assets/js/vendor.min.js"></script>
 
         <!-- App js -->
-        <script src="assets/js/app.min.js"></script>
+        <script src="/assets/js/app.min.js"></script>
 
     </body>
 </html> 
