@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('root')->default('nao');
             $table->date('data_adminssao')->nullable();
             $table->date('data_desligamento')->nullable();
+            $table->string('cpf')->nullable();
+            $table->date('data_nascimento')->nullable();
+            $table->string('apelido')->nullable();
             $table->string('telefone')->nullable();
             $table->string('celular')->nullable();
             $table->string('cep')->nullable();

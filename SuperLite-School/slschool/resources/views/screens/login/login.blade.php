@@ -10,7 +10,7 @@
 
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
-        
+
         <!-- Theme Config Js -->
         <script src="assets/js/hyper-config.js"></script>
 
@@ -20,7 +20,7 @@
         <!-- Icons css -->
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     </head>
-    
+
     <body class="authentication-bg position-relative" style="background: #dedddd">
 
         <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="card-body p-4">
-                                
+
                                 <div class="text-center w-75 m-auto">
                                     <h4 class="text-dark-50 text-center pb-0 fw-bold">Login - Sl-School</h4>
                                     <p class="text-muted mb-4">Entre com o seu nome de usuário e senha</p>
@@ -49,14 +49,14 @@
                                   justify-content-between align-items-end mb-3" role="alert" style="text-align: center;">
                                     <h5>{{$msg}} </h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                      
+
                                 </div>
-                                
+
                             @endif
-                      
+
                             @error('error')
                               <span style="color: red" class="p-2">{{ $message }}</span>
-                            @enderror                                
+                            @enderror
 
                                 <form action="{{route('login.login')}}" method="POST">
 
@@ -67,17 +67,17 @@
                                         <span>{{ $message }}</span>
                                         @enderror
                                         <label for="username" class="form-label">Nome de usuário</label>
-                                        <input class="form-control" type="text" name="username" id="username" 
+                                        <input class="form-control" type="text" name="username" id="username"
                                             required="" placeholder="Digite o seu usuário para entrar">
                                     </div>
 
                                     <div class="mb-3">
                                         @error('password')
                                         <span>{{ $message }}</span>
-                                        @enderror                                        
+                                        @enderror
                                         <label for="password" class="form-label">Senha</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" name="password" id="password" class="form-control" 
+                                            <input type="password" name="password" id="password" class="form-control"
                                                 placeholder="Entre com sua senha" autocomplete="off">
                                             <div class="input-group-text" data-password="false">
                                                 <span class="password-eye"></span>
@@ -114,10 +114,10 @@
             <script>document.write(new Date().getFullYear())</script> © SeabraSoftware - seabrasoft.com.br
         </footer>
         <!-- Vendor js -->
-        <script src="assets/js/vendor.min.js"></script>
-        
+        <script src="/assets/js/vendor.min.js"></script>
+
         <!-- App js -->
-        <script src="assets/js/app.min.js"></script>
+        <script src="/assets/js/app.min.js"></script>
 
     </body>
 </html>
