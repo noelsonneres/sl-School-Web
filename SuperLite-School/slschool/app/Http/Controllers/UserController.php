@@ -17,14 +17,15 @@ class UserController extends Controller
     }
 
     public function index()
-    {        
+    {
         $user = $this->user->paginate();
-        return view(self::PATH.'userShow', ['users'=>$user]);
+        return view(self::PATH . 'userShow', ['users' => $user]);
     }
 
     public function create()
     {
-        return view(self::PATH.'userCreate');
+        $estados = $this->listaEstados();
+        return view(self::PATH . 'userCreate', ['estados'=>$estados]);
     }
 
     /**
@@ -65,5 +66,38 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function listaEstados()
+    {
+        return $estados = array(
+            "Acre" => "AC",
+            "Alagoas" => "AL",
+            "Amapá" => "AP",
+            "Amazonas" => "AM",
+            "Bahia" => "BA",
+            "Ceará" => "CE",
+            "Distrito Federal" => "DF",
+            "Espírito Santo" => "ES",
+            "Goiás" => "GO",
+            "Maranhão" => "MA",
+            "Mato Grosso" => "MT",
+            "Mato Grosso do Sul" => "MS",
+            "Minas Gerais" => "MG",
+            "Pará" => "PA",
+            "Paraíba" => "PB",
+            "Paraná" => "PR",
+            "Pernambuco" => "PE",
+            "Piauí" => "PI",
+            "Rio de Janeiro" => "RJ",
+            "Rio Grande do Norte" => "RN",
+            "Rio Grande do Sul" => "RS",
+            "Rondônia" => "RO",
+            "Roraima" => "RR",
+            "Santa Catarina" => "SC",
+            "São Paulo" => "SP",
+            "Sergipe" => "SE",
+            "Tocantins" => "TO"
+        );
     }
 }
