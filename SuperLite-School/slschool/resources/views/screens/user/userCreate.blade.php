@@ -1,12 +1,8 @@
-{{-- CRIAR OS RESTANTES DO CAMPOS
-    CRIAR OS CAMPOS HIDDEN PARA ARMAZENAR OS VALORES DA EMPRESAS_ID E EMPRESSA_CNPJ 
-        E O CÓDIGO E NOME DO USUÁRIO LOGADO --}}
-
 @extends('layout.main')
 @section('title', 'Super Lite School')
 @section('content')
 
-<script src="/assets/js/masks.js"></script>
+    <script src="/assets/js/masks.js"></script>
 
     <div class="container-fluid">
 
@@ -22,6 +18,47 @@
                         </ol>
                     </div>
                     <h4 class="page-title">Cadatro de Usuários</h4>
+
+                    {{-- Exibe mensagens de sucesso ou erro --}}
+                    @if (isset($msg))
+                        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                                justify-content-between align-items-end mb-3"
+                            role="alert" style="text-align: center;">
+                            <h5>{{ $msg }} </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                        </div>
+                    @endif
+
+                    @if (isset($msgErro))
+                    <div class="alert alert-danger alert-dismissible fade show msg d-flex 
+                            justify-content-between align-items-end mb-3"
+                        role="alert" style="text-align: center;">
+                        <h5>{{ $msgErro }} </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                    {{-- @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif --}}
+
+                    @if (session('erro'))
+                        <div class="alert alert-danger alert-dismissible fade show msg d-flex 
+                    justify-content-between align-items-end mb-3"
+                            role="alert" style="text-align: center;">
+                            <h6 style="color: red">{{ session('erro') }}</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    {{-- Fim do bloco de mensagens e erros --}}
+
                 </div>
             </div>
         </div>
@@ -43,20 +80,23 @@
 
                                 @csrf
 
+                                <input type="hidden" name="empresas_id" value="{{auth()->user()->empresas_id}}">
+                                <input type="hidden" name="empresas_cnpj" value="{{auth()->user()->empresas->cnpj}}">
+
                                 <div class="row mb-3">
 
                                     <div class="col-md-4">
                                         <label for="nome" class="form-label">Nome complento <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nome" id="nome" required
-                                            max="100">
+                                            max="100" value="{{old('nome')}}">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="nomeUsuario" class="form-label">Nome de usuário <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="nomeUsuario" id="nomeUsuario"
-                                            required max="100">
+                                            required max="20">
                                     </div>
 
                                     <div class="col-md-2">
@@ -89,7 +129,7 @@
                                     <div>
                                         <label for="email" class="form-label">E-mail <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="text" class="form-control" name="email" maxlength="100">
                                     </div>
                                 </div>
 
@@ -145,12 +185,14 @@
 
                                     <div class="col-md-6">
                                         <label for="telefone" class="form-label">Telefone</label>
-                                        <input type="text" class="form-control" name="telefone" id="telefone" oninput="formatarTelefone(this)">
+                                        <input type="text" class="form-control" name="telefone" id="telefone"
+                                            oninput="formatarTelefone(this)">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="celular" class="form-label">Celular</label>
-                                        <input type="text" class="form-control" name="celular" id="celular" oninput="formatarCelular(this)">
+                                        <input type="text" class="form-control" name="celular" id="celular"
+                                            oninput="formatarCelular(this)">
                                     </div>
 
                                 </div>
@@ -273,7 +315,7 @@
     {{-- PROCESSO DE VALIDAÇÃO DO CAMPOS --}}
     <!-- Adicionando JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.9/jquery.inputmask.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.9/jquery.inputmask.min.js"></script>
 
     <!-- ViaCEP -->
     <!-- Adicionando Javascript -->
@@ -339,8 +381,5 @@
             });
         });
     </script>
-
-
-    <!-- Inclua o InputMask -->
 
 @endsection

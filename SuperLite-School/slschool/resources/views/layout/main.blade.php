@@ -481,7 +481,7 @@
                     <!-- start page title -->
                     @if ($errors->any())
                         <div class="text text-danger p-4">
-                            <h4 class="text text-danger p-3">Verifiques os campos informados</h4>
+                            <h4 class="text text-danger p-3">Não foi possível completar a operação. Consulte os erros abaixo:</h4>
                             <ul class="list-group list-group-flush">
                                 @foreach ($errors->all() as $error)
                                     <li class="list-group-item text text-danger fs-4">* {{ $error }}</li>

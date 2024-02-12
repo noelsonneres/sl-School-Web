@@ -99,6 +99,14 @@
                         </tbody>
                     </table>
 
+
+        <!-- Exibir a barra de paginação -->
+        <div class="row">
+            <div>
+                {{ $users->links('pagination::pagination') }}
+            </div>
+        </div>
+
                 </div> <!-- end card -->
             </div> <!-- end col -->
         </div> <!-- end row -->
