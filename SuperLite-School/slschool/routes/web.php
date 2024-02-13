@@ -16,3 +16,4 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 Route::get('index', [HomeController::class, 'index']);
 
 Route::resource('users', UserController::class);
+Route::get('/user_search', [UserController::class, 'search']);

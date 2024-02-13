@@ -38,11 +38,49 @@
             <div class="col-12">
                 <div class="card">
 
-                    <div class="pt-3 ps-4">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
-                        <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-                    </div>
+                    <div class="row">
 
+                        <div class="col-md-4">
+                            <div class="pt-3 ps-4">
+                                <a href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
+                                <button class="btn btn-secondary" onclick="print()">Imprimir</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="pt-3 ps-4">
+                                
+                                <form action="/user_search" method="get" id="searchForm">
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-3">
+                                            <select class="form-control" name="criterio" id="criterio" required>
+                                                <option value="">Critério de pesquisa</option>
+                                                <option value="id">Código</option>
+                                                <option value="name">Nome</option>
+                                                <option value="user_name">Usuário</option>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa" required maxlength="100">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                Pesquisar
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
                         <thead>
                             <tr>
@@ -95,14 +133,12 @@
 
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#myModal{{ $user->id }}">
+                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $user->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $user->id }}"
-                                                        tabindex="-1"
+                                                    <div class="modal fade" id="myModal{{ $user->id }}" tabindex="-1"
                                                         aria-labelledby="myModalLabel{{ $user->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -137,7 +173,6 @@
                                                     {{-- Fim Modal --}}
                                                 </div>
 
-
                                             </div>
 
                                         </div>
@@ -161,5 +196,32 @@
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
 
+    <script>
+        // Restaurar valores dos campos ao carregar a página
+        window.onload = function() {
+            restoreFormValues();
+        };
+
+        // Armazenar valores dos campos no armazenamento local ao enviar o formulário
+        document.getElementById('searchForm').addEventListener('submit', function() {
+            storeFormValues();
+        });
+
+        // Função para armazenar valores dos campos no armazenamento local
+        function storeFormValues() {
+            document.querySelectorAll('input, select').forEach(function(element) {
+                localStorage.setItem(element.name, element.value);
+            });
+        }
+
+        // Função para restaurar valores dos campos do armazenamento local
+        function restoreFormValues() {
+            document.querySelectorAll('input, select').forEach(function(element) {
+                if (localStorage.getItem(element.name)) {
+                    element.value = localStorage.getItem(element.name);
+                }
+            });
+        }
+    </script>    
 
 @endsection

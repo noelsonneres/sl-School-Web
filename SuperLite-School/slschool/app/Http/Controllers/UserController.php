@@ -284,6 +284,29 @@ class UserController extends Controller
             ->with('msg', $msg);
     }
 
+    public function search(Request $request)
+    {
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        $usuarios = $this->user
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->paginate();
+
+        return view(self::PATH . 'userShow', ['users' => $usuarios]);
+
+    }
+
     private function listaEstados()
     {
         return $estados = array(
