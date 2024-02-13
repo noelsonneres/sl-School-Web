@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'ativo'=>'1',
             'empresas_id'=>'1',
             'empresas_cnpj'=>'21.921.379/0001-42',
+            'deletado'=>'nao',
         ]);        
     }
 }

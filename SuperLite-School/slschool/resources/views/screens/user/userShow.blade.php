@@ -17,6 +17,18 @@
                         </ol>
                     </div>
                     <h4 class="page-title">Visualizar usuários</h4>
+
+                    {{-- Exibe mensagens de sucesso ou erro --}}
+                    @if (isset($msg))
+                        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                                justify-content-between align-items-end mb-3"
+                            role="alert" style="text-align: center;">
+                            <h5>{{ $msg }} </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -27,7 +39,7 @@
                 <div class="card">
 
                     <div class="pt-3 ps-4">
-                        <a href="{{route('users.create')}}" class="btn btn-primary">Novo usuário</a>
+                        <a href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
                         <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                     </div>
 
@@ -49,7 +61,12 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->user_name }}</td>
-                                    <td>{{ $user->data_adminssao }}</td>
+
+                                    @if ($user->data_adminssao != null)
+                                        <td>{{ date('d/m/Y', strtotime($user->data_adminssao)) }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
 
                                     @if ($user->ativo == '1')
                                         <td>Sim</td>
@@ -62,32 +79,64 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="#" class="btn btn-success btn-sm" title="Atualizar informações do usuário">
+                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                        class="btn btn-success btn-sm"
+                                                        title="Atualizar informações do usuário">
                                                         <i class="uil-edit-alt"></i>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-2">
-
-                                                    <form method="POST" class="delete-form" action="#">
-                                                        @csrf
-                                                        {{-- o método HTTP para exclusão deve ser o DELETE --}}
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)" title="Deletar as informações do usuário">
-                                                            <i class="uil-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-
-                                                    <script>
-                                                        function confirmDelete(button) {
-                                                            if (confirm('Tem certeza de que deseja excluir este item?')) {
-                                                                var form = button.closest('form');
-                                                                form.submit();
-                                                            }
-                                                        }
-                                                    </script>
-
+                                                    <a href="#" class="btn btn-info btn-sm"
+                                                        title="Niveis de acesso do usuário">
+                                                        <i class="uil-lock"></i>
+                                                    </a>
                                                 </div>
+
+                                                <div class="col-2">
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#myModal{{ $user->id }}">
+                                                        <i class="uil-trash-alt"></i>
+                                                    </button>
+
+                                                    {{-- Modal --}}
+                                                    <div class="modal fade" id="myModal{{ $user->id }}"
+                                                        tabindex="-1"
+                                                        aria-labelledby="myModalLabel{{ $user->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="myModalLabel{{ $user->id }}">Deseja
+                                                                        deletar este usuário?</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <form method="POST"
+                                                                        action="{{ route('users.destroy', $user->id) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <h3>Tem certeza que deseja deletar o usuário
+                                                                            selecionado?</h3>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Sim, quero
+                                                                                deletar</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Fim Modal --}}
+                                                </div>
+
 
                                             </div>
 
@@ -100,12 +149,12 @@
                     </table>
 
 
-        <!-- Exibir a barra de paginação -->
-        <div class="row">
-            <div>
-                {{ $users->links('pagination::pagination') }}
-            </div>
-        </div>
+                    <!-- Exibir a barra de paginação -->
+                    <div class="row">
+                        <div>
+                            {{ $users->links('pagination::pagination') }}
+                        </div>
+                    </div>
 
                 </div> <!-- end card -->
             </div> <!-- end col -->
