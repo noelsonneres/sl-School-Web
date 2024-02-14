@@ -117,7 +117,7 @@ class UserController extends Controller
             $usuario->uf = $request->input('estado');
             $usuario->obs = $request->input('obs');
             $usuario->deletado = 'nao';
-            $usuario->auditoria = $this->operacao('Inserção');
+            $usuario->auditoria = $this->operacao('Inserção de um novo Usuário');
 
             //upload da foto
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
@@ -227,7 +227,7 @@ class UserController extends Controller
             $usuario->uf = $request->input('estado');
             $usuario->obs = $request->input('obs');
             $usuario->deletado = 'nao';
-            $usuario->auditoria = $this->operacao('Inserção');
+            $usuario->auditoria = $this->operacao('Atualizar Info. Usuário');
 
             //upload da foto
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {

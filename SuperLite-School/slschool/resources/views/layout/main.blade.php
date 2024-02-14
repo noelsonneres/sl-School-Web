@@ -272,7 +272,7 @@
                         <div class="collapse" id="cadastroBase">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="/diasAula" target="_blank">Dias de aulas</a>
+                                    <a href="/diasAula">Dias de aulas</a>
                                 </li>
                                 <li>
                                     <a href="layouts-detached.html" target="_blank">Detached</a>

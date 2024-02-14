@@ -43,41 +43,8 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('diasAula.create') }}" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">Novo</a>
+                                <a href="{{ route('diasAula.create') }}" class="btn btn-primary">Novo</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-
-                                {{-- Modal --}}
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Cadastrar novo dia de aula</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-
-                                                <form class="row g-3" method="POST" accept="{{route('diasAula.store')}}">
-                                                    <div>
-                                                        <label for="dia" class="form-label">Dia de aula</label>
-                                                        <input type="text" class="form-control" name="dia" id="dia" maxlength="100" required>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success">Salvar <i class="ri-save-3-fill"></i></button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-bs-dismiss="modal">Cancelar  <i class=" ri-close-circle-fill"></i></button>
-                                                    </div>
-                                                </div>                                                    
-                                                </form>
-
-                                            </div>
-
-                                    </div>
-                                </div>
-                                {{-- Fim Modal --}}
-
                             </div>
                         </div>
 
@@ -135,7 +102,7 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('users.edit', $dia->id) }}"
+                                                    <a href="{{ route('diasAula.edit', $dia->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações do usuário">
                                                         <i class="uil-edit-alt"></i>
@@ -144,14 +111,13 @@
 
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#myModal{{ $dia->id }}">
+                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $dia->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $dia->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $dia->id }}"
+                                                    <div class="modal fade" id="myModal{{ $dia->id }}" tabindex="-1"
+                                                        aria-labelledby="myModalLabel{{ $dia->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
@@ -160,8 +126,7 @@
                                                                         id="myModalLabel{{ $dia->id }}">Deseja
                                                                         deletar este usuário?</h5>
                                                                     <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
 
                                                                 <div class="modal-body">
@@ -172,8 +137,7 @@
                                                                         <h3>Tem certeza que deseja deletar o usuário
                                                                             selecionado?</h3>
                                                                         <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
+                                                                            <button type="button" class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Cancelar</button>
                                                                             <button type="submit"
                                                                                 class="btn btn-danger">Sim, quero
