@@ -285,10 +285,10 @@
 
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-success">Salvar
-                                        <i class="uil-trash-alt"></i>
+                                        <i class="ri-save-3-fill"></i>
                                     </button>
                                     <a href="javascript:history.back()" class="btn btn-danger">Cancelar
-                                        <i class="uil-trash-alt"></i>
+                                        <i class=" ri-close-circle-fill"></i>
                                     </a>
                                 </div>
 

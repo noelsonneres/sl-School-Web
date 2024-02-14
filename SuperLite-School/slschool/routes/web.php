@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -17,3 +18,5 @@ Route::get('index', [HomeController::class, 'index']);
 
 Route::resource('users', UserController::class);
 Route::get('/user_search', [UserController::class, 'search']);
+
+Route::resource('diasAula', DiasAulasController::class);

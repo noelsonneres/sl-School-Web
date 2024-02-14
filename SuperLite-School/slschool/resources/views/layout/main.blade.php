@@ -234,6 +234,7 @@
 
                     {{-- <li class="side-nav-title">Matrículas</li> --}}
 
+                    {{-- MENU MATRÍCULA --}}
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false"
                             aria-controls="sidebarPages" class="side-nav-link">
@@ -260,6 +261,7 @@
                         </div>
                     </li>
 
+                    {{-- CADASTRO BASE --}}
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#cadastroBase" aria-expanded="false"
                             aria-controls="cadastroBase" class="side-nav-link">
@@ -270,7 +272,7 @@
                         <div class="collapse" id="cadastroBase">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="layouts-horizontal.html" target="_blank">Horizontal</a>
+                                    <a href="/diasAula" target="_blank">Dias de aulas</a>
                                 </li>
                                 <li>
                                     <a href="layouts-detached.html" target="_blank">Detached</a>
@@ -294,6 +296,7 @@
                         </div>
                     </li>
 
+                    {{-- MENU FINACEIRO --}}
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#financeiro" aria-expanded="false"
                             aria-controls="financeiro" class="side-nav-link">
@@ -328,6 +331,7 @@
                         </div>
                     </li>
 
+                    {{-- MENU ADMINSTRATIVO --}}
                     <li class="side-nav-item">
                         <a data-bs-toggle="collapse" href="#adminstrativo" aria-expanded="false"
                             aria-controls="adminstrativo" class="side-nav-link">
