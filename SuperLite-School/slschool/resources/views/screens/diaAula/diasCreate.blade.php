@@ -81,7 +81,7 @@
                                 @csrf
 
                                 <div>
-                                    <label for="dia" class="form-label">Dia de aula</label>
+                                    <label for="dia" class="form-label">Dia de aula  <span class="text-danger">*</span> </label>
                                     <input type="text" class="form-control" name="dia" id="dia" maxlength="255" required>
                                 </div>
 

@@ -28,7 +28,7 @@ class HorariosAulasController extends Controller
 
     public function create()
     {
-        //
+        return view(self::PATH.'horariosCreate');
     }
 
     public function store(Request $request)
@@ -69,17 +69,63 @@ class HorariosAulasController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $horario = $this->horario->find($id);
+        return view(self::PATH . 'horariosEdit', ['horario' => $horario]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $horario = $this->horario->find($id);
+
+        $request->validate([
+            'entrada' => 'required',
+            'saida' => 'required',
+        ], [
+            'entrada.required' => 'O horário de entrada não pode esta vazio',
+            'saida.required' => 'O horário de saida não pode esta vazio',
+        ]);
+
+        try {
+            $horario->entrada = $request->input('entrada');
+            $horario->saida = $request->input('saida');
+            $horario->auditoria = $this->operacao('Alterou as informções do horário');
+            $horario->save();
+
+            $horario = $this->horario
+                ->where('empresas_id', auth()->user()->empresas_id)
+                ->paginate();
+
+            return view(self::PATH . 'horariosShow', ['horarios' => $horario])
+                ->with('msg', 'Sucesso! Horário de aula atualizado com sucesso!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível atualizar as Informações do horário de aula: ' . $th->getMessage()]);
+        }
     }
 
     public function destroy(string $id)
     {
-        //
+        $horario = $this->horario->find($id);
+
+        if ($horario != null) {
+
+            try {
+                
+                $horario->delete();
+
+                $horario = $this->horario
+                    ->where('empresas_id', auth()->user()->empresas_id)
+                    ->paginate();
+    
+                return view(self::PATH . 'horariosShow', ['horarios' => $horario])
+                    ->with('msg', 'Sucesso! Horário de aula atualizado com sucesso!');    
+
+            } catch (\Throwable $th) {
+                return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível excluir o horário selecionado: ' . $th->getMessage()]);
+            }
+
+        } else {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar o horário selecionado']);
+        }
     }
 
     private function operacao(String $operacao)

@@ -43,94 +43,9 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                {{-- <a href="{{ route('horarioAula.create') }}" class="btn btn-primary">Novo</a> --}}
+                                <a href="{{ route('horarioAula.create') }}" class="btn btn-primary">Novo horário</a>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Novo horário
-                                </button>
-
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-                            </div>
-                        </div>
-
-                        {{-- Modal --}}
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Novo horário de aula</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="row g-3" accept="{{route('horarioAula.store')}}" method="POST">
-
-                                            @csrf
-
-                                            <div>
-                                                <label for="entrada" class="form-label">Horário de entrada</label>
-                                                <input type="time" class="form-control" name="entrada" id="entrada" required>
-                                            </div>
-
-                                            <div>
-                                                <label for="saida" class="form-label">Horário de saída</label>
-                                                <input type="time" class="form-control" name="saida" id="saida" required>
-                                            </div>                                            
-
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-primary">Sign in</button>
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- Fim Modal --}}
-
-                        <div class="col-md-6">
-                            <div class="pt-3 ps-4">
-
-                                <form action="/dias_search" method="get">
-                                    <div class="row">
-
-                                        <div class="col-md-4 mb-3">
-                                            <select class="form-control" name="criterio" id="criterio" required>
-                                                @empty($inputs)
-                                                    <option value="" disabled selected>Critério de pesquisa</option>
-                                                @else
-                                                    <option value="{{ $inputs['criterio'] }}">
-                                                        @if ($inputs['criterio'] == 'id')
-                                                            Código
-                                                        @else
-                                                            Dia
-                                                        @endif
-                                                    </option>
-                                                @endempty
-
-                                                <option value="id">Código</option>
-                                                <option value="dia">Dia</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Pesquisar
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </form>
-
                             </div>
                         </div>
 
@@ -166,13 +81,14 @@
 
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $horario->id }}">
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#myModal{{ $horario->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $horario->id }}" tabindex="-1"
-                                                        aria-labelledby="myModalLabel{{ $horario->id }}"
+                                                    <div class="modal fade" id="myModal{{ $horario->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $horario->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
