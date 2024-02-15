@@ -101,12 +101,46 @@ class DiasAulasController extends Controller
 
     public function destroy(string $id)
     {
-        //
+
+        $dia = $this->dia->find($id);
+
+        if ($dia != null) {
+
+            try {
+                $dia->delete();
+
+                $dias = $this->dia
+                    ->where('empresas_id', auth()->user()->empresas_id)
+                    ->paginate();
+
+                return view(self::PATH . 'diasShow', ['dias' => $dias])->with('msg', 'Sucesso! Dia deletado com sucesso!');
+            } catch (\Throwable $th) {
+                return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível salvar excluir as informações do dia selecionado: ' . $th->getMessage()]);
+            }
+        } else {
+            return redirect()->back()->withErrors(['ERRO! Não foi possível localizar o dia selecionado!']);
+        }
     }
 
-    public function delete(string $id)
+    public function search(Request $request)
     {
-        return "Mensagem recebida";
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        $dias = $this->dia
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->paginate();
+
+        return view(self::PATH . 'diasShow', ['dias' => $dias, 'inputs' => $request->all()]);
     }
 
     private function operacao(String $operacao)
@@ -117,4 +151,5 @@ class DiasAulasController extends Controller
         // return 'O usuário '.auth()->user()->id.'- '.auth()->user()->nome.' realizou a operação de '.$operacao.
         //         ' Data e hora'. new DateTime();
     }
+    
 }

@@ -275,7 +275,7 @@
                                     <a href="/diasAula">Dias de aulas</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-detached.html" target="_blank">Detached</a>
+                                    <a href="/horarioAula">Horário de aulas</a>
                                 </li>
                                 <li>
                                     <a href="layouts-full.html" target="_blank">Full View</a>

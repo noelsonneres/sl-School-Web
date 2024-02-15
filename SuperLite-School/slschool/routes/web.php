@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,6 @@ Route::resource('users', UserController::class);
 Route::get('/user_search', [UserController::class, 'search']);
 
 Route::resource('diasAula', DiasAulasController::class);
-Route::delete('/diasAula_delete/{id}', [DiasAulasController::class, 'delete']);
+Route::get('/dias_search', [DiasAulasController::class, 'search']);
+
+Route::resource('horarioAula', HorariosAulasController::class);

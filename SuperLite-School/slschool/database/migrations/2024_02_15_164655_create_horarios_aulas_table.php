@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dias_aulas', function (Blueprint $table) {
+        Schema::create('horarios_aulas', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('empresas_id');
-            $table->string('dia');
+            $table->time('entrada');
+            $table->time('saida');
             $table->string('auditoria');
 
             $table->timestamps();
@@ -26,7 +27,6 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
         });
     }
 
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dias_aulas');
+        Schema::dropIfExists('horarios_aulas');
     }
 };

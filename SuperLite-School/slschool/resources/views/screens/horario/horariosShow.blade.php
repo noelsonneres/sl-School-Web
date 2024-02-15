@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl-School - Dias de aula disponíveis')
+@section('title', 'Sl-School - Horários de aulas')
 @section('content')
 
     <!-- Start Content -->
@@ -13,10 +13,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadastro base</a></li>
-                            <li class="breadcrumb-item active">Dias de aula</li>
+                            <li class="breadcrumb-item active">Horários de aulas</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Dias de aulas</h4>
+                    <h4 class="page-title">Horários de aula</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -43,10 +43,53 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('diasAula.create') }}" class="btn btn-primary">Novo</a>
+                                {{-- <a href="{{ route('horarioAula.create') }}" class="btn btn-primary">Novo</a> --}}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Novo horário
+                                </button>
+
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>
+
+                        {{-- Modal --}}
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Novo horário de aula</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3" accept="{{route('horarioAula.store')}}" method="POST">
+
+                                            @csrf
+
+                                            <div>
+                                                <label for="entrada" class="form-label">Horário de entrada</label>
+                                                <input type="time" class="form-control" name="entrada" id="entrada" required>
+                                            </div>
+
+                                            <div>
+                                                <label for="saida" class="form-label">Horário de saída</label>
+                                                <input type="time" class="form-control" name="saida" id="saida" required>
+                                            </div>                                            
+
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Sign in</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Fim Modal --}}
 
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
@@ -76,7 +119,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
+                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
@@ -97,23 +140,24 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Dias</th>
-                                <th>Ação</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($dias as $dia)
+                            @foreach ($horarios as $horario)
                                 <tr>
-                                    <td>{{ $dia->id }}</td>
-                                    <td>{{ $dia->dia }}</td>
+                                    <td>{{ $horario->id }}</td>
+                                    <td>{{ $horario->entrada }}</td>
+                                    <td>{{ $horario->saida }}</td>
 
                                     <td>
                                         <div>
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('diasAula.edit', $dia->id) }}"
+                                                    <a href="{{ route('horarioAula.edit', $horario->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações do usuário">
                                                         <i class="uil-edit-alt"></i>
@@ -122,34 +166,36 @@
 
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $dia->id }}">
+                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $horario->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $dia->id }}" tabindex="-1"
-                                                        aria-labelledby="myModalLabel{{ $dia->id }}"
+                                                    <div class="modal fade" id="myModal{{ $horario->id }}" tabindex="-1"
+                                                        aria-labelledby="myModalLabel{{ $horario->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $dia->id }}">Deseja
+                                                                        id="myModalLabel{{ $horario->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
                                                                 </div>
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('diasAula.destroy', $dia->id) }}">
+                                                                        action="{{ route('horarioAula.destroy', $horario->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia
                                                                             selecionado? Se houver turmas com o dia
                                                                             atrelado, não será possível a exclusão</h3>
                                                                         <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary"
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Cancelar</button>
                                                                             <button type="submit"
                                                                                 class="btn btn-danger">Sim, quero
@@ -176,7 +222,7 @@
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $dias->links('pagination::pagination') }}
+                            {{ $horarios->links('pagination::pagination') }}
                         </div>
                     </div>
 
