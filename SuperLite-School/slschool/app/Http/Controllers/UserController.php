@@ -300,7 +300,7 @@ class UserController extends Controller
             ->where('deletado', 'nao')
             ->paginate();
 
-        return view(self::PATH . 'userShow', ['users' => $usuarios]);
+        return view(self::PATH . 'userShow', ['users' => $usuarios, 'inputs'=>$request->all()]);
 
     }
 

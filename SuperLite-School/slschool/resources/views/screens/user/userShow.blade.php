@@ -50,22 +50,36 @@
 
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
-                                
+
                                 <form action="/user_search" method="get" id="searchForm">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
                                             <select class="form-control" name="criterio" id="criterio" required>
-                                                <option value="">Critério de pesquisa</option>
+                                                @empty($inputs)
+                                                    <option value="" disabled selected>Critério de pesquisa</option>
+                                                @else
+                                                    <option value="{{ $inputs['criterio'] }}">
+                                                        @if ($inputs['criterio'] == 'id')
+                                                            Código
+                                                        @elseif ($inputs['criterio'] == 'name')
+                                                            Nome
+                                                        @else
+                                                            Usuário
+                                                        @endif
+                                                    </option>
+                                                @endempty
+                                        
                                                 <option value="id">Código</option>
                                                 <option value="name">Nome</option>
                                                 <option value="user_name">Usuário</option>
-
                                             </select>
                                         </div>
+                                        
 
                                         <div class="col-md-6 mb-3">
-                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa" required maxlength="100">
+                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
+                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
                                         </div>
 
                                         <div class="col-md-2">
@@ -197,7 +211,7 @@
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
 
-    <script>
+    {{-- <script>
         // Restaurar valores dos campos ao carregar a página
         window.onload = function() {
             restoreFormValues();
@@ -223,6 +237,6 @@
                 }
             });
         }
-    </script>    
+    </script>     --}}
 
 @endsection

@@ -68,7 +68,7 @@ class DiasAulasController extends Controller
     public function edit(string $id)
     {
         $dia = $this->dia->find($id);
-        return view(self::PATH.'diasEdit', ['dia'=>$dia]);
+        return view(self::PATH . 'diasEdit', ['dia' => $dia]);
     }
 
     public function update(Request $request, string $id)
@@ -104,6 +104,11 @@ class DiasAulasController extends Controller
         //
     }
 
+    public function delete(string $id)
+    {
+        return "Mensagem recebida";
+    }
+
     private function operacao(String $operacao)
     {
         return 'O usuário ' . auth()->user()->id . ' - ' .
@@ -111,6 +116,5 @@ class DiasAulasController extends Controller
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
         // return 'O usuário '.auth()->user()->id.'- '.auth()->user()->nome.' realizou a operação de '.$operacao.
         //         ' Data e hora'. new DateTime();
-    }    
-
+    }
 }

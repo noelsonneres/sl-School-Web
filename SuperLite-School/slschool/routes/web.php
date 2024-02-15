@@ -20,3 +20,4 @@ Route::resource('users', UserController::class);
 Route::get('/user_search', [UserController::class, 'search']);
 
 Route::resource('diasAula', DiasAulasController::class);
+Route::delete('/diasAula_delete/{id}', [DiasAulasController::class, 'delete']);

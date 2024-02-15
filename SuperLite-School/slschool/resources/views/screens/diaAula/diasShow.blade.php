@@ -124,18 +124,19 @@
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
                                                                         id="myModalLabel{{ $dia->id }}">Deseja
-                                                                        deletar este usuário?</h5>
+                                                                        deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
 
                                                                 <div class="modal-body">
-                                                                    <form method="POST"
-                                                                        action="{{ route('users.destroy', $dia->id) }}">
+                                                                    <form method="POST" enctype="multipart/form-data"
+                                                                        action="{{ route('diasAula.destroy', $dia->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <h3>Tem certeza que deseja deletar o usuário
-                                                                            selecionado?</h3>
+                                                                        <h3>Tem certeza que deseja deletar o dia
+                                                                            selecionado? Se houver turmas com o dia
+                                                                            atrelado, não será possível a exclusão</h3>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Cancelar</button>
@@ -173,7 +174,7 @@
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
 
-    <script>
+    {{-- <script>
         // Restaurar valores dos campos ao carregar a página
         window.onload = function() {
             restoreFormValues();
@@ -199,6 +200,6 @@
                 }
             });
         }
-    </script>
+    </script> --}}
 
 @endsection
