@@ -278,7 +278,7 @@
                                     <a href="/horarioAula">Horário de aulas</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-full.html" target="_blank">Full View</a>
+                                    <a href="/salasAulas">Sala</a>
                                 </li>
                                 <li>
                                     <a href="layouts-fullscreen.html" target="_blank">Fullscreen View</a>

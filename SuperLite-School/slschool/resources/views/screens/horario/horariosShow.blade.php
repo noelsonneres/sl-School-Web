@@ -57,6 +57,7 @@
                                 <th>#</th>
                                 <th>Entrada</th>
                                 <th>Saída</th>
+                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,14 +75,14 @@
                                                 <div class="col-2">
                                                     <a href="{{ route('horarioAula.edit', $horario->id) }}"
                                                         class="btn btn-success btn-sm"
-                                                        title="Atualizar informações do usuário">
+                                                        title="Atualizar informações horário de aula">
                                                         <i class="uil-edit-alt"></i>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal"
+                                                        data-bs-toggle="modal" title="Excluir horário selecionado"
                                                         data-bs-target="#myModal{{ $horario->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
