@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Nova sala de aula') 
+@section('title', 'Sl School - Atualizar informações da sala de Aula') 
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,10 +14,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadatro base</a></li>
-                            <li class="breadcrumb-item active">Sala de aula</li>
+                            <li class="breadcrumb-item active">Visualizar Info. Sala</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Nova sala de aula</h4>
+                    <h4 class="page-title">Visualizar ou atualizar as informações da sala</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -38,16 +38,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-
-                    {{-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif --}}
 
                     @if (session('erro'))
                         <div class="alert alert-danger alert-dismissible fade show msg d-flex 
@@ -76,29 +66,28 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('salasAulas.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('salasAulas.update', $sala->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
-
-                                <span class="text-danger">*</span>
+                                @method('PUT')
 
                                 <div class="row">
                                     <div class="col-md-9 mb-4">
                                         <label for="sala" class="form-label">Sala <span class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" name="sala" id="sala" maxlength="50"
-                                             required value="{{old('salas')}}">
+                                             required value="{{$sala->sala}}">
                                     </div>
                                     <div class="col-md-3  mb-4">
                                         <label for="vagas" class="form-label">Vagas <span class="text-danger">*</span> </label>
-                                        <input type="number" class="form-control" name="vagas" id="vagas"
-                                            value="{{old('vagas')}}" required>
+                                        <input type="number" class="form-control" name="vagas" id="vagas" 
+                                            required value="{{$sala->vagas}}">
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="descricao" class="form-label">Descrição <span class="text-danger">*</span> </label>
-                                    <input type="text" class="form-control" name="descricao" id="descricao" 
-                                        required maxlength="255" value="{{old('descricao')}}">
+                                    <input type="text" class="form-control" name="descricao" id="descricao" required
+                                         maxlength="255" value="{{$sala->descricao}}">
                                 </div>
 
                                 <div class="mt-2">

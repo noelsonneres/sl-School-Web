@@ -73,7 +73,7 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('horarioAula.edit', $horario->id) }}"
+                                                    <a href="{{ route('salasAulas.edit', $sala->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações horário de aula">
                                                         <i class="uil-edit-alt"></i>
@@ -83,19 +83,19 @@
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir horário selecionado"
-                                                        data-bs-target="#myModal{{ $horario->id }}">
+                                                        data-bs-target="#myModal{{ $sala->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $horario->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $horario->id }}"
+                                                    <div class="modal fade" id="myModal{{ $sala->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $sala->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $horario->id }}">Deseja
+                                                                        id="myModalLabel{{ $sala->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
@@ -104,7 +104,7 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('horarioAula.destroy', $horario->id) }}">
+                                                                        action="{{ route('salasAulas.destroy', $sala->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia
@@ -139,7 +139,7 @@
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $horarios->links('pagination::pagination') }}
+                            {{ $salas->links('pagination::pagination') }}
                         </div>
                     </div>
 
