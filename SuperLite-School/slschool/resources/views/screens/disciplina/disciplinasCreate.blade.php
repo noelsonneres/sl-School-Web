@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Inserir novo horário de aula') 
+@section('title', 'Sl School - Disciplinas cadastradas') 
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,10 +14,11 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadatro base</a></li>
-                            <li class="breadcrumb-item active">Horário Aula</li>
+                            <li class="breadcrumb-item active">Disciplinas/li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Inserir novo horário de aula</h4>
+                    
+                    <h4 class="page-title">Disciplinas cadastradas</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -66,24 +67,42 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('horarioAula.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('disciplinas.store') }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
 
                                 <div class="row">
 
-                                    <div class="col-md-6">
-                                        <label for="entrada" class="form-label"> Horário de entrada <span class="text-danger">*</span> </label>
-                                        <input type="time" class="form-control" name="entrada" id="entrada"
-                                             required>
+                                    <div class="col-md-6 mb-4">
+                                        <label for="disciplina" class="form-label">Disciplina <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" name="disciplina" id="disciplina" maxlength="50"
+                                             required value="{{old('disciplina')}}">
                                     </div>
-    
-                                    <div  class="col-md-6">
-                                        <label for="saida" class="form-label">Horário de saída <span class="text-danger">*</span> </label>
-                                        <input type="time" class="form-control" name="saida" id="saida"
-                                             required>
-                                    </div>                                        
+                                    <div class="col-md-6 mb-4">
+                                        <label for="descricao" class="form-label">Descrição <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" name="descricao" id="descricao"
+                                            value="{{old('descricao')}}" required>
+                                    </div>
 
+                                </div>
+
+                                <div class="row">
+                                    
+                                    <div class="col mb-6 mb-4">
+                                        <label for="duracaoMeses" class="form-label">Duração em meses</label>
+                                        <input type="number" class="form-control" name="duracaoMeses" id="duracaoMeses">
+                                    </div>
+
+                                    <div class="col mb-6 mb-4">
+                                        <label for="cargaHoraria" class="form-label">Carga Horária</label>
+                                        <input type="number" step="0.01" min="0.01" class="form-control" name="cargaHoraria" id="cargaHoraria">
+                                    </div>                                    
+
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="obs" class="form-label">Observação</label>
+                                    <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
                                 </div>
 
                                 <div class="mt-2">
@@ -103,5 +122,5 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
-
+          
 @endsection

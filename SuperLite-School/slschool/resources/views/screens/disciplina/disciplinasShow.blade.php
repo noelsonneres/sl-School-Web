@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl-School - Salas de aulas')
+@section('title', 'Sl-School - Disciplinas')
 @section('content')
 
     <!-- Start Content -->
@@ -13,10 +13,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadastro base</a></li>
-                            <li class="breadcrumb-item active">Salas de aulas</li>
+                            <li class="breadcrumb-item active">Disciplinas</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Salas de aulas</h4>
+                    <h4 class="page-title">Disciplinas Cadastradas</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -43,7 +43,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('salasAulas.create') }}" class="btn btn-primary">Nova sala</a>
+                                <a href="{{ route('disciplinas.create') }}" class="btn btn-primary">Nova sala</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="/salasAulas_search" method="get">
+                                <form action="#" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -106,19 +106,20 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($salas as $sala)
+                            @foreach ($disciplinas as $disciplina)
                                 <tr>
-                                    <td>{{ $sala->id }}</td>
-                                    <td>{{ $sala->sala }}</td>
-                                    <td>{{ $sala->vagas }}</td>
-                                    <td>{{ $sala->descricao }}</td>
+                                    <td>{{ $disciplina->id }}</td>
+                                    <td>{{ $disciplina->disciplina }}</td>
+                                    <td>{{ $disciplina->descricao }}</td>
+                                    <td>{{ $disciplina->duracao_meses }}</td>
+                                    <td>{{ $disciplina->carga_horaria }}</td>
 
                                     <td>
                                         <div>
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('salasAulas.edit', $sala->id) }}"
+                                                    <a href="{{ route('disciplinas.edit', $disciplina->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da sala de aula">
                                                         <i class="uil-edit-alt"></i>
@@ -128,19 +129,19 @@
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir sala de aula"
-                                                        data-bs-target="#myModal{{ $sala->id }}">
+                                                        data-bs-target="#myModal{{ $disciplina->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $sala->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $sala->id }}"
+                                                    <div class="modal fade" id="myModal{{ $disciplina->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $disciplina->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $sala->id }}">Deseja
+                                                                        id="myModalLabel{{ $disciplina->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
@@ -149,7 +150,7 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('salasAulas.destroy', $sala->id) }}">
+                                                                        action="{{ route('disciplinas.destroy', $disciplina->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia
@@ -184,7 +185,7 @@
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $salas->links('pagination::pagination') }}
+                            {{ $disciplinas->links('pagination::pagination') }}
                         </div>
                     </div>
 

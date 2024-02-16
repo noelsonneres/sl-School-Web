@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DiasAulasController;
+use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
@@ -27,3 +28,6 @@ Route::get('/dias_search', [DiasAulasController::class, 'search']);
 Route::resource('horarioAula', HorariosAulasController::class);
 
 Route::resource('salasAulas', SalaAulasController::class);
+Route::get('/salasAulas_search', [SalaAulasController::class, 'search']);
+
+Route::resource('disciplinas', DisciplinasController::class);

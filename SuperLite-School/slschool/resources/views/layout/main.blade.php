@@ -281,7 +281,7 @@
                                     <a href="/salasAulas">Sala</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-fullscreen.html" target="_blank">Fullscreen View</a>
+                                    <a href="/disciplinas">Disciplinas</a>
                                 </li>
                                 <li>
                                     <a href="layouts-hover.html" target="_blank">Hover Menu</a>

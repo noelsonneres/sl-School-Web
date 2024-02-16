@@ -131,7 +131,49 @@ class SalaAulasController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $sala = $this->sala->find($id);
+
+        if($sala != null){
+            
+            try {
+                $sala->delete();
+
+                $salas = $this->sala
+                ->where('empresas_id', auth()->user()->empresas_id)
+                ->paginate();
+
+            return view(self::PATH . 'salaAulasShow', ['salas' => $salas])
+                        ->with('msg', 'Sucesso! As informações da sala foram deletadas com sucesso!');  
+
+            } catch (\Throwable $th) {
+                return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível deletar as informações da sala: ' . $th->getMessage()]);
+            }
+        }else{
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar a sala para exclusão!']);            
+        }
+        
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        $salas = $this->sala
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->paginate();
+
+            return view(self::PATH . 'salaAulasShow', ['salas' => $salas, 'inputs' => $request->all()]);
+
     }
 
     private function operacao(String $operacao)
