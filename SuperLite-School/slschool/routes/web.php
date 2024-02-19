@@ -5,6 +5,7 @@ use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\SalaAulasController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,5 @@ Route::get('/salasAulas_search', [SalaAulasController::class, 'search']);
 
 Route::resource('disciplinas', DisciplinasController::class);
 Route::get('/disciplinas_search',[DisciplinasController::class, 'search']);
+
+Route::resource('professores', ProfessoresController::class);

@@ -190,3 +190,4 @@ class DisciplinasController extends Controller
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
     }
 }
+              

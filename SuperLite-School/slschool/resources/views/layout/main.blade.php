@@ -345,7 +345,7 @@
                                     <a href="/users">Usuários</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-detached.html" target="_blank">Detached</a>
+                                    <a href="/professores">professores</a>
                                 </li>
                                 <li>
                                     <a href="layouts-full.html" target="_blank">Full View</a>

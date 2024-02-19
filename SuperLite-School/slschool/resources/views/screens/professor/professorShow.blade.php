@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl-School - Página teste')
+@section('title', 'Sl-School - Professores')
 @section('content')
 
     <!-- Start Content -->
@@ -12,11 +12,11 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Adminstrativo</a></li>
-                            <li class="breadcrumb-item active">Usuários</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Admintrativo</a></li>
+                            <li class="breadcrumb-item active">Professores</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Visualizar usuários</h4>
+                    <h4 class="page-title">Professores cadastrados</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -43,7 +43,8 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('users.create') }}" class="btn btn-primary">Novo usuário</a>
+                                <a href="{{ route('professores.create') }}" class="btn btn-primary">Cadastrar professor</a>
+                                <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>
@@ -51,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="/user_search" method="get" id="searchForm">
+                                <form action="#" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -62,20 +63,20 @@
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
-                                                        @elseif ($inputs['criterio'] == 'name')
-                                                            Nome
+                                                        @elseif ($inputs['criterio'] == 'disciplina')
+                                                            Disciplina
                                                         @else
-                                                            Usuário
+                                                            Descricao
                                                         @endif
                                                     </option>
                                                 @endempty
-                                        
+
                                                 <option value="id">Código</option>
-                                                <option value="name">Nome</option>
-                                                <option value="user_name">Usuário</option>
+                                                <option value="disciplina">Disciplina</option>
+                                                <option value="descricao">Descrição</option>
+
                                             </select>
                                         </div>
-                                        
 
                                         <div class="col-md-6 mb-3">
                                             <input class="form-control" type="text" name="pesquisa" id="pesquisa"
@@ -92,7 +93,7 @@
                                 </form>
 
                             </div>
-                        </div>
+                        </div>                        
 
                     </div>
                     <hr>
@@ -100,81 +101,69 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nome</th>
-                                <th>Usuário</th>
-                                <th>Data admissão</th>
-                                <th>Ativo</th>
+                                <th>Professor(a)</th>
+                                <th>Telefone</th>
+                                <th>Celular</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($users as $user)
+                            @foreach ($professores as $professor)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->user_name }}</td>
 
-                                    @if ($user->data_adminssao != null)
-                                        <td>{{ date('d/m/Y', strtotime($user->data_adminssao)) }}</td>
-                                    @else
-                                        <td></td>
-                                    @endif
+                                    <td>{{ $professor->id }}</td>                                   
+                                    <td>{{$professor->nome}}</td>
+                                    <td>{{ $professor->telefone }}</td>
+                                    <td>{{ $professor->celular }}</td>
 
-                                    @if ($user->ativo == '1')
-                                        <td>Sim</td>
-                                    @else
-                                        <td>Não</td>
-                                    @endif
+ {{-- <td>{{ Str::substr($professor->professor, 0, 30) }}</td> --}}
 
                                     <td>
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
-                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                <div class="col-3">
+                                                    <a href="{{ route('professores.edit', $professor->id) }}"
                                                         class="btn btn-success btn-sm"
-                                                        title="Atualizar informações do usuário">
+                                                        title="Atualizar informações da sala de aula">
                                                         <i class="uil-edit-alt"></i>
                                                     </a>
                                                 </div>
 
-                                                <div class="col-2">
-                                                    <a href="#" class="btn btn-info btn-sm"
-                                                        title="Niveis de acesso do usuário">
-                                                        <i class="uil-lock"></i>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $user->id }}">
+                                                        data-bs-toggle="modal" title="Excluir sala de aula"
+                                                        data-bs-target="#myModal{{ $professor->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $user->id }}" tabindex="-1"
-                                                        aria-labelledby="myModalLabel{{ $user->id }}"
+                                                    <div class="modal fade" id="myModal{{ $professor->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $professor->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $user->id }}">Deseja
-                                                                        deletar este usuário?</h5>
+                                                                        id="myModalLabel{{ $professor->id }}">Deseja
+                                                                        deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
                                                                 </div>
 
                                                                 <div class="modal-body">
-                                                                    <form method="POST"
-                                                                        action="{{ route('users.destroy', $user->id) }}">
+                                                                    <form method="POST" enctype="multipart/form-data"
+                                                                        action="{{ route('professores.destroy', $professor->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <h3>Tem certeza que deseja deletar o usuário
-                                                                            selecionado?</h3>
+                                                                        <h3>Tem certeza que deseja deletar o dia
+                                                                            selecionado? Se houver turmas com o dia
+                                                                            atrelado, não será possível a exclusão</h3>
                                                                         <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary"
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Cancelar</button>
                                                                             <button type="submit"
                                                                                 class="btn btn-danger">Sim, quero
@@ -198,11 +187,10 @@
                         </tbody>
                     </table>
 
-
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $users->links('pagination::pagination') }}
+                            {{ $professores->links('pagination::pagination') }}
                         </div>
                     </div>
 
@@ -210,33 +198,5 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
-
-    {{-- <script>
-        // Restaurar valores dos campos ao carregar a página
-        window.onload = function() {
-            restoreFormValues();
-        };
-
-        // Armazenar valores dos campos no armazenamento local ao enviar o formulário
-        document.getElementById('searchForm').addEventListener('submit', function() {
-            storeFormValues();
-        });
-
-        // Função para armazenar valores dos campos no armazenamento local
-        function storeFormValues() {
-            document.querySelectorAll('input, select').forEach(function(element) {
-                localStorage.setItem(element.name, element.value);
-            });
-        }
-
-        // Função para restaurar valores dos campos do armazenamento local
-        function restoreFormValues() {
-            document.querySelectorAll('input, select').forEach(function(element) {
-                if (localStorage.getItem(element.name)) {
-                    element.value = localStorage.getItem(element.name);
-                }
-            });
-        }
-    </script>     --}}
 
 @endsection
