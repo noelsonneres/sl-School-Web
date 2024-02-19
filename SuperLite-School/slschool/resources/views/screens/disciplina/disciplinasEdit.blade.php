@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Cadastrar nova disciplina') 
+@section('title', 'Sl School - Atualizar informações da disciplina') 
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,11 +14,11 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadatro base</a></li>
-                            <li class="breadcrumb-item active">Cadastrar disciplina/li>
+                            <li class="breadcrumb-item active">Atualizar info. Disciplinas/li>
                         </ol>
                     </div>
                     
-                    <h4 class="page-title">Cadastrar uma nova disciplina</h4>
+                    <h4 class="page-title">Visualizar ou atualizar informações da disciplina</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -67,21 +67,23 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('disciplinas.store') }}" method="POST" enctype="multipart/form-data">
+                            {{-- FORM --}}
+                            <form action="{{ route('disciplinas.update', $disciplina->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class="row">
 
                                     <div class="col-md-6 mb-4">
                                         <label for="disciplina" class="form-label">Disciplina <span class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" name="disciplina" id="disciplina" maxlength="50"
-                                             required value="{{old('disciplina')}}">
+                                             required value="{{$disciplina->disciplina}}">
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <label for="descricao" class="form-label">Descrição <span class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" name="descricao" id="descricao"
-                                            value="{{old('descricao')}}" required maxlength="100">
+                                            value="{{$disciplina->descricao}}" required maxlength="100">
                                     </div>
 
                                 </div>
@@ -90,19 +92,22 @@
                                     
                                     <div class="col mb-6 mb-4">
                                         <label for="duracaoMeses" class="form-label">Duração em meses</label>
-                                        <input type="number" class="form-control" name="duracaoMeses" id="duracaoMeses">
+                                        <input type="number" class="form-control" name="duracaoMeses" 
+                                            id="duracaoMeses" value="{{$disciplina->duracao_meses}}">
                                     </div>
 
                                     <div class="col mb-6 mb-4">
                                         <label for="cargaHoraria" class="form-label">Carga Horária</label>
-                                        <input type="number" step="0.01" min="0.01" class="form-control" name="cargaHoraria" id="cargaHoraria">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" 
+                                            name="cargaHoraria" id="cargaHoraria" value="{{$disciplina->carga_horaria}}">
                                     </div>                                    
 
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="obs" class="form-label">Observação</label>
-                                    <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
+                                    <input type="text" class="form-control" name="obs" id="obs" 
+                                        maxlength="255" value="{{$disciplina->observacao}}">
                                 </div>
 
                                 <div class="mt-2">

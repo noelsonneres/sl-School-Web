@@ -31,3 +31,4 @@ Route::resource('salasAulas', SalaAulasController::class);
 Route::get('/salasAulas_search', [SalaAulasController::class, 'search']);
 
 Route::resource('disciplinas', DisciplinasController::class);
+Route::get('/disciplinas_search',[DisciplinasController::class, 'search']);

@@ -43,7 +43,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('disciplinas.create') }}" class="btn btn-primary">Nova sala</a>
+                                <a href="{{ route('disciplinas.create') }}" class="btn btn-primary">Nova disciplina</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="#" method="get">
+                                <form action="/disciplinas_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -63,14 +63,17 @@
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
+                                                        @elseif ($inputs['criterio'] == 'disciplina')
+                                                            Disciplina
                                                         @else
-                                                            sala
+                                                            Descricao
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="sala">sala</option>
+                                                <option value="disciplina">Disciplina</option>
+                                                <option value="descricao">Descrição</option>
 
                                             </select>
                                         </div>
@@ -98,9 +101,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Sala</th>
-                                <th>Vagas</th>
+                                <th>Disciplina</th>
                                 <th>Descrição</th>
+                                <th>Duração meses</th>
+                                <th>Carga horária</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
@@ -109,8 +113,8 @@
                             @foreach ($disciplinas as $disciplina)
                                 <tr>
                                     <td>{{ $disciplina->id }}</td>
-                                    <td>{{ $disciplina->disciplina }}</td>
-                                    <td>{{ $disciplina->descricao }}</td>
+                                    <td>{{ Str::substr($disciplina->disciplina, 0, 30) }}</td>
+                                    <td>{{Str::substr( $disciplina->descricao, 0, 30) }}</td>
                                     <td>{{ $disciplina->duracao_meses }}</td>
                                     <td>{{ $disciplina->carga_horaria }}</td>
 
@@ -118,7 +122,7 @@
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <a href="{{ route('disciplinas.edit', $disciplina->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da sala de aula">
@@ -126,7 +130,7 @@
                                                     </a>
                                                 </div>
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir sala de aula"
                                                         data-bs-target="#myModal{{ $disciplina->id }}">
