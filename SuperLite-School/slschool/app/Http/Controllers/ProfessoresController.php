@@ -260,4 +260,5 @@ class ProfessoresController extends Controller
             auth()->user()->nome . ' realizou a operação de ' .
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
     }
+    
 }

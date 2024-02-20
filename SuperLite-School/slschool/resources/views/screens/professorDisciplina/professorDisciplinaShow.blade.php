@@ -44,6 +44,9 @@
 
                     <form action="{{route('professor_disciplinas.store')}}" method="post">
                         @csrf
+
+                        <input type="hidden" name="professor" value="{{$professor}}">
+
                         <div>
                             <label for="disciplina" class="form-label">Disciplina</label>
                             <select class="form-control" name="disciplina" id="disciplina" required>
