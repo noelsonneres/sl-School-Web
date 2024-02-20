@@ -2,61 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disciplina;
+use App\Models\ProfessorDisciplina;
 use Illuminate\Http\Request;
 
 class ProfessorDisciplinasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    const PAHT = 'screens.professorDisciplina.';
+    private $disciplina;
+
+    public function __construct()
+    {
+        $this->disciplina = new ProfessorDisciplina();
+    }
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $disciplinas = $this->disciplina
+            ->where('professors_id')
+            ->paginate();
+
+        $listaDisciplinas = Disciplina::all();    
+
+        return view(self::PAHT.'professorDisciplinaShow', ['disciplinas'=>$disciplinas, 'listaDisciplinas'=>$listaDisciplinas]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

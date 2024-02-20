@@ -129,7 +129,7 @@
                                                 </div>
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('professores.edit', $professor->id) }}"
+                                                    <a href="{{ route('professor_disciplinas.show', $professor->id) }}"
                                                         class="btn btn-info btn-sm"
                                                         title="Disciplinas do professor">
                                                         <i class="uil-books"></i>
