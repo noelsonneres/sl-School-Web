@@ -35,3 +35,4 @@ Route::resource('disciplinas', DisciplinasController::class);
 Route::get('/disciplinas_search',[DisciplinasController::class, 'search']);
 
 Route::resource('professores', ProfessoresController::class);
+Route::get('/professores_search', [ProfessoresController::class, 'search']);

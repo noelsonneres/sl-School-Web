@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Cadastrar Professor')
+@section('title', 'Sl School - Atualizar informações dos professores')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,11 +14,11 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadatro base</a></li>
-                            <li class="breadcrumb-item active">Cadastrar disciplina</li>
+                            <li class="breadcrumb-item active">Atualizar Info. Professores</li>
                         </ol>
                     </div>
 
-                    <h4 class="page-title">Cadastrar professor</h4>
+                    <h4 class="page-title">Visualizar ou atualizar informações do professor</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -67,9 +67,10 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('professores.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('professores.update', $professor->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class="row">
 
@@ -77,7 +78,7 @@
                                         <label for="nome" class="form-label">Nome completo <span
                                                 class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" name="nome" id="nome"
-                                            maxlength="100" required value="{{ old('nome') }}">
+                                            maxlength="100" required value="{{$professor->nome}}">
                                     </div>
                                 </div>
 
@@ -86,19 +87,20 @@
                                     <div class="col-md-4 mb-4">
                                         <label for="dataNascimento" class="form-label">Data de nascimento</label>
                                         <input type="date" class="form-control" name="dataNascimento"
-                                            id="dataNascimento">
+                                            id="dataNascimento" value="{{$professor->data_nascimento}}">
                                     </div>
 
                                     <div class="col-md-4 mb-4">
                                         <label for="dataCadastro" class="form-label">Data de cadastro</label>
-                                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro">
+                                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro"
+                                            value="{{$professor->data_cadastro}}">
                                     </div>
 
                                     <div class="col-md-4 mb-4">
                                         <label for="cpf" class="form-label">CPF</label>&ensp;&ensp;
                                         <label class="text-danger" id="cpfValidationMessage"></label>
                                         <input type="text" class="form-control" name="cpf" id="cpf"
-                                            onchange="formatarCPF(this)" maxlength="15">
+                                            onchange="formatarCPF(this)" maxlength="15" value="{{$professor->cpf}}">
                                     </div>
 
                                 </div>
@@ -108,19 +110,19 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="telefone" class="form-label">Telefone</label>
                                         <input type="text" class="form-control" name="telefone" id="telefone"
-                                            maxlength="20" oninput="formatarTelefone(this)">
+                                            maxlength="20" oninput="formatarTelefone(this)" value="{{$professor->telefone}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="celular" class="form-label">Celular</label>
                                         <input type="text" class="form-control" name="celular" id="celular"
-                                            maxlength="20" oninput="formatarCelular(this)">
+                                            maxlength="20" oninput="formatarCelular(this)" value="{{$professor->celular}}">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" class="form-control" name="email" id="email"
-                                            maxlength="100">
+                                            maxlength="100" value="{{$professor->email}}">
                                     </div>
 
                                 </div>
@@ -129,13 +131,13 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="cep" class="form-label">CEP</label>
                                         <input type="text" class="form-control" name="cep" id="cep"
-                                            max="15" oninput="formatarCEP(this)">
+                                            max="15" oninput="formatarCEP(this)" value="{{$professor->cep}}">
                                     </div>
 
                                     <div class="col-md-9 mb-4">
                                         <label for="endereco" class="form-label">Endereço</label>
                                         <input type="text" class="form-control" name="endereco" id="endereco"
-                                            maxlength="100">
+                                            maxlength="100" value="{{$professor->endereco}}">
                                     </div>
 
                                 </div>
@@ -144,17 +146,17 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="bairro" class="form-label">Bairro</label>
                                         <input type="text" class="form-control" name="bairro" id="bairro"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$professor->bairro}}">
                                     </div>
                                     <div class="col-md-2 mb-4">
                                         <label for="numero" class="form-label">numero</label>
                                         <input type="text" class="form-control" name="numero" id="numero"
-                                            maxlength="10">
+                                            maxlength="10" value="{{$professor->numero}}">
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <label for="complemento" class="form-label">Complemento</label>
                                         <input type="text" class="form-control" name="complemento" id="complemento"
-                                            maxlength="40">
+                                            maxlength="40" value="{{$professor->complemento}}">
                                     </div>
                                 </div>
 
@@ -162,12 +164,12 @@
                                     <div class="col-md-9 mb-4">
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" name="cidade" id="cidade"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$professor->cidade}}">
                                     </div>
                                     <div class="col-md-3 mb-4">
                                         <label for="estado" class="form-label">Estado</label>
                                         <select class="form-control" name="estado" id="estado">
-                                            <option value="">Selecione um estado</option>
+                                            <option value="{{$professor->estado}}">{{$professor->estado}}</option>
 
                                             @foreach ($estados as $estado => $sigla)
                                                 <option value="{{ $sigla }}">{{ $sigla }}</option>
@@ -181,7 +183,7 @@
                                     <div>
                                         <label for="obs" class="form-label">Observação</label>
                                         <input type="text" class="form-control" name="obs" id="obs"
-                                            maxlength="255">
+                                            maxlength="255" value="{{$professor->obs}}">
                                     </div>
                                 </div>
 
@@ -191,7 +193,8 @@
                                         <input type="file" class="form-control" name="foto" id="foto"
                                             onchange="exibirFotoSelecionada()">
                                     </div>
-                                    <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px">
+                                    <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px"
+                                        src="/img/professores/{{$professor->foto}}">
                                 </div>
 
                                 <div class="mt-2">

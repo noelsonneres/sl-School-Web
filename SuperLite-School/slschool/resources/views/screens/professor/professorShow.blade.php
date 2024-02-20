@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="#" method="get">
+                                <form action="/professores_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -63,17 +63,14 @@
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
-                                                        @elseif ($inputs['criterio'] == 'disciplina')
-                                                            Disciplina
                                                         @else
-                                                            Descricao
+                                                            Professor
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="disciplina">Disciplina</option>
-                                                <option value="descricao">Descrição</option>
+                                                <option value="nome">Professor</option>
 
                                             </select>
                                         </div>
@@ -123,7 +120,7 @@
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-3">
+                                                <div class="col-2">
                                                     <a href="{{ route('professores.edit', $professor->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da sala de aula">
@@ -131,7 +128,15 @@
                                                     </a>
                                                 </div>
 
-                                                <div class="col-3">
+                                                <div class="col-2">
+                                                    <a href="{{ route('professores.edit', $professor->id) }}"
+                                                        class="btn btn-info btn-sm"
+                                                        title="Disciplinas do professor">
+                                                        <i class="uil-books"></i>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir sala de aula"
                                                         data-bs-target="#myModal{{ $professor->id }}">

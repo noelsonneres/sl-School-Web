@@ -177,6 +177,7 @@ class DisciplinasController extends Controller
         $disciplinas = $this->disciplina
             ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
             ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
             ->orderBy('id', 'desc')
             ->paginate();
 
