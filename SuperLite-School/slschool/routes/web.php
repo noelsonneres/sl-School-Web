@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\DisciplinasController;
+use App\Http\Controllers\FormasPagamentosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
@@ -39,3 +40,5 @@ Route::resource('professores', ProfessoresController::class);
 Route::get('/professores_search', [ProfessoresController::class, 'search']);
 
 Route::resource('professor_disciplinas', ProfessorDisciplinasController::class);
+
+Route::resource('formas_pagamentos', FormasPagamentosController::class);
