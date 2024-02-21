@@ -351,7 +351,7 @@
                                     <a href="/formas_pagamentos">Formas de pagamentos</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-fullscreen.html" target="_blank">Fullscreen View</a>
+                                    <a href="/configurar_mensalidade">Configurações mensalidades</a>
                                 </li>
                                 <li>
                                     <a href="layouts-hover.html" target="_blank">Hover Menu</a>

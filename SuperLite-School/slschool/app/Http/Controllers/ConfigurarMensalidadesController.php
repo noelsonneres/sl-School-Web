@@ -2,61 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConfigurarMensalidade;
 use Illuminate\Http\Request;
 
 class ConfigurarMensalidadesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    const PATH = 'screens.configurarMensalidades.';
+    private $configurar;
+
+    public function __construct()
+    {
+        $this->configurar = new ConfigurarMensalidade();                
+    }
     public function index()
     {
-        //
+        $configurar = $this->configurar->paginate();
+        return view(self::PATH.'configurarMensalidadeShow', ['configurar'=>$configurar]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $configurar = $this->configurar->all();
+
+        if($configurar->count() >= 1){
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não é possível ter mais de uma configuração cadastrada']);
+        }else{
+            return view(self::PATH.'configurarMensalidadeCreate');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

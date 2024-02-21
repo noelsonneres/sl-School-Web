@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\FormasPagamentosController;
@@ -42,3 +43,5 @@ Route::get('/professores_search', [ProfessoresController::class, 'search']);
 Route::resource('professor_disciplinas', ProfessorDisciplinasController::class);
 
 Route::resource('formas_pagamentos', FormasPagamentosController::class);
+
+Route::resource('configurar_mensalidade', ConfigurarMensalidadesController::class);
