@@ -26,7 +26,7 @@ class ConfigurarMensalidadesController extends Controller
         $configurar = $this->configurar->all();
 
         if($configurar->count() >= 1){
-            return redirect()->back()->withInput()->withErrors(['ERRO! Não é possível ter mais de uma configuração cadastrada']);
+         return view(self::PATH, ['configurarMensalidadeEdit'=>$configurar]);
         }else{
             return view(self::PATH.'configurarMensalidadeCreate');
         }
@@ -34,7 +34,16 @@ class ConfigurarMensalidadesController extends Controller
 
     public function store(Request $request)
     {
-        //
+        
+        $configurar = $this->configurar;
+
+        $request->validate([
+            'juros'=>'required|numeric',
+            'multa'=>'required|numeric'
+        ]);
+
+        //contiunuar deste ponto em diante
+
     }
 
     public function show(string $id)
