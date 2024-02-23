@@ -73,20 +73,20 @@
 
                                 <div class="row">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mb-4">
                                         <label for="juros" class="form-label">Juros</label>
                                         <input type="number" class="form-control" step="0.01" min="0.01" name="juros" id="juros"
                                              required value="{{old('juros')}}">
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6  mb-4">
                                         <label for="multa" class="form-label">Multa</label>
                                         <input type="number" class="form-control" step="0.01" min="0.01" name="multa" id="multa"
                                              required value="{{old('multa')}}">
                                     </div>
                                 </div>
 
-                                <div>
+                                <div class=" mb-4">
                                     <label for="mensagem" class="form-label">Mensagem do carnê</label>
                                     <textarea class="form-control" name="mensagem" 
                                         id="mensagem" cols="30" rows="2" maxlength="50"></textarea>

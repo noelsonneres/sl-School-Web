@@ -47,6 +47,7 @@ class ConfigurarMensalidadesController extends Controller
         $multa = $request->input('multa');
 
         try {
+            $configurar->empresas_id = auth()->user()->empresas_id;
             $configurar->juros = $request->input('juros');
             $configurar->multa = $request->input('multa');
             $configurar->mensagem = $request->input('mensagem');
@@ -84,11 +85,7 @@ class ConfigurarMensalidadesController extends Controller
             'multa'=>'required|numeric'
         ]);
 
-        $juros = $request->input('juros');
-        $multa = $request->input('multa');
-
         try {
-            $configurar->empresas_id = auth()->user()->empresas_id;
             $configurar->juros = $request->input('juros');
             $configurar->multa = $request->input('multa');
             $configurar->mensagem = $request->input('mensagem');
