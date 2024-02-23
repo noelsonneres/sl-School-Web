@@ -75,12 +75,14 @@
 
                                     <div class="col-md-6">
                                         <label for="juros" class="form-label">Juros</label>
-                                        <input type="number" class="form-control" step="0.01" min="0.01" name="juros" id="juros" required>
+                                        <input type="number" class="form-control" step="0.01" min="0.01" name="juros" id="juros"
+                                             required value="{{old('juros')}}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="multa" class="form-label">Multa</label>
-                                        <input type="number" class="form-control" step="0.01" min="0.01" name="multa" id="multa" required>
+                                        <input type="number" class="form-control" step="0.01" min="0.01" name="multa" id="multa"
+                                             required value="{{old('multa')}}">
                                     </div>
                                 </div>
 

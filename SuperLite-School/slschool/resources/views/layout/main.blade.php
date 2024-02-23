@@ -354,7 +354,7 @@
                                     <a href="/configurar_mensalidade">Configurações mensalidades</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-hover.html" target="_blank">Hover Menu</a>
+                                    <a href="/consultores">Consultores</a>
                                 </li>
                                 <li>
                                     <a href="layouts-compact.html" target="_blank">Compact</a>

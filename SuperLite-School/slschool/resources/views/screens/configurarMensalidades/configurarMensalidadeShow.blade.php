@@ -77,7 +77,7 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('configurar_mensalidade.edit', $forma->id) }}"
+                                                    <a href="{{ route('configurar_mensalidade.edit', $conf->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da forma de pagamento">
                                                         <i class="uil-edit-alt"></i>
@@ -87,19 +87,19 @@
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir forma de pagamento"
-                                                        data-bs-target="#myModal{{ $forma->id }}">
+                                                        data-bs-target="#myModal{{ $conf->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $forma->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $forma->id }}"
+                                                    <div class="modal fade" id="myModal{{ $conf->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $conf->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $forma->id }}">Deseja
+                                                                        id="myModalLabel{{ $conf->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
@@ -108,7 +108,7 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('configurar_mensalidade.destroy', $forma->id) }}">
+                                                                        action="{{ route('configurar_mensalidade.destroy', $conf->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia
