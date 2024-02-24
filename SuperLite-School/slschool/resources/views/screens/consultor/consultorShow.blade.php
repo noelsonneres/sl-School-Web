@@ -49,6 +49,49 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="pt-3 ps-4">
+
+                                <form action="/consultores_search" method="get">
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-3">
+                                            <select class="form-control" name="criterio" id="criterio" required>
+                                                @empty($inputs)
+                                                    <option value="" disabled selected>Critério de pesquisa</option>
+                                                @else
+                                                    <option value="{{ $inputs['criterio'] }}">
+                                                        @if ($inputs['criterio'] == 'id')
+                                                            Código
+                                                        @else
+                                                            Consultor
+                                                        @endif
+                                                    </option>
+                                                @endempty
+
+                                                <option value="id">Código</option>
+                                                <option value="nome">Consultor</option>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
+                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                Pesquisar
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>                          
+
                     </div>
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">

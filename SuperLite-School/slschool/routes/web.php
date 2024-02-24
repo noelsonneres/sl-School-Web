@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\ConsultoresController;
+use App\Http\Controllers\CursosController;
 use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\FormasPagamentosController;
@@ -48,3 +49,6 @@ Route::resource('formas_pagamentos', FormasPagamentosController::class);
 Route::resource('configurar_mensalidade', ConfigurarMensalidadesController::class);
 
 Route::resource('consultores', ConsultoresController::class);
+Route::get('/consultores_search', [ConsultoresController::class, 'search']);
+
+Route::resource('cursos', CursosController::class);
