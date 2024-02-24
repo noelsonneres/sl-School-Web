@@ -16,15 +16,15 @@ return new class extends Migration
 
             $table->unsignedBigInteger('empresas_id');
             $table->string('curso');
-            $table->string('descricao');
-            $table->float('valor_avista');
-            $table->float('valor_com_desconto');
+            $table->string('descricao')->nullable();
+            $table->float('valor_avista')->nullable();
+            $table->float('valor_com_desconto')->nullable();
             $table->integer('qtde_parcelas');
-            $table->float('valor_por_parcela');
+            $table->float('valor_por_parcela')->nullable();
             $table->integer('duracao');
             $table->integer('carga_horaria');
             $table->string('ativo')->default('sim');
-            $table->string('obs');
+            $table->string('obs')->nullable();
             $table->string('deletado')->default('nao');
             $table->string('auditoria');
 
