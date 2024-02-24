@@ -249,7 +249,7 @@ class UserController extends Controller
 
             return view(self::PATH . 'userShow', ['users' => $user])->with('msg', 'Usuário cadastrado com sucesso!');
         } catch (\Throwable $th) {
-            $estados = $this->listaEstados();
+            // $estados = $this->listaEstados();
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível salvar as informações do usuário: ' . $th->getMessage()]);
         }
     }
