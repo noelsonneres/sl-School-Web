@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="#" method="get">
+                                <form action="/cursos_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -63,16 +63,16 @@
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
-                                                        @elseif ($inputs['criterio'] == 'disciplina')
-                                                            Disciplina
+                                                        @elseif ($inputs['criterio'] == 'curso')
+                                                            Curso
                                                         @else
-                                                            Descricao
+                                                            Descrição
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="disciplina">Disciplina</option>
+                                                <option value="curso">Curso</option>
                                                 <option value="descricao">Descrição</option>
 
                                             </select>
@@ -124,13 +124,22 @@
                                         <div>
                                             <div class="row">
 
+
+                                                <div class="col-3">
+                                                    <a href="#"
+                                                        class="btn btn-info btn-sm"
+                                                        title="Disciplinas do cruso">
+                                                        <i class="uil-books"></i>
+                                                    </a>
+                                                </div>                                                    
+
                                                 <div class="col-3">
                                                     <a href="{{ route('cursos.edit', $curso->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da sala de aula">
                                                         <i class="uil-edit-alt"></i>
                                                     </a>
-                                                </div>
+                                                </div>                                            
 
                                                 <div class="col-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
