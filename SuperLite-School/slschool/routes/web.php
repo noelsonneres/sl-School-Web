@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
+use App\Http\Controllers\CursosDisciplinasController;
 use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\FormasPagamentosController;
@@ -53,3 +54,5 @@ Route::get('/consultores_search', [ConsultoresController::class, 'search']);
 
 Route::resource('cursos', CursosController::class);
 Route::get('/cursos_search', [CursosController::class, 'search']);
+
+Route::resource('cursos_disciplinas', CursosDisciplinasController::class);
