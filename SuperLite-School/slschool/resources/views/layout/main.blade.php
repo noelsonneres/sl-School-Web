@@ -287,7 +287,7 @@
                                     <a href="/cursos">Cursos</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-compact.html" target="_blank">Compact</a>
+                                    <a href="/material">Materiais</a>
                                 </li>
                                 <li>
                                     <a href="layouts-icon-view.html" target="_blank">Icon View</a>

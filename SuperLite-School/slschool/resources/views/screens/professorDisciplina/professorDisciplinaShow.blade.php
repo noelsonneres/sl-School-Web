@@ -42,31 +42,31 @@
 
                     <div class="row ps-3 pt-2 pe-3">
 
-                    <form action="{{route('professor_disciplinas.store')}}" method="post">
-                        @csrf
+                        <form action="{{ route('professor_disciplinas.store') }}" method="post">
+                            @csrf
 
-                        <input type="hidden" name="professor" value="{{$professor}}">
+                            <input type="hidden" name="professor" value="{{ $professor }}">
 
-                        <div>
-                            <label for="disciplina" class="form-label">Disciplina</label>
-                            <select class="form-control" name="disciplina" id="disciplina" required>
-                                <option value="">Selecione uma disciplina</option>
-                                @foreach ($listaDisciplinas as $lista)
-                                    <option value="{{$lista->id}}">{{$lista->disciplina}}</option>
-                                @endforeach
-                            </select>
-                        </div>  
-                        
-                        <div class="mt-2">
-                            <button type="submit" class="btn btn-sm btn-success">Salvar
-                                <i class="ri-save-3-fill"></i>
-                            </button>
-                            <a href="/professores" class="btn btn-sm btn-danger">Cancelar
-                                <i class=" ri-close-circle-fill"></i>
-                            </a>
-                        </div>
-                        
-                    </form>                        
+                            <div>
+                                <label for="disciplina" class="form-label">Disciplina</label>
+                                <select class="form-control" name="disciplina" id="disciplina" required>
+                                    <option value="">Selecione uma disciplina</option>
+                                    @foreach ($listaDisciplinas as $lista)
+                                        <option value="{{ $lista->id }}">{{ $lista->disciplina }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-sm btn-success">Salvar
+                                    <i class="ri-save-3-fill"></i>
+                                </button>
+                                <a href="/professores" class="btn btn-sm btn-danger">Cancelar
+                                    <i class=" ri-close-circle-fill"></i>
+                                </a>
+                            </div>
+
+                        </form>
 
                     </div>
                     <hr>
@@ -104,8 +104,8 @@
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $disciplina->id }}" tabindex="-1"
-                                                        aria-labelledby="myModalLabel{{ $disciplina->id }}"
+                                                    <div class="modal fade" id="myModal{{ $disciplina->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $disciplina->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
@@ -128,7 +128,8 @@
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Cancelar</button>
-                                                                            <button type="submit" title="Remover disciplina do professor"
+                                                                            <button type="submit"
+                                                                                title="Remover disciplina do professor"
                                                                                 class="btn btn-danger">Sim, quero
                                                                                 deletar</button>
                                                                         </div>

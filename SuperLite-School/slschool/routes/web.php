@@ -10,6 +10,7 @@ use App\Http\Controllers\FormasPagamentosController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\ProfessorDisciplinasController;
 use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\SalaAulasController;
@@ -56,3 +57,5 @@ Route::resource('cursos', CursosController::class);
 Route::get('/cursos_search', [CursosController::class, 'search']);
 
 Route::resource('cursos_disciplinas', CursosDisciplinasController::class);
+
+Route::resource('material', MateriaisEscolaresController::class);
