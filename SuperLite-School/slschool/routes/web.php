@@ -14,6 +14,7 @@ use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\ProfessorDisciplinasController;
 use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\SalaAulasController;
+use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,5 @@ Route::resource('cursos_disciplinas', CursosDisciplinasController::class);
 
 Route::resource('material', MateriaisEscolaresController::class);
 Route::get('/material_search', [MateriaisEscolaresController::class, 'search']);
+
+Route::resource('turmas', TurmasController::class);

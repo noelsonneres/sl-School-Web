@@ -290,7 +290,7 @@
                                     <a href="/material">Materiais</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-icon-view.html" target="_blank">Icon View</a>
+                                    <a href="/turmas">Turmas</a>
                                 </li>
                             </ul>
                         </div>
