@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="/salasAulas_search" method="get">
+                                <form action="/material_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -64,13 +64,13 @@
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
                                                         @else
-                                                            sala
+                                                            Material
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="sala">sala</option>
+                                                <option value="material">Material</option>
 
                                             </select>
                                         </div>

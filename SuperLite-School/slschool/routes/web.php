@@ -59,3 +59,4 @@ Route::get('/cursos_search', [CursosController::class, 'search']);
 Route::resource('cursos_disciplinas', CursosDisciplinasController::class);
 
 Route::resource('material', MateriaisEscolaresController::class);
+Route::get('/material_search', [MateriaisEscolaresController::class, 'search']);

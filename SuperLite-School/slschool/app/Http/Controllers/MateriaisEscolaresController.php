@@ -74,12 +74,10 @@ class MateriaisEscolaresController extends Controller
                 ->where('deletado', 'nao')
                 ->paginate();
             return view(self::PATH . 'materialShow', ['materiais' => $material])
-                        ->with('msg', 'Sucesso! Material cadastrado com sucesso!');
-
+                ->with('msg', 'Sucesso! Material cadastrado com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível salvar as informações do Material']);
         }
-
     }
 
     public function show(string $id)
@@ -90,12 +88,12 @@ class MateriaisEscolaresController extends Controller
     public function edit(string $id)
     {
         $material = $this->material->find($id);
-        return view(self::PATH.'materialEdit', ['material'=>$material]);
+        return view(self::PATH . 'materialEdit', ['material' => $material]);
     }
 
     public function update(Request $request, string $id)
     {
-  $materiais = $this->material->find($id);
+        $materiais = $this->material->find($id);
 
         $request->validate([
             'material' => 'required|min:3|max:50',
@@ -134,8 +132,7 @@ class MateriaisEscolaresController extends Controller
                 ->where('deletado', 'nao')
                 ->paginate();
             return view(self::PATH . 'materialShow', ['materiais' => $material])
-                        ->with('msg', 'Sucesso! As informações do material foram atualizadas com sucesso!');
-
+                ->with('msg', 'Sucesso! As informações do material foram atualizadas com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível atualizar as informações do Material']);
         }
@@ -143,7 +140,50 @@ class MateriaisEscolaresController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $material = $this->material->find($id);
+
+        if ($material->count() >= 1) {
+
+            try {
+                $material->deletado = 'sim';
+                $material->auditoria = $this->operacao('Deletou o Material');
+                $material->save();
+
+                $material = $this->material
+                    ->where('empresas_id', auth()->user()->empresas_id)
+                    ->where('deletado', 'nao')
+                    ->paginate();
+                return view(self::PATH . 'materialShow', ['materiais' => $material])
+                    ->with('msg', 'Sucesso! As informações do material foram excluidas com sucesso!');
+            } catch (\Throwable $th) {
+                return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível excluir as informações do material selecionado: ' .
+                    $th->getMessage()]);
+            }
+        } else {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar o material!']);
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        $materiais = $this->material
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->paginate();
+
+        return view(self::PATH . 'materialShow', ['materiais' => $materiais, 'inputs' => $request->all()]);
     }
 
     private function operacao(String $operacao)
