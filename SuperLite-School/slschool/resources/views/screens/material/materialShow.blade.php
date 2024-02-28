@@ -111,7 +111,7 @@
                                 <tr>
                                     <td>{{ $material->id }}</td>
                                     <td>{{ $material->material }}</td>
-                                    <td>{{ $material->valor_unitario }}</td>
+                                    <td>R$ {{ number_format($material->valor_unitario, '2', ',', '.' ) }}</td>
                                     <td>{{ $material->qtde }}</td>
                                     <td>{{ $material->ativo }}</td>
 

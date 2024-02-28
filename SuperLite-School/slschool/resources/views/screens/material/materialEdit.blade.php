@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Novo material')
+@section('title', 'Sl School - Atualizar informações do material')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,10 +14,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadatro base</a></li>
-                            <li class="breadcrumb-item active">Cadastro Materiais</li>
+                            <li class="breadcrumb-item active">Atualizar info. Material</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Cadastrando um novo material</h4>
+                    <h4 class="page-title">Visualizar ou atualizar informações do material</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -66,21 +66,22 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('material.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('material.update', $material->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class="mb-4">
                                     <label for="material" class="form-label">Material <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" class="form-control" name="material" id="material" required
-                                        maxlength="50" value="{{old('material')}}">
+                                        maxlength="50" value="{{$material->material}}">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="descricao" class="form-label">Descrição</label>
                                     <input type="text" class="form-control" name="descricao" id="descricao"
-                                        maxlength="100">
+                                        maxlength="100" value="{{$material->descricao}}">
                                 </div>
 
                                 <div class="row">
@@ -90,7 +91,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <input type="number" step="0.01" min="0.01" class="form-control"
-                                            name="valorUnitario" id="valorUnitario" required value="{{old('valorUnitario')}}">
+                                            name="valorUnitario" id="valorUnitario" required value="{{$material->valor_unitario}}">
                                     </div>
 
                                     <div class="col-md-4 mb-4">
@@ -98,7 +99,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <input type="number" class="form-control" step="1" min="1"
-                                            name="quantidade" id="quantidade" required value="{{old('quantidade')}}">
+                                            name="quantidade" id="quantidade" required value="{{$material->qtde}}">
                                     </div>
 
                                     <div class="col-md-4 mb-4">
@@ -106,7 +107,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="ativo" id="ativo">
-                                            <option value="">Selecione uma opção</option>
+                                            <option value="{{$material->ativo}}">{{$material->ativo}}</option>
                                             <option value="sim">Sim</option>
                                             <option value="nao">Não</option>
                                         </select>
@@ -116,7 +117,8 @@
 
                                 <div class="mb-4">
                                     <label for="obs" class="form-label">Observação</label>
-                                    <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
+                                    <input type="text" class="form-control" name="obs" id="obs"
+                                         maxlength="255" value="{{$material->obs}}">
                                 </div>
 
                                 <div class="mt-2">
