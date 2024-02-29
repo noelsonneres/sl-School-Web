@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Nova Turma') 
+@section('title', 'Sl School - Nova Turma')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -31,13 +31,13 @@
                     @endif
 
                     @if (isset($msgErro))
-                    <div class="alert alert-danger alert-dismissible fade show msg d-flex 
+                        <div class="alert alert-danger alert-dismissible fade show msg d-flex 
                             justify-content-between align-items-end mb-3"
-                        role="alert" style="text-align: center;">
-                        <h5>{{ $msgErro }} </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+                            role="alert" style="text-align: center;">
+                            <h5>{{ $msgErro }} </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
 
                     @if (session('erro'))
                         <div class="alert alert-danger alert-dismissible fade show msg d-flex 
@@ -66,21 +66,126 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('salasAulas.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('turmas.store') }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
 
-                                {{-- <span class="text-danger">*</span> --}}
-
                                 <div class="mb-4">
-                                    <label for="turma" class="form-label">Turma <span class="text-danger">*</span> </label>
-                                    <input type="text" class="form-control" name="turma" id="turma" required maxlength="50">
+                                    <label for="turma" class="form-label">Turma <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" name="turma" id="turma" required
+                                        maxlength="50">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="descricao" class="form-label">Descrição </label>
-                                    <input type="text" class="form-control" name="descricao" id="descricao" required maxlength="100">
-                                </div>                                
+                                    <input type="text" class="form-control" name="descricao" id="descricao" required
+                                        maxlength="100">
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="dias" class="form-label">Dias de aulas 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control" name="dias" id="dias" required>
+                                            <option value="">Selecione um dia de aula</option>
+
+                                            @foreach ($listaDias as $lista)
+                                                <option value="{{ $lista->id }}">{{ $lista->dia }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="horario" class="form-label">Horários de aulas 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control" name="horario" id="horario" required>
+                                            <option value="">Selecione um horário de aula</option>
+
+                                            @foreach ($listaHorarios as $lista)
+                                                <option value="{{ $lista->id }}">{{ $lista->entrada }} -
+                                                    {{ $lista->saida }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="sala" class="form-label">Sala 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control" name="sala" id="sala" required>
+                                            <option value="">Selecione uma sala de aula</option>
+
+                                            @foreach ($listaSala as $sala)
+                                                <option value="{{$sala->id}}">{{$sala->sala}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="professor" class="form-label">Professor</label>
+                                        <select class="form-control" name="professor" id="professor">
+                                            <option value="">Selecione uma sala de aula</option>
+
+                                            @foreach ($listaProfessores as $lista)
+                                                <option value="{{$lista->id}}">{{$lista->nome}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="turno" class="form-label">Turno 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control" name="turno" id="turno" required>
+                                            <option value="">Selecione uma turno para a turma</option>
+                                            <option value="matutino">Matutino</option>
+                                            <option value="vespertino">Vespertino</option>
+                                            <option value="noturno">Noturno</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="ativa" class="form-label">Ativa
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control" name="ativa" id="ativa" required>
+                                            <option value="">Selecione uma opção</option>
+                                            <option value="sim">Sim</option>
+                                            <option value="nao">Não</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="obs" class="form-label">Observação</label>
+                                    <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
+                                </div>
+
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-success">Salvar
+                                        <i class="ri-save-3-fill"></i>
+                                    </button>
+                                    <a href="javascript:history.back()" class="btn btn-danger">Cancelar
+                                        <i class=" ri-close-circle-fill"></i>
+                                    </a>
+                                </div>
 
                             </form>
                         </div>

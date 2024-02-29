@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('professors_id')->nullable();
             $table->string('turno');
             $table->string('ativa')->default('sim');
+            $table->string('obs')->nullable();
             $table->string('deletado')->default('nao');
             $table->string('auditoria');
 
