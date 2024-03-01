@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Nova Turma')
+@section('title', 'Sl School - Atualizar informações da turma')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,16 +14,16 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Cadatro base</a></li>
-                            <li class="breadcrumb-item active">Nova Turma</li>
+                            <li class="breadcrumb-item active">Info. Turmas</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Nova Turma de Aula</h4>
+                    <h4 class="page-title">Visualizar ou atualizar informações da turma</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex
                                 justify-content-between align-items-end mb-3"
-                            role="alert" style="text-align: center;">
+                             role="alert" style="text-align: center;">
                             <h5>{{ $msg }} </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -33,7 +33,7 @@
                     @if (isset($msgErro))
                         <div class="alert alert-danger alert-dismissible fade show msg d-flex
                             justify-content-between align-items-end mb-3"
-                            role="alert" style="text-align: center;">
+                             role="alert" style="text-align: center;">
                             <h5>{{ $msgErro }} </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -42,7 +42,7 @@
                     @if (session('erro'))
                         <div class="alert alert-danger alert-dismissible fade show msg d-flex
                     justify-content-between align-items-end mb-3"
-                            role="alert" style="text-align: center;">
+                             role="alert" style="text-align: center;">
                             <h6 style="color: red">{{ session('erro') }}</h6>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -66,21 +66,22 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('turmas.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('turmas.update', $turma->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class="mb-4">
                                     <label for="turma" class="form-label">Turma <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" class="form-control" name="turma" id="turma" required
-                                        maxlength="50" value="{{old('turma')}}">
+                                           maxlength="50" value="{{$turma->turma}}">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="descricao" class="form-label">Descrição </label>
                                     <input type="text" class="form-control" name="descricao" id="descricao" required
-                                        maxlength="100">
+                                           maxlength="100" value="{{$turma->descricao}}">
                                 </div>
 
                                 <div class="row">
@@ -90,7 +91,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="dias" id="dias" required>
-                                            <option value="">Selecione um dia de aula</option>
+                                            <option value="{{$turma->dias_aulas->id}}">{{$turma->dias_aulas->dia}}</option>
 
                                             @foreach ($listaDias as $lista)
                                                 <option value="{{ $lista->id }}">{{ $lista->dia }}</option>
@@ -104,7 +105,9 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="horario" id="horario" required>
-                                            <option value="">Selecione um horário de aula</option>
+                                            <option value="{{$turma->horarios_aulas->id}}">
+                                                {{ $turma->horarios_aulas->entrada }} - {{ $turma->horarios_aulas->saida }}
+                                            </option>
 
                                             @foreach ($listaHorarios as $lista)
                                                 <option value="{{ $lista->id }}">{{ $lista->entrada }} -
@@ -123,7 +126,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="sala" id="sala" required>
-                                            <option value="">Selecione uma sala de aula</option>
+                                            <option value="{{$turma->salas_aulas->id}}">{{$turma->salas_aulas->sala}}</option>
 
                                             @foreach ($listaSala as $sala)
                                                 <option value="{{$sala->id}}">{{$sala->sala}}</option>
@@ -135,7 +138,7 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="professor" class="form-label">Professor</label>
                                         <select class="form-control" name="professor" id="professor">
-                                            <option value="">Selecione um professor</option>
+                                            <option value="{{$turma->professores->id}}">{{$turma->professores->nome }}</option>
 
                                             @foreach ($listaProfessores as $lista)
                                                 <option value="{{$lista->id}}">{{$lista->nome}}</option>
@@ -153,7 +156,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="turno" id="turno" required>
-                                            <option value="">Selecione uma turno para a turma</option>
+                                            <option value="{{$turma->turno}}">{{$turma->turno}}</option>
                                             <option value="matutino">Matutino</option>
                                             <option value="vespertino">Vespertino</option>
                                             <option value="noturno">Noturno</option>
@@ -165,7 +168,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="ativa" id="ativa" required>
-                                            <option value="">Selecione uma opção</option>
+                                            <option value="{{$turma->ativa}}">{{$turma->ativa}}</option>
                                             <option value="sim">Sim</option>
                                             <option value="nao">Não</option>
                                         </select>
@@ -175,7 +178,8 @@
 
                                 <div class="mb-4">
                                     <label for="obs" class="form-label">Observação</label>
-                                    <input type="text" class="form-control" name="obs" id="obs" maxlength="255">
+                                    <input type="text" class="form-control" name="obs" id="obs"
+                                           maxlength="255" value="{{$turma->obs}}">
                                 </div>
 
                                 <div class="mt-2">

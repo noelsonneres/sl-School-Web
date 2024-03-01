@@ -20,7 +20,7 @@
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
-                        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                        <div class="alert alert-warning alert-dismissible fade show msg d-flex
                                 justify-content-between align-items-end mb-3"
                             role="alert" style="text-align: center;">
                             <h5>{{ $msg }} </h5>
@@ -91,8 +91,8 @@
                                 </form>
 
                             </div>
-                        </div>                        
-
+                        </div>
+                            <h1>>>Falta fazer o processo de busca<<</h1>
                     </div>
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
@@ -121,7 +121,7 @@
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <a href="{{ route('turmas.edit', $turma->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da Turma">
@@ -129,7 +129,7 @@
                                                     </a>
                                                 </div>
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir Turma selecionada"
                                                         data-bs-target="#myModal{{ $turma->id }}">
