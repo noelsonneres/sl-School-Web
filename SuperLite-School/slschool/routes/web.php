@@ -63,3 +63,4 @@ Route::resource('material', MateriaisEscolaresController::class);
 Route::get('/material_search', [MateriaisEscolaresController::class, 'search']);
 
 Route::resource('turmas', TurmasController::class);
+Route::get('turmas_search', [TurmasController::class, 'search']);

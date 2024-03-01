@@ -219,6 +219,30 @@ class TurmasController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        $turmas = $this->turma
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->where('id', 'desc')
+            ->paginate();
+
+        return view(self::PATH .'turmaShow', ['turmas' => $turmas, 'inputs' => $request->all()]);
+
+    }
+
     private function operacao(string $operacao)
     {
         return 'O usuário ' . auth()->user()->id . ' - ' .

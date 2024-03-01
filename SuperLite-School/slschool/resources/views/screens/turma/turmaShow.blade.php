@@ -53,7 +53,7 @@
                             <div class="pt-3 ps-4">
 
                                 {{-- Formulário de pesquisa --}}
-                                <form action="#" method="get">
+                                <form action="/turmas_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -65,13 +65,13 @@
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
                                                         @else
-                                                            sala
+                                                            Turma
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="sala">sala</option>
+                                                <option value="Turma">Turma</option>
 
                                             </select>
                                         </div>
@@ -92,7 +92,6 @@
 
                             </div>
                         </div>
-                            <h1>>>Falta fazer o processo de busca<<</h1>
                     </div>
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
