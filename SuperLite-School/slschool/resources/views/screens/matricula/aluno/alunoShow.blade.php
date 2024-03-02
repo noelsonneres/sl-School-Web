@@ -20,7 +20,7 @@
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
-                        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                        <div class="alert alert-warning alert-dismissible fade show msg d-flex
                                 justify-content-between align-items-end mb-3"
                             role="alert" style="text-align: center;">
                             <h5>{{ $msg }} </h5>
@@ -121,7 +121,7 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('alunos.edit', $dia->id) }}"
+                                                    <a href="{{ route('alunos.edit', $aluno->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações do aluno">
                                                         <i class="uil-edit-alt"></i>
@@ -130,21 +130,21 @@
 
                                                 <div class="col-2">
                                                     <a href="#"
-                                                        class="btn btn-success btn-sm"
+                                                        class="btn btn-info btn-sm"
                                                         title="Dados do responsavel">
-                                                        <i class="uil-edit-alt"></i>
+                                                        <i class="uil-user-square"></i>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-2">
                                                     <a href="#"
-                                                        class="btn btn-success btn-sm"
+                                                        class="btn btn-primary btn-sm"
                                                         title="Matrículas do aluno">
-                                                        <i class="uil-edit-alt"></i>
+                                                        <i class="uil-presentation-plus"></i>
                                                     </a>
                                                 </div>
 
-                                                
+
 
                                             </div>
 

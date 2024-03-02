@@ -1,8 +1,5 @@
 <?php
 
-//     Terminar de inserir os campos para inserção,
-// Criar os procedimentos para retornar os usuário ativos e relacionados com empresa logada
-
 namespace App\Http\Controllers;
 
 use App\Models\User;

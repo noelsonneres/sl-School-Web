@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Novo Aluno')
+@section('title', 'Sl School - Atualizar informações do aluno')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,10 +14,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Matrículas</a></li>
-                            <li class="breadcrumb-item active">Novo Aluno</li>
+                            <li class="breadcrumb-item active">Informações do aluno</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Cadastrar novo aluno</h4>
+                    <h4 class="page-title">Visualizar ou atualizar as informações do aluno</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -76,7 +76,7 @@
                                         <label for="nome" class="form-label">Nome completo <span
                                                 class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" name="nome" id="nome" maxlength="100"
-                                               required>
+                                               required value="{{$aluno->nome}}">
                                     </div>
 
                                     <div class="col md-4 mb-4">
@@ -150,7 +150,7 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="cep" class="form-label">CEP</label>
                                         <input type="text" class="form-control" name="cep" id="cep"
-                                            oninput="formatarCEP(this)">
+                                               oninput="formatarCEP(this)">
                                     </div>
 
                                     <div class="col mb-9 mb-4">
@@ -210,18 +210,19 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="telefone" class="form-label">Telefone</label>
                                         <input type="text" class="form-control" name="telefone" id="telefone"
-                                            oninput="formatarTelefone(this)">
+                                               oninput="formatarTelefone(this)">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="celular" class="form-label">Celular</label>
                                         <input type="text" class="form-control" name="celular" id="celular"
-                                            oninput="formatarCelular(this)">
+                                               oninput="formatarCelular(this)">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="email" class="form-label">E-Mail</label>
-                                        <input type="email" class="form-control" name="email" id="email" maxlength="100">
+                                        <input type="email" class="form-control" name="email" id="email"
+                                               maxlength="100">
                                     </div>
 
                                 </div>
@@ -268,7 +269,7 @@
                                         <div class="col-md-3 mb-4">
                                             <label for="cpfMae" class="form-label">CPF da mãe</label>
                                             <input type="text" class="form-control" name="cpfMae" id="cpfMae"
-                                                oninput="formatarCPF(this)">
+                                                   oninput="formatarCPF(this)">
                                         </div>
 
                                     </div>
@@ -289,7 +290,7 @@
                                         <div class="col-md-3 mb-4">
                                             <label for="cpfPai" class="form-label">CPF do pai</label>
                                             <input type="text" class="form-control" name="cpfPai" id="cpfPai"
-                                                oninput="formatarCPF(this)">
+                                                   oninput="formatarCPF(this)">
                                         </div>
 
                                     </div>
@@ -329,12 +330,59 @@
                                     <button type="submit" class="btn btn-success">Salvar
                                         <i class="ri-save-3-fill"></i>
                                     </button>
-                                    <a href="javascript:history.back()" class="btn btn-danger">Cancelar
+
+                                    <button type="button" class="btn btn-danger"
+                                            data-bs-toggle="modal" title="Excluir sala de aula"
+                                            data-bs-target="#myModal{{ $aluno->id }}">
+                                        Excluir
+                                        <i class="ri-delete-bin-fill"></i>
+                                    </button>
+
+                                    <a href="javascript:history.back()" class="btn btn-dark">Cancelar
                                         <i class=" ri-close-circle-fill"></i>
                                     </a>
                                 </div>
 
                             </form>
+
+                            {{-- Modal --}}
+                            <div class="modal fade" id="myModal{{ $aluno->id }}"
+                                 tabindex="-1" aria-labelledby="myModalLabel{{ $aluno->id }}"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                id="myModalLabel{{ $aluno->id }}">Deseja
+                                                deletar o dia selecionado?</h5>
+                                            <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form method="POST" enctype="multipart/form-data"
+                                                  action="{{ route('material.destroy', $aluno->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <h3>Tem certeza que deseja deletar o aluno
+                                                    selecionado? Todas as matrículas é histórico de turmas serão deletados
+                                                    caso você exclua o aluno</h3>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit"
+                                                            class="btn btn-danger">Sim, quero
+                                                        deletar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Fim Modal --}}
+
                         </div>
 
                     </div> <!-- end card-body -->
@@ -353,7 +401,7 @@
             if (input.files && input.files[0]) {
                 const leitor = new FileReader();
 
-                leitor.onload = function(e) {
+                leitor.onload = function (e) {
                     imagem.src = e.target.result;
                 };
 
@@ -370,7 +418,7 @@
     <!-- ViaCEP -->
     <!-- Adicionando Javascript -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             function limpa_formulário_cep() {
                 // Limpa valores do formulário de cep.
@@ -381,7 +429,7 @@
             }
 
             //Quando o campo cep perde o foco.
-            $("#cep").blur(function() {
+            $("#cep").blur(function () {
 
                 //Nova variável "cep" somente com dígitos.
                 var cep = $(this).val().replace(/\D/g, '');
@@ -402,7 +450,7 @@
                         $("#estado").val("...");
 
                         //Consulta o webservice viacep.com.br/
-                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
 
                             if (!("erro" in dados)) {
                                 //Atualiza os campos com os valores da consulta.
