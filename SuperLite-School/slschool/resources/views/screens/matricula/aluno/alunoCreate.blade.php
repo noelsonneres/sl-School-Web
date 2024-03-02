@@ -84,6 +84,163 @@
 
                                 </div>
 
+                                <div class="row">
+
+                                    <div class="col-md-3 mb-4">
+                                        <label for="dataNascimento" class="form-label">Data de nascimento</label>
+                                        <input type="date" class="form-control" name="dataNascimento" id="dataNascimento">
+                                    </div>
+
+                                    <div class="col-md-3 mb-4">
+                                        <label for="dataCadastro" class="form-label">Data de Cadastro</label>
+                                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro">
+                                    </div>
+
+                                    <div class="col-md-3 mb-4">
+                                        <label for="cpf" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" name="cpf" id="cpf">
+                                    </div>             
+                                    
+                                    <div class="col-md-3 mb-4">
+                                        <label for="rg" class="form-label">RG</label>
+                                        <input type="text" class="form-control" name="rg" id="rg">
+                                    </div>                                  
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="fobias" class="form-label">Fobias</label>
+                                        <input type="text" class="form-control" name="fobias" id="fobias" maxlength="100">
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-4">
+                                        <label for="alergias" class="form-label">Alergias</label>
+                                        <input type="text" class="form-control" name="alergias" id="alergias" maxlength="100">
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="pcd" class="form-label">PCD</label>
+                                        <input type="text" class="form-control" name="pcd" id="pcd" maxlength="100">
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="outrosAspectos" class="form-label">Outros aspectos</label>
+                                        <input type="text" class="form-control" name="outrosAspectos" id="outrosAspectos" maxlength="100">
+                                    </div>                                    
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-3 mb-4">
+                                        <label for="cep" class="form-label">CEP</label>
+                                        <input type="text" class="form-control" name="cep" id="cep">
+                                    </div>
+
+                                    <div class="col mb-9 mb-4">
+                                        <label for="endereco" class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" name="endereco" id="endereco" maxlength="100">
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="bairro" class="form-label">Bairro</label>
+                                        <input type="text" class="form-control" name="bairro" id="bairro" maxlength="50">
+                                    </div>
+
+                                    <div class="col-md-2 mb-4">
+                                        <label for="numero" class="form-label">Número</label>
+                                        <input type="text" class="form-control" name="numero" id="numero" maxlength="10">
+                                    </div>
+
+                                    <div class="col md-4 mb-4">
+                                        <label for="complemento" class="form-label">Complemento</label>
+                                        <input type="text" class="form-control" name="complemento" id="complemento" maxlength="50">
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-9 mb-4">
+                                        <label for="cidade" class="form-label">Cidade</label>
+                                        <input type="text" class="form-control" name="complemento" id="complemento" maxlength="100">
+                                    </div>
+
+                                    <div class="col md-3 mb-4">
+                                        <label for="estado" class="form-label">Estado</label>
+                                        <select class="form-control" name="estado" id="estado">
+                                            <option value="">Selecione um estados</option>
+
+                                            @foreach ($listaEstados as $lista=>$sigla)
+                                                <option value="{{$sigla}}">{{$sigla}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-3 mb-4">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <input type="text" class="form-control" name="telefone" id="telefone">
+                                    </div>
+
+                                    <div class="col-md-3 mb-4">
+                                        <label for="celular" class="form-label">Celular</label>
+                                        <input type="text" class="form-control" name="celular" id="celular">
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <input type="text" class="form-control" name="email" id="email" maxlength="100">
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="estadoCivil" class="form-label">Estado civil</label>
+                                        <select class="form-control" name="estadoCivil" id="estadoCivil">
+                                            <option value="">Selecione uma opção</option>
+                                            <option value="solteriro">Solteiro(a)</option>
+                                            <option value="casado">Casado(a)</option>
+                                            <option value="divorciado">Divorciado(a)</option>
+                                            <option value="viuvo">Viúvo(a)</option>
+                                            <option value="unEstavel">União estável</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="profissao" class="form-label">Profissão</label>
+                                        <input type="text" class="form-control" class="profissao" name="profissao" id="profissao" maxlength="50">
+                                    </div>
+
+                                </div>
+
+                                <div class="card border p-3">
+                                   <h3>Filiação</h3> 
+                                   <hr>
+                                   <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <label for="nomeMae" class="form-label">Nome da mãe</label>
+                                            <input type="text" class="form-control" name="nomeMae" id="nomeMae" maxlength="100">
+                                        </div>
+                                   </div>
+                                </div>
+
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-success">Salvar
                                         <i class="ri-save-3-fill"></i>
