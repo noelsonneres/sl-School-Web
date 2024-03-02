@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlunosController;
 use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
@@ -64,3 +65,7 @@ Route::get('/material_search', [MateriaisEscolaresController::class, 'search']);
 
 Route::resource('turmas', TurmasController::class);
 Route::get('turmas_search', [TurmasController::class, 'search']);
+
+// FASE 2
+
+Route::resource('alunos', AlunosController::class);

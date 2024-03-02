@@ -245,7 +245,7 @@
                         <div class="collapse" id="sidebarPages">
                             <ul class="side-nav-second-level">
                                 <li>
-                                    <a href="pages-faq.html">FAQ</a>
+                                    <a href="/alunos">Alunos</a>
                                 </li>
                                 <li>
                                     <a href="pages-maintenance.html">Maintenance</a>

@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-02-28T21:59:35.074Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="5wrS7MSDcw3UB6J0LTDO" version="23.1.5" type="device">
+<mxfile host="Electron" modified="2024-03-01T23:02:35.714Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="fwaO0vA_TM_7Nk638zXy" version="23.1.5" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
-    <mxGraphModel dx="670" dy="1437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1078" dy="1601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -95,10 +95,10 @@
           <mxGeometry x="310" y="1150" width="310" height="70" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-36" value="Alunos" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
-          <mxGeometry x="110" y="1470" width="160" height="540" as="geometry" />
+          <mxGeometry x="110" y="1470" width="160" height="560" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-37" value="id&#xa;empresas_id&#xa;nome&#xa;apelido&#xa;data_nascimento&#xa;data_cadastro&#xa;rg&#xa;cpf&#xa;fobias&#xa;alergias&#xa;deficiencias&#xa;outros_aspectos&#xa;endereco&#xa;bairro&#xa;numero&#xa;complemento&#xa;cep&#xa;cidade&#xa;estado&#xa;telefone&#xa;celular&#xa;email&#xa;estado_civil&#xa;profissao&#xa;nome_mae&#xa;rg_mae&#xa;cep_mae&#xa;nome_pai&#xa;rg_pai&#xa;cpf_pai&#xa;foto&#xa;ativo&#xa;observacao&#xa;auditoria&#xa;deletado&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-36" vertex="1">
-          <mxGeometry y="30" width="160" height="510" as="geometry" />
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-37" value="id&#xa;empresas_id&#xa;nome&#xa;apelido&#xa;data_nascimento&#xa;data_cadastro&#xa;rg&#xa;cpf&#xa;fobias&#xa;alergias&#xa;pcd&#xa;outros_aspectos&#xa;endereco&#xa;bairro&#xa;numero&#xa;complemento&#xa;cep&#xa;cidade&#xa;estado&#xa;telefone&#xa;celular&#xa;email&#xa;estado_civil&#xa;profissao&#xa;nome_mae&#xa;rg_mae&#xa;cp_mae&#xa;nome_pai&#xa;rg_pai&#xa;cpf_pai&#xa;foto&#xa;ativo&#xa;observacao&#xa;deletado&#xa;auditoria&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-36" vertex="1">
+          <mxGeometry y="30" width="160" height="530" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-38" value="Responsavel" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="620" y="1500" width="160" height="442" as="geometry" />
