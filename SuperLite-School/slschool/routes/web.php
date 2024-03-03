@@ -14,6 +14,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\ProfessorDisciplinasController;
 use App\Http\Controllers\ProfessoresController;
+use App\Http\Controllers\ResponsavelAlunosController;
 use App\Http\Controllers\SalaAulasController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\UserController;
@@ -70,3 +71,6 @@ Route::get('turmas_search', [TurmasController::class, 'search']);
 
 Route::resource('alunos', AlunosController::class);
 Route::get('/alunos_search', [AlunosController::class, 'search']);
+
+Route::resource('responsavel', ResponsavelAlunosController::class);
+Route::get('/responsavel_adicionar/{alunoID}', [ResponsavelAlunosController::class, 'novoResponsavel']);

@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Novo Aluno')
+@section('title', 'Sl School - Novo Responsável')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,16 +14,17 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Matrículas</a></li>
-                            <li class="breadcrumb-item active">Novo Aluno</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Responsável</a></li>
+                            <li class="breadcrumb-item active">Novo Responsável</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Cadastrar novo aluno</h4>
+                    <h4 class="page-title">Cadastrar novo responsável</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex
                                 justify-content-between align-items-end mb-3"
-                             role="alert" style="text-align: center;">
+                            role="alert" style="text-align: center;">
                             <h5>{{ $msg }} </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -33,7 +34,7 @@
                     @if (isset($msgErro))
                         <div class="alert alert-danger alert-dismissible fade show msg d-flex
                             justify-content-between align-items-end mb-3"
-                             role="alert" style="text-align: center;">
+                            role="alert" style="text-align: center;">
                             <h5>{{ $msgErro }} </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -42,7 +43,7 @@
                     @if (session('erro'))
                         <div class="alert alert-danger alert-dismissible fade show msg d-flex
                     justify-content-between align-items-end mb-3"
-                             role="alert" style="text-align: center;">
+                            role="alert" style="text-align: center;">
                             <h6 style="color: red">{{ session('erro') }}</h6>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -66,23 +67,25 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('alunos.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('responsavel.store') }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+
+                                <input type="hidden" name="aluno" value="{{$alunoID}}">
 
                                 <div class="row">
 
                                     <div class="col-md-8 mb-4">
                                         <label for="nome" class="form-label">Nome completo <span
                                                 class="text-danger">*</span> </label>
-                                        <input type="text" class="form-control" name="nome" id="nome" maxlength="100"
-                                               required>
+                                        <input type="text" class="form-control" name="nome" id="nome" required
+                                            maxlength="100" value="{{old('nome')}}">
                                     </div>
 
-                                    <div class="col md-4 mb-4">
+                                    <div class="col-md-4 mb-4">
                                         <label for="apelido" class="form-label">Apelido</label>
                                         <input type="text" class="form-control" name="apelido" id="apelido"
-                                               maxlength="50">
+                                            maxlength="50">
                                     </div>
 
                                 </div>
@@ -92,55 +95,23 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="dataNascimento" class="form-label">Data de nascimento</label>
                                         <input type="date" class="form-control" name="dataNascimento"
-                                               id="dataNascimento">
+                                            id="dataNascimento">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
-                                        <label for="dataCadastro" class="form-label">Data de Cadastro</label>
+                                        <label for="dataCadastro" class="form-label">Data de cadastro</label>
                                         <input type="date" class="form-control" name="dataCadastro" id="dataCadastro">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="cpf" class="form-label">CPF</label>
-                                        <label class="text-danger" id="cpfValidationMessage"></label>
-                                        <input type="text" class="form-control" name="cpf" id="cpf"
-                                               oninput="formatarCPF(this)">
+                                        <input type="text" class="form-control" name="cpf" id="cpf">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="rg" class="form-label">RG</label>
-                                        <input type="text" class="form-control" name="rg" id="rg">
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6 mb-4">
-                                        <label for="fobias" class="form-label">Fobias</label>
-                                        <input type="text" class="form-control" name="fobias" id="fobias"
-                                               maxlength="100">
-                                    </div>
-
-                                    <div class="col-md-6 mb-4">
-                                        <label for="alergias" class="form-label">Alergias</label>
-                                        <input type="text" class="form-control" name="alergias" id="alergias"
-                                               maxlength="100">
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6 mb-4">
-                                        <label for="pcd" class="form-label">PCD</label>
-                                        <input type="text" class="form-control" name="pcd" id="pcd" maxlength="100">
-                                    </div>
-
-                                    <div class="col-md-6 mb-4">
-                                        <label for="outrosAspectos" class="form-label">Outros aspectos</label>
-                                        <input type="text" class="form-control" name="outrosAspectos"
-                                               id="outrosAspectos" maxlength="100">
+                                        <input type="text" class="form-control" name="rg" id="rg"
+                                            maxlength="20">
                                     </div>
 
                                 </div>
@@ -149,14 +120,13 @@
 
                                     <div class="col-md-3 mb-4">
                                         <label for="cep" class="form-label">CEP</label>
-                                        <input type="text" class="form-control" name="cep" id="cep"
-                                            oninput="formatarCEP(this)">
+                                        <input type="text" class="form-control" name="cep" id="cep">
                                     </div>
 
-                                    <div class="col mb-9 mb-4">
+                                    <div class="col-md-9 mb-4">
                                         <label for="endereco" class="form-label">Endereço</label>
                                         <input type="text" class="form-control" name="endereco" id="endereco"
-                                               maxlength="100">
+                                            maxlength="100">
                                     </div>
 
                                 </div>
@@ -166,38 +136,38 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="bairro" class="form-label">Bairro</label>
                                         <input type="text" class="form-control" name="bairro" id="bairro"
-                                               maxlength="50">
+                                            maxlength="50">
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <label for="numero" class="form-label">Número</label>
                                         <input type="text" class="form-control" name="numero" id="numero"
-                                               maxlength="10">
+                                            maxlength="10">
                                     </div>
 
-                                    <div class="col md-4 mb-4">
+                                    <div class="col-md-4 mb-4">
                                         <label for="complemento" class="form-label">Complemento</label>
                                         <input type="text" class="form-control" name="complemento" id="complemento"
-                                               maxlength="50">
+                                            maxlength="50">
                                     </div>
 
                                 </div>
 
                                 <div class="row">
 
-                                    <div class="col-md-9 mb-4">
+                                    <div class="col md-9 mb-4">
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" name="cidade" id="cidade"
-                                               maxlength="100">
+                                            maxlength="50">
                                     </div>
 
-                                    <div class="col md-3 mb-4">
+                                    <div class="col-md-3 mb-4">
                                         <label for="estado" class="form-label">Estado</label>
                                         <select class="form-control" name="estado" id="estado">
-                                            <option value="">Selecione um estados</option>
+                                            <option value="">Selecione um estado</option>
 
-                                            @foreach ($listaEstados as $lista=>$sigla)
-                                                <option value="{{$sigla}}">{{$sigla}}</option>
+                                            @foreach ($listaEstado as $lista => $sigla)
+                                                <option value="{{ $sigla }}">{{ $sigla }}</option>
                                             @endforeach
 
                                         </select>
@@ -209,24 +179,28 @@
 
                                     <div class="col-md-3 mb-4">
                                         <label for="telefone" class="form-label">Telefone</label>
-                                        <input type="text" class="form-control" name="telefone" id="telefone"
-                                            oninput="formatarTelefone(this)">
+                                        <input type="text" class="form-control" name="telefone" id="telefone">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
-                                        <label for="celular" class="form-label">Celular</label>
-                                        <input type="text" class="form-control" name="celular" id="celular"
-                                            oninput="formatarCelular(this)">
+                                        <label for="celular" class="form-label">celular</label>
+                                        <input type="text" class="form-control" name="celular" id="celular">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
-                                        <label for="email" class="form-label">E-Mail</label>
-                                        <input type="email" class="form-control" name="email" id="email" maxlength="100">
+                                        <label for="email" class="form-label">E-mail</label>
+                                        <input type="email" class="form-control" name="email" id="email">
                                     </div>
 
                                 </div>
 
                                 <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="profissao" class="form-label">Profissão</label>
+                                        <input type="text" class="form-control" name="profissao" id="profissao"
+                                            maxlength="50">
+                                    </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="estadoCivil" class="form-label">Estado civil</label>
@@ -240,86 +214,19 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-6 mb-4">
-                                        <label for="profissao" class="form-label">Profissão</label>
-                                        <input type="text" class="form-control" class="profissao" name="profissao"
-                                               id="profissao" maxlength="50">
-                                    </div>
-
                                 </div>
 
-                                <div class="card border p-3">
-                                    <h3>Filiação</h3>
-                                    <hr>
-
-                                    <div class="row">
-
-                                        <div class="col-md-6 mb-4">
-                                            <label for="nomeMae" class="form-label">Nome da mãe</label>
-                                            <input type="text" class="form-control" name="nomeMae" id="nomeMae"
-                                                   maxlength="100">
-                                        </div>
-
-                                        <div class="col-md-3 mb-4">
-                                            <label for="rgMae" class="form-label">RG da mãe</label>
-                                            <input type="text" class="form-control" name="rgMae" id="rgMae">
-                                        </div>
-
-                                        <div class="col-md-3 mb-4">
-                                            <label for="cpfMae" class="form-label">CPF da mãe</label>
-                                            <input type="text" class="form-control" name="cpfMae" id="cpfMae"
-                                                oninput="formatarCPF(this)">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="col-md-6 mb-4">
-                                            <label for="nomePai" class="form-label">Nome do pai</label>
-                                            <input type="text" class="form-control" name="nomePai" id="nomePai"
-                                                   maxlength="100">
-                                        </div>
-
-                                        <div class="col-md-3 mb-4">
-                                            <label for="rgPai" class="form-label">RG do pai</label>
-                                            <input type="text" class="form-control" name="rgPai" id="rgPai">
-                                        </div>
-
-                                        <div class="col-md-3 mb-4">
-                                            <label for="cpfPai" class="form-label">CPF do pai</label>
-                                            <input type="text" class="form-control" name="cpfPai" id="cpfPai"
-                                                oninput="formatarCPF(this)">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-3 mb-4">
-                                        <label for="ativo" class="form-label">Ativo <span
-                                                class="text-danger">*</span> </label>
-                                        <select class="form-control" name="ativo" id="ativo" required>
-                                            <option value="">Selecione uma opção</option>
-                                            <option value="ativo">Ativo</option>
-                                            <option value="bloquado">Bloqueado</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-9 mb-3">
-                                        <label for="obs" class="form-label">Observação</label>
-                                        <input type="text" class="form-control" name="obs" id="obs">
-                                    </div>
-
+                                <div class="mb-4">
+                                    <label for="obs" class="form-label">Observação</label>
+                                    <input type="text" class="form-control" name="obs" id="obs"
+                                        maxlength="255">
                                 </div>
 
                                 <div class="mb-4">
                                     <div class="input-group mb-3">
                                         <label class="input-group-text" for="foto">Selecione uma foto</label>
                                         <input type="file" class="form-control" name="foto" id="foto"
-                                               onchange="exibirFotoSelecionada()">
+                                            onchange="exibirFotoSelecionada()">
                                     </div>
                                     <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px">
                                 </div>

@@ -13,10 +13,12 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Matrículas</a></li>
-                            <li class="breadcrumb-item active">Alunos Cadastrados</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Responsável</a></li>
+                            <li class="breadcrumb-item active">Responsáveis do aluno</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Alunos Cadastrados</h4>
+                    <h4 class="page-title">Responsávels do aluno</h4>
+                    <h5 class="mb-2 ms-3">Aluno(a):{{$aluno->nome}}</h5>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -43,54 +45,8 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('alunos.create') }}" class="btn btn-primary">Novo</a>
+                                <a href="{{ ('/responsavel_adicionar/'.$aluno->id) }}" class="btn btn-primary">Novo</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="pt-3 ps-4">
-
-                                <form action="/alunos_search" method="get">
-                                    <div class="row">
-
-                                        <div class="col-md-4 mb-3">
-                                            <select class="form-control" name="criterio" id="criterio" required>
-                                                @empty($inputs)
-                                                    <option value="" disabled selected>Critério de pesquisa</option>
-                                                @else
-                                                    <option value="{{ $inputs['criterio'] }}">
-                                                        @if ($inputs['criterio'] == 'id')
-                                                            Código
-                                                        @elseif($inputs['criterio'] == 'nome')
-                                                            Nome
-                                                        @else
-                                                            CPF
-                                                        @endif
-                                                    </option>
-                                                @endempty
-
-                                                <option value="id">Código</option>
-                                                <option value="nome">Nome</option>
-                                                <option value="cpf ">CPF</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                   required maxlength="100" value="{{$inputs['pesquisa']??""}}">
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Pesquisar
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </form>
-
                             </div>
                         </div>
 
@@ -101,30 +57,27 @@
                         <tr>
                             <th>#</th>
                             <th>Nome</th>
-                            <th>CPF</th>
+                            <th>Aluno</th>
                             <th>Telefone</th>
                             <th>Celular</th>
-                            <th>Ativo</th>
                             <th>Ação</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        @foreach ($alunos as $aluno)
+                        @foreach ($responsaveis as $responsavel)
                             <tr>
-                                <td>{{ $aluno->id }}</td>
-                                <td>{{ $aluno->nome }}</td>
-                                <td>{{ $aluno->cpf }}</td>
-                                <td>{{ $aluno->telefone }}</td>
-                                <td>{{ $aluno->celular }}</td>
-                                <td>{{ $aluno->ativo }}</td>
-
+                                <td>{{ $responsavel->id }}</td>
+                                <td>{{ $responsavel->nome }}</td>
+                                <td>{{ $responsavel->alunos->nome }}</td>
+                                <td>{{ $responsavel->telefone }}</td>
+                                <td>{{ $responsavel->celular }}</td>
                                 <td>
                                     <div>
                                         <div class="row">
 
                                             <div class="col-2">
-                                                <a href="{{ route('alunos.edit', $aluno->id) }}"
+                                                <a href="{{ route('alunos.edit', $responsavel->id) }}"
                                                    class="btn btn-success btn-sm"
                                                    title="Atualizar informações do aluno">
                                                     <i class="uil-edit-alt"></i>
@@ -132,7 +85,7 @@
                                             </div>
 
                                             <div class="col-2">
-                                                <a href="{{route('responsavel.show', $aluno->id)}}"
+                                                <a href="{{route('responsavel.show', $responsavel->id)}}"
                                                    class="btn btn-info btn-sm"
                                                    title="Dados do responsavel">
                                                     <i class="uil-user-square"></i>
@@ -140,30 +93,22 @@
                                             </div>
 
                                             <div class="col-2">
-                                                <a href="#"
-                                                   class="btn btn-primary btn-sm"
-                                                   title="Matrículas do aluno">
-                                                    <i class="uil-presentation-plus"></i>
-                                                </a>
-                                            </div>
-
-                                            <div class="col-2">
                                                 <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir as informações do aluno"
-                                                        data-bs-target="#myModal{{ $aluno->id }}">
+                                                        data-bs-target="#myModal{{ $responsavel->id }}">
                                                     <i class="uil-trash-alt"></i>
                                                 </button>
                                             </div>
 
                                             {{-- Modal --}}
-                                            <div class="modal fade" id="myModal{{ $aluno->id }}"
-                                                 tabindex="-1" aria-labelledby="myModalLabel{{ $aluno->id }}"
+                                            <div class="modal fade" id="myModal{{ $responsavel->id }}"
+                                                 tabindex="-1" aria-labelledby="myModalLabel{{ $responsavel->id }}"
                                                  aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title"
-                                                                id="myModalLabel{{ $aluno->id }}">Deseja
+                                                                id="myModalLabel{{ $responsavel->id }}">Deseja
                                                                 deletar o dia selecionado?</h5>
                                                             <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal"
@@ -172,7 +117,8 @@
 
                                                         <div class="modal-body">
                                                             <form method="POST" enctype="multipart/form-data"
-                                                                  action="{{ route('alunos.destroy', $aluno->id) }}">
+                                                                  action="{{ route('alunos.destroy', $responsavel->id) }}">
+                                                                  action="{{ route('alunos.destroy', $responsavel->id) }}">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <h3>Tem certeza que deseja deletar o aluno
@@ -210,7 +156,7 @@
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $alunos->links('pagination::pagination') }}
+                            {{ $responsaveis->links('pagination::pagination') }}
                         </div>
                     </div>
 
