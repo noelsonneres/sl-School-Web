@@ -84,17 +84,16 @@ class ResponsavelAlunosController extends Controller
             $responsavel->save();
 
             $responsavel = $this->responsavel
-            ->where('alunos_id', $alunoID)
-            ->where('deletado', 'nao')
-            ->where('empresas_id', auth()->user()->empresas_id)
-            ->orderBy('id', 'desc')
-            ->paginate();
+                ->where('alunos_id', $alunoID)
+                ->where('deletado', 'nao')
+                ->where('empresas_id', auth()->user()->empresas_id)
+                ->orderBy('id', 'desc')
+                ->paginate();
 
-        $aluno = Aluno::find($alunoID);
+            $aluno = Aluno::find($alunoID);
 
-        return view(self::PATH . 'responsavelShow', ['responsaveis' => $responsavel, 'aluno' => $aluno])
-                                    ->with('msg', 'Responsável cadastrada com sucesso!');            
-
+            return view(self::PATH . 'responsavelShow', ['responsaveis' => $responsavel, 'aluno' => $aluno])
+                ->with('msg', 'Responsável cadastrada com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível salvar as informações do Responsável: ' . $th->getMessage()]);
         }
@@ -117,7 +116,8 @@ class ResponsavelAlunosController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $responsavel = $this->responsavel->find($id);
+        return view(self::PATH . 'responsavelEdit', ['responsavel' => $responsavel, 'listaEstado' => $this->listaEstados()]);
     }
 
     public function update(Request $request, string $id)

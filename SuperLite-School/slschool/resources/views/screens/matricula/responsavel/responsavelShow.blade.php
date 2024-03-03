@@ -77,18 +77,10 @@
                                         <div class="row">
 
                                             <div class="col-2">
-                                                <a href="{{ route('alunos.edit', $responsavel->id) }}"
+                                                <a href="{{ route('responsavel.edit', $responsavel->id) }}"
                                                    class="btn btn-success btn-sm"
-                                                   title="Atualizar informações do aluno">
+                                                   title="Atualizar informações do responsável">
                                                     <i class="uil-edit-alt"></i>
-                                                </a>
-                                            </div>
-
-                                            <div class="col-2">
-                                                <a href="{{route('responsavel.show', $responsavel->id)}}"
-                                                   class="btn btn-info btn-sm"
-                                                   title="Dados do responsavel">
-                                                    <i class="uil-user-square"></i>
                                                 </a>
                                             </div>
 
@@ -117,8 +109,7 @@
 
                                                         <div class="modal-body">
                                                             <form method="POST" enctype="multipart/form-data"
-                                                                  action="{{ route('alunos.destroy', $responsavel->id) }}">
-                                                                  action="{{ route('alunos.destroy', $responsavel->id) }}">
+                                                                  action="{{ route('responsavel.destroy', $responsavel->id) }}">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <h3>Tem certeza que deseja deletar o aluno

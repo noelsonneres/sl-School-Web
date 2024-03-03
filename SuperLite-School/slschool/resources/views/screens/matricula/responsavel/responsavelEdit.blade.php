@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Novo Responsável')
+@section('title', 'Sl School - Atualizar informações do responsável')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -15,10 +15,10 @@
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Matrículas</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Responsável</a></li>
-                            <li class="breadcrumb-item active">Novo Responsável</li>
+                            <li class="breadcrumb-item active">Informações do responsável</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Cadastrar novo responsável</h4>
+                    <h4 class="page-title">Visualizar ou atualizar informações do responsável</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -67,11 +67,11 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('responsavel.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('responsavel.update', $responsavel->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
 
-                                <input type="hidden" name="aluno" value="{{$alunoID}}">
+                                <input type="hidden" name="aluno" value="{{$responsavel->alunos_id}}">
 
                                 <div class="row">
 
@@ -79,13 +79,13 @@
                                         <label for="nome" class="form-label">Nome completo <span
                                                 class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" name="nome" id="nome" required
-                                            maxlength="100" value="{{old('nome')}}">
+                                            maxlength="100" value="{{$responsavel->nome}}">
                                     </div>
 
                                     <div class="col-md-4 mb-4">
                                         <label for="apelido" class="form-label">Apelido</label>
                                         <input type="text" class="form-control" name="apelido" id="apelido"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$responsavel->apelido}}">
                                     </div>
 
                                 </div>
@@ -95,24 +95,25 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="dataNascimento" class="form-label">Data de nascimento</label>
                                         <input type="date" class="form-control" name="dataNascimento"
-                                            id="dataNascimento">
+                                            id="dataNascimento" value="{{$responsavel->data_nascimento}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="dataCadastro" class="form-label">Data de cadastro</label>
-                                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro">
+                                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro" 
+                                            value="{{$responsavel->data_cadastro}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="cpf" class="form-label">CPF</label>
                                         <input type="text" class="form-control" name="cpf" id="cpf" 
-                                            oninput="formatarCPF(this)">
+                                            oninput="formatarCPF(this)" value="{{$responsavel->cpf}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="rg" class="form-label">RG</label>
                                         <input type="text" class="form-control" name="rg" id="rg"
-                                            maxlength="20">
+                                            maxlength="20" value="{{$responsavel->rg}}">
                                     </div>
 
                                 </div>
@@ -122,13 +123,13 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="cep" class="form-label">CEP</label>
                                         <input type="text" class="form-control" name="cep" id="cep"
-                                            oninput="formatarCEP(this)">
+                                            oninput="formatarCEP(this)" value="{{$responsavel->cep}}">
                                     </div>
 
                                     <div class="col-md-9 mb-4">
                                         <label for="endereco" class="form-label">Endereço</label>
                                         <input type="text" class="form-control" name="endereco" id="endereco"
-                                            maxlength="100">
+                                            maxlength="100" value="{{$responsavel->endereco}}">
                                     </div>
 
                                 </div>
@@ -138,19 +139,19 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="bairro" class="form-label">Bairro</label>
                                         <input type="text" class="form-control" name="bairro" id="bairro"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$responsavel->bairro}}">
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <label for="numero" class="form-label">Número</label>
                                         <input type="text" class="form-control" name="numero" id="numero"
-                                            maxlength="10">
+                                            maxlength="10" value="{{$responsavel->numero}}">
                                     </div>
 
                                     <div class="col-md-4 mb-4">
                                         <label for="complemento" class="form-label">Complemento</label>
                                         <input type="text" class="form-control" name="complemento" id="complemento"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$responsavel->complemento}}">
                                     </div>
 
                                 </div>
@@ -160,13 +161,13 @@
                                     <div class="col md-9 mb-4">
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" name="cidade" id="cidade"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$responsavel->cidade}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="estado" class="form-label">Estado</label>
                                         <select class="form-control" name="estado" id="estado">
-                                            <option value="">Selecione um estado</option>
+                                            <option value="{{$responsavel->estado}}">{{$responsavel->estado}}</option>
 
                                             @foreach ($listaEstado as $lista => $sigla)
                                                 <option value="{{ $sigla }}">{{ $sigla }}</option>
@@ -182,18 +183,19 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="telefone" class="form-label">Telefone</label>
                                         <input type="text" class="form-control" name="telefone" id="telefone"
-                                            oninput="formatarTelefone(this)">
+                                            oninput="formatarTelefone(this)" value="{{$responsavel->telefone}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="celular" class="form-label">celular</label>
                                         <input type="text" class="form-control" name="celular" id="celular" 
-                                            oninput="formatarCelular(this)">
+                                            oninput="formatarCelular(this)" value="{{$responsavel->celular}}">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control" name="email" id="email">
+                                        <input type="email" class="form-control" name="email" id="email" 
+                                            value="{{$responsavel->email}}">
                                     </div>
 
                                 </div>
@@ -203,13 +205,13 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="profissao" class="form-label">Profissão</label>
                                         <input type="text" class="form-control" name="profissao" id="profissao"
-                                            maxlength="50">
+                                            maxlength="50" value="{{$responsavel->profissao}}">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="estadoCivil" class="form-label">Estado civil</label>
                                         <select class="form-control" name="estadoCivil" id="estadoCivil">
-                                            <option value="">Selecione uma opção</option>
+                                            <option value="{{$responsavel->estado_civil}}">{{$responsavel->estado_civil}}</option>
                                             <option value="solteriro">Solteiro(a)</option>
                                             <option value="casado">Casado(a)</option>
                                             <option value="divorciado">Divorciado(a)</option>
@@ -223,7 +225,7 @@
                                 <div class="mb-4">
                                     <label for="obs" class="form-label">Observação</label>
                                     <input type="text" class="form-control" name="obs" id="obs"
-                                        maxlength="255">
+                                        maxlength="255" value="{{$responsavel->obs}}">
                                 </div>
 
                                 <div class="mb-4">
@@ -232,7 +234,8 @@
                                         <input type="file" class="form-control" name="foto" id="foto"
                                             onchange="exibirFotoSelecionada()">
                                     </div>
-                                    <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px">
+                                    <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px" 
+                                        src="/img/responsaveis/{{$responsavel->foto}}">
                                 </div>
 
                                 <div class="mt-2">
