@@ -66,9 +66,10 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('alunos.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('alunos.update', $aluno->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class="row">
 
@@ -82,7 +83,7 @@
                                     <div class="col md-4 mb-4">
                                         <label for="apelido" class="form-label">Apelido</label>
                                         <input type="text" class="form-control" name="apelido" id="apelido"
-                                               maxlength="50">
+                                               maxlength="50" value="{{$aluno->apelido}}">
                                     </div>
 
                                 </div>
@@ -92,24 +93,26 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="dataNascimento" class="form-label">Data de nascimento</label>
                                         <input type="date" class="form-control" name="dataNascimento"
-                                               id="dataNascimento">
+                                               id="dataNascimento" value="{{$aluno->data_nascimento}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="dataCadastro" class="form-label">Data de Cadastro</label>
-                                        <input type="date" class="form-control" name="dataCadastro" id="dataCadastro">
+                                        <input type="date" class="form-control" name="dataCadastro"
+                                               id="dataCadastro" value="{{$aluno->data_cadastro}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="cpf" class="form-label">CPF</label>
                                         <label class="text-danger" id="cpfValidationMessage"></label>
                                         <input type="text" class="form-control" name="cpf" id="cpf"
-                                               oninput="formatarCPF(this)">
+                                               oninput="formatarCPF(this)" value="{{$aluno->cpf}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="rg" class="form-label">RG</label>
-                                        <input type="text" class="form-control" name="rg" id="rg">
+                                        <input type="text" class="form-control" name="rg" id="rg"
+                                               value="{{$aluno->rg}}">
                                     </div>
 
                                 </div>
@@ -119,13 +122,13 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="fobias" class="form-label">Fobias</label>
                                         <input type="text" class="form-control" name="fobias" id="fobias"
-                                               maxlength="100">
+                                               maxlength="100" value="{{$aluno->fobias}}">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="alergias" class="form-label">Alergias</label>
                                         <input type="text" class="form-control" name="alergias" id="alergias"
-                                               maxlength="100">
+                                               maxlength="100" value="{{$aluno->alergias}}">
                                     </div>
 
                                 </div>
@@ -134,13 +137,14 @@
 
                                     <div class="col-md-6 mb-4">
                                         <label for="pcd" class="form-label">PCD</label>
-                                        <input type="text" class="form-control" name="pcd" id="pcd" maxlength="100">
+                                        <input type="text" class="form-control" name="pcd" id="pcd"
+                                               maxlength="100" value="{{$aluno->pcd}}">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="outrosAspectos" class="form-label">Outros aspectos</label>
                                         <input type="text" class="form-control" name="outrosAspectos"
-                                               id="outrosAspectos" maxlength="100">
+                                               id="outrosAspectos" maxlength="100" value="{{$aluno->outros_aspectos}}">
                                     </div>
 
                                 </div>
@@ -150,13 +154,13 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="cep" class="form-label">CEP</label>
                                         <input type="text" class="form-control" name="cep" id="cep"
-                                               oninput="formatarCEP(this)">
+                                               oninput="formatarCEP(this)" value="{{$aluno->cep}}">
                                     </div>
 
                                     <div class="col mb-9 mb-4">
                                         <label for="endereco" class="form-label">Endereço</label>
                                         <input type="text" class="form-control" name="endereco" id="endereco"
-                                               maxlength="100">
+                                               maxlength="100" value="{{$aluno->endereco}}">
                                     </div>
 
                                 </div>
@@ -166,19 +170,19 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="bairro" class="form-label">Bairro</label>
                                         <input type="text" class="form-control" name="bairro" id="bairro"
-                                               maxlength="50">
+                                               maxlength="50" value="{{$aluno->bairro}}">
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <label for="numero" class="form-label">Número</label>
                                         <input type="text" class="form-control" name="numero" id="numero"
-                                               maxlength="10">
+                                               maxlength="10" value="{{$aluno->numero}}">
                                     </div>
 
                                     <div class="col md-4 mb-4">
                                         <label for="complemento" class="form-label">Complemento</label>
                                         <input type="text" class="form-control" name="complemento" id="complemento"
-                                               maxlength="50">
+                                               maxlength="50" value="{{$aluno->complemento}}">
                                     </div>
 
                                 </div>
@@ -188,13 +192,14 @@
                                     <div class="col-md-9 mb-4">
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" name="cidade" id="cidade"
-                                               maxlength="100">
+                                               maxlength="100" value="{{$aluno->cidade}}">
                                     </div>
 
                                     <div class="col md-3 mb-4">
                                         <label for="estado" class="form-label">Estado</label>
                                         <select class="form-control" name="estado" id="estado">
-                                            <option value="">Selecione um estados</option>
+
+                                            <option value="{{$aluno->estado}}">{{$aluno->estado}}</option>
 
                                             @foreach ($listaEstados as $lista=>$sigla)
                                                 <option value="{{$sigla}}">{{$sigla}}</option>
@@ -210,19 +215,19 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="telefone" class="form-label">Telefone</label>
                                         <input type="text" class="form-control" name="telefone" id="telefone"
-                                               oninput="formatarTelefone(this)">
+                                               oninput="formatarTelefone(this)" value="{{$aluno->telefone}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="celular" class="form-label">Celular</label>
                                         <input type="text" class="form-control" name="celular" id="celular"
-                                               oninput="formatarCelular(this)">
+                                               oninput="formatarCelular(this)" value="{{$aluno->celular}}">
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="email" class="form-label">E-Mail</label>
                                         <input type="email" class="form-control" name="email" id="email"
-                                               maxlength="100">
+                                               maxlength="100" value="{{$aluno->email}}">
                                     </div>
 
                                 </div>
@@ -232,7 +237,7 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="estadoCivil" class="form-label">Estado civil</label>
                                         <select class="form-control" name="estadoCivil" id="estadoCivil">
-                                            <option value="">Selecione uma opção</option>
+                                            <option value="{{$aluno->estado_civil}}">{{$aluno->estado_civil}}</option>
                                             <option value="solteriro">Solteiro(a)</option>
                                             <option value="casado">Casado(a)</option>
                                             <option value="divorciado">Divorciado(a)</option>
@@ -244,7 +249,7 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="profissao" class="form-label">Profissão</label>
                                         <input type="text" class="form-control" class="profissao" name="profissao"
-                                               id="profissao" maxlength="50">
+                                               id="profissao" maxlength="50" value="{{$aluno->profissao}}">
                                     </div>
 
                                 </div>
@@ -258,18 +263,19 @@
                                         <div class="col-md-6 mb-4">
                                             <label for="nomeMae" class="form-label">Nome da mãe</label>
                                             <input type="text" class="form-control" name="nomeMae" id="nomeMae"
-                                                   maxlength="100">
+                                                   maxlength="100" value="{{$aluno->nome_mae}}">
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="rgMae" class="form-label">RG da mãe</label>
-                                            <input type="text" class="form-control" name="rgMae" id="rgMae">
+                                            <input type="text" class="form-control" name="rgMae" id="rgMae"
+                                                   value="{{$aluno->rg_mae}}">
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="cpfMae" class="form-label">CPF da mãe</label>
                                             <input type="text" class="form-control" name="cpfMae" id="cpfMae"
-                                                   oninput="formatarCPF(this)">
+                                                   oninput="formatarCPF(this)" value="{{$aluno->cpf_mae}}">
                                         </div>
 
                                     </div>
@@ -279,18 +285,19 @@
                                         <div class="col-md-6 mb-4">
                                             <label for="nomePai" class="form-label">Nome do pai</label>
                                             <input type="text" class="form-control" name="nomePai" id="nomePai"
-                                                   maxlength="100">
+                                                   maxlength="100" value="{{$aluno->nome_pai}}">
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="rgPai" class="form-label">RG do pai</label>
-                                            <input type="text" class="form-control" name="rgPai" id="rgPai">
+                                            <input type="text" class="form-control" name="rgPai" id="rgPai"
+                                                   value="{{$aluno->rg_pai}}">
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="cpfPai" class="form-label">CPF do pai</label>
                                             <input type="text" class="form-control" name="cpfPai" id="cpfPai"
-                                                   oninput="formatarCPF(this)">
+                                                   oninput="formatarCPF(this)" value="{{$aluno->cpf_pai}}">
                                         </div>
 
                                     </div>
@@ -303,7 +310,7 @@
                                         <label for="ativo" class="form-label">Ativo <span
                                                 class="text-danger">*</span> </label>
                                         <select class="form-control" name="ativo" id="ativo" required>
-                                            <option value="">Selecione uma opção</option>
+                                            <option value="{{$aluno->ativo}}">{{$aluno->ativo}}</option>
                                             <option value="ativo">Ativo</option>
                                             <option value="bloquado">Bloqueado</option>
                                         </select>
@@ -311,7 +318,8 @@
 
                                     <div class="col-md-9 mb-3">
                                         <label for="obs" class="form-label">Observação</label>
-                                        <input type="text" class="form-control" name="obs" id="obs">
+                                        <input type="text" class="form-control" name="obs" id="obs"
+                                               value="{{$aluno->obs}}">
                                     </div>
 
                                 </div>
@@ -322,20 +330,13 @@
                                         <input type="file" class="form-control" name="foto" id="foto"
                                                onchange="exibirFotoSelecionada()">
                                     </div>
-                                    <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px">
+                                    <img id="imagemSelecionada" class="img-thumbnail" alt="" width="250px"
+                                         src="/img/alunos/{{$aluno->foto}}">
                                 </div>
-
 
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-success">Salvar
                                         <i class="ri-save-3-fill"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-danger"
-                                            data-bs-toggle="modal" title="Excluir sala de aula"
-                                            data-bs-target="#myModal{{ $aluno->id }}">
-                                        Excluir
-                                        <i class="ri-delete-bin-fill"></i>
                                     </button>
 
                                     <a href="javascript:history.back()" class="btn btn-dark">Cancelar
@@ -344,44 +345,6 @@
                                 </div>
 
                             </form>
-
-                            {{-- Modal --}}
-                            <div class="modal fade" id="myModal{{ $aluno->id }}"
-                                 tabindex="-1" aria-labelledby="myModalLabel{{ $aluno->id }}"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"
-                                                id="myModalLabel{{ $aluno->id }}">Deseja
-                                                deletar o dia selecionado?</h5>
-                                            <button type="button" class="btn-close"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <form method="POST" enctype="multipart/form-data"
-                                                  action="{{ route('material.destroy', $aluno->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <h3>Tem certeza que deseja deletar o aluno
-                                                    selecionado? Todas as matrículas é histórico de turmas serão deletados
-                                                    caso você exclua o aluno</h3>
-                                                <div class="modal-footer">
-                                                    <button type="button"
-                                                            class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="submit"
-                                                            class="btn btn-danger">Sim, quero
-                                                        deletar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- Fim Modal --}}
 
                         </div>
 

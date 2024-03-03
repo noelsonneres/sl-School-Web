@@ -22,7 +22,7 @@
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex
                                 justify-content-between align-items-end mb-3"
-                            role="alert" style="text-align: center;">
+                             role="alert" style="text-align: center;">
                             <h5>{{ $msg }} </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -76,7 +76,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
+                                                   required maxlength="100" value="{{$inputs['pesquisa']??""}}">
                                         </div>
 
                                         <div class="col-md-2">
@@ -95,63 +95,111 @@
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Telefone</th>
-                                <th>Celular</th>
-                                <th>Ativo</th>
-                                <th>Ação</th>
-                            </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Celular</th>
+                            <th>Ativo</th>
+                            <th>Ação</th>
+                        </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($alunos as $aluno)
-                                <tr>
-                                    <td>{{ $aluno->id }}</td>
-                                    <td>{{ $aluno->nome }}</td>
-                                    <td>{{ $aluno->cpf }}</td>
-                                    <td>{{ $aluno->telefone }}</td>
-                                    <td>{{ $aluno->celular }}</td>
-                                    <td>{{ $aluno->ativo }}</td>
+                        @foreach ($alunos as $aluno)
+                            <tr>
+                                <td>{{ $aluno->id }}</td>
+                                <td>{{ $aluno->nome }}</td>
+                                <td>{{ $aluno->cpf }}</td>
+                                <td>{{ $aluno->telefone }}</td>
+                                <td>{{ $aluno->celular }}</td>
+                                <td>{{ $aluno->ativo }}</td>
 
-                                    <td>
-                                        <div>
-                                            <div class="row">
+                                <td>
+                                    <div>
+                                        <div class="row">
 
-                                                <div class="col-2">
-                                                    <a href="{{ route('alunos.edit', $aluno->id) }}"
-                                                        class="btn btn-success btn-sm"
-                                                        title="Atualizar informações do aluno">
-                                                        <i class="uil-edit-alt"></i>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <a href="#"
-                                                        class="btn btn-info btn-sm"
-                                                        title="Dados do responsavel">
-                                                        <i class="uil-user-square"></i>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <a href="#"
-                                                        class="btn btn-primary btn-sm"
-                                                        title="Matrículas do aluno">
-                                                        <i class="uil-presentation-plus"></i>
-                                                    </a>
-                                                </div>
-
-
-
+                                            <div class="col-2">
+                                                <a href="{{ route('alunos.edit', $aluno->id) }}"
+                                                   class="btn btn-success btn-sm"
+                                                   title="Atualizar informações do aluno">
+                                                    <i class="uil-edit-alt"></i>
+                                                </a>
                                             </div>
 
+                                            <div class="col-2">
+                                                <a href="#"
+                                                   class="btn btn-info btn-sm"
+                                                   title="Dados do responsavel">
+                                                    <i class="uil-user-square"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <a href="#"
+                                                   class="btn btn-primary btn-sm"
+                                                   title="Matrículas do aluno">
+                                                    <i class="uil-presentation-plus"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                        data-bs-toggle="modal" title="Excluir as informações do aluno"
+                                                        data-bs-target="#myModal{{ $aluno->id }}">
+                                                    <i class="uil-trash-alt"></i>
+                                                </button>
+                                            </div>
+
+                                            {{-- Modal --}}
+                                            <div class="modal fade" id="myModal{{ $aluno->id }}"
+                                                 tabindex="-1" aria-labelledby="myModalLabel{{ $aluno->id }}"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="myModalLabel{{ $aluno->id }}">Deseja
+                                                                deletar o dia selecionado?</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <form method="POST" enctype="multipart/form-data"
+                                                                  action="{{ route('alunos.destroy', $aluno->id) }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <h3>Tem certeza que deseja deletar o aluno
+                                                                    selecionado? Todas as matrículas é histórico de
+                                                                    turmas serão
+                                                                    deletados
+                                                                    caso você exclua o aluno</h3>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cancelar
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger">Sim, quero
+                                                                        deletar
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Fim Modal --}}
+
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
