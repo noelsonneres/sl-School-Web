@@ -51,7 +51,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="#" method="get">
+                                <form action="/alunos_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -62,14 +62,17 @@
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
+                                                        @elseif($inputs['criterio'] == 'nome')
+                                                            Nome
                                                         @else
-                                                            Dia
+                                                            CPF
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="dia">Dia</option>
+                                                <option value="nome">Nome</option>
+                                                <option value="cpf ">CPF</option>
 
                                             </select>
                                         </div>

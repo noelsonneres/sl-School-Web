@@ -69,3 +69,4 @@ Route::get('turmas_search', [TurmasController::class, 'search']);
 // FASE 2
 
 Route::resource('alunos', AlunosController::class);
+Route::get('/alunos_search', [AlunosController::class, 'search']);

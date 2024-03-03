@@ -231,6 +231,29 @@ class AlunosController extends Controller
 
     }
 
+    public function search(Request $request)
+    {
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        $alunos = $this->alunos
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->paginate();
+
+        return view(self::PATH . 'alunoShow', ['alunos' => $alunos, 'inputs'=>$request->all()]);
+
+    }
+
     private function listaEstados()
     {
         return $estados = array(
