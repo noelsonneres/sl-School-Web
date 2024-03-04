@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlunosBloqueadosController;
 use App\Http\Controllers\AlunosController;
 use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\ConsultoresController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ResponsavelAlunosController;
 use App\Http\Controllers\SalaAulasController;
 use App\Http\Controllers\TurmasController;
 use App\Http\Controllers\UserController;
+use App\Models\AlunoBloqueado;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -74,3 +76,5 @@ Route::get('/alunos_search', [AlunosController::class, 'search']);
 
 Route::resource('responsavel', ResponsavelAlunosController::class);
 Route::get('/responsavel_adicionar/{alunoID}', [ResponsavelAlunosController::class, 'novoResponsavel']);
+
+Route::resource('bloqueados', AlunosBloqueadosController::class);

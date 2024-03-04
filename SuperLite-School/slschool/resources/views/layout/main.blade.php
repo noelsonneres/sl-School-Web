@@ -248,7 +248,7 @@
                                     <a href="/alunos">Alunos</a>
                                 </li>
                                 <li>
-                                    <a href="pages-maintenance.html">Maintenance</a>
+                                    <a href="/bloqueados">Alunos Bloqueados</a>
                                 </li>
 
                                 <li>
