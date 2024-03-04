@@ -122,12 +122,110 @@ class ResponsavelAlunosController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+    
+        $responsavel = $this->responsavel->find($id);
+
+        $request->validate([
+            'nome' => 'required|min:3|max:100',
+        ], [
+            'nome.required' => 'O campo Nome é obrigatório',
+            'nome.min' => 'O nome deve ter no mínimo três caracteres',
+            'nome.max' => 'O nome deve ter no máximo 100 caracteres',
+        ]);
+
+        $nome = $request->input('nome');
+
+        $alunoID = $request->input('aluno');
+
+        try {
+
+            $responsavel->empresas_id = auth()->user()->empresas_id;
+            $responsavel->nome = $request->input('nome');
+            $responsavel->alunos_id = $request->input('aluno');
+            $responsavel->apelido = $request->input('apelido');
+            $responsavel->data_nascimento = $request->input('dataNascimento');
+            $responsavel->data_cadastro = $request->input('dataCadastro');
+            $responsavel->rg = $request->input('rg');
+            $responsavel->cpf = $request->input('cpf');
+            $responsavel->cep = $request->input('cep');
+            $responsavel->endereco = $request->input('endereco');
+            $responsavel->bairro = $request->input('bairro');
+            $responsavel->numero = $request->input('numero');
+            $responsavel->complemento = $request->input('complemento');
+            $responsavel->cidade = $request->input('cidade');
+            $responsavel->estado = $request->input('estado');
+            $responsavel->telefone = $request->input('telefone');
+            $responsavel->celular = $request->input('celular');
+            $responsavel->email = $request->input('email');
+            $responsavel->estado_civil = $request->input('estadoCivil');
+            $responsavel->profissao = $request->input('profissao');
+            $responsavel->obs = $request->input('obs');
+            $responsavel->deletado = 'nao';
+            $responsavel->auditoria = $this->operacao('Atualizou as informações do Responsável');
+
+            //upload da foto
+            if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+                $requestImage = $request->file('foto');
+                $extension = $requestImage->getClientOriginalExtension();
+                $imgName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+                $requestImage->move(public_path('img/responsaveis'), $imgName);
+
+                $responsavel->foto = $imgName;
+            }
+
+            $responsavel->save();
+
+            $responsavel = $this->responsavel
+                ->where('alunos_id', $alunoID)
+                ->where('deletado', 'nao')
+                ->where('empresas_id', auth()->user()->empresas_id)
+                ->orderBy('id', 'desc')
+                ->paginate();
+
+            $aluno = Aluno::find($alunoID);
+
+            return view(self::PATH . 'responsavelShow', ['responsaveis' => $responsavel, 'aluno' => $aluno])
+                ->with('msg', 'Sucesso! As informações do Responsável foram atualizadas com sucesso!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível atualizar as informações do Responsável: ' . $th->getMessage()]);
+        }
     }
 
     public function destroy(string $id)
     {
-        //
+        $responsavel = $this->responsavel->find($id);
+
+        if($responsavel->count() >= 1){ 
+
+            $alunoID = $responsavel->alunos_id;
+
+            try {
+
+                $responsavel->deletado = 'sim';
+                $responsavel->auditoria = $this->operacao('Deletou as informações do responsável');
+
+                $responsavel->save();
+
+                $responsavel = $this->responsavel
+                    ->where('alunos_id', $alunoID)
+                    ->where('deletado', 'nao')
+                    ->where('empresas_id', auth()->user()->empresas_id)
+                    ->orderBy('id', 'desc')
+                    ->paginate();
+    
+                $aluno = Aluno::find($alunoID);
+    
+                return view(self::PATH . 'responsavelShow', ['responsaveis' => $responsavel, 'aluno' => $aluno])
+                    ->with('msg', 'Sucesso! Responsável deletado com sucesso!');
+
+            } catch (\Throwable $th) {
+                return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível excluir as informações do Responsável: ' . $th->getMessage()]);
+            }
+
+        }else{
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar as informações do Responsável!']);    
+        }
     }
 
     public function novoResponsavel(string $alunoID)

@@ -57,7 +57,6 @@
                         <tr>
                             <th>#</th>
                             <th>Nome</th>
-                            <th>Aluno</th>
                             <th>Telefone</th>
                             <th>Celular</th>
                             <th>Ação</th>
@@ -69,7 +68,6 @@
                             <tr>
                                 <td>{{ $responsavel->id }}</td>
                                 <td>{{ $responsavel->nome }}</td>
-                                <td>{{ $responsavel->alunos->nome }}</td>
                                 <td>{{ $responsavel->telefone }}</td>
                                 <td>{{ $responsavel->celular }}</td>
                                 <td>

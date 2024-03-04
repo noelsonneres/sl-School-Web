@@ -70,6 +70,7 @@
                             <form action="{{ route('responsavel.update', $responsavel->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <input type="hidden" name="aluno" value="{{$responsavel->alunos_id}}">
 
