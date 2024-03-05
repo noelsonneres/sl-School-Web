@@ -78,3 +78,6 @@ Route::resource('responsavel', ResponsavelAlunosController::class);
 Route::get('/responsavel_adicionar/{alunoID}', [ResponsavelAlunosController::class, 'novoResponsavel']);
 
 Route::resource('bloqueados', AlunosBloqueadosController::class);
+Route::get('/bloqueados_sel_alunos', [AlunosBloqueadosController::class, 'selecionarAluno']);
+Route::get('/bloqueados_loc_alunos', [AlunosBloqueadosController::class, 'localizarAluno']);
+Route::get('/bloqueados_iniciar/{nome}/{id}', [AlunosBloqueadosController::class, 'iniciarBloqueio']);

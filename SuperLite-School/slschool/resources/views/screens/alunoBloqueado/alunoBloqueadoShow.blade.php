@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl-School - Alunoss bloqueados')
+@section('title', 'Sl-School - Alunos bloqueados')
 @section('content')
 
     <!-- Start Content -->
@@ -43,7 +43,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('salasAulas.create') }}" class="btn btn-primary">Nova sala</a>
+                                <a href="{{('/bloqueados_sel_alunos') }}" class="btn btn-primary">Bloquear aluno</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
