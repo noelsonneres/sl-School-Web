@@ -60,7 +60,7 @@
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
-                                                        @elif($inputs['criterio'] == 'nome')
+                                                            @elif($inputs['criterio'] == 'nome')
                                                             Nome
                                                         @else
                                                             CPF
@@ -77,7 +77,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
+                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
@@ -90,7 +90,7 @@
                                 </form>
 
                             </div>
-                        </div>                        
+                        </div>
 
                     </div>
                     <hr>
@@ -122,13 +122,14 @@
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
-                                                    <a href="{{ ('/bloqueados_iniciar/'.$aluno->nome.'/'. $aluno->id) }}"
-                                                        class="btn btn-success btn-sm"
-                                                        title="Selecionar aluno">
-                                                        <i class=" uil-check-circle"></i>
-                                                    </a>
-                                                </div>
+                                                @if ($aluno->ativo == 'ativo')
+                                                    <div class="col-2">
+                                                        <a href="{{ '/bloqueados_iniciar/' . $aluno->nome . '/' . $aluno->id }}"
+                                                            class="btn btn-success btn-sm" title="Selecionar aluno">
+                                                            <i class=" uil-check-circle"></i>
+                                                        </a>
+                                                    </div>
+                                                @endif
 
                                             </div>
 

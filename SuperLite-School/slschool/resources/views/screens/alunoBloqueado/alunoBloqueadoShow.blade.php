@@ -17,7 +17,7 @@
                         </ol>
                     </div>
                     <h4 class="page-title">Alunos bloqueados</h4>
-
+                    <h1>>>Localizar alunos bloqueados<<</h1>
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex 
@@ -43,7 +43,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{('/bloqueados_sel_alunos') }}" class="btn btn-primary">Bloquear aluno</a>
+                                <a href="{{ '/bloqueados_sel_alunos' }}" class="btn btn-primary">Bloquear aluno</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
@@ -77,7 +77,7 @@
 
                                         <div class="col-md-6 mb-3">
                                             <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
+                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
@@ -90,7 +90,7 @@
                                 </form>
 
                             </div>
-                        </div>                        
+                        </div>
 
                     </div>
                     <hr>
@@ -109,68 +109,21 @@
 
                             @foreach ($bloqueados as $bloqueado)
                                 <tr>
-                                    <td>{{ $bloqueados->alunos_id }}</td>
-                                    <td>{{ $bloqueados->alunos->nome }}</td>
-                                    <td>{{ $bloqueados->data }}</td>
-                                    <td>{{ $bloqueados->motivo }}</td>
-                                    <td>{{ $bloqueados->status }}</td>
+                                    <td>{{ $bloqueado->alunos_id }}</td>
+                                    <td>{{ $bloqueado->alunos->nome }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($bloqueado->data)) }}</td>
+                                    <td>{{ $bloqueado->motivo }}</td>
+                                    <td>{{ $bloqueado->status }}</td>
 
                                     <td>
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
-                                                    <a href="{{ route('salasAulas.edit', $bloqueado->id) }}"
-                                                        class="btn btn-success btn-sm"
-                                                        title="Atualizar informações da sala de aula">
-                                                        <i class="uil-edit-alt"></i>
+                                                <div class="col-3">
+                                                    <a href="{{ route('bloqueados.edit', $bloqueado->id) }}"
+                                                        class="btn btn-primary btn-sm" title="Desbloquear aluno">
+                                                        <i class="uil-unlock"></i>
                                                     </a>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" title="Excluir sala de aula"
-                                                        data-bs-target="#myModal{{ $bloqueado->id }}">
-                                                        <i class="uil-trash-alt"></i>
-                                                    </button>
-
-                                                    {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $bloqueado->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $bloqueado->id }}"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $bloqueado->id }}">Deseja
-                                                                        deletar o dia selecionado?</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-
-                                                                <div class="modal-body">
-                                                                    <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('salasAulas.destroy', $bloqueado->id) }}">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <h3>Tem certeza que deseja deletar o dia
-                                                                            selecionado? Se houver turmas com o dia
-                                                                            atrelado, não será possível a exclusão</h3>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">Cancelar</button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-danger">Sim, quero
-                                                                                deletar</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{-- Fim Modal --}}
                                                 </div>
 
                                             </div>

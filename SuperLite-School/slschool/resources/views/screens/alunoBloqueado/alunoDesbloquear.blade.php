@@ -19,7 +19,7 @@
                     </div>
 
                     <h4 class="page-title">Bloquear Aluno</h4>
-                    <h5 class="mb-3 ms-2">Aluno(a):{{ $nome }}</h5>
+                    <h5 class="mb-3 ms-2">Aluno(a):{{ $bloqueado->alunos->nome }}</h5>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -68,18 +68,19 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('bloqueados.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('bloqueados.update', $bloqueado->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
-                                <input type="hidden" name="aluno" value="{{ $id }}">
+                                <input type="hidden" name="aluno" value="{{ $bloqueado->alunos_id }}">
 
                                 <div class="row">
 
                                     <div class="mb-4">
                                         <label for="nome" class="form-label">Aluno</label>
                                         <input type="text" class="form-control" name="nome" id="nome"
-                                            value="{{ $nome }}" readonly>
+                                            value="{{ $bloqueado->alunos->nome }}" readonly>
                                     </div>
 
                                 </div>
@@ -88,18 +89,20 @@
 
                                     <div class="col-md-3 mb-4">
                                         <label for="data" class="form-label">Data</label>
-                                        <input type="date" class="form-control" name="data" id="data" required>
+                                        <input type="date" class="form-control" name="data" id="data"
+                                            value="{{$bloqueado->data}}" required readonly>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="hora" class="form-label">Hora</label>
-                                        <input type="time" class="form-control" name="hora" id="hora" required>
+                                        <input type="time" class="form-control" name="hora" id="hora"
+                                           value="{{$bloqueado->hora}}"  required readonly>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <label for="motivo" class="form-label">Motivo</label>
-                                        <input type="text" class="form-control" name="motivo" id="motivo" required
-                                            maxlength="50">
+                                        <input type="text" class="form-control" name="motivo" id="motivo"
+                                           value="{{$bloqueado->motivo}}" required maxlength="50" readonly>
                                     </div>
 
                                 </div>
@@ -107,11 +110,11 @@
                                 <div class="mb-4">
                                     <label for="obs" class="form-label">Observação</label>
                                     <input type="text" class="form-control" name="obs" id="obs"
-                                        maxlength="255">
+                                        value="{{$bloqueado->obs}}" maxlength="255">
                                 </div>
 
                                 <div class="mt-2">
-                                    <button type="submit" class="btn btn-success">Salvar
+                                    <button type="submit" class="btn btn-primary">Desbloquear
                                         <i class="ri-save-3-fill"></i>
                                     </button>
                                     <a href="javascript:history.back()" class="btn btn-danger">Cancelar
