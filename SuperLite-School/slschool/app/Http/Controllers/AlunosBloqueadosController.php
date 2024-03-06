@@ -80,8 +80,7 @@ class AlunosBloqueadosController extends Controller
                 ->orderBy('id', 'desc')
                 ->paginate();
             return view(self::PATH . 'alunoBloqueadoShow', ['bloqueados' => $bloqueados])
-                            ->with('msg', 'Sucesso! Aluno bloqueado com sucesso!');
-
+                ->with('msg', 'Sucesso! Aluno bloqueado com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()
                 ->withErrors(['ERRO! Não foi possível bloquear o aluno: ' . $th->getMessage()]);
@@ -96,7 +95,7 @@ class AlunosBloqueadosController extends Controller
     public function edit(string $id)
     {
         $bloqueado = $this->bloqueados->find($id);
-        return view(self::PATH.'alunoDesbloquear', ['bloqueado'=>$bloqueado]);
+        return view(self::PATH . 'alunoDesbloquear', ['bloqueado' => $bloqueado]);
     }
 
     public function update(Request $request, string $id)
@@ -140,8 +139,7 @@ class AlunosBloqueadosController extends Controller
                 ->orderBy('id', 'desc')
                 ->paginate();
             return view(self::PATH . 'alunoBloqueadoShow', ['bloqueados' => $bloqueados])
-                            ->with('msg', 'Sucesso! Aluno bloqueado com sucesso!');
-
+                ->with('msg', 'Sucesso! Aluno bloqueado com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()
                 ->withErrors(['ERRO! Não foi possível bloquear o aluno: ' . $th->getMessage()]);
@@ -187,34 +185,58 @@ class AlunosBloqueadosController extends Controller
     {
         $aluno = Aluno::find($id);
 
-        if($aluno->ativo == 'ativo'){
+        if ($aluno->ativo == 'ativo') {
             return view(self::PATH . 'alunoBloqueadoCreate', ['nome' => $nome, 'id' => $id]);
-        }else{
+        } else {
             return redirect()->back()->withInput()
                 ->withErrors(['ERRO! O aluno selecionado já esta bloqueado!']);
         }
+    }
 
+    public function search(Request $request)
+    {
+
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        if ($criterio === 'nome' or $criterio === 'cpf') {
+
+            $aluno = Aluno::where($criterio, 'LIKE', '%' . $pesquisa)->get();
+            $pesquisa = $aluno->id;
+        }
+
+        $bloqueado = $this->bloqueados->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->paginate();
+
+            return view(self::PATH . 'alunoBloqueadoShow', ['bloqueados' => $bloqueado, 'inputs'=>$request->all()]);
     }
 
     private function atualizarStatusAluno(string $alunoID, string $status)
     {
         $aluno = Aluno::find($alunoID);
-        if($aluno->count() >= 1){
+        if ($aluno->count() >= 1) {
 
             try {
-                
+
                 $aluno->ativo = $status;
                 $aluno->auditoria = $this->operacao('Bloqueou o aluno');
                 $aluno->save();
-
             } catch (\Throwable $th) {
                 return redirect()->back()->withInput()
-                ->withErrors(['ERRO! Não foi possível bloquear o aluno: ' . $th->getMessage()]);
+                    ->withErrors(['ERRO! Não foi possível bloquear o aluno: ' . $th->getMessage()]);
             }
-
-        }else{
+        } else {
             return redirect()->back()->withInput()
-                ->withErrors(['ERRO! Não foi possível localizar o aluno! ']);            
+                ->withErrors(['ERRO! Não foi possível localizar o aluno! ']);
         }
     }
 

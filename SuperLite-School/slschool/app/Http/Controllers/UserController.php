@@ -339,7 +339,5 @@ class UserController extends Controller
         return 'O usuário ' . auth()->user()->id . ' - ' .
             auth()->user()->nome . ' realizou a operação de ' .
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
-        // return 'O usuário '.auth()->user()->id.'- '.auth()->user()->nome.' realizou a operação de '.$operacao.
-        //         ' Data e hora'. new DateTime();
     }
 }

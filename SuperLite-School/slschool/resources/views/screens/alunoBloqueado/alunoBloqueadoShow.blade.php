@@ -62,15 +62,18 @@
                                                 @else
                                                     <option value="{{ $inputs['criterio'] }}">
                                                         @if ($inputs['criterio'] == 'id')
-                                                            Código
+                                                            Código do aluno
+                                                        @elseif($inputs['criterio'] == 'nome')
+                                                            Nome do aluno
                                                         @else
-                                                            sala
+                                                            CPF
                                                         @endif
                                                     </option>
                                                 @endempty
 
-                                                <option value="id">Código</option>
-                                                <option value="sala">sala</option>
+                                                <option value="alunos_id">Código do aluno</option>
+                                                <option value="nome">Nome do aluno</option>
+                                                <option value="cpf">CPF</option>
 
                                             </select>
                                         </div>
