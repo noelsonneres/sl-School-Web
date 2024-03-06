@@ -209,15 +209,20 @@ class AlunosBloqueadosController extends Controller
 
         if ($criterio === 'nome' or $criterio === 'cpf') {
 
-            $aluno = Aluno::where($criterio, 'LIKE', '%' . $pesquisa)->get();
-            $pesquisa = $aluno->id;
+            $aluno = Aluno::where($criterio, 'LIKE', '%' . $pesquisa . '%')
+                ->where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')
+                ->first();
+            $pesquisa = $aluno->id ?? 0;
+            $criterio = 'alunos_id';
         }
 
         $bloqueado = $this->bloqueados->where($criterio, 'LIKE', '%' . $pesquisa . '%')
             ->where('empresas_id', auth()->user()->empresas_id)
             ->paginate();
 
-            return view(self::PATH . 'alunoBloqueadoShow', ['bloqueados' => $bloqueado, 'inputs'=>$request->all()]);
+        return view(self::PATH . 'alunoBloqueadoShow', ['bloqueados' => $bloqueado, 'inputs' => $request->all()]);
+        
     }
 
     private function atualizarStatusAluno(string $alunoID, string $status)

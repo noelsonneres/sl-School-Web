@@ -17,7 +17,6 @@
                         </ol>
                     </div>
                     <h4 class="page-title">Alunos bloqueados</h4>
-                    <h1>>>Localizar alunos bloqueados<<</h1>
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex 
@@ -52,7 +51,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="/salasAulas_search" method="get">
+                                <form action="/bloqueados_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
