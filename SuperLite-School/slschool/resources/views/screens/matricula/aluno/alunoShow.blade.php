@@ -140,7 +140,7 @@
                                             </div>
 
                                             <div class="col-2">
-                                                <a href="#"
+                                                <a href="{{route('matricula.show', $aluno->id)}}"
                                                    class="btn btn-primary btn-sm"
                                                    title="Matrículas do aluno">
                                                     <i class="uil-presentation-plus"></i>

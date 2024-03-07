@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriaisEscolaresController;
+use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\ProfessorDisciplinasController;
 use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\ResponsavelAlunosController;
@@ -82,3 +83,5 @@ Route::get('/bloqueados_sel_alunos', [AlunosBloqueadosController::class, 'seleci
 Route::get('/bloqueados_loc_alunos', [AlunosBloqueadosController::class, 'localizarAluno']);
 Route::get('/bloqueados_iniciar/{nome}/{id}', [AlunosBloqueadosController::class, 'iniciarBloqueio']);
 Route::get('/bloqueados_search', [AlunosBloqueadosController::class, 'search']);
+
+Route::resource('matricula', MatriculasController::class);

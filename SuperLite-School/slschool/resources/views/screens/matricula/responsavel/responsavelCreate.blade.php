@@ -105,6 +105,7 @@
 
                                     <div class="col-md-3 mb-4">
                                         <label for="cpf" class="form-label">CPF</label>
+                                        <label class="text-danger" id="cpfValidationMessage"></label>
                                         <input type="text" class="form-control" name="cpf" id="cpf" 
                                             oninput="formatarCPF(this)">
                                     </div>
