@@ -71,11 +71,12 @@
 
                                 @csrf
 
-                                <input type="hidden" name="aluno" value="{{$aluno->id}}">
-                                <input type="hidden" name="responsavel" value="{{$responsavelID}}">
+                                <input type="hidden" name="aluno" value="{{ $aluno->id }}">
+                                <input type="hidden" name="responsavel" value="{{ $responsavelID }}">
 
                                 <div class="card border p-3">
-
+                                    <h4>Informações do aluno</h4>
+                                    <hr>
                                     <div class="row">
 
                                         <div class="col-md-2">
@@ -94,6 +95,7 @@
 
                                 </div>
 
+                                {{-- Informações da matrícula --}}
                                 <div class="row">
 
                                     <div class="col-md-6 mb-4">
@@ -101,9 +103,17 @@
                                         </label>
                                         <select class="form-control" name="curso" id="curso" required>
                                             <option value="">Selecione um curso</option>
+
                                             @foreach ($listaCursos as $lista)
-                                                <option value="{{ $lista->id }}">{{ $lista->curso }}</option>
+                                                <option value="{{ $lista->id }}"
+                                                    data-qtde-parcelas="{{ $lista->qtde_parcelas }}"
+                                                    data-valor-avista="{{ $lista->valor_avista }}"
+                                                    data-valor_com_desconto="{{ $lista->valor_com_desconto }}"
+                                                    data-valor-parcelado="{{ $lista->valor_parcelado }}"
+                                                    data-valor-por-parcela="{{ $lista->valor_por_parcela }}">
+                                                    {{ $lista->curso }}</option>
                                             @endforeach
+
                                         </select>
                                     </div>
 
@@ -111,7 +121,7 @@
                                         <label for="qtdeParcelas" class="form-label">Quantidade parcelas <span
                                                 class="text-danger">*</span> </label>
                                         <input type="number" class="form-control" name="qtdeParcelas" id="qtdeParcelas"
-                                            required>
+                                            onchange="calcular()" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
@@ -126,24 +136,24 @@
                                 <div class="row">
 
                                     <div class="col-md-3 mb-4">
-                                        <label for="valorDesconto" class="form-label">Valor com desconto
+                                        <label for="valorComDesconto" class="form-label">Valor com desconto
                                             <span class="text-danger">*</span> </label>
-                                        <input type="number" class="form-control" name="valorDesconto" id="valorDesconto"
-                                            required>
+                                        <input type="number" class="form-control" name="valorComDesconto"
+                                            id="valorComDesconto" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="valorParcelado" class="form-label">Valor parcelado<span
                                                 class="text-danger">*</span> </label>
                                         <input type="number" class="form-control" name="valorParcelado"
-                                            id="valorParcelado" required>
+                                            id="valorParcelado" onchange="calcular()" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
-                                        <label for="valorPorPacela" class="form-label">Valor por parcela <span
+                                        <label for="valorPorParcela" class="form-label">Valor por parcela <span
                                                 class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="valorPorPacela"
-                                            id="valorPorPacela" required>
+                                        <input type="number" class="form-control" name="valorPorParcela"
+                                            id="valorPorParcela" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
@@ -174,8 +184,8 @@
                                     <div class="col-md-3 mb-4">
                                         <label for="dataInicio" class="form-label">Data de inicio<span
                                                 class="text-danger">*</span></label>
-                                        <input type="date" class="form-control" name="dataInicio"
-                                            id="dataInicio" required>
+                                        <input type="date" class="form-control" name="dataInicio" id="dataInicio"
+                                            onchange="CalcularDatas()" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
@@ -204,7 +214,7 @@
                                         <select class="form-control" name="consultor" id="consultor">
                                             <option value="">Selecione um consultor</option>
                                             @foreach ($listaconsultores as $lista)
-                                                <option value="{{$lista->id}}">{{$lista->nome}}</option>
+                                                <option value="{{ $lista->id }}">{{ $lista->nome }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -236,5 +246,75 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
+
+    <script>
+        function calcular() {
+
+            var qtdeParcelaInput = document.getElementById("qtdeParcelas");
+            var valorParceladoInput = document.getElementById("valorParcelado");
+
+            var qtdeParcela = parseFloat(qtdeParcelaInput.value);
+            var valorParcelado = parseFloat(valorParceladoInput.value);
+
+            if (!isNaN(qtdeParcela) && !isNaN(valorParcelado)) {
+                var resultadoDivisao = valorParcelado / qtdeParcela;
+                document.getElementById("valorPorParcela").value = resultadoDivisao.toFixed(2);
+            }
+        }
+    </script>
+
+    <script>
+        function CalcularDatas() {
+
+            var dataInicioInput = document.getElementById("dataInicio");
+            var duracaoMesesInput = document.getElementById("qtdeParcelas");
+            var dataTerminoInput = document.getElementById("dataPrevisaoTermino");
+
+            var dataInicio = new Date(dataInicioInput.value);
+            var duracaoMeses = parseInt(duracaoMesesInput.value, 10);
+
+            if (isNaN(dataInicio.getTime())) {
+                alert("Data de início inválida");
+                return;
+            }
+
+            if (isNaN(duracaoMeses) || duracaoMeses <= 0) {
+                alert("A quantidade de meses deve ser um número positivo");
+                return;
+            }
+
+            var dataTermino = new Date(dataInicio);
+
+            dataTermino.setMonth(dataTermino.getMonth() + duracaoMeses);
+
+            var ano = dataTermino.getFullYear();
+            var mes = (dataTermino.getMonth() + 1).toString().padStart(2, '0');
+            var dia = dataTermino.getDate().toString().padStart(2, '0');
+
+            var dataTerminoFormatada = ano + '-' + mes + '-' + dia;
+
+            dataTerminoInput.value = dataTerminoFormatada;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#curso').change(function() {
+                var qtde_parcela = $('option:selected', this).data('qtde-parcelas');
+                var valor_avista = $('option:selected', this).data('valor-avista');
+                var valor_com_desconto = $('option:selected', this).data('valor_com_desconto');
+                var valor_parcelado = $('option:selected', this).data('valor-parcelado');
+                var valor_por_parcela = $('option:selected', this).data('valor-por-parcela');
+
+                $('#qtdeParcelas').val(qtde_parcela);
+                $('#valorAVista').val(valor_avista);
+                $('#valorComDesconto').val(valor_com_desconto);
+                $('#valorParcelado').val(valor_com_desconto);
+                $('#valorPorParcela').val(valor_por_parcela);
+
+            });
+        });
+    </script>
 
 @endsection
