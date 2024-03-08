@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
+use App\Models\Consultor;
+use App\Models\Curso;
 use App\Models\Matricula;
+use App\Models\ResponsavelAluno;
 use Illuminate\Http\Request;
 
 class MatriculasController extends Controller
@@ -18,7 +22,6 @@ class MatriculasController extends Controller
 
     public function index()
     {
-        //
     }
 
     public function create()
@@ -34,7 +37,9 @@ class MatriculasController extends Controller
     public function show(string $id)
     {
         $matricula = $this->matricula->where('alunos_id', $id)->paginate();
-        return view(self::PATH.'matriculaShow', ['matriculas'=>$matricula]);
+        $aluno = Aluno::find($id);
+        $responsavel = ResponsavelAluno::where('alunos_id', $id)->first();
+        return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula, 'aluno' => $aluno, 'responsavel'=>$responsavel]);
     }
 
     public function edit(string $id)
@@ -50,5 +55,18 @@ class MatriculasController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function novaMatricula(string $alunoID, string $responsavelID)
+    {
+        $aluno = Aluno::find($alunoID);
+        $listaCursos = Curso::all();
+        $listaConsultores = Consultor::all();
+        return view(self::PATH.'matriculaCreate', [
+                        'aluno'=>$aluno, 
+                        'responsavelID'=>$responsavelID,
+                        'listaCursos'=>$listaCursos,
+                        'listaconsultores'=>$listaConsultores
+                    ]);
     }
 }

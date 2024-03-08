@@ -85,3 +85,4 @@ Route::get('/bloqueados_iniciar/{nome}/{id}', [AlunosBloqueadosController::class
 Route::get('/bloqueados_search', [AlunosBloqueadosController::class, 'search']);
 
 Route::resource('matricula', MatriculasController::class);
+Route::get('matricula_adicionar/{aluno}/{responsavel}', [MatriculasController::class, 'novaMatricula']);
