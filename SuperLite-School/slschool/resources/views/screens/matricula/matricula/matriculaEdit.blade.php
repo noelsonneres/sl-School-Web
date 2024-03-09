@@ -69,6 +69,10 @@
                             <form action="{{ route('matricula.update', $matricula->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
+
+                                <input type="hidden" name="aluno" value="{{ $matricula->alunos->id }}">
+                                <input type="hidden" name="responsavel" value="{{ $matricula->responsvel_id }}">
 
                                 <div class="card border p-3">
                                     <h4>Informações do aluno</h4>
@@ -124,7 +128,7 @@
                                         <label for="valorAVista" class="form-label">Valor a vista
                                             <span class="text-danger">*</span> </label>
                                         <input type="number" class="form-control" name="valorAVista" id="valorAVista"
-                                            step="0.01" min="0.01" required>
+                                            step="0.01" min="0.01" value="{{$matricula->valor_a_vista}}" required>
                                     </div>
 
                                 </div>
@@ -135,7 +139,7 @@
                                         <label for="valorComDesconto" class="form-label">Valor com desconto
                                             <span class="text-danger">*</span> </label>
                                         <input type="number" class="form-control" name="valorComDesconto"
-                                            id="valorComDesconto" step="0.01" min="0.01" required>
+                                            id="valorComDesconto" step="0.01" min="0.01" value="{{$matricula->valor_com_desconto}}" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
@@ -143,21 +147,21 @@
                                                 class="text-danger">*</span> </label>
                                         <input type="number" class="form-control" name="valorParcelado"
                                             id="valorParcelado" step="0.01" min="0.01" onchange="calcular()"
-                                            required>
+                                            value="{{$matricula->valor_parcelado}}" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="valorPorParcela" class="form-label">Valor por parcela <span
                                                 class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="valorPorParcela"
-                                            id="valorPorParcela" step="0.01" min="0.01" required>
+                                            id="valorPorParcela" step="0.01" min="0.01" value="{{$matricula->valor_por_parcela}}" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="vencimento" class="form-label">Vencimento</label><span
                                             class="text-danger">*</span>
                                         <input type="date" class="form-control" name="vencimento" id="vencimento"
-                                            required>
+                                            value="{{$matricula->vencimento}}" required>
                                     </div>
 
                                 </div>
@@ -168,28 +172,28 @@
                                         <label for="valorMatricula" class="form-label">Valor da matrícula <span
                                                 class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="valorMatricula"
-                                            id="valorMatricula" step="0.01" min="0.01" required>
+                                            id="valorMatricula" step="0.01" min="0.01" value="{{$matricula->valor_matricula}}" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="vencimetoMatricula" class="form-label">Vencimento da matrícula<span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="vencimetoMatricula"
-                                            id="vencimetoMatricula" required>
+                                            id="vencimetoMatricula" value="{{$matricula->vencimento_matricula}}" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="dataInicio" class="form-label">Data de inicio<span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="dataInicio" id="dataInicio"
-                                            onchange="CalcularDatas()" required>
+                                            onchange="CalcularDatas()"  value="{{$matricula->data_inicio}}">
                                     </div>
 
                                     <div class="col-md-3 mb-4">
                                         <label for="dataPrevisaoTermino" class="form-label">Previsão de término<span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="dataPrevisaoTermino"
-                                            id="dataPrevisaoTermino" required>
+                                            id="dataPrevisaoTermino" value="{{$matricula->previsao_termino}}" required>
                                     </div>
 
                                 </div>
@@ -199,19 +203,19 @@
                                     <div class="col-md-2 mb-4">
                                         <label for="qtdeDias" class="form-label">Quantidade de dias</label>
                                         <input type="number" class="form-control" name="qtdeDias" id="qtdeDias"
-                                            step="1" min="1">
+                                            step="1" min="1" value="{{$matricula->qtde_dias}}">
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <label for="horasSemana" class="form-label">Horas por semana</label>
                                         <input type="number" class="form-control" name="horasSemana" id="horasSemana"
-                                            step="1" min="1">
+                                            step="1" min="1" value="{{$matricula->horas_semana}}">
                                     </div>
 
                                     <div class="col-md-8 mb-4">
                                         <label for="consultor" class="form-label">Consultor</label>
                                         <select class="form-control" name="consultor" id="consultor">
-                                            <option value="">Selecione um consultor</option>
+                                            <option value="{{$matricula->consultores_id}}">{{$matricula->consultores->nome}}</option>
                                             @foreach ($listaconsultores as $lista)
                                                 <option value="{{ $lista->id }}">{{ $lista->nome }}</option>
                                             @endforeach
@@ -222,7 +226,8 @@
 
                                 <div class="mb-4">
                                     <label for="obs" class="form-label">Observação</label>
-                                    <input type="text" class="form-control" name="obs" id="obs">
+                                    <input type="text" class="form-control" name="obs" id="obs"
+                                        value="{{$matricula->obs}}">
                                 </div>
 
 
