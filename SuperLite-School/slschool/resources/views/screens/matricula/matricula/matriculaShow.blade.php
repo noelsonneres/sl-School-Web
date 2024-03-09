@@ -114,43 +114,35 @@
                         @foreach ($matriculas as $matricula)
                             <tr>
                                 
-                                <td>{{ $$matricula->id }}</td>
-                                <td>{{ $$matricula->alunos->id }}</td>
-                                <td>{{ $$matricula->alunos->nome }}</td>
-                                <td>{{ $$matricula->alunos->curso }}</td>
-                                <td>{{ $$matricula->ativo }}</td>
+                                <td>{{ $matricula->id }}</td>
+                                <td>{{ $matricula->alunos->id }}</td>
+                                <td>{{ $matricula->alunos->nome }}</td>
+                                <td>{{ $matricula->cursos->curso }}</td>
+                                <td>{{ $matricula->ativo }}</td>
 
                                 <td>
                                     <div>
                                         <div class="row">
 
                                             <div class="col-2">
-                                                <a href="{{ route('alunos.edit', $matricula->id) }}"
+                                                <a href="{{route('matricula.edit', $matricula->id)}}"
                                                    class="btn btn-success btn-sm"
-                                                   title="Atualizar informações do aluno">
+                                                   title="Atualizar informações da matrícula">
                                                     <i class="uil-edit-alt"></i>
                                                 </a>
                                             </div>
 
                                             <div class="col-2">
-                                                <a href="{{route('responsavel.show', $matricula->id)}}"
+                                                <a href="#"
                                                    class="btn btn-info btn-sm"
-                                                   title="Dados do responsavel">
-                                                    <i class="uil-user-square"></i>
-                                                </a>
-                                            </div>
-
-                                            <div class="col-2">
-                                                <a href="{{route('matricula.show', $matricula->id)}}"
-                                                   class="btn btn-primary btn-sm"
-                                                   title="Matrículas do aluno">
-                                                    <i class="uil-presentation-plus"></i>
+                                                   title="Painel de matrícula">
+                                                    <i class="uil-web-grid-alt"></i>
                                                 </a>
                                             </div>
 
                                             <div class="col-2">
                                                 <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" title="Excluir as informações do aluno"
+                                                        data-bs-toggle="modal" title="Excluir as informações da matrícula selecionada"
                                                         data-bs-target="#myModal{{ $matricula->id }}">
                                                     <i class="uil-trash-alt"></i>
                                                 </button>

@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl School - Nova matrícula')
+@section('title', 'Sl School - Informações da matrícula')
 @section('content')
 
     <script src="/assets/js/masks.js"></script>
@@ -14,10 +14,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">matriculas</a></li>
-                            <li class="breadcrumb-item active">Nova matrícula</li>
+                            <li class="breadcrumb-item active">Informações da matrícula</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Nova matrícula</h4>
+                    <h4 class="page-title">Informações da matrícula</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -66,12 +66,9 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('matricula.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('matricula.update', $matricula->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
-
-                                <input type="hidden" name="aluno" value="{{ $aluno->id }}">
-                                <input type="hidden" name="responsavel" value="{{ $responsavelID }}">
 
                                 <div class="card border p-3">
                                     <h4>Informações do aluno</h4>
@@ -81,13 +78,13 @@
                                         <div class="col-md-2">
                                             <label for="codAluno" class="form-label">Código do aluno</label>
                                             <input type="text" class="form-control" name="codAluno" id="codAluno"
-                                                value="{{ $aluno->id }}" required>
+                                                value="{{ $matricula->alunos_id }}" readonly>
                                         </div>
 
                                         <div class="col-md-10">
                                             <label for="nome" class="form-label">Nome do aluno</label>
                                             <input type="text" class="form-control" name="nome" id="nome"
-                                                value="{{ $aluno->nome }}" readonly>
+                                                value="{{ $matricula->alunos->nome }}" readonly>
                                         </div>
 
                                     </div>
@@ -101,7 +98,7 @@
                                         <label for="curso" class="form-label">Curso <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control" name="curso" id="curso" required>
-                                            <option value="">Selecione um curso</option>
+                                            <option value="{{$matricula->cursos_id}}">{{$matricula->cursos->curso}}</option>
 
                                             @foreach ($listaCursos as $lista)
                                                 <option value="{{ $lista->id }}"
@@ -120,7 +117,7 @@
                                         <label for="qtdeParcelas" class="form-label">Quantidade parcelas <span
                                                 class="text-danger">*</span> </label>
                                         <input type="number" class="form-control" name="qtdeParcelas" id="qtdeParcelas"
-                                            step="1" min="1" onchange="calcular()" required>
+                                            step="1" min="1" onchange="calcular()" value="{{$matricula->qtde_parcelas}}" required>
                                     </div>
 
                                     <div class="col-md-3 mb-4">
