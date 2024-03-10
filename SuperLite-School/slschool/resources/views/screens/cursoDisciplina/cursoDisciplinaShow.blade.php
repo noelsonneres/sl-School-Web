@@ -88,7 +88,7 @@
 
                             @foreach ($disciplinas as $disciplina)
                                 <tr>
-                                    <td>{{ $disciplina->id }}</td>
+                                    <td>{{ $disciplina->disciplinas->id}}</td>
                                     <td>{{ $disciplina->disciplinas->disciplina }}</td>
                                     <td>{{ $disciplina->disciplinas->duracao_meses }}</td>
                                     <td>{{ $disciplina->disciplinas->carga_horaria }}</td>

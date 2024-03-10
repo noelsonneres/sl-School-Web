@@ -128,7 +128,7 @@
                                                 <div class="col-3">
                                                     <a href="{{route('cursos_disciplinas.show', $curso->id)}}"
                                                         class="btn btn-info btn-sm"
-                                                        title="Disciplinas do cruso">
+                                                        title="Disciplinas do curso">
                                                         <i class="uil-books"></i>
                                                     </a>
                                                 </div>                                                    

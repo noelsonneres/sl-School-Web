@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Consultor;
 use App\Models\Curso;
+use App\Models\CursosDisciplina;
 use App\Models\Matricula;
+use App\Models\MatriculaDisciplina;
 use App\Models\ResponsavelAluno;
 use DateTime;
 use Illuminate\Http\Request;
@@ -32,24 +34,24 @@ class MatriculasController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $matricula = $this->matricula;
 
         $request->validate([
-            'curso'=>'required',
-            'qtdeParcelas'=>'required',
-            'valorAVista'=>'required',
-            'valorComDesconto'=>'required',
-            'valorParcelado'=>'required',
-            'valorPorParcela'=>'required',
-            'vencimento'=>'required',
-            'valorMatricula'=>'required',
-            'vencimetoMatricula'=>'required',
-            'dataInicio'=>'required',
-            'dataPrevisaoTermino'=>'required',
-        ],[
-            'curso.required'=>'Selecione um curso para a matrícula',
-            'qtdeParcelas'=>'Informe um valor valido para o campo Quantidade de parcelas',
+            'curso' => 'required',
+            'qtdeParcelas' => 'required',
+            'valorAVista' => 'required',
+            'valorComDesconto' => 'required',
+            'valorParcelado' => 'required',
+            'valorPorParcela' => 'required',
+            'vencimento' => 'required',
+            'valorMatricula' => 'required',
+            'vencimetoMatricula' => 'required',
+            'dataInicio' => 'required',
+            'dataPrevisaoTermino' => 'required',
+        ], [
+            'curso.required' => 'Selecione um curso para a matrícula',
+            'qtdeParcelas' => 'Informe um valor valido para o campo Quantidade de parcelas',
         ]);
 
         $curso = $request->old('curso');
@@ -94,22 +96,35 @@ class MatriculasController extends Controller
 
             $matricula->save();
 
-            $matricula = $this->matricula->where('alunos_id', $id)->orderBy('id', 'desc')->paginate();
+            $this->matriculasDisciplinas(
+                $request->input('curso'),
+                $request->input('aluno'),
+                $matricula->id
+            );
+
+            $matricula = $this->matricula
+                ->where('alunos_id', $id)
+                ->where('deletado', 'nao')
+                ->orderBy('id', 'desc')
+                ->paginate();
             $aluno = Aluno::find($id);
             $responsavel = ResponsavelAluno::where('alunos_id', $id)->first();
+
             return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula, 'aluno' => $aluno, 'responsavel' => $responsavel])
-                            ->with('msg', 'Matrícula realizada com sucesso!');
-                        
+                ->with('msg', 'Matrícula realizada com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível salvar as informações da Matrícula: ' . $th->getMessage()]);
         }
-
-
     }
 
     public function show(string $id)
     {
-        $matricula = $this->matricula->where('alunos_id', $id)->orderBy('id', 'desc')->paginate();
+        $matricula = $this->matricula
+            ->where('alunos_id', $id)
+            ->where('deletado', 'nao')
+            ->orderBy('id', 'desc')
+            ->paginate();
+
         $aluno = Aluno::find($id);
         $responsavel = ResponsavelAluno::where('alunos_id', $id)->first();
         return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula, 'aluno' => $aluno, 'responsavel' => $responsavel]);
@@ -123,33 +138,32 @@ class MatriculasController extends Controller
         $listaCursos = Curso::all();
         $listaConsultores = Consultor::all();
         return view(self::PATH . 'matriculaEdit', [
-            'matricula'=>$matricula,
+            'matricula' => $matricula,
             'listaCursos' => $listaCursos,
             'listaconsultores' => $listaConsultores
         ]);
-
     }
 
     public function update(Request $request, string $id)
     {
-   
+
         $matricula = $this->matricula->find($id);
 
         $request->validate([
-            'curso'=>'required',
-            'qtdeParcelas'=>'required',
-            'valorAVista'=>'required',
-            'valorComDesconto'=>'required',
-            'valorParcelado'=>'required',
-            'valorPorParcela'=>'required',
-            'vencimento'=>'required',
-            'valorMatricula'=>'required',
-            'vencimetoMatricula'=>'required',
-            'dataInicio'=>'required',
-            'dataPrevisaoTermino'=>'required',
-        ],[
-            'curso.required'=>'Selecione um curso para a matrícula',
-            'qtdeParcelas'=>'Informe um valor valido para o campo Quantidade de parcelas',
+            'curso' => 'required',
+            'qtdeParcelas' => 'required',
+            'valorAVista' => 'required',
+            'valorComDesconto' => 'required',
+            'valorParcelado' => 'required',
+            'valorPorParcela' => 'required',
+            'vencimento' => 'required',
+            'valorMatricula' => 'required',
+            'vencimetoMatricula' => 'required',
+            'dataInicio' => 'required',
+            'dataPrevisaoTermino' => 'required',
+        ], [
+            'curso.required' => 'Selecione um curso para a matrícula',
+            'qtdeParcelas' => 'Informe um valor valido para o campo Quantidade de parcelas',
         ]);
 
 
@@ -180,21 +194,54 @@ class MatriculasController extends Controller
 
             $matricula->save();
 
-            $matricula = $this->matricula->where('alunos_id', $id)->orderBy('id', 'desc')->paginate();
+            $matricula = $this->matricula
+                ->where('alunos_id', $id)
+                ->where('deletado', 'nao')
+                ->orderBy('id', 'desc')
+                ->paginate();
+
             $aluno = Aluno::find($id);
             $responsavel = ResponsavelAluno::where('alunos_id', $id)->first();
             return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula, 'aluno' => $aluno, 'responsavel' => $responsavel])
-                            ->with('msg', 'Sucessso! As informações da matrícula foram atualizadas com sucesso!');
-                        
+                ->with('msg', 'Sucessso! As informações da matrícula foram atualizadas com sucesso!');
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível atualizar as informações da Matrícula: ' . $th->getMessage()]);
         }
-
     }
 
     public function destroy(string $id)
     {
-        //
+
+        $matricula = $this->matricula->find($id);
+
+        if ($matricula->count() >= 1) {
+
+            try {
+
+                $matricula->ativo = 'nao';
+                $matricula->deletado = 'sim';
+                $matricula->auditoria = $this->operacao('Exclusão das informações da matrícula');
+
+                $matricula->save();
+
+                $alunoID = $matricula->alunos_id;
+
+                $matricula = $this->matricula
+                    ->where('alunos_id', $alunoID)
+                    ->where('deletado', 'nao')
+                    ->orderBy('id', 'desc')
+                    ->paginate();
+
+                $aluno = Aluno::find($alunoID);
+                $responsavel = ResponsavelAluno::where('alunos_id', $alunoID)->first();
+                return view(self::PATH . 'matriculaShow', ['matriculas' => $matricula, 'aluno' => $aluno, 'responsavel' => $responsavel])
+                    ->with('msg', 'Sucesso! Matrícula deletada com sucesso!');
+            } catch (\Throwable $th) {
+                return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível excluir as informações da Matrícula: ' . $th->getMessage()]);
+            }
+        } else {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar as informações da Matrícula!']);
+        }
     }
 
     public function novaMatricula(string $alunoID, string $responsavelID)
@@ -210,19 +257,44 @@ class MatriculasController extends Controller
         ]);
     }
 
-    private function matriculasDisciplinas(string $curso)
+    private function matriculasDisciplinas(string $curso, string $aluno, string $matricula)
     {
+
+        $listaDisciplinas = CursosDisciplina::where('cursos_id', $curso)->get();
+
+        foreach ($listaDisciplinas as $lista) {
+
+            $matriculaDisciplinas = new MatriculaDisciplina();
+
+            try {
+
+                $matriculaDisciplinas->empresas_id = auth()->user()->empresas_id;
+                $matriculaDisciplinas->matriculas_id = $matricula;
+                $matriculaDisciplinas->alunos_id = $aluno;
+                $matriculaDisciplinas->cursos_id = $curso;
+                $matriculaDisciplinas->disciplinas_id = $lista->disciplinas_id;
+                $matriculaDisciplinas->concluido = 'nao';
+                $matriculaDisciplinas->obs = '';
+
+                $matriculaDisciplinas->save();
+            } catch (\Throwable $th) {
+                return "ERRO! Não foi possível adicionar as disciplinas à matrícula!";
+            }
+        }
     }
 
     private function matriculasMensalidades()
     {
     }
 
-    private function operacao(String $operacao)
+    private function removerTurmas()
+    {
+    }
+
+    private function operacao(string $operacao)
     {
         return 'O usuário ' . auth()->user()->id . ' - ' .
             auth()->user()->nome . ' realizou a operação de ' .
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
-    }    
-
+    }
 }

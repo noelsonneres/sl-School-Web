@@ -46,6 +46,7 @@
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
                                 <a href="{{ ('/matricula_adicionar/'.$aluno->id.'/'.$responsavel->id) }}" class="btn btn-primary">Nova matrícula</a>
+                                <a href="/alunos" class="btn btn-danger">Voltar</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>
@@ -165,7 +166,7 @@
 
                                                         <div class="modal-body">
                                                             <form method="POST" enctype="multipart/form-data"
-                                                                  action="{{ route('alunos.destroy', $matricula->id) }}">
+                                                                  action="{{ route('matricula.destroy', $matricula->id) }}">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <h3>Tem certeza que deseja deletar o aluno
