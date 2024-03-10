@@ -8,6 +8,7 @@ use App\Models\Curso;
 use App\Models\CursosDisciplina;
 use App\Models\Matricula;
 use App\Models\MatriculaDisciplina;
+use App\Models\Mensalidade;
 use App\Models\ResponsavelAluno;
 use DateTime;
 use Illuminate\Http\Request;
@@ -96,10 +97,34 @@ class MatriculasController extends Controller
 
             $matricula->save();
 
+            $vencimento = new DateTime($request->input('vencimento'));
+            $vencimentoMatricula = new DateTime($request->input('vencimetoMatricula'));
+
             $this->matriculasDisciplinas(
                 $request->input('curso'),
                 $request->input('aluno'),
                 $matricula->id
+            );
+
+            if (!empty($request->input('valorMatricula')) && !empty($request->input('vencimetoMatricula'))) {
+                $this->matriculasMensalidades(
+                    $request->input('aluno'),
+                    $request->input('responsavel'),
+                    $matricula->id,
+                    $matricula->valor_matricula,
+                    '1',
+                    $vencimentoMatricula,
+                    'Mensalidade referente à matrícula do aluno'
+                );
+            }
+
+            $this->matriculasMensalidades(
+                $request->input('aluno'),
+                $request->input('responsavel'),
+                $matricula->id,
+                $matricula->valor_por_parcela,
+                $matricula->qtde_parcelas,
+                $vencimento
             );
 
             $matricula = $this->matricula
@@ -146,6 +171,8 @@ class MatriculasController extends Controller
 
     public function update(Request $request, string $id)
     {
+
+        // CRIAR UM PROCESSO PARA ALTERAR OS CURSOS E MENSALIDADES AO TROCAR DE CURSO
 
         $matricula = $this->matricula->find($id);
 
@@ -283,18 +310,47 @@ class MatriculasController extends Controller
         }
     }
 
-    private function matriculasMensalidades()
-    {
+    private function matriculasMensalidades(
+        string $alunoID,
+        string $responsavelID,
+        string $matriculaID,
+        string $valor,
+        string $qtde,
+        DateTime $vencimento,
+        string $obs = ""
+    ) {
+
+        for ($i = 0; $i < $qtde; $i++) {
+
+            $mensalidade = new Mensalidade();
+
+            $dataVencimento = $vencimento;
+            $dataVencimento->modify('+' . $i . 'months');
+
+            $mensalidade->empresas_id = auth()->user()->empresas_id;
+            $mensalidade->alunos_id = $alunoID;
+            $mensalidade->responsavel_alunos_id = $responsavelID;
+            $mensalidade->matriculas_id = $matriculaID;
+            $mensalidade->valor_parcela = $valor;
+            $mensalidade->numero_mensalidade = $i + 1;
+            $mensalidade->qtde_mensalidade = $qtde;
+            $mensalidade->vencimento = $dataVencimento;
+            $mensalidade->obs = $obs;
+            $mensalidade->auditoria = $this->operacao('Inclusão de mensalidades');
+
+            $mensalidade->save();
+        }
     }
 
-    private function removerTurmas()
+    private function removerTurmas(string $matriculaID)
     {
+        // Criar o  procedimento para excluir as turmas ao delatar uma matrícula
     }
 
     private function operacao(string $operacao)
     {
         return 'O usuário ' . auth()->user()->id . ' - ' .
-            auth()->user()->nome . ' realizou a operação de ' .
+            auth()->user()->nome . ' Opereação: ' .
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
     }
 }

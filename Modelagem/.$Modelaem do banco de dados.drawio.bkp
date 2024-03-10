@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-03-06T23:28:40.407Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="OT4q12y7kU0qYN_R-Lc_" version="23.1.5" type="device">
+<mxfile host="Electron" modified="2024-03-10T17:31:26.726Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="DdMG8fT32rP7Nw5n63AN" version="23.1.5" type="device">
   <diagram id="X-liFEKZv9NLR8DLZPbJ" name="Page-1">
-    <mxGraphModel dx="905" dy="1556" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="957" dy="1582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -112,10 +112,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-46" value="Matricula" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
-          <mxGeometry x="110" y="2250" width="160" height="370" as="geometry" />
+          <mxGeometry x="110" y="2250" width="160" height="380" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-47" value="id&#xa;empresas_id&#xa;alunos_id&#xa;responsavel_alunos_id&#xa;cursos_id&#xa;qtde_parcela&#xa;valor_a_vista&#xa;valor_com_desconto&#xa;valor_parcelado&#xa;valor_por_parcela&#xa;vencimento&#xa;valor_matricula&#xa;vencimento_matricula&#xa;data_inicio&#xa;previsao_termino&#xa;qtde_dias&#xa;horas_semana&#xa;consultores&#xa;status&#xa;funcionario&#xa;obs&#xa;deletado&#xa;auditoria" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-46" vertex="1">
-          <mxGeometry y="30" width="160" height="340" as="geometry" />
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-47" value="id&#xa;empresas_id&#xa;alunos_id&#xa;responsavel_alunos_id&#xa;cursos_id&#xa;qtde_parcela&#xa;valor_a_vista&#xa;valor_com_desconto&#xa;valor_parcelado&#xa;valor_por_parcela&#xa;vencimento&#xa;valor_matricula&#xa;vencimento_matricula&#xa;data_inicio&#xa;previsao_termino&#xa;data_conclusao&#xa;qtde_dias&#xa;horas_semana&#xa;consultores&#xa;status&#xa;funcionario&#xa;obs&#xa;deletado&#xa;auditoria" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-46" vertex="1">
+          <mxGeometry y="30" width="160" height="350" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-48" value="Consultores" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="20" y="670" width="160" height="330" as="geometry" />
@@ -168,10 +168,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-64" value="Mensalidades" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" parent="1" vertex="1">
-          <mxGeometry x="110" y="2790" width="160" height="280" as="geometry" />
+          <mxGeometry x="110" y="2790" width="160" height="340" as="geometry" />
         </mxCell>
-        <mxCell id="nvbjZyCiDaDG4opXZh0n-65" value="id&#xa;empresas_id&#xa;responsavels_id&#xa;matriculas_id&#xa;valor_parcela&#xa;vencimento&#xa;juros&#xa;multa&#xa;desconto&#xa;acrescimo&#xa;valor_pago&#xa;data_pagamento&#xa;pago&#xa;responsavel_pagamento&#xa;funcionario&#xa;observacao" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-64" vertex="1">
-          <mxGeometry y="30" width="160" height="250" as="geometry" />
+        <mxCell id="nvbjZyCiDaDG4opXZh0n-65" value="id&#xa;empresas_id&#xa;alunos_id&#xa;responsavels_id&#xa;matriculas_id&#xa;valor_parcela&#xa;numero_mensalidades&#xa;qtde_mensalidades&#xa;vencimento&#xa;juros&#xa;multa&#xa;desconto&#xa;acrescimo&#xa;valor_pago&#xa;data_pagamento&#xa;pago&#xa;responsavel_pagamento&#xa;funcionario&#xa;observacao&#xa;deletado&#xa;auditoria" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="nvbjZyCiDaDG4opXZh0n-64" vertex="1">
+          <mxGeometry y="30" width="160" height="310" as="geometry" />
         </mxCell>
         <mxCell id="nvbjZyCiDaDG4opXZh0n-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nvbjZyCiDaDG4opXZh0n-47" target="nvbjZyCiDaDG4opXZh0n-64" edge="1">
           <mxGeometry relative="1" as="geometry" />

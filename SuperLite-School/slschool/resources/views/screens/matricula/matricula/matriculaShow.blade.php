@@ -134,7 +134,7 @@
                                             </div>
 
                                             <div class="col-2">
-                                                <a href="#"
+                                                <a href="{{('/dashboard/'.$matricula->id)}}"
                                                    class="btn btn-info btn-sm"
                                                    title="Painel de matrícula">
                                                     <i class="uil-web-grid-alt"></i>

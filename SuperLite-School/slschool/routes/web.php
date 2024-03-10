@@ -6,6 +6,7 @@ use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\ConsultoresController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\CursosDisciplinasController;
+use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\DiasAulasController;
 use App\Http\Controllers\DisciplinasController;
 use App\Http\Controllers\FormasPagamentosController;
@@ -86,3 +87,5 @@ Route::get('/bloqueados_search', [AlunosBloqueadosController::class, 'search']);
 
 Route::resource('matricula', MatriculasController::class);
 Route::get('matricula_adicionar/{aluno}/{responsavel}', [MatriculasController::class, 'novaMatricula']);
+
+Route::get('dashboard/{matriculaID}', [DashBoardController::class, 'index']);
