@@ -49,7 +49,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="#" class="btn btn-primary">Adicionar turma</a>
+                                <a href="{{('/matricula_turmas_disponiveis/'.$matriculaInfo->id)}}" class="btn btn-primary">Adicionar turma</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>

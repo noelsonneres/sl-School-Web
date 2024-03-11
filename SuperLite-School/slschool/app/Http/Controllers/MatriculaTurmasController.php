@@ -55,4 +55,16 @@ class MatriculaTurmasController extends Controller
     {
         //
     }
+
+    public function visualizarTurmas(string $matriculaID){
+
+        $listaTurmas = Turma::paginate();
+        return view(self::PATH.'turmaAdicionar', ['listaTurmas'=>$listaTurmas, 'matriculaID'=>$matriculaID]);
+
+    }
+
+    public function adicionarTurma(string $matricula, string $turma){
+        return "Funcionando";
+    }
+
 }

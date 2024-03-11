@@ -92,3 +92,5 @@ Route::get('matricula_adicionar/{aluno}/{responsavel}', [MatriculasController::c
 Route::get('dashboard/{matriculaID}', [DashBoardController::class, 'index']);
 
 Route::resource('matricula_turmas', MatriculaTurmasController::class);
+Route::get('/matricula_turmas_disponiveis/{matricula}', [MatriculaTurmasController::class, 'visualizarTurmas']);
+Route::get('/matricula_turmas_adicionar/{matricula}/{turma}', [MatriculaTurmasController::class, 'adicionarTurma']);
