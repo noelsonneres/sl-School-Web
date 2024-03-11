@@ -79,13 +79,19 @@
                                     <hr>
                                     <div class="row">
 
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 mb-4">
                                             <label for="codAluno" class="form-label">Código do aluno</label>
                                             <input type="text" class="form-control" name="codAluno" id="codAluno"
                                                 value="{{ $matricula->alunos_id }}" readonly>
                                         </div>
 
-                                        <div class="col-md-10">
+                                        <div class="col-md-2 mb-4">
+                                            <label for="matricula" class="form-label">Matrícula</label>
+                                            <input type="text" class="form-control" name="matricula" id="matricula"
+                                                value="{{$matricula->id}}" readonly>
+                                        </div>
+
+                                        <div class="col-md-8 mb-4">
                                             <label for="nome" class="form-label">Nome do aluno</label>
                                             <input type="text" class="form-control" name="nome" id="nome"
                                                 value="{{ $matricula->alunos->nome }}" readonly>

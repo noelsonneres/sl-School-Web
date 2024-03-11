@@ -20,6 +20,29 @@
                     </div>
                     <h4 class="page-title">Salas de aulas</h4>
 
+                    <div class="row mb-3 ps-3">
+                        <div class="col-md-3">
+                            <h5>Aluno: {{ $matricula->alunos->nome }}</h5>
+                        </div>
+                        <div class="col-md-2">
+                            <h5>Matrícula: {{ $matricula->id }}</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Responsável: {{ $matricula->responsaveis->nome }}</h5>
+                        </div>
+                        <div class="col-md-2">
+                            <h5>Curso: {{ $matricula->cursos->curso }}</h5>
+                        </div>
+                        <div class="col-md-2">
+                            @if ($matricula->ativo == 'sim')
+                                <h5 style="color: green">Situação: {{ $matricula->ativo }}</h5>
+                            @else
+                                <h5 style="color: royalblue">Situação: {{ $matricula->ativo }}</h5>
+                            @endif
+
+                        </div>
+                    </div>
+
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex 
@@ -56,10 +79,11 @@
 
                     <div class="container mb-3">
 
+                        {{-- Menu 1 --}}
                         <div class="row p-3">
 
                             <div class="col-sm-2">
-                                <a href="#" class="link-card">
+                                <a href="{{ route('matricula.edit', $matricula->id) }}" class="link-card">
                                     <div class="card rounded"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <div class="card-body text-center">
@@ -80,8 +104,8 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>          
-                            
+                            </div>
+
                             <div class="col-sm-2">
                                 <a href="#" class="link-card">
                                     <div class="card rounded"
@@ -92,8 +116,8 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>        
-                            
+                            </div>
+
                             <div class="col-sm-2">
                                 <a href="#" class="link-card">
                                     <div class="card rounded"
@@ -104,8 +128,8 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>     
-                            
+                            </div>
+
                             <div class="col-sm-2">
                                 <a href="#" class="link-card">
                                     <div class="card rounded"
@@ -116,8 +140,8 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>                              
-                            
+                            </div>
+
                             <div class="col-sm-2">
                                 <a href="#" class="link-card">
                                     <div class="card rounded"
@@ -128,11 +152,135 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>  
-
-
+                            </div>
 
                         </div>
+
+                        {{-- Fim Menu 1 --}}
+
+                        <hr>
+
+                        {{-- Menu 2 --}}
+
+                        <div class="row">
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Info. Aluno</h3>
+                                            <i class="uil-user" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Responsável</h3>
+                                            <i class="uil-user-square" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        {{-- Fim Menu 2 --}}
+                        <hr>
+                        {{-- Menu 3 --}}
+
+                        <div class="row">
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Frequência</h3>
+                                            <i class="uil-check-square" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Reposição</h3>
+                                            <i class="uil-file-plus-alt" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        {{-- Fim Menu 3 --}}
+
+                        <hr>
+
+                        {{-- Menu 4 --}}
+
+                        <div class="row">
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Cancelar</h3>
+                                            <i class="uil-times-square" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Trancar</h3>
+                                            <i class=" uil-pause-circle" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Finalizar</h3>
+                                            <i class=" uil-check-square" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a href="#" class="link-card">
+                                    <div class="card rounded"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="card-body text-center">
+                                            <h3 style="font-weight: 400;">Reativar</h3>
+                                            <i class="uil-upload" style="font-size: 40px;"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        {{-- Fim Menu 4 --}}
 
 
                     </div>
