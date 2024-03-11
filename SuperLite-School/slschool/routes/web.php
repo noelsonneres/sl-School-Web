@@ -15,6 +15,7 @@ use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\MatriculasController;
+use App\Http\Controllers\MatriculaTurmasController;
 use App\Http\Controllers\ProfessorDisciplinasController;
 use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\ResponsavelAlunosController;
@@ -89,3 +90,5 @@ Route::resource('matricula', MatriculasController::class);
 Route::get('matricula_adicionar/{aluno}/{responsavel}', [MatriculasController::class, 'novaMatricula']);
 
 Route::get('dashboard/{matriculaID}', [DashBoardController::class, 'index']);
+
+Route::resource('matricula_turmas', MatriculaTurmasController::class);

@@ -95,7 +95,7 @@
                             </div>
 
                             <div class="col-sm-2">
-                                <a href="#" class="link-card">
+                                <a href="{{route('matricula_turmas.show', $matricula->id)}}" class="link-card">
                                     <div class="card rounded"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <div class="card-body text-center">
