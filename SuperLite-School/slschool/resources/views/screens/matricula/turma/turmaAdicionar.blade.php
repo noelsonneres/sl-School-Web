@@ -36,117 +36,126 @@
             </div>
         </div>
     </div>
-        <!-- end page title -->
+    <!-- end page title -->
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
 
-                    <div class="row">
-                      
+                <div class="row">
 
-                        <div class="col-md-6">
-                            <div class="pt-3 ps-4">
 
-                                <form action="/salasAulas_search" method="get">
-                                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="pt-3 ps-4">
 
-                                        <div class="col-md-4 mb-3">
-                                            <select class="form-control" name="criterio" id="criterio" required>
-                                                @empty($inputs)
-                                                    <option value="" disabled selected>Critério de pesquisa</option>
-                                                @else
-                                                    <option value="{{ $inputs['criterio'] }}">
-                                                        @if ($inputs['criterio'] == 'id')
-                                                            Código
-                                                        @else
-                                                            sala
-                                                        @endif
-                                                    </option>
-                                                @endempty
+                            <form action="/matricula_turmas_search" method="get">
 
-                                                <option value="id">Código</option>
-                                                <option value="sala">sala</option>
+                                <input type="hidden" name="matricula" value="{{$matriculaID}}">
 
-                                            </select>
-                                        </div>
+                                <div class="row">
 
-                                        <div class="col-md-6 mb-3">
-                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
-                                        </div>
+                                    <div class="col-md-4 mb-3">
+                                        <select class="form-control" name="criterio" id="criterio" required>
+                                            @empty($inputs)
+                                                <option value="" disabled selected>Critério de pesquisa</option>
+                                            @else
+                                                <option value="{{ $inputs['criterio'] }}">
+                                                    @if ($inputs['criterio'] == 'id')
+                                                        Código
+                                                    @elseif($inputs['criterio'] == 'turma')
+                                                        Turma
+                                                    @elseif($inputs['criterio'] == 'dia')
+                                                        Dia
+                                                    @elseif($inputs['criterio'] == 'horario')
+                                                        Horário
+                                                    @endif
+                                                </option>
+                                            @endempty
 
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Pesquisar
-                                            </button>
-                                        </div>
+                                            <option value="id">Cód. Turma</option>
+                                            <option value="turma">Turma</option>
+                                            <option value="dia">Dia</option>
+                                            <option value="horario">Horário</option>
 
+                                        </select>
                                     </div>
-                                </form>
 
-                            </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input class="form-control" type="text" name="pesquisa" id="pesquisa" required
+                                            maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Pesquisar
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+
                         </div>
-
                     </div>
 
-                    <hr>
-                    <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
-                        <thead>
+                </div>
+
+                <hr>
+                <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
+                    <thead>
+                        <tr>
+                            <th>Cód. Turma</th>
+                            <th>Turma</th>
+                            <th>Dias</th>
+                            <th>Horários</th>
+                            <th>Sala</th>
+                            <th>Ativa</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($listaTurmas as $lista)
                             <tr>
-                                <th>Cód. Turma</th>
-                                <th>Turma</th>
-                                <th>Dias</th>
-                                <th>Horários</th>
-                                <th>Sala</th>
-                                <th>Ativa</th>
-                                <th>Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            @foreach ($listaTurmas as $lista)
-                                <tr>
-                                    
-                                    <td>{{ $lista->id }}</td>
-                                    <td>{{ $lista->turma }}</td>
-                                    <td>{{ $lista->dias_aulas->dia }}</td>
-                                    <td>{{ $lista->horarios_aulas->entrada }} - {{ $lista->horarios_aulas->saida }}</td>
-                                    <td>{{ $lista->salas_aulas->sala }}</td>
-                                    <td>{{ $lista->ativa }}</td>
+                                <td>{{ $lista->id }}</td>
+                                <td>{{ $lista->turma }}</td>
+                                <td>{{ $lista->dias_aulas->dia }}</td>
+                                <td>{{ $lista->horarios_aulas->entrada }} - {{ $lista->horarios_aulas->saida }}</td>
+                                <td>{{ $lista->salas_aulas->sala }}</td>
+                                <td>{{ $lista->ativa }}</td>
 
-                                    <td>
-                                        <div>
-                                            <div class="row">
+                                <td>
+                                    <div>
+                                        <div class="row">
 
-                                                <div class="col-2">
-                                                    <a href="{{ ('/matricula_turmas_adicionar/'.$matriculaID.'/'.$lista->id) }}"
-                                                        class="btn btn-success btn-sm"
-                                                        title="Adicionar esta turma à matrícula do aluno">
-                                                        <i class="uil-plus-square"></i>
-                                                    </a>
-                                                </div>
-
+                                            <div class="col-2">
+                                                <a href="{{ '/matricula_turmas_adicionar/' . $matriculaID . '/' . $lista->id }}"
+                                                    class="btn btn-success btn-sm"
+                                                    title="Adicionar esta turma à matrícula do aluno">
+                                                    <i class="uil-plus-square"></i>
+                                                </a>
                                             </div>
 
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
 
-                        </tbody>
-                    </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
 
-                    <!-- Exibir a barra de paginação -->
-                    <div class="row">
-                        <div>
-                            {{ $listaTurmas->links('pagination::pagination') }}
-                        </div>
+                    </tbody>
+                </table>
+
+                <!-- Exibir a barra de paginação -->
+                <div class="row">
+                    <div>
+                        {{ $listaTurmas->links('pagination::pagination') }}
                     </div>
+                </div>
 
-                </div> <!-- end card -->
-            </div> <!-- end col -->
-        </div> <!-- end row -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div> <!-- end row -->
     </div> <!-- end container-fluid -->
 
 @endsection

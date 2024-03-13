@@ -62,6 +62,8 @@
                             <tr>
                                 <th>Cód. Turma</th>
                                 <th>Turma</th>
+                                <th>Dias</th>
+                                <th>horarios</th>
                                 <th>Status</th>
                                 <th>Ação</th>
                             </tr>
@@ -71,20 +73,14 @@
                             @foreach ($turmas as $turma)
                                 <tr>
                                     <td>{{ $turma->turmas_id }}</td>
+                                    <td>{{ $turma->turmas->dias_aulas->dia }}</td>
+                                    <td>{{ $turma->turmas->horarios_aulas->entrada }} - {{ $turma->turmas->horarios_aulas->saida }}</td>
                                     <td>{{ $turma->turmas->turma }}</td>
                                     <td>{{ $turma->turmas->ativa }}</td>
 
                                     <td>
                                         <div>
                                             <div class="row">
-
-                                                <div class="col-2">
-                                                    <a href="{{ route('salasAulas.edit', $turma->id) }}"
-                                                        class="btn btn-success btn-sm"
-                                                        title="Atualizar informações da sala de aula">
-                                                        <i class="uil-edit-alt"></i>
-                                                    </a>
-                                                </div>
 
                                                 <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
