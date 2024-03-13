@@ -40,7 +40,7 @@ class MatriculaTurmasController extends Controller
 
     public function show(string $id)
     {
-        $turmas = $this->turmas->where('matriculas_id', $id)->paginate();
+        $turmas = $this->turmas->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
         $matriculaInfo = Matricula::find($id);
         return view(self::PATH . 'turmaShow', ['turmas' => $turmas, 'matriculaInfo' => $matriculaInfo]);
     }
@@ -52,12 +52,35 @@ class MatriculaTurmasController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
     }
 
     public function destroy(string $id)
     {
-        //
+        $turma = $this->turmas->find($id);
+        $matriculaID = $turma->matriculas_id;
+
+        // dd($turma);
+
+        if ($turma->count() >= 1) {
+
+            try {
+                
+                $turma->delete();
+                $turmas = $this->turmas->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+                $matriculaInfo = Matricula::find($matriculaID);
+                return view(self::PATH . 'turmaShow', ['turmas' => $turmas, 'matriculaInfo' => $matriculaInfo])
+                                ->with('msg', 'Sucesso! Turma deletada com sucesso!');
+
+            } catch (\Throwable $th) {
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['ERRO! Não foi possível excluir as informaçõesda!: '.$th->getMessage()]);
+            }
+        } else {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['ERRO! Não foi possível localizar a turma para exclusão!']);
+        }
     }
 
     public function visualizarTurmas(string $matriculaID)
@@ -80,21 +103,19 @@ class MatriculaTurmasController extends Controller
 
                 $matriculaTurmas->save();
 
-                $turmas = $this->turmas->where('matriculas_id', $matricula)->paginate();
+                $turmas = $this->turmas->where('matriculas_id', $matricula)->orderBy('id', 'desc')->paginate();
                 $matriculaInfo = Matricula::find($matricula);
                 return view(self::PATH . 'turmaShow', ['turmas' => $turmas, 'matriculaInfo' => $matriculaInfo])
                     ->with('msg', 'Sucesso! Turma adicionada com sucesso!');
-
             } else {
                 return redirect()->back()
                     ->withInput()
                     ->withErrors(['ATENÇÃO! A Turma selecionada já esta completa. Tente outra turma!']);
             }
-
-        }else{
+        } else {
             return redirect()->back()
-            ->withInput()
-            ->withErrors(['ATENÇÃO! Esta turma já esta adicionada à matrícula do aluno']);
+                ->withInput()
+                ->withErrors(['ATENÇÃO! Esta turma já esta adicionada à matrícula do aluno']);
         }
     }
 
@@ -126,6 +147,7 @@ class MatriculaTurmasController extends Controller
         $listaTurmas = Turma::where($criterio, 'LIKE', '%' . $pesquisa . '%')
             ->where('empresas_id', auth()->user()->empresas_id)
             ->where('deletado', 'nao')
+            ->orderBy('id', 'desc')
             ->paginate();
 
         return view(self::PATH . 'turmaAdicionar', ['listaTurmas' => $listaTurmas, 'matriculaID' => $matriculaID, 'inputs' => $request->all()]);

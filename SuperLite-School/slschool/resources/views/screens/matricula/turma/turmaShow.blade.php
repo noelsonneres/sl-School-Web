@@ -106,7 +106,7 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('salasAulas.destroy', $turma->id) }}">
+                                                                        action="{{ route('matricula_turmas.destroy', $turma->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia
