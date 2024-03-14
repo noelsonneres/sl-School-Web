@@ -83,6 +83,14 @@
                                             <div class="row">
 
                                                 <div class="col-2">
+                                                    <a href="{{ route('matricula_disciplina.edit', $lista->id) }}"
+                                                        class="btn btn-success btn-sm"
+                                                        title="Atualizar informações horário de aula">
+                                                        <i class="uil-edit-alt"></i>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir sala de aula"
                                                         data-bs-target="#myModal{{ $lista->id }}">

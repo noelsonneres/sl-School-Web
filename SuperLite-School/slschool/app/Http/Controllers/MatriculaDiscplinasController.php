@@ -56,7 +56,9 @@ class MatriculaDiscplinasController extends Controller
     }
 
     public function novaDisciplina(string $matriculaID, string $aluno){
-        $listaDisciplinas = Disciplina::paginate();
+        $listaDisciplinas = Disciplina::where('empresas_id', auth()->user()->empresas_id)
+                                        ->where('deletado', 'nao')
+                                        ->paginate();
         return view(self::PATH.'disciplinasCreate', [
                             'listaDisciplinas'=>$listaDisciplinas, 
                             'matriculaID'=>$matriculaID, 

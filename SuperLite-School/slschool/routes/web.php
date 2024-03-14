@@ -96,5 +96,6 @@ Route::resource('matricula_turmas', MatriculaTurmasController::class);
 Route::get('/matricula_turmas_disponiveis/{matricula}', [MatriculaTurmasController::class, 'visualizarTurmas']);
 Route::get('/matricula_turmas_adicionar/{matricula}/{turma}', [MatriculaTurmasController::class, 'adicionarTurma']);
 Route::get('/matricula_turmas_search', [MatriculaTurmasController::class, 'search']);
+
 Route::resource('matricula_disciplina', MatriculaDiscplinasController::class);
 Route::get('/matricula_disciplina_add/{matricula}/{aluno}', [MatriculaDiscplinasController::class, 'novaDisciplina']);
