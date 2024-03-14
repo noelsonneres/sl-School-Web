@@ -2,63 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disciplina;
+use App\Models\Matricula;
+use App\Models\MatriculaDisciplina;
 use Illuminate\Http\Request;
 
 class MatriculaDiscplinasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    const PATH = 'screens.matricula.disciplina.';
+    private $disciplinas;
+
+    public function __construct()
+    {
+        $this->disciplinas = new MatriculaDisciplina();
+    }
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $disciplinas = $this->disciplinas->where('matriculas_id', $id)->orderBy('id', 'desc')->paginate();
+        $matricula = Matricula::find($id);
+        return view(self::PATH.'disciplinaShow', ['disciplinas'=>$disciplinas, 'matricula'=>$matricula]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
     }
+
+    public function novaDisciplina(string $matriculaID, string $aluno){
+        $listaDisciplinas = Disciplina::paginate();
+        return view(self::PATH.'disciplinasCreate', [
+                            'listaDisciplinas'=>$listaDisciplinas, 
+                            'matriculaID'=>$matriculaID, 
+                            'aluno'=>$aluno]);
+    }
+
 }
