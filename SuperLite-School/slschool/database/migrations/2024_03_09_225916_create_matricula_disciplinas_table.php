@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('empresas_id');
             $table->unsignedBigInteger('matriculas_id');
             $table->unsignedBigInteger('alunos_id');
-            $table->unsignedBigInteger('cursos_id');
+            $table->unsignedBigInteger('cursos_id')->nullable();
             $table->unsignedBigInteger('disciplinas_id');
             $table->date('inicio')->nullable();
             $table->date('termino')->nullable();

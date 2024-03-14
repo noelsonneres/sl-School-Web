@@ -44,12 +44,35 @@
 
                     <div class="row">
 
-                        <div class="col-md-4">
-                            <div class="pt-3 ps-4">
-                                <a href="{{('/matricula_disciplina_add/'.$matricula->id.'/'.$matricula->alunos->nome)}}" class="btn btn-primary">Incluir disciplina</a>
-                                <!-- Button trigger modal -->
-                                <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-                            </div>
+                        <div class="row ps-3 pt-2 pe-3">
+
+                            <form action="{{ route('matricula_disciplina.store') }}" method="post">
+                                @csrf
+    
+                                <input type="hidden" name="aluno" value="{{ $matricula->alunos_id }}">
+                                <input type="hidden" name="matricula" value="{{ $matricula->id }}">
+    
+                                <div>
+                                    <label for="disciplina" class="form-label">Disciplina</label>
+                                    <select class="form-control" name="disciplina" id="disciplina" required>
+                                        <option value="">Selecione uma disciplina</option>
+                                        @foreach ($listaDisciplinas as $lista)
+                                            <option value="{{ $lista->id }}">{{ $lista->disciplina }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+    
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-sm btn-success">Salvar
+                                        <i class="ri-save-3-fill"></i>
+                                    </button>
+                                    <a href="/professores" class="btn btn-sm btn-danger">Cancelar
+                                        <i class=" ri-close-circle-fill"></i>
+                                    </a>
+                                </div>
+    
+                            </form>
+    
                         </div>
 
                     </div>
@@ -73,7 +96,7 @@
 
                                     <td>{{ $lista->disciplinas->id }}</td>
                                     <td>{{ $lista->disciplinas->disciplina }}</td>
-                                    <td>{{ $lista->curso->curso }}</td>
+                                    <td>{{ $lista->curso->curso??'' }}</td>
                                     <td>{{ $lista->inicio }}</td>
                                     <td>{{ $lista->termino }}</td>
                                     <td>{{ $lista->concluido }}</td>
