@@ -70,6 +70,7 @@
                             <form action="{{ route('matricula_disciplina.update', $disciplina->id) }}" method="POST" enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <div class="card p-3">
 
@@ -101,9 +102,53 @@
 
                                 </div>
 
-                                <div>
-                                    <label for="dia" class="form-label">Dia de aula  <span class="text-danger">*</span> </label>
-                                    <input type="text" class="form-control" name="dia" id="dia" maxlength="255" required>
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="disciplina" class="form-label">Disciplina</label>
+                                        <input type="text" class="form-control" name="disciplina"
+                                             id="disciplina" value="{{$disciplina->disciplinas->disciplina}}"
+                                                readonly>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="curso" class="form-label">Curso</label>
+                                        <input type="text" class="form-control" name="curso" id="curso"
+                                            value="{{$disciplina->curso->curso??""}}" readonly>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-4 mb-4">
+                                        <label for="inicio" class="form-label">Início</label>
+                                        <input type="date" class="form-control" name="inicio" id="inicio"
+                                            value="{{$disciplina->inicio}}" required>
+                                    </div>
+
+                                    <div class="col-md-4 mb-4">
+                                        <label for="termino" class="form-label">Término</label>
+                                        <input type="date" class="form-control" name="termino" id="termino" 
+                                            value="{{$disciplina->termino}}">
+                                    </div>
+
+                                    <div class="col-md-4 mb-4">
+                                        <label for="concluido" class="form-label">Concluido?</label>
+                                        <select class="form-control" name="concluido" id="concluido" required>
+                                            <option value="{{$disciplina->concluido}}">{{$disciplina->concluido??""}}</option>
+                                            <option value="iniciado">Iniciado</option>
+                                            <option value="concluido">Concluido</option>
+                                            <option value="cancelado">Canelado</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="obs" class="form-label">Observação</label>
+                                    <input type="text" class="form-control" name="obs" id="obs"
+                                         maxlength="255" value="{{$disciplina->obs}}">
                                 </div>
 
                                 <div class="mt-2">

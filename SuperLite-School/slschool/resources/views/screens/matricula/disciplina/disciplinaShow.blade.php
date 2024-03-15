@@ -18,8 +18,8 @@
                         </ol>
                     </div>
                     <h4 class="page-title">Disciplinas do aluno</h4>
-                    <h5>Aluno: {{$matricula->alunos->nome}}</h5>
-                    <h5 class="mb-3">Matrícula: {{$matricula->id}}</h5>
+                    <h5>Aluno: {{ $matricula->alunos->nome }}</h5>
+                    <h5 class="mb-3">Matrícula: {{ $matricula->id }}</h5>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
@@ -48,10 +48,10 @@
 
                             <form action="{{ route('matricula_disciplina.store') }}" method="post">
                                 @csrf
-    
+
                                 <input type="hidden" name="aluno" value="{{ $matricula->alunos_id }}">
                                 <input type="hidden" name="matricula" value="{{ $matricula->id }}">
-    
+
                                 <div>
                                     <label for="disciplina" class="form-label">Disciplina</label>
                                     <select class="form-control" name="disciplina" id="disciplina" required>
@@ -61,7 +61,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-    
+
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-sm btn-success">Salvar
                                         <i class="ri-save-3-fill"></i>
@@ -70,9 +70,9 @@
                                         <i class=" ri-close-circle-fill"></i>
                                     </a>
                                 </div>
-    
+
                             </form>
-    
+
                         </div>
 
                     </div>
@@ -96,16 +96,27 @@
 
                                     <td>{{ $lista->disciplinas->id }}</td>
                                     <td>{{ $lista->disciplinas->disciplina }}</td>
-                                    <td>{{ $lista->curso->curso??'' }}</td>
-                                    <td>{{ $lista->inicio }}</td>
-                                    <td>{{ $lista->termino }}</td>
+                                    <td>{{ $lista->curso->curso ?? '' }}</td>
+
+                                    @if ($lista->inicio != null)
+                                        <td>{{ date('d/m/Y', strtotime($lista->inicio)) }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+
+                                    @if ($lista->termino != null)
+                                        <td>{{ date('d/m/Y', strtotime($lista->termino)) }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+
                                     <td>{{ $lista->concluido }}</td>
 
                                     <td>
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <a href="{{ route('matricula_disciplina.edit', $lista->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações horário de aula">
@@ -113,7 +124,7 @@
                                                     </a>
                                                 </div>
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir sala de aula"
                                                         data-bs-target="#myModal{{ $lista->id }}">
@@ -136,7 +147,7 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('salasAulas.destroy', $lista->id) }}">
+                                                                        action="{{ route('matricula_disciplina.destroy', $lista->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia

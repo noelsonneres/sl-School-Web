@@ -100,12 +100,74 @@ class MatriculaDiscplinasController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+        $disciplina = $this->disciplinas->find($id);
+
+        $request->validate([
+            'disciplina'=>'required',
+            'inicio'=>'required',
+            'concluido'=>'required',
+        ],[
+            'disciplina.required'=>'Informe uma disciplina',
+            'inicio.required'=>'Informe uma data de início',
+            'concluido.required'=>'Selecione um valor no campo concluido',
+        ]);
+
+        $matriculaID = $request->input('matricula');
+
+        try {
+
+            $disciplina->inicio = $request->input('inicio');
+            $disciplina->termino = $request->input('termino');
+            $disciplina->concluido = $request->input('concluido');
+            $disciplina->obs = $request->input('obs');
+
+            $disciplina->save();
+
+            $disciplinas = $this->disciplinas->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+            $matricula = Matricula::find($matriculaID);
+
+            $listaDisciplinas = Disciplina::where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')->get();
+
+            return view(self::PATH . 'disciplinaShow', [
+                'disciplinas' => $disciplinas,
+                'matricula' => $matricula,
+                'listaDisciplinas' => $listaDisciplinas
+            ])->with('msg', 'Sucesso! As informações da disciplina foram atualizadas com sucesso!');            
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ATENÇÃO! Não foi possível atualizar as informações da disciplina: '.$th->getMessage()]);
+        }
+
     }
 
     public function destroy(string $id)
     {
-        //
+        
+        $disciplina = $this->disciplinas->find($id);
+
+        if($disciplina->count() >= 1){
+
+            $matriculaID = $disciplina->matriculas_id;
+
+            $disciplina->delete();
+
+            $disciplinas = $this->disciplinas->where('matriculas_id', $matriculaID)->orderBy('id', 'desc')->paginate();
+            $matricula = Matricula::find($matriculaID);
+
+            $listaDisciplinas = Disciplina::where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')->get();
+
+            return view(self::PATH . 'disciplinaShow', [
+                'disciplinas' => $disciplinas,
+                'matricula' => $matricula,
+                'listaDisciplinas' => $listaDisciplinas
+            ])->with('msg', 'Sucesso! As informações da disciplina foram excluidas com sucesso!');            
+
+        }else{
+            return redirect()->back()->withInput()->withErrors(['ATENÇÃO! Não foi possível localizar a disciplina!']); 
+        }
+
     }
 
     public function novaDisciplina(string $matriculaID, string $aluno)
