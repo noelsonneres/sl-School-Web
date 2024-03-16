@@ -102,3 +102,4 @@ Route::resource('matricula_disciplina', MatriculaDiscplinasController::class);
 Route::get('/matricula_disciplina_add/{matricula}/{aluno}', [MatriculaDiscplinasController::class, 'novaDisciplina']);
 
 Route::resource('matricula_materiais', MatriculaMateriaisController::class);
+Route::get('/matricula_materiais_adicionar/{matriculaID}', [MatriculaMateriaisController::class, 'adicionarMaterial']);

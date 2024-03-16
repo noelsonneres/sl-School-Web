@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MaterialEscolar;
 use App\Models\Matricula;
 use App\Models\MatriculaMaterial;
 use Illuminate\Http\Request;
@@ -38,32 +39,36 @@ class MatriculaMateriaisController extends Controller
         $material = $this->material
                             ->where('empresas_id', auth()->user()->empresas_id)
                             ->where('deletado', 'nao')
-                            ->where('matrícula_id', $id);
+                            ->where('matriculas_id', $id)
+                            ->paginate();
         $matricula = Matricula::find($id);
         return view(self::PATH.'materialShow', ['materiais'=>$material, 'matricula'=>$matricula]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
     }
+
+    public function adicionarMaterial(string $matriculaID){
+        
+        $matricula = Matricula::find($matriculaID);
+        $listaMaterial = MaterialEscolar::where('empresas_id', auth()->user()->empresas_id)
+                                        ->where('deletado', 'nao')
+                                        ->get();
+                                        
+        return view(self::PATH.'materialCreate', ['matricula'=>$matricula, 'listaMaterial'=>$listaMaterial]);
+
+    }
+
 }

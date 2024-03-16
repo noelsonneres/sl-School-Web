@@ -19,6 +19,11 @@
                     </div>
                     <h4 class="page-title">Materiais escolares do aluno</h4>
 
+                    <div class="mb-3">
+                        <h5>Aluno: {{$matricula->alunos->nome}}</h5>
+                        <h5>Matrícula: {{$matricula->id}}</h5>
+                    </div>
+
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex 
@@ -44,7 +49,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('diasAula.create') }}" class="btn btn-primary">Novo</a>
+                                <a href="{{('/matricula_materiais_adicionar/'.$matricula->id) }}" class="btn btn-primary">Incluir material</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>
@@ -98,16 +103,25 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Dias</th>
+                                <th>Material</th>
+                                <th>Valor UN</th>
+                                <th>Qtde</th>
+                                <th>Total</th>
+                                <th>Pago</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($dias as $dia)
+                            @foreach ($materiais as $material)
                                 <tr>
-                                    <td>{{ $dia->id }}</td>
-                                    <td>{{ $dia->dia }}</td>
+
+                                    <td>{{ $material->id }}</td>
+                                    <td>{{ $material->materiais->material }}</td>
+                                    <td>{{ $material->valor_un }}</td>
+                                    <td>{{ $material->qtde }}</td>
+                                    <td>{{ $material->valor_total }}</td>
+                                    <td>{{ $material->pago }}</td>
 
                                     <td>
                                         <div>
@@ -178,7 +192,7 @@
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $dias->links('pagination::pagination') }}
+                            {{ $materiais->links('pagination::pagination') }}
                         </div>
                     </div>
 
