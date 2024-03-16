@@ -14,7 +14,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Cadastro base</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Matrícula</a></li>
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="col-sm-2">
-                                <a href="#" class="link-card">
+                                <a href="{{route('matricula_materiais.show', $matricula->id)}}" class="link-card">
                                     <div class="card rounded"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <div class="card-body text-center">

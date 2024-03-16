@@ -15,6 +15,7 @@ use App\Http\Controllers\HorariosAulasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\MatriculaDiscplinasController;
+use App\Http\Controllers\MatriculaMateriaisController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\MatriculaTurmasController;
 use App\Http\Controllers\ProfessorDisciplinasController;
@@ -99,3 +100,5 @@ Route::get('/matricula_turmas_search', [MatriculaTurmasController::class, 'searc
 
 Route::resource('matricula_disciplina', MatriculaDiscplinasController::class);
 Route::get('/matricula_disciplina_add/{matricula}/{aluno}', [MatriculaDiscplinasController::class, 'novaDisciplina']);
+
+Route::resource('matricula_materiais', MatriculaMateriaisController::class);
