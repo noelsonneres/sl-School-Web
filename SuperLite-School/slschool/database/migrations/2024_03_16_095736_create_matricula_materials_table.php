@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('qtde');
             $table->float('valor_total');
             $table->string('pago')->default('nao');
+            $table->string('parcela_gerada')->default('nao');
             $table->string('observacao')->nullable();
             $table->integer('funcionario')->nullable();
             $table->string('deletado')->default('nao');

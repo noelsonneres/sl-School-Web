@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MaterialEscolar;
 use App\Models\Matricula;
 use App\Models\MatriculaMaterial;
+use App\Models\Mensalidade;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -67,6 +68,7 @@ class MatriculaMateriaisController extends Controller
             $materiais->qtde = $request->input('qtde');
             $materiais->valor_total = $request->input('valorTotal');
             $materiais->pago = $request->input('pago');
+            $materiais->parcela_gerada = 'nao';
             $materiais->observacao = $request->input('obs');
             $materiais->funcionario = auth()->user()->id;
             $materiais->deletado = 'nao';
@@ -130,4 +132,99 @@ class MatriculaMateriaisController extends Controller
             auth()->user()->nome . ' realizou a operação de ' .
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
     }
+
+    public function gerarParcela(string $materialID)
+    {
+        $material = $this->material->find($materialID);
+        if($material->parcela_gerada === 'nao'){
+            return view(self::PATH . 'confirmarParcela', ['material' => $material]);
+        }else{
+            return redirect()->back()->withInput()->withErrors(['ERRO! A parcela para este material já foi gerada!']);            
+        }
+        
+    }
+
+    public function gerarParcelas(string $matriculaID)
+    {
+        // SOMAR TODOS OS VALORES DOS MATERIAIS E GERAR AS PARCELAS
+    }
+
+    public function incluirParcelas(Request $request)
+    {
+
+        $request->validate([
+            'valor' => 'required',
+            'qtde' => 'required',
+            'vencimento' => 'required',
+            'valorParcela' => 'required',
+            'aluno' => 'required',
+            'matricula' => 'required',
+            'responsavel' => 'required',
+        ], [
+            'valor.required' => 'O campo Valor é obrigatório',
+            'qtde.required' => 'O campo Quantidade parcelas é obrigatório',
+            'vencimento.required' => 'O campo Vencimento é obrigatório',
+            'valorParcela.required' => 'O campo Total por parcela é obrigatório',
+            'aluno.required' => 'Selecione um aluno',
+            'matricula.required' => 'Selecione uma matrícula',
+            'responsavel.required' => 'Selecione um responsável',
+        ]);
+
+        $valor = $request->old('valor');
+        $qtde = $request->old('qtde');
+        $vencimento = $request->old('vencimento');
+        $valorParcela = $request->old('valorParcela');
+
+        $valorMaterial = $request->input('valor');
+        $qtdeMaterial = $request->input('qtde');
+        $vencimentoMaterial = $request->input('vencimento');
+        $valorParcelaMaterial = $request->input('valorParcela');
+        $aluno = $request->input('aluno');
+        $matricula = $request->input('matricula');
+        $responsavel = $request->input('responsavel');
+
+        $vencimento = new DateTime($vencimentoMaterial);
+
+        // dd($request);
+
+        try {
+
+            for ($i = 0; $i < $qtde; $i++) {
+
+                $mensalidade = new Mensalidade();
+
+                $vencimentoMaterial = $vencimento;
+                $vencimentoMaterial->modify('+' . $i . 'months');
+
+                $mensalidade->empresas_id = auth()->user()->empresas_id;
+                $mensalidade->alunos_id = $aluno;
+                $mensalidade->responsavel_alunos_id = $responsavel;
+                $mensalidade->matriculas_id = $matricula;
+                $mensalidade->valor_parcela = $valor;
+                $mensalidade->numero_mensalidade = $i + 1;
+                $mensalidade->qtde_mensalidade = $qtde;
+                $mensalidade->vencimento = $vencimentoMaterial;
+                $mensalidade->obs = $request->input('obs');
+                $mensalidade->auditoria = $this->operacao('Inclusão de mensalidades');
+
+                $mensalidade->save();
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível gerar as parcelas referentes aos materiais: ' . $th->getMessage()]);
+        }
+
+        $material = $this->material
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->where('matriculas_id', $matricula)
+            ->paginate();
+        $matricula = Matricula::find($matricula);
+        return view(self::PATH . 'materialShow', ['materiais' => $material, 'matricula' => $matricula])
+            ->with('msg', 'parcela gerada com sucesso!');
+    }
+
+    public function atualizarMateriaisEscolares(string $materialID){
+        
+    }
+
 }

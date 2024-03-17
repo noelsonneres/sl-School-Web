@@ -119,9 +119,9 @@
 
                                     <td>{{ $material->id }}</td>
                                     <td>{{ $material->materiais->material }}</td>
-                                    <td>{{ $material->valor_un }}</td>
+                                    <td>R$ {{ number_format($material->valor_un, '2', ',', '.') }}</td>
                                     <td>{{ $material->qtde }}</td>
-                                    <td>{{ $material->valor_total }}</td>
+                                    <td>R$  {{ number_format($material->valor_total, '2', ',', '.')}}</td>
                                     <td>{{ $material->pago }}</td>
 
                                     <td>
@@ -129,18 +129,10 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('matricula_materiais.edit', $material->id) }}"
-                                                        class="btn btn-success btn-sm"
-                                                        title="Atualizar informações do dia de aula">
-                                                        <i class="uil-edit-alt"></i>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-2">
-                                                    <a href="#"
+                                                    <a href="{{('/matricula_materiais_parcela/'.$material->id)}}"
                                                         class="btn btn-info btn-sm"
                                                         title="Gerar parcelas indidual">
-                                                        <i class="uil-edit-alt"></i>
+                                                        <i class="uil-money-stack"></i>
                                                     </a>
                                                 </div>                                                
 

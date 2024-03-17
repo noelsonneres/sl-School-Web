@@ -103,3 +103,5 @@ Route::get('/matricula_disciplina_add/{matricula}/{aluno}', [MatriculaDiscplinas
 
 Route::resource('matricula_materiais', MatriculaMateriaisController::class);
 Route::get('/matricula_materiais_adicionar/{matriculaID}', [MatriculaMateriaisController::class, 'adicionarMaterial']);
+Route::get('/matricula_materiais_parcela/{id}', [MatriculaMateriaisController::class, 'gerarParcela']);
+Route::post('/matricula_materiais_ad_parcela', [MatriculaMateriaisController::class, 'incluirParcelas']);
