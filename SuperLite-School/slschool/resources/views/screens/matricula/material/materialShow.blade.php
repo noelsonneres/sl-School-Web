@@ -50,6 +50,7 @@
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
                                 <a href="{{('/matricula_materiais_adicionar/'.$matricula->id) }}" class="btn btn-primary">Incluir material</a>
+                                <a href="#" class="btn btn-info">Gerar parcelas</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>
@@ -128,7 +129,7 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="{{ route('diasAula.edit', $dia->id) }}"
+                                                    <a href="{{ route('matricula_materiais.edit', $material->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações do dia de aula">
                                                         <i class="uil-edit-alt"></i>
@@ -136,21 +137,29 @@
                                                 </div>
 
                                                 <div class="col-2">
+                                                    <a href="#"
+                                                        class="btn btn-info btn-sm"
+                                                        title="Gerar parcelas indidual">
+                                                        <i class="uil-edit-alt"></i>
+                                                    </a>
+                                                </div>                                                
+
+                                                <div class="col-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $dia->id }}"
+                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $material->id }}"
                                                             title="Exluir dia de aula">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $dia->id }}" tabindex="-1"
-                                                        aria-labelledby="myModalLabel{{ $dia->id }}"
+                                                    <div class="modal fade" id="myModal{{ $material->id }}" tabindex="-1"
+                                                        aria-labelledby="myModalLabel{{ $material->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $dia->id }}">Deseja
+                                                                        id="myModalLabel{{ $material->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
@@ -158,7 +167,7 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('diasAula.destroy', $dia->id) }}">
+                                                                        action="{{ route('matricula_materiais.destroy', $material->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <h3>Tem certeza que deseja deletar o dia
