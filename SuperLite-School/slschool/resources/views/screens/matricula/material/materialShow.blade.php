@@ -50,7 +50,7 @@
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
                                 <a href="{{('/matricula_materiais_adicionar/'.$matricula->id) }}" class="btn btn-primary">Incluir material</a>
-                                <a href="#" class="btn btn-info">Gerar parcelas</a>
+                                <a href="{{('/matricula_materiais_parcelas/'.$matricula->id)}}" class="btn btn-info">Gerar parcelas</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>

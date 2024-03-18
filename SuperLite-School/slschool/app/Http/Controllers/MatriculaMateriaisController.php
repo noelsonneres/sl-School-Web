@@ -146,7 +146,16 @@ class MatriculaMateriaisController extends Controller
 
     public function gerarParcelas(string $matriculaID)
     {
-        // SOMAR TODOS OS VALORES DOS MATERIAIS E GERAR AS PARCELAS
+
+        $materiais = $this->material
+                                    ->where('matriculas_id', $matriculaID)
+                                    ->where('parcela_gerada', 'nao')
+                                    ->sum('valor_total');
+
+         $matricula = Matricula::find($matriculaID);
+         dd($materiais);
+         
+        // confirmarParcelas
     }
 
     public function incluirParcelas(Request $request)
