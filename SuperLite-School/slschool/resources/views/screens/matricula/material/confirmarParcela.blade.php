@@ -75,6 +75,7 @@
                                 <input type="hidden" name="aluno" value="{{$material->alunos_id}}">
                                 <input type="hidden" name="matricula" value="{{$material->matriculas_id}}">
                                 <input type="hidden" name="responsavel" value="{{$material->responsavel_alunos_id}}">
+                                <input type="hidden" name="material" value="{{$material->id}}">
 
                                 {{-- Info Aluno --}}
                                 <div class="card mb-4">
@@ -96,7 +97,7 @@
 
                                         <div class="col-md-8 mb-4">
                                             <label for="aluno" class="form-label">Nome</label>
-                                            <input type="text" class="form-control" name="aluno" id="aluno"
+                                            <input type="text" class="form-control" id="aluno"
                                                 value="{{ $material->alunos->nome }}" readonly>
                                         </div>
 

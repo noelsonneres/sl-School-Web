@@ -136,7 +136,7 @@ class MatriculaMateriaisController extends Controller
     public function gerarParcela(string $materialID)
     {
         $material = $this->material->find($materialID);
-        if($material->parcela_gerada === 'nao'){
+        if($material->parcela_gerada === 'sim'){
             return view(self::PATH . 'confirmarParcela', ['material' => $material]);
         }else{
             return redirect()->back()->withInput()->withErrors(['ERRO! A parcela para este material já foi gerada!']);            
@@ -176,12 +176,13 @@ class MatriculaMateriaisController extends Controller
         $valorParcela = $request->old('valorParcela');
 
         $valorMaterial = $request->input('valor');
-        $qtdeMaterial = $request->input('qtde');
+        $qtde = $request->input('qtde');
         $vencimentoMaterial = $request->input('vencimento');
         $valorParcelaMaterial = $request->input('valorParcela');
         $aluno = $request->input('aluno');
         $matricula = $request->input('matricula');
         $responsavel = $request->input('responsavel');
+        $materialID = $request->input('material');
 
         $vencimento = new DateTime($vencimentoMaterial);
 
@@ -200,18 +201,22 @@ class MatriculaMateriaisController extends Controller
                 $mensalidade->alunos_id = $aluno;
                 $mensalidade->responsavel_alunos_id = $responsavel;
                 $mensalidade->matriculas_id = $matricula;
-                $mensalidade->valor_parcela = $valor;
+                $mensalidade->valor_parcela = $valorParcelaMaterial;
                 $mensalidade->numero_mensalidade = $i + 1;
                 $mensalidade->qtde_mensalidade = $qtde;
                 $mensalidade->vencimento = $vencimentoMaterial;
-                $mensalidade->obs = $request->input('obs');
+                $mensalidade->obs = 'Mensalidade referente ao material do aluno';
                 $mensalidade->auditoria = $this->operacao('Inclusão de mensalidades');
 
                 $mensalidade->save();
+
             }
+
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível gerar as parcelas referentes aos materiais: ' . $th->getMessage()]);
         }
+
+        $this->atualizarMateriaisEscolares($materialID);
 
         $material = $this->material
             ->where('empresas_id', auth()->user()->empresas_id)
@@ -225,6 +230,15 @@ class MatriculaMateriaisController extends Controller
 
     public function atualizarMateriaisEscolares(string $materialID){
         
+        $material = $this->material->find($materialID);
+
+        try {
+            $material->parcela_gerada = 'sim';
+            $material->save();
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível atualizar o status do material: ' . $th->getMessage()]);
+        }
+
     }
 
 }
