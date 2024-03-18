@@ -247,6 +247,11 @@
                                 <li>
                                     <a href="/alunos">Alunos</a>
                                 </li>
+
+                                <li>
+                                    <a href="/matricula">Matrículas</a>
+                                </li>
+                                
                                 <li>
                                     <a href="/bloqueados">Alunos Bloqueados</a>
                                 </li>

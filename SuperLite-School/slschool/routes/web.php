@@ -107,3 +107,4 @@ Route::get('/matricula_materiais_parcela/{id}', [MatriculaMateriaisController::c
 Route::post('/matricula_materiais_ad_parcela', [MatriculaMateriaisController::class, 'incluirParcelas']);
 
 Route::get('/matricula_materiais_parcelas/{matriculaID}', [MatriculaMateriaisController::class, 'gerarParcelas']);
+Route::post('/matricula_materiais_ad_parcelas', [MatriculaMateriaisController::class, 'incluirParcelasLote']);

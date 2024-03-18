@@ -26,6 +26,12 @@ class MatriculasController extends Controller
 
     public function index()
     {
+        $matriculas = $this->matricula
+                                    ->where('empresas_id', auth()->user()->empresas_id)
+                                    ->where('deletado', 'nao')
+                                    ->orderBy('id', 'desc')
+                                    ->paginate();
+        return view('screens.matricula.dashboard.listarMatriculas', ['matriculas'=>$matriculas]);
     }
 
     public function create()

@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-2">
                             @if ($matricula->ativo == 'sim')
-                                <h5 style="color: green">Situação: {{ $matricula->ativo }}</h5>
+                                <h5 style="color: green">Ativa?: {{ $matricula->ativo }}</h5>
                             @else
                                 <h5 style="color: royalblue">Situação: {{ $matricula->ativo }}</h5>
                             @endif

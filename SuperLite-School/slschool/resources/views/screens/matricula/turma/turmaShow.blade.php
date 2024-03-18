@@ -73,9 +73,9 @@
                             @foreach ($turmas as $turma)
                                 <tr>
                                     <td>{{ $turma->turmas_id }}</td>
+                                    <td>{{ $turma->turmas->turma }}</td>
                                     <td>{{ $turma->turmas->dias_aulas->dia }}</td>
                                     <td>{{ $turma->turmas->horarios_aulas->entrada }} - {{ $turma->turmas->horarios_aulas->saida }}</td>
-                                    <td>{{ $turma->turmas->turma }}</td>
                                     <td>{{ $turma->turmas->ativa }}</td>
 
                                     <td>
