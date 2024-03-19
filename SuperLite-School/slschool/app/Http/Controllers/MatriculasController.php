@@ -12,6 +12,7 @@ use App\Models\Mensalidade;
 use App\Models\ResponsavelAluno;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MatriculasController extends Controller
 {
@@ -27,11 +28,11 @@ class MatriculasController extends Controller
     public function index()
     {
         $matriculas = $this->matricula
-                                    ->where('empresas_id', auth()->user()->empresas_id)
-                                    ->where('deletado', 'nao')
-                                    ->orderBy('id', 'desc')
-                                    ->paginate();
-        return view('screens.matricula.dashboard.listarMatriculas', ['matriculas'=>$matriculas]);
+            ->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->orderBy('id', 'desc')
+            ->paginate();
+        return view('screens.matricula.dashboard.listarMatriculas', ['matriculas' => $matriculas]);
     }
 
     public function create()
@@ -288,6 +289,44 @@ class MatriculasController extends Controller
             'listaCursos' => $listaCursos,
             'listaconsultores' => $listaConsultores
         ]);
+    }
+
+    public function search(Request $request)
+    {
+
+        $request->validate([
+            'criterio' => 'required',
+            'pesquisa' => 'required',
+        ], [
+            'criterio.required' => 'Selecione um criterio de pesquisa',
+            'pesquisa.required' => 'Digite o que deseja pesquisar',
+        ]);
+
+        $criterio = $request->input('criterio') ?? 'id';
+        $pesquisa = $request->input('pesquisa');
+
+        if ($criterio == 'nome') {
+            $aluno = Aluno::where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')
+                ->where('nome', 'LIKE', '%' . $pesquisa . '%')
+                ->first();
+            $criterio = 'alunos_id';
+            $pesquisa = $aluno->id;
+        } else if ($criterio == 'cpf') {
+            $aluno = Aluno::where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')
+                ->where('cpf', 'LIKE', '%' . $pesquisa . '%')
+                ->first();
+            $criterio = 'alunos_id';
+            $pesquisa = $aluno->id;
+        }
+
+        $matricula = $this->matricula->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
+            ->paginate();
+        return view('screens.matricula.dashboard.listarMatriculas', ['matriculas' => $matricula, 
+                                                'inputs'=>$request->all()]);
     }
 
     private function matriculasDisciplinas(string $curso, string $aluno, string $matricula)

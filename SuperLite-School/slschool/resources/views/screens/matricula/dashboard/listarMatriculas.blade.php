@@ -52,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="#" method="get">
+                                <form action="{{('/matricula_localizar')}}" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">

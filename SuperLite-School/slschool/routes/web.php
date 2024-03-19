@@ -90,6 +90,7 @@ Route::get('/bloqueados_search', [AlunosBloqueadosController::class, 'search']);
 
 Route::resource('matricula', MatriculasController::class);
 Route::get('matricula_adicionar/{aluno}/{responsavel}', [MatriculasController::class, 'novaMatricula']);
+Route::get('/matricula_localizar', [MatriculasController::class, 'search']);
 
 Route::get('dashboard/{matriculaID}', [DashBoardController::class, 'index']);
 
