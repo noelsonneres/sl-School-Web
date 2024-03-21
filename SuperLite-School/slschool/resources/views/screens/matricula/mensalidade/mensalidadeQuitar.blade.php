@@ -147,6 +147,30 @@
                                                value="{{$juros['valorJuros']}}" readonly>
                                         </div>
 
+                                        <div class="col-md-3 mb-4">
+                                            <label for="multa" class="form-label">Multa</label>
+                                            <input type="text" class="form-control" name="multa" id="multa"
+                                                value="{{$juros['multa']}}" readonly>
+                                        </div>
+
+                                        <div class="col-md-3 mb-4">
+                                            <label for="desconto" class="form-label">Desconto</label>
+                                            <input type="number" class="form-control" step="0.01" min="0.01"
+                                                 name="desconto" id="desconto">
+                                        </div>
+
+                                        <div class="col-md-3 mb-4">
+                                            <label for="acrescimo" class="form-label">Acréscimo</label>
+                                            <input type="number" class="form-control" step="0.01" min="0.01"
+                                                 name="acrescimo" id="acrescimo">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        
+
                                     </div>
 
                                 </div>

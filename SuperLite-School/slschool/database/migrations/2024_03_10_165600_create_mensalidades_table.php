@@ -29,6 +29,7 @@ return new class extends Migration
             $table->float('valor_pago')->nullable();
             $table->date('data_pagamento')->nullable();
             $table->string('pago')->default('nao');
+            $table->unsignedBigInteger('formas_pagamentos_id')->nullable();
             $table->string('responsavel_pagamento')->nullable();
             $table->integer('funcionario')->nullable();
             $table->string('obs')->nullable();
@@ -58,7 +59,11 @@ return new class extends Migration
                 
                 $table->foreign('responsavel_alunos_id')
                 ->references('id')
-                ->on('responsavel_alunos');                 
+                ->on('responsavel_alunos');       
+                
+                $table->foreign('formas_pagamentos_id')
+                ->references('id')
+                ->on('formas_pagamentos');                  
 
             $table->timestamps();
         });
