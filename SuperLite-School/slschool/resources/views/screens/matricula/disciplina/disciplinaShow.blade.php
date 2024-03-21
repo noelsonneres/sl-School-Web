@@ -66,7 +66,7 @@
                                     <button type="submit" class="btn btn-sm btn-success">Salvar
                                         <i class="ri-save-3-fill"></i>
                                     </button>
-                                    <a href="/professores" class="btn btn-sm btn-danger">Cancelar
+                                    <a href="{{('/dashboard/'.$matricula->id)}}" class="btn btn-sm btn-danger">Cancelar
                                         <i class=" ri-close-circle-fill"></i>
                                     </a>
                                 </div>

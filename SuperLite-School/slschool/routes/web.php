@@ -18,6 +18,7 @@ use App\Http\Controllers\MatriculaDiscplinasController;
 use App\Http\Controllers\MatriculaMateriaisController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\MatriculaTurmasController;
+use App\Http\Controllers\MensalidadeController;
 use App\Http\Controllers\ProfessorDisciplinasController;
 use App\Http\Controllers\ProfessoresController;
 use App\Http\Controllers\ResponsavelAlunosController;
@@ -89,7 +90,7 @@ Route::get('/bloqueados_iniciar/{nome}/{id}', [AlunosBloqueadosController::class
 Route::get('/bloqueados_search', [AlunosBloqueadosController::class, 'search']);
 
 Route::resource('matricula', MatriculasController::class);
-Route::get('matricula_adicionar/{aluno}/{responsavel}', [MatriculasController::class, 'novaMatricula']);
+Route::get('matricula_adicionar/{aluno}', [MatriculasController::class, 'novaMatricula']);
 Route::get('/matricula_localizar', [MatriculasController::class, 'search']);
 
 Route::get('dashboard/{matriculaID}', [DashBoardController::class, 'index']);
@@ -109,3 +110,6 @@ Route::post('/matricula_materiais_ad_parcela', [MatriculaMateriaisController::cl
 
 Route::get('/matricula_materiais_parcelas/{matriculaID}', [MatriculaMateriaisController::class, 'gerarParcelas']);
 Route::post('/matricula_materiais_ad_parcelas', [MatriculaMateriaisController::class, 'incluirParcelasLote']);
+
+Route::resource('mensalidades', MensalidadeController::class);
+Route::get('mensalidades_quitar/{id}', [MensalidadeController::class, 'quitarMensalidade']);

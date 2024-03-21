@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Sl-School - Materiais escolares do aluno')
+@section('title', 'Sl-School - Mensalidades do aluno')
 @section('content')
 
     <!-- Start Content -->
@@ -12,21 +12,16 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Matrícula</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Matrículas</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Materiais escolares</li>
+                            <li class="breadcrumb-item active">Mensalidades</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Materiais escolares do aluno</h4>
-
-                    <div class="mb-3">
-                        <h5>Aluno: {{$matricula->alunos->nome}}</h5>
-                        <h5>Matrícula: {{$matricula->id}}</h5>
-                    </div>
+                    <h4 class="page-title">Mensalidades do aluno</h4>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
-                        <div class="alert alert-warning alert-dismissible fade show msg d-flex 
+                        <div class="alert alert-warning alert-dismissible fade show msg d-flex
                                 justify-content-between align-items-end mb-3"
                             role="alert" style="text-align: center;">
                             <h5>{{ $msg }} </h5>
@@ -47,10 +42,10 @@
 
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{('/matricula_materiais_adicionar/'.$matricula->id) }}" class="btn btn-primary">Incluir material</a>
-                                <a href="{{('/matricula_materiais_parcelas/'.$matricula->id)}}" class="btn btn-info">Gerar parcelas</a>
+                                <a href="#" class="btn btn-primary">Adicionar mensalidade</a>
+                                <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                                 <a href="{{('/dashboard/'.$matricula->id)}}" class="btn btn-danger">Voltar</a>
                             </div>
@@ -59,7 +54,8 @@
                         <div class="col-md-6">
                             <div class="pt-3 ps-4">
 
-                                <form action="/dias_search" method="get">
+                                {{-- Formulário de pesquisa --}}
+                                <form action="/turmas_search" method="get">
                                     <div class="row">
 
                                         <div class="col-md-4 mb-3">
@@ -71,20 +67,20 @@
                                                         @if ($inputs['criterio'] == 'id')
                                                             Código
                                                         @else
-                                                            Dia
+                                                            Turma
                                                         @endif
                                                     </option>
                                                 @endempty
 
                                                 <option value="id">Código</option>
-                                                <option value="dia">Dia</option>
+                                                <option value="Turma">Turma</option>
 
                                             </select>
                                         </div>
 
                                         <div class="col-md-6 mb-3">
                                             <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{$inputs['pesquisa']??""}}">
+                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
@@ -98,61 +94,77 @@
 
                             </div>
                         </div>
-
                     </div>
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Material</th>
-                                <th>Valor UN</th>
-                                <th>Qtde</th>
-                                <th>Total</th>
+                                <th>Aluno</th>
+                                <th>Matrícula</th>
+                                <th>Valor</th>
+                                <th>Vencimento</th>
                                 <th>Pago</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($materiais as $material)
+                            @foreach ($mensalidades as $mensalidade)
                                 <tr>
-
-                                    <td>{{ $material->id }}</td>
-                                    <td>{{ $material->materiais->material }}</td>
-                                    <td>R$ {{ number_format($material->valor_un, '2', ',', '.') }}</td>
-                                    <td>{{ $material->qtde }}</td>
-                                    <td>R$  {{ number_format($material->valor_total, '2', ',', '.')}}</td>
-                                    <td>{{ $material->pago }}</td>
+                                    <td>{{ $mensalidade->id }}</td>
+                                    <td>{{ $mensalidade->alunos->nome }}</td>
+                                    <td>{{ $mensalidade->matriculas_id }}</td>
+                                    <td>R$ {{ number_format($mensalidade->valor_parcela, '2', ',', '.') }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($mensalidade->vencimento)) }}</td>
+                                    <td>{{ $mensalidade->pago }}</td>
 
                                     <td>
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
-                                                    <a href="{{('/matricula_materiais_parcela/'.$material->id)}}"
-                                                        class="btn btn-info btn-sm"
-                                                        title="Gerar parcelas indidual">
-                                                        <i class="uil-money-stack"></i>
-                                                    </a>
-                                                </div>                                                
+                                                @if ($mensalidade->pago == 'nao')
+                                                    <div class="col-sm-2">
+                                                        <a href="{{ route('turmas.edit', $mensalidade->id) }}"
+                                                            class="btn btn-success btn-sm"
+                                                            title="Editar as informações da mensalidade">
+                                                            <i class="uil-edit-alt"></i>
+                                                        </a>
+                                                    </div>
 
-                                                <div class="col-2">
+                                                    <div class="col-sm-2">
+                                                        <a href="{{ ('/mensalidades_quitar/'.$mensalidade->id) }}"
+                                                            class="btn btn-primary btn-sm" title="Quitar mensalidade">
+                                                            <i class="uil-check-circle"></i>
+                                                        </a>
+                                                    </div>
+                                                @endif
+
+                                                @if ($mensalidade->pago == 'sim')
+                                                    <div class="col-sm-2">
+                                                        <a href="{{ route('turmas.edit', $mensalidade->id) }}"
+                                                            class="btn btn-warning btn-sm" title="Estornar mensalidade">
+                                                            <i class="uil-times-circle"></i>
+                                                        </a>
+                                                    </div>
+                                                @endif
+
+                                                <div class="col-sm-2">
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#myModal{{ $material->id }}"
-                                                            title="Exluir dia de aula">
+                                                        data-bs-toggle="modal" title="Excluir Turma selecionada"
+                                                        data-bs-target="#myModal{{ $mensalidade->id }}">
                                                         <i class="uil-trash-alt"></i>
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $material->id }}" tabindex="-1"
-                                                        aria-labelledby="myModalLabel{{ $material->id }}"
+                                                    <div class="modal fade" id="myModal{{ $mensalidade->id }}"
+                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $mensalidade->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $material->id }}">Deseja
+                                                                        id="myModalLabel{{ $mensalidade->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
@@ -160,10 +172,10 @@
 
                                                                 <div class="modal-body">
                                                                     <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('matricula_materiais.destroy', $material->id) }}">
+                                                                        action="{{ route('turmas.destroy', $mensalidade->id) }}">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <h3>Tem certeza que deseja deletar o dia
+                                                                        <h3>Tem certeza que deseja deletar a mensalidade
                                                                             selecionado? Se houver turmas com o dia
                                                                             atrelado, não será possível a exclusão</h3>
                                                                         <div class="modal-footer">
@@ -194,7 +206,7 @@
                     <!-- Exibir a barra de paginação -->
                     <div class="row">
                         <div>
-                            {{ $materiais->links('pagination::pagination') }}
+                            {{ $mensalidades->links('pagination::pagination') }}
                         </div>
                     </div>
 

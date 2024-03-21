@@ -28,7 +28,7 @@
                             <h5>Matrícula: {{ $matricula->id }}</h5>
                         </div>
                         <div class="col-md-3">
-                            <h5>Responsável: {{ $matricula->responsaveis->nome }}</h5>
+                            <h5>Responsável: {{ $matricula->responsaveis->nome??"" }}</h5>
                         </div>
                         <div class="col-md-2">
                             <h5>Curso: {{ $matricula->cursos->curso }}</h5>
@@ -131,7 +131,7 @@
                             </div>
 
                             <div class="col-sm-2">
-                                <a href="#" class="link-card">
+                                <a href="{{route('mensalidades.show', $matricula->id)}}" class="link-card">
                                     <div class="card rounded"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <div class="card-body text-center">

@@ -45,57 +45,11 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ ('/matricula_adicionar/'.$aluno->id.'/'.$responsavel->id) }}" class="btn btn-primary">Nova matrícula</a>
+                                <a href="{{ ('/matricula_adicionar/'.$aluno->id) }}" class="btn btn-primary">Nova matrícula</a>
                                 <a href="/alunos" class="btn btn-danger">Voltar</a>
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
                         </div>
-
-                        {{-- <div class="col-md-6">
-                            <div class="pt-3 ps-4">
-
-                                <form action="#" method="get">
-                                    <div class="row">
-
-                                        <div class="col-md-4 mb-3">
-                                            <select class="form-control" name="criterio" id="criterio" required>
-                                                @empty($inputs)
-                                                    <option value="" disabled selected>Critério de pesquisa</option>
-                                                @else
-                                                    <option value="{{ $inputs['criterio'] }}">
-                                                        @if ($inputs['criterio'] == 'id')
-                                                            Código
-                                                        @elseif($inputs['criterio'] == 'nome')
-                                                            Nome
-                                                        @else
-                                                            CPF
-                                                        @endif
-                                                    </option>
-                                                @endempty
-
-                                                <option value="id">Código</option>
-                                                <option value="nome">Nome</option>
-                                                <option value="cpf ">CPF</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                   required maxlength="100" value="{{$inputs['pesquisa']??""}}">
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Pesquisar
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div> --}}
 
                     </div>
                     <hr>

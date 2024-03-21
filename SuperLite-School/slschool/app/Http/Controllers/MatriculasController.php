@@ -8,6 +8,7 @@ use App\Models\Curso;
 use App\Models\CursosDisciplina;
 use App\Models\Matricula;
 use App\Models\MatriculaDisciplina;
+use App\Models\MatriculaTurma;
 use App\Models\Mensalidade;
 use App\Models\ResponsavelAluno;
 use DateTime;
@@ -106,6 +107,7 @@ class MatriculasController extends Controller
 
             $vencimento = new DateTime($request->input('vencimento'));
             $vencimentoMatricula = new DateTime($request->input('vencimetoMatricula'));
+            $responsavelID = $request->input('responsavel') ?? 0;
 
             $this->matriculasDisciplinas(
                 $request->input('curso'),
@@ -116,7 +118,7 @@ class MatriculasController extends Controller
             if (!empty($request->input('valorMatricula')) && !empty($request->input('vencimetoMatricula'))) {
                 $this->matriculasMensalidades(
                     $request->input('aluno'),
-                    $request->input('responsavel'),
+                    $responsavelID,
                     $matricula->id,
                     $matricula->valor_matricula,
                     '1',
@@ -127,7 +129,7 @@ class MatriculasController extends Controller
 
             $this->matriculasMensalidades(
                 $request->input('aluno'),
-                $request->input('responsavel'),
+                $responsavelID,
                 $matricula->id,
                 $matricula->valor_por_parcela,
                 $matricula->qtde_parcelas,
@@ -259,12 +261,14 @@ class MatriculasController extends Controller
                 $matricula->save();
 
                 $alunoID = $matricula->alunos_id;
+                $matriculaID = $matricula->id;
 
                 $matricula = $this->matricula
-                    ->where('alunos_id', $alunoID)
                     ->where('deletado', 'nao')
                     ->orderBy('id', 'desc')
                     ->paginate();
+
+                $this->removerTurmas($matriculaID);
 
                 $aluno = Aluno::find($alunoID);
                 $responsavel = ResponsavelAluno::where('alunos_id', $alunoID)->first();
@@ -278,9 +282,14 @@ class MatriculasController extends Controller
         }
     }
 
-    public function novaMatricula(string $alunoID, string $responsavelID)
+    public function novaMatricula(string $alunoID)
     {
+
         $aluno = Aluno::find($alunoID);
+        $responsavel = ResponsavelAluno::where('alunos_id', $alunoID)->first();
+
+        $responsavelID = $responsavel->id ?? null;
+
         $listaCursos = Curso::all();
         $listaConsultores = Consultor::all();
         return view(self::PATH . 'matriculaCreate', [
@@ -325,8 +334,10 @@ class MatriculasController extends Controller
             ->where('deletado', 'nao')
             ->where($criterio, 'LIKE', '%' . $pesquisa . '%')
             ->paginate();
-        return view('screens.matricula.dashboard.listarMatriculas', ['matriculas' => $matricula, 
-                                                'inputs'=>$request->all()]);
+        return view('screens.matricula.dashboard.listarMatriculas', [
+            'matriculas' => $matricula,
+            'inputs' => $request->all()
+        ]);
     }
 
     private function matriculasDisciplinas(string $curso, string $aluno, string $matricula)
@@ -372,9 +383,12 @@ class MatriculasController extends Controller
             $dataVencimento = $vencimento;
             $dataVencimento->modify('+' . $i . 'months');
 
+            if ($responsavelID != 0) {
+                $mensalidade->responsavel_alunos_id = $responsavelID;
+            }
+
             $mensalidade->empresas_id = auth()->user()->empresas_id;
             $mensalidade->alunos_id = $alunoID;
-            $mensalidade->responsavel_alunos_id = $responsavelID;
             $mensalidade->matriculas_id = $matriculaID;
             $mensalidade->valor_parcela = $valor;
             $mensalidade->numero_mensalidade = $i + 1;
@@ -389,7 +403,8 @@ class MatriculasController extends Controller
 
     private function removerTurmas(string $matriculaID)
     {
-        // Criar o  procedimento para excluir as turmas ao delatar uma matrícula
+        $matriculaTurma = MatriculaTurma::where('matriculas_id', $matriculaID)->get();
+        $matriculaTurma->each->delete();
     }
 
     private function operacao(string $operacao)
