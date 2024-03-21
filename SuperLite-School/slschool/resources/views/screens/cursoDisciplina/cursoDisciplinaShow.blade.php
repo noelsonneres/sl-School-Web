@@ -62,7 +62,7 @@
                                 <button type="submit" class="btn btn-sm btn-success">Salvar
                                     <i class="ri-save-3-fill"></i>
                                 </button>
-                                <a href="javascript:history.back()" class="btn btn-sm btn-danger">Cancelar
+                                <a href="/cursos" class="btn btn-sm btn-danger">Voltar
                                     <i class=" ri-close-circle-fill"></i>
                                 </a>
                             </div>

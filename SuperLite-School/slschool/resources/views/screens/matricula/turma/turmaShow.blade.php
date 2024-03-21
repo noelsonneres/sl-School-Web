@@ -20,8 +20,8 @@
                     <h4 class="page-title">Turmas do aluno</h4>
 
                     <div class="mb-3">
-                        <h5>Aluno: {{$matriculaInfo->alunos->nome}}</h5>
-                        <h5>Matrícula: {{$matriculaInfo->id}}</h5>
+                        <h5>Aluno: {{ $matriculaInfo->alunos->nome }}</h5>
+                        <h5>Matrícula: {{ $matriculaInfo->id }}</h5>
                     </div>
 
                     {{-- Exibe mensagens de sucesso ou erro --}}
@@ -49,12 +49,13 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{('/matricula_turmas_disponiveis/'.$matriculaInfo->id)}}" class="btn btn-primary">Adicionar turma</a>
+                                <a href="{{ '/matricula_turmas_disponiveis/' . $matriculaInfo->id }}"
+                                    class="btn btn-primary">Adicionar turma</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-                                <a href="{{('/dashboard/'.$matriculaInfo->id)}}" class="btn btn-danger">Voltar</a>
+                                <a href="{{ '/dashboard/' . $matriculaInfo->id }}" class="btn btn-danger">Voltar</a>
                             </div>
-                        </div>                    
+                        </div>
 
                     </div>
                     <hr>
@@ -76,7 +77,8 @@
                                     <td>{{ $turma->turmas_id }}</td>
                                     <td>{{ $turma->turmas->turma }}</td>
                                     <td>{{ $turma->turmas->dias_aulas->dia }}</td>
-                                    <td>{{ $turma->turmas->horarios_aulas->entrada }} - {{ $turma->turmas->horarios_aulas->saida }}</td>
+                                    <td>{{ $turma->turmas->horarios_aulas->entrada }} -
+                                        {{ $turma->turmas->horarios_aulas->saida }}</td>
                                     <td>{{ $turma->turmas->ativa }}</td>
 
                                     <td>
@@ -91,8 +93,8 @@
                                                     </button>
 
                                                     {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $turma->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $turma->id }}"
+                                                    <div class="modal fade" id="myModal{{ $turma->id }}" tabindex="-1"
+                                                        aria-labelledby="myModalLabel{{ $turma->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
@@ -101,8 +103,7 @@
                                                                         id="myModalLabel{{ $turma->id }}">Deseja
                                                                         deletar o dia selecionado?</h5>
                                                                     <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
 
                                                                 <div class="modal-body">
@@ -114,8 +115,7 @@
                                                                             selecionado? Se houver turmas com o dia
                                                                             atrelado, não será possível a exclusão</h3>
                                                                         <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
+                                                                            <button type="button" class="btn btn-secondary"
                                                                                 data-bs-dismiss="modal">Cancelar</button>
                                                                             <button type="submit"
                                                                                 class="btn btn-danger">Sim, quero

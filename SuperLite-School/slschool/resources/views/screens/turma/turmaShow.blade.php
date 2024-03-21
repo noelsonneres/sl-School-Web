@@ -101,7 +101,9 @@
                                 <th>Turmas</th>
                                 <th>Dia</th>
                                 <th>Horário</th>
+                                <th>Sala</th>
                                 <th>Ativo</th>
+                                <th>Professor</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
@@ -114,7 +116,8 @@
                                     <td>{{ $turma->dias_aulas->dia }}</td>
                                     <td>{{ $turma->horarios_aulas->entrada }} - {{ $turma->horarios_aulas->saida }}</td>
                                     <td>{{ $turma->salas_aulas->sala }}</td>
-                                    <td>{{ $turma->professores->nome }}</td>
+                                    <td>{{ $turma->salas_aulas->ativa }}</td>
+                                    <td>{{ $turma->professores->nome??"" }}</td>
 
                                     <td>
                                         <div>
