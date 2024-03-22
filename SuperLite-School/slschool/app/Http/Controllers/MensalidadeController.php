@@ -44,7 +44,11 @@ class MensalidadeController extends Controller
             ->where('matriculas_id', $id)
             ->paginate();
         $matricula = Matricula::find($id);
-        return view(self::PATH . 'MensalidadeShow', ['mensalidades' => $mensalidades, 'matricula' => $matricula]);
+
+        return view(self::PATH . 'MensalidadeShow', [
+            'mensalidades' => $mensalidades,
+            'matricula' => $matricula,
+        ]);
     }
 
     public function edit(string $id)
@@ -69,28 +73,31 @@ class MensalidadeController extends Controller
 
         $mensalidade = $this->mensalidade->find($mensalidadeId);
 
-        $formasPagamentos = FormasPagamento::all();
+        $formasPagamentos = FormasPagamento::where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->get();
 
         $vencimento = new DateTime($mensalidade->vencimento);
-        $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);        
+        $juros = $this->calcularJuros($mensalidade->valor_parcela, $vencimento);
 
-        if($mensalidade->count() >= 1){
-            return view(self::PATH.'mensalidadeQuitar', [
-                'mensalidade'=>$mensalidade,
-                'formasPagaentos'=>$formasPagamentos,
-                'juros'=>$juros
+        if ($mensalidade->count() >= 1) {
+            return view(self::PATH . 'mensalidadeQuitar', [
+                'mensalidade' => $mensalidade,
+                'formasPagamentos' => $formasPagamentos,
+                'juros' => $juros
             ]);
         }
     }
 
-    private function calcularJuros(string $valor, DateTime $vencimento){
+    private function calcularJuros(string $valor, DateTime $vencimento)
+    {
 
         $confMensalidades = ConfigurarMensalidade::all()->first();
 
         $totalAPagar = $valor;
 
         $juros = $confMensalidades->juros;
-        $multa = $confMensalidades->multa;
+        $multa = 0;
 
         $valorPagto = $valor;
         // $dataVencimento = $vencimento;
@@ -99,8 +106,14 @@ class MensalidadeController extends Controller
         $dataAtual = Carbon::now();
 
         if ($dataAtual > $dataVencimento) {
+            
+            $multa = $confMensalidades->multa;
 
             $intervalo = $dataVencimento->diffInMonths($dataAtual);
+
+            // if(number_format($intervalo, 0, '.', '') == 0){
+            //     $multa = 0;                
+            // }
 
             $intervalo = ($intervalo == 0) ? 1 : $intervalo;
 
@@ -115,6 +128,5 @@ class MensalidadeController extends Controller
         }
 
         return $resultado;
-
     }
 }

@@ -142,35 +142,73 @@
                                     <div class="row">
 
                                         <div class="col-md-3 mb-4">
-                                            <label for="juros" class="form-label">Juros ({{ $juros['taxaJuros'] }}%)</label>
+                                            <label for="juros" class="form-label">Juros
+                                                ({{ $juros['taxaJuros'] }}%)</label>
                                             <input type="text" class="form-control" name="juros" id="juros"
-                                               value="{{$juros['valorJuros']}}" readonly>
+                                                value="{{ $juros['valorJuros'] }}" readonly>
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="multa" class="form-label">Multa</label>
                                             <input type="text" class="form-control" name="multa" id="multa"
-                                                value="{{$juros['multa']}}" readonly>
+                                                value="{{ $juros['multa'] }}" readonly>
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="desconto" class="form-label">Desconto</label>
                                             <input type="number" class="form-control" step="0.01" min="0.01"
-                                                 name="desconto" id="desconto">
+                                                name="desconto" id="desconto">
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="acrescimo" class="form-label">Acréscimo</label>
                                             <input type="number" class="form-control" step="0.01" min="0.01"
-                                                 name="acrescimo" id="acrescimo">
+                                                name="acrescimo" id="acrescimo">
                                         </div>
 
                                     </div>
 
                                     <div class="row">
 
-                                        
+                                        <div class="col-md-3 mb-4">
+                                            <label for="totalPagar" class="form-label">Total a pagar</label>
+                                            <input type="number" step="0.01" min="0.01" class="form-control"
+                                                name="totalPagar" id="totalPagar"
+                                                value="{{$mensalidade->valor_parcela + $juros['multa'] + $juros['valorJuros'] }}" required>
+                                        </div>
 
+                                        <div class="col-md-3 mb-4">
+                                            <label for="dataPagamento" class="form-label">Data de pagamento</label>
+                                            <input type="date" class="form-control" name="dataPagamento"
+                                                id="dataPagamento" required>
+                                        </div>
+
+                                        <div class="col-md-6 mb-4">
+                                            <label for="formasPagamentos" class="form-label">Forma de pagamento</label>
+                                            <select style="color: red; font-weight: bold" class="form-control"
+                                                name="formasPagamentos" id="formasPagamentos" required>
+                                                <option value="">Selecione uma opção</option>
+
+                                                @foreach ($formasPagamentos as $lista)
+                                                    <option value="{{ $lista->id }}">{{ $lista->formas }}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="responsavelPagamento" class="form-label">Responsável pelo
+                                            pagamento</label>
+                                        <input type="text" class="form-control" name="responsavelPagamento"
+                                            id="responsavelPagamento" maxlength="100">
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="obs" class="form-label">Observação</label>
+                                        <input type="text" class="form-control" name="obs" id="obs"
+                                            maxlength="250">
                                     </div>
 
                                 </div>
@@ -194,59 +232,5 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
-
-    {{-- Scripts --}}
-
-
-    <script>
-        function calcular() {
-            var valorUNInput = document.getElementById("valorUN");
-            var qtdeInput = document.getElementById("qtde");
-
-            // Obter a opção selecionada no elemento select
-            var materialSelect = document.getElementById("material");
-            var qtdeDisponivel = $('option:selected', materialSelect).data('qtde');
-
-            // console.log(qtdeDisponivel);
-
-            var valorUN = parseFloat(valorUNInput.value);
-            var qtde = parseFloat(qtdeInput.value);
-
-            if (qtdeDisponivel < qtde) {
-                window.alert('A quantidade informada é maior do a disponível no estoque!');
-                qtde = 0;
-                valorUN = 0;
-                document.getElementById("qtde").value = '0';
-            }
-
-            if (!isNaN(valorUN) && !isNaN(qtde)) {
-                var resultadoDivisao = valorUN * qtde;
-                document.getElementById("valorTotal").value = resultadoDivisao.toFixed(2);
-            }
-        }
-    </script>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#material').change(function() {
-                var valor_un = $('option:selected', this).data('valor-un');
-                var qtde = $('option:selected', this).data('qtde');
-
-                if (qtde <= 0) {
-                    window.alert('Não há unidade suficientes para a inclusão');
-                    $('#valorUN').val(0);
-                    $('#qtde').val(0);
-                    $('#valorTotal').val(0);
-                } else {
-                    $('#valorUN').val(valor_un);
-                    $('#qtde').val(1);
-                    $('#valorTotal').val(valor_un);
-                }
-
-            });
-        });
-    </script>
 
 @endsection
