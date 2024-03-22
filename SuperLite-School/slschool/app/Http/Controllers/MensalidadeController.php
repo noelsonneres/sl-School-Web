@@ -54,26 +54,30 @@ class MensalidadeController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $mensalidade = $this->mensalidade->where('pago', 'nao')
+            ->where('id', $id)
+            ->first();
+
+        return view(self::PATH . 'mensalidadeEditar', ['mensalidade'=>$mensalidade]);
     }
 
     public function update(Request $request, string $id)
     {
-        
+
         $mensalidade = $this->mensalidade->find($id);
 
         $request->validate([
-            'totalPagar'=>'required',
-            'dataPagamento'=>'required',
-            'formasPagamentos'=>'required',
-        ],[
-            'totalPagar.required'=>'O campo Total a pagar é obrigatório',
-            'dataPagamento.required'=>'O campo data de pagamento é obrigatório',
-            'formasPagamentos.required'=>'O campo Forma de pagamento é obrigatório',
+            'totalPagar' => 'required',
+            'dataPagamento' => 'required',
+            'formasPagamentos' => 'required',
+        ], [
+            'totalPagar.required' => 'O campo Total a pagar é obrigatório',
+            'dataPagamento.required' => 'O campo data de pagamento é obrigatório',
+            'formasPagamentos.required' => 'O campo Forma de pagamento é obrigatório',
         ]);
 
         try {
-            
+
             $mensalidade->juros = $request->input('juros');
             $mensalidade->multa = $request->input('multa');
             $mensalidade->desconto = $request->input('desconto');
@@ -91,12 +95,10 @@ class MensalidadeController extends Controller
 
             $empresa = Empresa::first();
 
-            return view(self::PATH.'mensalidadesRecibo', ['mensalidade'=>$mensalidade, 'empresa'=>$empresa]);
-
+            return view(self::PATH . 'mensalidadesRecibo', ['mensalidade' => $mensalidade, 'empresa' => $empresa]);
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível quitar a mensalidade selecionada: ' . $th->getMessage()]);
         }
-
     }
 
     public function destroy(string $id)
@@ -144,7 +146,7 @@ class MensalidadeController extends Controller
         $dataAtual = Carbon::now();
 
         if ($dataAtual > $dataVencimento) {
-            
+
             $multa = $confMensalidades->multa;
 
             $intervalo = $dataVencimento->diffInMonths($dataAtual);
@@ -169,6 +171,5 @@ class MensalidadeController extends Controller
         return 'O usuário ' . auth()->user()->id . ' - ' .
             auth()->user()->nome . ' realizou a operação de ' .
             $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
-    }    
-
+    }
 }

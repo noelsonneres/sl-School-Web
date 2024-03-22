@@ -125,7 +125,7 @@
 
                                                 @if ($mensalidade->pago == 'nao')
                                                     <div class="col-sm-2">
-                                                        <a href="{{ route('turmas.edit', $mensalidade->id) }}"
+                                                        <a href="{{ route('mensalidades.edit', $mensalidade->id) }}"
                                                             class="btn btn-success btn-sm"
                                                             title="Editar as informações da mensalidade">
                                                             <i class="uil-edit-alt"></i>
