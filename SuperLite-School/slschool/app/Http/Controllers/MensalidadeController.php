@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ConfigurarMensalidade;
+use App\Models\Empresa;
 use App\Models\FormasPagamento;
 use App\Models\Matricula;
 use App\Models\Mensalidade;
@@ -58,7 +59,44 @@ class MensalidadeController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+        
+        $mensalidade = $this->mensalidade->find($id);
+
+        $request->validate([
+            'totalPagar'=>'required',
+            'dataPagamento'=>'required',
+            'formasPagamentos'=>'required',
+        ],[
+            'totalPagar.required'=>'O campo Total a pagar é obrigatório',
+            'dataPagamento.required'=>'O campo data de pagamento é obrigatório',
+            'formasPagamentos.required'=>'O campo Forma de pagamento é obrigatório',
+        ]);
+
+        try {
+            
+            $mensalidade->juros = $request->input('juros');
+            $mensalidade->multa = $request->input('multa');
+            $mensalidade->desconto = $request->input('desconto');
+            $mensalidade->acrescimo = $request->input('acrescimo');
+            $mensalidade->valor_pago = $request->input('totalPagar');
+            $mensalidade->data_pagamento = $request->input('dataPagamento');
+            $mensalidade->pago = 'sim';
+            $mensalidade->formas_pagamentos_id = $request->input('formasPagamentos');
+            $mensalidade->responsavel_pagamento = $request->input('responsavelPagamento');
+            $mensalidade->funcionario = auth()->user()->empresas_id;
+            $mensalidade->obs = $request->input('obs');
+            $mensalidade->auditoria = $this->operacao('Quitação da mensalidade');
+
+            $mensalidade->save();
+
+            $empresa = Empresa::first();
+
+            return view(self::PATH.'mensalidadesRecibo', ['mensalidade'=>$mensalidade, 'empresa'=>$empresa]);
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível quitar a mensalidade selecionada: ' . $th->getMessage()]);
+        }
+
     }
 
     public function destroy(string $id)
@@ -111,10 +149,6 @@ class MensalidadeController extends Controller
 
             $intervalo = $dataVencimento->diffInMonths($dataAtual);
 
-            // if(number_format($intervalo, 0, '.', '') == 0){
-            //     $multa = 0;                
-            // }
-
             $intervalo = ($intervalo == 0) ? 1 : $intervalo;
 
             $valorJuros = ($valorPagto * $juros / 100) * $intervalo;
@@ -129,4 +163,12 @@ class MensalidadeController extends Controller
 
         return $resultado;
     }
+
+    private function operacao(String $operacao)
+    {
+        return 'O usuário ' . auth()->user()->id . ' - ' .
+            auth()->user()->nome . ' realizou a operação de ' .
+            $operacao . ' Data e hora: ' . (new DateTime())->format('Y-m-d H:i:s');
+    }    
+
 }

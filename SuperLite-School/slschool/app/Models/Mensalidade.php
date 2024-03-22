@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Aluno;
 use App\Models\ResponsavelAluno;
 use App\Models\Matricula;
+use App\Models\FormasPagamento;
 
 class Mensalidade extends Model
 {
@@ -26,4 +27,9 @@ class Mensalidade extends Model
     {
         return $this->belongsTo(Matricula::class, 'matriculas_id');
     }
+
+    public function formasPagamentos(){
+        return $this->belongsTo(FormasPagamento::class, 'formas_pagamentos_id');
+    }
+
 }

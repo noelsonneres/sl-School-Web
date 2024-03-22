@@ -67,10 +67,11 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('matricula_materiais.store') }}" method="POST"
+                            <form action="{{ route('mensalidades.update', $mensalidade->id) }}" method="POST"
                                 enctype="multipart/form-data">
 
                                 @csrf
+                                @method('PUT')
 
                                 <input type="hidden" name="matricula" value="{{ $mensalidade->id }}">
                                 <input type="hidden" name="aluno" value="{{ $mensalidade->alunos_id }}">
@@ -157,13 +158,13 @@
                                         <div class="col-md-3 mb-4">
                                             <label for="desconto" class="form-label">Desconto</label>
                                             <input type="number" class="form-control" step="0.01" min="0.01"
-                                                name="desconto" id="desconto">
+                                                name="desconto" id="desconto" onchange="calcular()" onblur="calcular()" >
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <label for="acrescimo" class="form-label">Acréscimo</label>
                                             <input type="number" class="form-control" step="0.01" min="0.01"
-                                                name="acrescimo" id="acrescimo">
+                                                name="acrescimo" id="acrescimo" onchange="calcular()" onblur="calcular()" >
                                         </div>
 
                                     </div>
@@ -184,7 +185,7 @@
                                         </div>
 
                                         <div class="col-md-6 mb-4">
-                                            <label for="formasPagamentos" class="form-label">Forma de pagamento</label>
+                                            <label for=" " class="form-label">Forma de pagamento</label>
                                             <select style="color: red; font-weight: bold" class="form-control"
                                                 name="formasPagamentos" id="formasPagamentos" required>
                                                 <option value="">Selecione uma opção</option>
@@ -232,5 +233,32 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div> <!-- end container-fluid -->
+
+   {{-- Scripts --}}
+   <script>
+       function calcular() {
+           var valorParcelaInput = document.getElementById("valorParcela");
+           var descontoInput = document.getElementById("desconto");
+           var acrescimoInput = document.getElementById("acrescimo");
+
+           var valorParcela = {{$mensalidade->valor_parcela}};
+           var desconto = parseFloat(descontoInput.value);
+           var acrescimo = parseFloat(acrescimoInput.value);
+
+           desconto = (isNaN(desconto))?0:desconto;
+           acrescimo = (isNaN(acrescimo))?0:acrescimo;
+
+            console.log(acrescimo);
+
+           var juros = {{$juros['valorJuros']}};
+           var multa = {{$juros['multa']}};
+
+           if (!isNaN(valorParcela) && !isNaN(desconto) && !isNaN(acrescimo))
+            {
+               var resultado = (valorParcela + acrescimo + multa + juros) - desconto;
+               document.getElementById("totalPagar").value = resultado.toFixed(2);
+           }
+       }
+   </script>
 
 @endsection
