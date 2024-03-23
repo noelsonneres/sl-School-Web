@@ -67,7 +67,7 @@
                         <hr>
 
                         <div class="card border p-2">
-                            <form action="{{ route('mensalidades.update', $mensalidade->id) }}" method="POST"
+                            <form action="{{ ('/mensalidades_atualizar/'.$mensalidade->id) }}" method="POST"
                                 enctype="multipart/form-data">
 
                                 @csrf
@@ -140,6 +140,8 @@
 
                                 <div class="row">
 
+                                    <h5 class="mb-3">Valores atualizados</h5>
+
                                     <div class="col-md-6 mb-4">
                                         <label for="valor" class="form-label">Valor da parcela</label>
                                         <input type="number" class="form-control" step="0.01" min="0.01" class="form-control"
@@ -156,8 +158,6 @@
                                 </div>
 
                                 {{-- Fim Informações quitação --}}
-
-                                <h1>CRIAR O METODO PARA ATUALIZAR A PARCELA</h1>
 
                                 <div class="mt-2">
                                     <button type="submit" class="btn btn-success">Salvar

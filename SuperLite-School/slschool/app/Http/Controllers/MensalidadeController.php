@@ -58,7 +58,7 @@ class MensalidadeController extends Controller
             ->where('id', $id)
             ->first();
 
-        return view(self::PATH . 'mensalidadeEditar', ['mensalidade'=>$mensalidade]);
+        return view(self::PATH . 'mensalidadeEditar', ['mensalidade' => $mensalidade]);
     }
 
     public function update(Request $request, string $id)
@@ -126,6 +126,51 @@ class MensalidadeController extends Controller
                 'formasPagamentos' => $formasPagamentos,
                 'juros' => $juros
             ]);
+        }
+    }
+
+    public function atualizarMensalidade(Request $request, string $mensalidadeID)
+    {
+
+        // dd($request);
+
+        $request->validate([
+            'mensalidade' => 'required',
+            'valor' => 'required',
+            'vencimento' => 'required',
+        ], [
+            'mensalidade.required' => 'Selecione uma mensalidade',
+            'valor.required' => 'O campo valor é obrigatório',
+            'vencimento.required' => 'O campo vencimento é obrigatório',
+        ]);
+
+        $mensalidade = $this->mensalidade->find($mensalidadeID);
+
+        // dd($mensalidade);
+
+        try {
+
+            $mensalidade->valor_parcela = $request->input('valor');
+            $mensalidade->vencimento = $request->input('vencimento');
+            $mensalidade->auditoria = $this->operacao('Atualizar a informações da mensalidade');
+
+            $mensalidade->save();
+
+            $matriculaID = $mensalidade->matriculas_id;
+
+            $mensalidades = $this->mensalidade->where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')
+                ->where('matriculas_id', $matriculaID)
+                ->paginate();
+            $matricula = Matricula::find($matriculaID);
+
+            return view(self::PATH . 'MensalidadeShow', [
+                'mensalidades' => $mensalidades,
+                'matricula' => $matricula,
+            ])->with('msg', 'Sucesso! As informações da mensalidade foram atualizadas com sucesso!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()
+                ->withErrors(['ERRO! Não foi possível atualizar as informações da mensalidade: ' . $th->getMessage()]);
         }
     }
 
