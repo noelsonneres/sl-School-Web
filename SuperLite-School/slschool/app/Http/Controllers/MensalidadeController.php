@@ -34,7 +34,74 @@ class MensalidadeController extends Controller
 
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'matricula'=>'required',
+            'aluno'=>'required',
+            'valorParcela'=>'required',
+            'vencimento'=>'required',
+            'qtdeParcelas'=>'required',
+        ],[
+            'matricula.required'=>'Selecione uma matrícula',
+            'aluno.required'=>'Selecione uma aluno',
+            'valorParcela.required'=>'Informe o valor da parcela',
+            'vencimento.required'=>'Informe a data de vencimento',
+            'qtdeParcelas.required'=>'Informe a quantidade de parcelas',
+        ]);
+
+        $vencimento = new DateTime($request->input('vencimento'));
+        $responsavelID = $request->input('responsavel') ?? 0;
+
+        $qtde = $request->input('qtdeParcelas');
+        $alunoID = $request->input('aluno');
+        $matriculaID = $request->input('matricula');
+        $valor = $request->input('valorParcela');
+        $obs = $request->input('obs');
+
+        try {
+            
+            $dataVencimento = $vencimento;
+
+            for ($i = 0; $i < $qtde; $i++) {
+    
+                $mensalidade = new Mensalidade();
+    
+                if ($responsavelID != 0) {
+                    $mensalidade->responsavel_alunos_id = $responsavelID;
+                }
+    
+                $mensalidade->empresas_id = auth()->user()->empresas_id;
+                $mensalidade->alunos_id = $alunoID;
+                $mensalidade->matriculas_id = $matriculaID;
+                $mensalidade->valor_parcela = $valor;
+                $mensalidade->numero_mensalidade = $i + 1;
+                $mensalidade->qtde_mensalidade = $qtde;
+                $mensalidade->vencimento = $dataVencimento;
+                $mensalidade->obs = $obs;
+                $mensalidade->auditoria = $this->operacao('Inclusão de mensalidades extras');
+    
+                $mensalidade->save();
+    
+                $dataVencimento->modify('+' . 1 . 'months');
+
+                $mensalidade->save();
+            }            
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível gerar todas as mensalidades! '.$th->getMessage()]);
+        }
+
+        $mensalidades = $this->mensalidade->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->where('matriculas_id', $matriculaID)
+            ->paginate();
+        $matricula = Matricula::find($matriculaID);
+
+        return view(self::PATH . 'MensalidadeShow', [
+            'mensalidades' => $mensalidades,
+            'matricula' => $matricula,
+        ])->with('msg', 'Sucesso! As novas mensalidades foram incluidas com sucesso!');        
+
     }
 
     public function show(string $id)
@@ -50,6 +117,7 @@ class MensalidadeController extends Controller
             'mensalidades' => $mensalidades,
             'matricula' => $matricula,
         ]);
+
     }
 
     public function edit(string $id)
