@@ -47,7 +47,7 @@
                                 <a href="#" class="btn btn-primary">Adicionar mensalidade</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
-                                <a href="{{('/dashboard/'.$matricula->id)}}" class="btn btn-danger">Voltar</a>
+                                <a href="{{ '/dashboard/' . $matricula->id }}" class="btn btn-danger">Voltar</a>
                             </div>
                         </div>
 
@@ -133,7 +133,7 @@
                                                     </div>
 
                                                     <div class="col-sm-2">
-                                                        <a href="{{ ('/mensalidades_quitar/'.$mensalidade->id) }}"
+                                                        <a href="{{ '/mensalidades_quitar/' . $mensalidade->id }}"
                                                             class="btn btn-primary btn-sm" title="Quitar mensalidade">
                                                             <i class="uil-check-circle"></i>
                                                         </a>
@@ -149,70 +149,72 @@
                                                     </div>
                                                 @endif
 
-                                                <div class="col-sm-2">
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" title="Excluir Turma selecionada"
-                                                        data-bs-target="#myModal{{ $mensalidade->id }}">
-                                                        <i class="uil-trash-alt"></i>
-                                                    </button>
+                                                @if ($mensalidade->pago != 'sim')
+                                                    <div class="col-sm-2">
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            data-bs-toggle="modal" title="Excluir mensalidade selecionada"
+                                                            data-bs-target="#myModal{{ $mensalidade->id }}">
+                                                            <i class="uil-trash-alt"></i>
+                                                        </button>
+                                                @endif
 
-                                                    {{-- Modal --}}
-                                                    <div class="modal fade" id="myModal{{ $mensalidade->id }}"
-                                                        tabindex="-1" aria-labelledby="myModalLabel{{ $mensalidade->id }}"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title"
-                                                                        id="myModalLabel{{ $mensalidade->id }}">Deseja
-                                                                        deletar o dia selecionado?</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
+                                                {{-- Modal --}}
+                                                <div class="modal fade" id="myModal{{ $mensalidade->id }}" tabindex="-1"
+                                                    aria-labelledby="myModalLabel{{ $mensalidade->id }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="myModalLabel{{ $mensalidade->id }}">Deseja
+                                                                    deletar o dia selecionado?</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
 
-                                                                <div class="modal-body">
-                                                                    <form method="POST" enctype="multipart/form-data"
-                                                                        action="{{ route('turmas.destroy', $mensalidade->id) }}">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <h3>Tem certeza que deseja deletar a mensalidade
-                                                                            selecionado? Se houver turmas com o dia
-                                                                            atrelado, não será possível a exclusão</h3>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">Cancelar</button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-danger">Sim, quero
-                                                                                deletar</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                                            <div class="modal-body">
+                                                                <form method="POST" enctype="multipart/form-data"
+                                                                    action="{{ route('mensalidades.destroy', $mensalidade->id) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <h3>Tem certeza que deseja deletar a mensalidade
+                                                                        selecionado? Se houver turmas com o dia
+                                                                        atrelado, não será possível a exclusão</h3>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-danger">Sim,
+                                                                            quero
+                                                                            deletar</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {{-- Fim Modal --}}
                                                 </div>
-
+                                                {{-- Fim Modal --}}
                                             </div>
 
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
 
-                        </tbody>
-                    </table>
+                </div>
+                </td>
+                </tr>
+                @endforeach
 
-                    <!-- Exibir a barra de paginação -->
-                    <div class="row">
-                        <div>
-                            {{ $mensalidades->links('pagination::pagination') }}
-                        </div>
+                </tbody>
+                </table>
+
+                <!-- Exibir a barra de paginação -->
+                <div class="row">
+                    <div>
+                        {{ $mensalidades->links('pagination::pagination') }}
                     </div>
+                </div>
 
-                </div> <!-- end card -->
-            </div> <!-- end col -->
-        </div> <!-- end row -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div> <!-- end row -->
     </div> <!-- end container-fluid -->
 
 @endsection

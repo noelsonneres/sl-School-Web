@@ -376,12 +376,11 @@ class MatriculasController extends Controller
         string $obs = ""
     ) {
 
+        $dataVencimento = $vencimento;
+
         for ($i = 0; $i < $qtde; $i++) {
 
             $mensalidade = new Mensalidade();
-
-            $dataVencimento = $vencimento;
-            $dataVencimento->modify('+' . $i . 'months');
 
             if ($responsavelID != 0) {
                 $mensalidade->responsavel_alunos_id = $responsavelID;
@@ -398,6 +397,8 @@ class MatriculasController extends Controller
             $mensalidade->auditoria = $this->operacao('Inclusão de mensalidades');
 
             $mensalidade->save();
+
+            $dataVencimento->modify('+' . 1 . 'months');
         }
     }
 

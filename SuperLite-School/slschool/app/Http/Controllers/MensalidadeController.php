@@ -103,7 +103,30 @@ class MensalidadeController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $mensalidade = $this->mensalidade->find($id);
+
+        if ($mensalidade->count() >= 1) {
+
+            $matriculaID = $mensalidade->matriculas_id;
+
+            $mensalidade->deletado = 'sim';
+            $mensalidade->auditoria = $this->operacao('Quitação da mensalidade');
+            $mensalidade->save();
+
+            $mensalidades = $this->mensalidade->where('empresas_id', auth()->user()->empresas_id)
+                ->where('deletado', 'nao')
+                ->where('matriculas_id', $matriculaID)
+                ->paginate();
+            $matricula = Matricula::find($matriculaID);
+
+            return view(self::PATH . 'MensalidadeShow', [
+                'mensalidades' => $mensalidades,
+                'matricula' => $matricula,
+            ])->with('msg', 'Sucesso! As informações da mensalidade foram excluidas com sucesso!');
+
+        } else {
+            return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar a mensalidade para exclusão!']);
+        }
     }
 
     function quitarMensalidade(string $mensalidadeId)
@@ -132,8 +155,6 @@ class MensalidadeController extends Controller
     public function atualizarMensalidade(Request $request, string $mensalidadeID)
     {
 
-        // dd($request);
-
         $request->validate([
             'mensalidade' => 'required',
             'valor' => 'required',
@@ -145,8 +166,6 @@ class MensalidadeController extends Controller
         ]);
 
         $mensalidade = $this->mensalidade->find($mensalidadeID);
-
-        // dd($mensalidade);
 
         try {
 
