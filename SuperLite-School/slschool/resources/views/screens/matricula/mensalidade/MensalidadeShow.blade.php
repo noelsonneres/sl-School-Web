@@ -44,56 +44,12 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="#" class="btn btn-primary">Adicionar mensalidade</a>
-                                <!-- Button trigger modal -->
-                                <button class="btn btn-secondary" onclick="print()">Imprimir</button>
+                                <a href="{{'/mensalidades_adicionar/'. $matricula->id}}" class="btn btn-primary">Adicionar mensalidade</a>
+                                <a href="{{'/mensalidades_impressao/'.$matricula->id}}" class="btn btn-secondary">Imprimir carnê</a>
                                 <a href="{{ '/dashboard/' . $matricula->id }}" class="btn btn-danger">Voltar</a>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="pt-3 ps-4">
-
-                                {{-- Formulário de pesquisa --}}
-                                <form action="/turmas_search" method="get">
-                                    <div class="row">
-
-                                        <div class="col-md-4 mb-3">
-                                            <select class="form-control" name="criterio" id="criterio" required>
-                                                @empty($inputs)
-                                                    <option value="" disabled selected>Critério de pesquisa</option>
-                                                @else
-                                                    <option value="{{ $inputs['criterio'] }}">
-                                                        @if ($inputs['criterio'] == 'id')
-                                                            Código
-                                                        @else
-                                                            Turma
-                                                        @endif
-                                                    </option>
-                                                @endempty
-
-                                                <option value="id">Código</option>
-                                                <option value="Turma">Turma</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 mb-3">
-                                            <input class="form-control" type="text" name="pesquisa" id="pesquisa"
-                                                required maxlength="100" value="{{ $inputs['pesquisa'] ?? '' }}">
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Pesquisar
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
                     </div>
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">

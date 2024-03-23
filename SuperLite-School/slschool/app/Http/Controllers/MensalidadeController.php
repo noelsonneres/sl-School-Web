@@ -123,7 +123,6 @@ class MensalidadeController extends Controller
                 'mensalidades' => $mensalidades,
                 'matricula' => $matricula,
             ])->with('msg', 'Sucesso! As informações da mensalidade foram excluidas com sucesso!');
-
         } else {
             return redirect()->back()->withInput()->withErrors(['ERRO! Não foi possível localizar a mensalidade para exclusão!']);
         }
@@ -191,6 +190,39 @@ class MensalidadeController extends Controller
             return redirect()->back()->withInput()
                 ->withErrors(['ERRO! Não foi possível atualizar as informações da mensalidade: ' . $th->getMessage()]);
         }
+    }
+
+    public function impressaoCarne(string $matriculaID)
+    {
+        $mensalidades = $this->mensalidade->where('empresas_id', auth()->user()->empresas_id)
+            ->where('deletado', 'nao')
+            ->where('matriculas_id', $matriculaID)
+            ->get();
+        $empresa = Empresa::first();
+        $config = ConfigurarMensalidade::first();
+
+        return view(self::PATH . 'mensalidadesImpressao', [
+            'mensalidades' => $mensalidades,
+            'empresa' => $empresa,
+            'config' => $config
+        ]);
+    }
+
+    public function impressaoCapa()
+    {
+        $empresa = Empresa::first();
+        return view(self::PATH . 'mensalidadesCapa', ['empresa' => $empresa]);
+    }
+
+    public function adicionarMensalidade(string $matriculaID)
+    {
+        $matricula = Matricula::where('empresas_id', auth()->user()->empresas_id)
+                                ->where('deletado', 'nao')
+                                ->where('id', $matriculaID)
+                                ->first();
+
+        return view(self::PATH.'mensalidadeAdicionar', ['matricula'=>$matricula]);                                
+
     }
 
     private function calcularJuros(string $valor, DateTime $vencimento)

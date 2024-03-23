@@ -114,3 +114,6 @@ Route::post('/matricula_materiais_ad_parcelas', [MatriculaMateriaisController::c
 Route::resource('mensalidades', MensalidadeController::class);
 Route::get('mensalidades_quitar/{id}', [MensalidadeController::class, 'quitarMensalidade']);
 Route::put('mensalidades_atualizar/{mensalidade}', [MensalidadeController::class, 'atualizarMensalidade']);
+Route::get('/mensalidades_impressao/{matricula}', [MensalidadeController::class, 'impressaoCarne']);
+Route::get('/mensalidades_capa', [MensalidadeController::class, 'impressaoCapa']);
+Route::get('/mensalidades_adicionar/{matricula}', [MensalidadeController::class, 'adicionarMensalidade']);

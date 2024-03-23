@@ -328,7 +328,7 @@
                         <tr>
                             <td colspan="2">
                                 <small>Aluno</small>
-                                <br>{{ $aluno->nome }}
+                                <br>{{ $mensalidade->alunos->nome }}
                             </td>
 
                             <td>
