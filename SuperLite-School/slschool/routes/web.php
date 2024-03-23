@@ -4,6 +4,7 @@ use App\Http\Controllers\AlunosBloqueadosController;
 use App\Http\Controllers\AlunosController;
 use App\Http\Controllers\ConfigurarMensalidadesController;
 use App\Http\Controllers\ConsultoresController;
+use App\Http\Controllers\ContratosController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\CursosDisciplinasController;
 use App\Http\Controllers\DashBoardController;
@@ -117,3 +118,5 @@ Route::put('mensalidades_atualizar/{mensalidade}', [MensalidadeController::class
 Route::get('/mensalidades_impressao/{matricula}', [MensalidadeController::class, 'impressaoCarne']);
 Route::get('/mensalidades_capa', [MensalidadeController::class, 'impressaoCapa']);
 Route::get('/mensalidades_adicionar/{matricula}', [MensalidadeController::class, 'adicionarMensalidade']);
+
+Route::resource('contratos', ContratosController::class);

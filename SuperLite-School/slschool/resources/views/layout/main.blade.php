@@ -362,7 +362,7 @@
                                     <a href="/consultores">Consultores</a>
                                 </li>
                                 <li>
-                                    <a href="layouts-compact.html" target="_blank">Compact</a>
+                                    <a href="/contratos">Modelos contratos</a>
                                 </li>
                                 <li>
                                     <a href="layouts-icon-view.html" target="_blank">Icon View</a>
