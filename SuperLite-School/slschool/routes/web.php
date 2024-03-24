@@ -17,6 +17,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriaisEscolaresController;
 use App\Http\Controllers\MatriculaDiscplinasController;
 use App\Http\Controllers\MatriculaMateriaisController;
+use App\Http\Controllers\MatriculasContratosController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\MatriculaTurmasController;
 use App\Http\Controllers\MensalidadeController;
@@ -120,3 +121,5 @@ Route::get('/mensalidades_capa', [MensalidadeController::class, 'impressaoCapa']
 Route::get('/mensalidades_adicionar/{matricula}', [MensalidadeController::class, 'adicionarMensalidade']);
 
 Route::resource('contratos', ContratosController::class);
+
+Route::get('/contrato_index/{matricula}', [MatriculasContratosController::class, 'index']);
