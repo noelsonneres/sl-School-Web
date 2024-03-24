@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('empresas_id');
-            $table->string('contrato');
+            $table->binary('contrato');
             $table->string('descricao');
             $table->string('deletado')->default('nao');
             $table->string('auditoria')->default();
