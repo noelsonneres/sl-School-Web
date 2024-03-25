@@ -123,3 +123,4 @@ Route::get('/mensalidades_adicionar/{matricula}', [MensalidadeController::class,
 Route::resource('contratos', ContratosController::class);
 
 Route::get('/contrato_index/{matricula}', [MatriculasContratosController::class, 'index']);
+Route::get('/contrato_gerar/{matricula}/{contrato}', [MatriculasContratosController::class, 'gerarContrato']);

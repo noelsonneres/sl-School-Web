@@ -18,6 +18,16 @@
                     </div>
                     <h4 class="page-title">Contratos disponíveis</h4>
 
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <h5>Nome: {{$matricula->alunos->nome}}</h5>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <h5>Matrícula: {{$matricula->id}}</h5>
+                        </div>
+                    </div>
+
                     {{-- Exibe mensagens de sucesso ou erro --}}
                     @if (isset($msg))
                         <div class="alert alert-warning alert-dismissible fade show msg d-flex 
@@ -58,7 +68,7 @@
                                             <div class="row">
 
                                                 <div class="col-2">
-                                                    <a href="#"
+                                                    <a href="{{('/contrato_gerar/'.$matricula->id.'/'.$contrato->id)}}"
                                                         class="btn btn-primary btn-sm"
                                                         title="Gerar contrato">
                                                         <i class="uil-file-bookmark-alt"></i>
