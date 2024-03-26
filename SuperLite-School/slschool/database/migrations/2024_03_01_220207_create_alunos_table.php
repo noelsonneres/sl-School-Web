@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('alergias')->nullable();
             $table->string('pcd')->nullable();
             $table->string('outros_aspectos')->nullable();
+            $table->string('nacionalidades')->nullable();
+            $table->string('naturalidade')->nullable();
             $table->string('cep')->nullable();
             $table->string('endereco')->nullable();
             $table->string('bairro')->nullable();

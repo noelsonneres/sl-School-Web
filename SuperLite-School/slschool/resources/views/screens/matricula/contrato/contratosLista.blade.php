@@ -48,6 +48,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="row">
+                        <div class="col md-2 pt-3 ps-4">
+                            <a href="{{('/dashboard/'.$matricula->id)}}" class="btn btn-danger">Voltar</a>
+                        </div>
+                    </div>
+                    
                     <hr>
                     <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100 ">
                         <thead>
