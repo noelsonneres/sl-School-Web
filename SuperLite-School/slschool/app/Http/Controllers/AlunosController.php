@@ -62,6 +62,8 @@ class AlunosController extends Controller
             $alunos->alergias = $request->input('alergias');
             $alunos->pcd = $request->input('pcd');
             $alunos->outros_aspectos = $request->input('outrosAspectos');
+            $alunos->nacionalidades = $request->input('nacionalidade');
+            $alunos->naturalidade = $request->input('naturalidade');
             $alunos->cep = $request->input('cep');
             $alunos->endereco = $request->input('endereco');
             $alunos->bairro = $request->input('bairro');
@@ -151,6 +153,8 @@ class AlunosController extends Controller
             $alunos->alergias = $request->input('alergias');
             $alunos->pcd = $request->input('pcd');
             $alunos->outros_aspectos = $request->input('outrosAspectos');
+            $alunos->nacionalidades = $request->input('nacionalidade');
+            $alunos->naturalidade = $request->input('naturalidade');            
             $alunos->cep = $request->input('cep');
             $alunos->endereco = $request->input('endereco');
             $alunos->bairro = $request->input('bairro');

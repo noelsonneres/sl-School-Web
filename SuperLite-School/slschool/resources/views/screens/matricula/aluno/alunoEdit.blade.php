@@ -151,6 +151,22 @@
 
                                 <div class="row">
 
+                                    <div class="col-md-6 mb-4">
+                                        <label for="nacionalidade" class="form-label">Nacionalidade</label>
+                                        <input type="text" class="form-control" name="nacionalidade" id="nacionalidade"
+                                            value="{{$aluno->nacionalidades}}" maxlength="50">
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label for="naturalidade" class="form-label">Naturalidade</label>
+                                        <input type="text" class="form-control" name="naturalidade" id="naturalidade"
+                                        value="{{$aluno->naturalidade}}" maxlength="50">
+                                    </div>
+
+                                </div>                                
+
+                                <div class="row">
+
                                     <div class="col-md-3 mb-4">
                                         <label for="cep" class="form-label">CEP</label>
                                         <input type="text" class="form-control" name="cep" id="cep"
