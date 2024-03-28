@@ -42,7 +42,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="pt-3 ps-4">
                                 <a href="{{'/mensalidades_adicionar/'. $matricula->id}}" class="btn btn-primary">Adicionar mensalidade</a>
                                 <a href="{{'/mensalidades_impressao/'.$matricula->id}}" class="btn btn-secondary">Imprimir carnê</a>

@@ -70,8 +70,6 @@
 
                                 @csrf
 
-                                <span class="text-danger">*</span>
-
                                 <div class="row">
                                     <div class="col-md-9 mb-4">
                                         <label for="sala" class="form-label">Sala <span class="text-danger">*</span> </label>

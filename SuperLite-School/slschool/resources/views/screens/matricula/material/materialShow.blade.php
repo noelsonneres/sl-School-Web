@@ -47,11 +47,11 @@
 
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="pt-3 ps-4">
                                 <a href="{{('/matricula_materiais_adicionar/'.$matricula->id) }}" class="btn btn-primary">Incluir material</a>
                                 <a href="{{('/matricula_materiais_parcelas/'.$matricula->id)}}" class="btn btn-info">Gerar parcelas</a>
-                                <button class="btn btn-secondary" onclick="print()">Imprimir</button>
+                                {{-- <button class="btn btn-secondary" onclick="print()">Imprimir</button> --}}
                                 <a href="{{('/dashboard/'.$matricula->id)}}" class="btn btn-danger">Voltar</a>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <a href="{{('/matricula_materiais_parcela/'.$material->id)}}"
                                                         class="btn btn-info btn-sm"
                                                         title="Gerar parcelas indidual">
@@ -137,7 +137,7 @@
                                                     </a>
                                                 </div>                                                
 
-                                                <div class="col-2">
+                                                <div class="col-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" data-bs-target="#myModal{{ $material->id }}"
                                                             title="Exluir dia de aula">

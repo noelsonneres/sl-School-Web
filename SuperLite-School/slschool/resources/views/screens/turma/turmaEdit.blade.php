@@ -138,7 +138,13 @@
                                     <div class="col-md-6 mb-4">
                                         <label for="professor" class="form-label">Professor</label>
                                         <select class="form-control" name="professor" id="professor">
-                                            <option value="{{$turma->professores->id}}">{{$turma->professores->nome }}</option>
+
+                                            @if(@isset($turma->professores->id))
+                                              <option value="{{$turma->professores->id}}">{{$turma->professores->nome }}</option>
+                                            @else
+                                                <option value="">Selecione um professor</option>
+                                            @endif
+                                            
 
                                             @foreach ($listaProfessores as $lista)
                                                 <option value="{{$lista->id}}">{{$lista->nome}}</option>

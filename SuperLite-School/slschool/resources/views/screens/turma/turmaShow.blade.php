@@ -123,7 +123,7 @@
                                         <div>
                                             <div class="row">
 
-                                                <div class="col-3">
+                                                <div class="col-md-3">
                                                     <a href="{{ route('turmas.edit', $turma->id) }}"
                                                         class="btn btn-success btn-sm"
                                                         title="Atualizar informações da Turma">
@@ -131,7 +131,7 @@
                                                     </a>
                                                 </div>
 
-                                                <div class="col-3">
+                                                <div class="col-md-3">
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" title="Excluir Turma selecionada"
                                                         data-bs-target="#myModal{{ $turma->id }}">

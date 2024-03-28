@@ -13,7 +13,7 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Adminstrativo</a></li>
-                            <li class="breadcrumb-item active">Horários de aulas</li>
+                            <li class="breadcrumb-item active">consultores</li>
                         </ol>
                     </div>
                     <h4 class="page-title">Cadastro de consultores</h4>
@@ -43,7 +43,7 @@
 
                         <div class="col-md-4">
                             <div class="pt-3 ps-4">
-                                <a href="{{ route('consultores.create') }}" class="btn btn-primary">Novo horário</a>
+                                <a href="{{ route('consultores.create') }}" class="btn btn-primary">Novo consultor</a>
                                 <!-- Button trigger modal -->
                                 <button class="btn btn-secondary" onclick="print()">Imprimir</button>
                             </div>
